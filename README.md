@@ -2,8 +2,8 @@
 MDANCE is a flexible n-ary clustering package for all applications.
 
 ## Available Clustering Algorithms
-<img src="img/nani-logo.PNG" width="300" height=auto align="center"></a>
-<br>
+<p align="center">
+<img src="img/nani-logo.PNG" width="200" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>🪄NANI🪄the first installment of MDANCE</b></p>
