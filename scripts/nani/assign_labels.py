@@ -12,11 +12,10 @@ sieve = 1
 
 # K-means params - EDIT THESE
 n_clusters = 6
-init_type = 'comp_sim'                                             # Default
-percentage = 10                                                   # Default
+init_type = 'comp_sim'                                              # Default
 metric = 'MSD'                                                      # Default
 n_structures = 11                                                   # Default
-output_dir = 'outputs1'                                              # Default
+output_dir = 'outputs'                                              # Default
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
@@ -24,7 +23,7 @@ if __name__ == '__main__':
 
     traj_numpy = np.load(input_traj_numpy)[::sieve]
     mod = KmeansNANI(data=traj_numpy, n_clusters=n_clusters, N_atoms=N_atoms, init_type=init_type, 
-                     metric=metric, percentage=percentage)
+                     metric=metric, percentage=10)
     labels, centers, n_iter = mod.execute_kmeans_all()
     sort_labels_by_size = np.argsort(np.bincount(labels))[::-1]
     labels = np.array([np.where(sort_labels_by_size == i)[0][0] for i in labels])

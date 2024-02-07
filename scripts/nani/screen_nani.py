@@ -14,7 +14,7 @@ sieve = 1
 output_dir = 'outputs'                        
 init_types = ['comp_sim']
 metric = 'MSD'
-start_n_clusters = 5
+start_n_clusters = 5                                                        # At least 2 clusters
 end_n_clusters = 30
 
 if __name__ == '__main__':

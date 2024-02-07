@@ -472,56 +472,6 @@ def align_traj(data, N_atoms, align_method='uni'):
     reshaped = aligned_traj_numpy.reshape(aligned_traj_numpy.shape[0], -1)
     return reshaped
 
-def single_centroid_align(indices, input_top):
-    atomSel = 'name CA C N'
-    cpptraj_atomsel = '@CA,C,N'
-    # Aligns trajectory using single centroid alignment
-    with open('cpptraj.in', 'w') as outfile:
-        outfile.write(f'parm {input_top}\n')
-        # Trajin every index in indices
-        for index in indices:
-            outfile.write(f'trajin ../TRAJ/clustertraj.nc.c{index}\n')
-        outfile.write('autoimage\n')
-        outfile.write(f'average crdset RefAvg {cpptraj_atomsel}\n')
-        outfile.write('run\n')
-        outfile.write(f'rms ref RefAvg {cpptraj_atomsel} mass\n')
-        outfile.write('run\n')
-        outfile.write('trajout aligned_traj.pdb\n')
-        outfile.write('go\n')
-    subprocess.run(['cpptraj', '-i', 'cpptraj.in'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    
-    # Read aligned trajectory
-    aligned_traj_numpy = gen_traj_numpy(input_top, 'aligned_traj.dcd', atomSel=atomSel)
-    os.remove('aligned_traj.dcd')
-    os.remove('cpptraj.in')
-    return aligned_traj_numpy
-
-def centroid_align(indices, input_top, input_traj, mdana_atomsel, cpptraj_atomsel):
-    # Aligns trajectory using single centroid alignment
-    u = mda.Universe(input_top, input_traj)
-    with mda.Writer(f'unaligned_traj.pdb', u.atoms.n_atoms) as W:
-        for ts in u.trajectory[indices]:
-            W.write(u.atoms)
-    with open('cpptraj.in', 'w') as outfile:
-        outfile.write(f'parm {input_top}\n')
-        # Trajin every index in indices
-        outfile.write(f'trajin unaligned_traj.pdb\n')
-        outfile.write('autoimage\n')
-        outfile.write(f'average crdset RefAvg {cpptraj_atomsel}\n')
-        outfile.write('run\n')
-        outfile.write(f'rms ref RefAvg {cpptraj_atomsel} mass\n')
-        outfile.write('run\n')
-        outfile.write('trajout aligned_traj.pdb\n')
-        outfile.write('go\n')
-    subprocess.run(['cpptraj', '-i', 'cpptraj.in'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    
-    # Read aligned trajectory
-    aligned_traj_numpy = gen_traj_numpy(input_top, 'aligned_traj.pdb', atomSel=mdana_atomsel)
-    os.remove('aligned_traj.pdb')
-    os.remove('cpptraj.in')
-    os.remove('unaligned_traj.pdb')
-    return aligned_traj_numpy
-
 def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_atomsel, ref_index):
     """ Aligns the frames in the trajectory to the reference frame.
     
@@ -575,8 +525,3 @@ if __name__ == "__main__":
            [1, 1, 0, 1, 1, 1],
            [0, 1, 1, 0, 1, 1]]
     arr = np.array(arr)
-    
-    #print(calculate_outlier(arr, 'RR'))
-    #print(calculate_comp_sim(arr, 'MSD'))
-    #print(trim_outliers(arr, 0.2, 'RR', 1, criterion='sim_to_medoid'))
-    #print(diversity_selection(arr, 100, 'MSD', start='medoid', N_atoms=1))
