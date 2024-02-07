@@ -11,10 +11,6 @@ MDANCE is a flexible n-ary clustering package for all applications.
 
 *k*-Means N-Ary Natural Implementation (NANI) is an algorithm for selecting initial centroids for *k*-Means clustering. *k*-Means NANI is an extension of the *k*-Means++ algorithm. *k*-Means++ selects the initial centroids by randomly selecting a point from the dataset and then selecting the next centroid based on the distance from the previous centroid. *k*-MeansNANI stratifies the data to high density region and perform diversity selection on top of the it to select the initial centroids. This is a deterministic algorithm that will always select the same initial centroids for the same dataset and improve on *k*-means++ by reducing the number of iterations required to converge and improve the clustering quality.
 
-<style>
-    kbd {
-        font-size: 18px; /* Adjust the font size as needed */
-    }
-</style>
 
-<kbd>A tutorial is available for NANI at [tutorials/nani.md](tutorials/nani.md). </kbd>
+
+**A tutorial is available for NANI at [tutorials/nani.md](tutorials/nani.md).**
