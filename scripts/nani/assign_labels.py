@@ -33,16 +33,17 @@ if __name__ == '__main__':
     # Save best frames indices for each cluster
     for i, label in enumerate(np.unique(labels)):
         cluster = np.where(labels == label)[0]
-        medoid_index = calculate_medoid(traj_numpy[cluster], metric=metric, N_atoms=N_atoms)
-        medoid = traj_numpy[cluster][medoid_index]
-        msd_to_medoid = []
-        for j, frame in enumerate(traj_numpy[cluster]):
-            msd_to_medoid.append((j, extended_comparison(
-                np.array([frame, medoid]), data_type='full', metric=metric, N_atoms=N_atoms)))
-        msd_to_medoid = np.array(msd_to_medoid)
-        sorted_indices = np.argsort(msd_to_medoid[:, 1])
-        best_n_structures = traj_numpy[cluster][sorted_indices[:n_structures]]
-        best_frames.append(best_n_structures)
+        if len(cluster) > 1:
+            medoid_index = calculate_medoid(traj_numpy[cluster], metric=metric, N_atoms=N_atoms)
+            medoid = traj_numpy[cluster][medoid_index]
+            msd_to_medoid = []
+            for j, frame in enumerate(traj_numpy[cluster]):
+                msd_to_medoid.append((j, extended_comparison(
+                    np.array([frame, medoid]), data_type='full', metric=metric, N_atoms=N_atoms)))
+            msd_to_medoid = np.array(msd_to_medoid)
+            sorted_indices = np.argsort(msd_to_medoid[:, 1])
+            best_n_structures = traj_numpy[cluster][sorted_indices[:n_structures]]
+            best_frames.append(best_n_structures)
     
     best_frames_indices = []
     for i, frame in enumerate(traj_numpy):
