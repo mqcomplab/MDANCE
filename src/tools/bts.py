@@ -15,6 +15,7 @@ align_traj(data, N_atoms, align_method='uni')
 import numpy as np
 import random
 from src.tools.esim_modules import gen_sim_dict
+from src.tools.isim_modules import gen_sim_dict
 from src.inputs.preprocess import gen_traj_numpy
 import warnings
 from shapeGMMTorch import torch_align
@@ -123,6 +124,7 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
         if metric == 'MSD':
             sq_data = matrix ** 2
             sq_sum = np.sum(sq_data, axis=0)
+        
     elif data_type == 'condensed':
         if not isinstance(matrix, (tuple, list)):
             raise TypeError('data must be a tuple or list of length 1 or 2')
@@ -141,6 +143,7 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
             else:
                 w_factor = 'fraction'
             esim_dict = gen_sim_dict(c_sum, n_objects=N, c_threshold=c_threshold, w_factor=w_factor)
+            
             return 1 - esim_dict[metric]
 
 def calculate_comp_sim(matrix, metric, N_atoms=1):
