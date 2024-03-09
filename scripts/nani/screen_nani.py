@@ -14,8 +14,8 @@ sieve = 1
 output_dir = 'outputs'                        
 init_types = ['comp_sim']
 metric = 'MSD'
-start_n_clusters = 5                                                        # At least 2 clusters
-end_n_clusters = 30
+start_n_clusters = 5                                                # At least 2 clusters
+end_n_clusters = 30                                                 # One more than the desired number of clusters
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
