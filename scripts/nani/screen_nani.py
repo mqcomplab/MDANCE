@@ -15,7 +15,7 @@ output_dir = 'outputs'
 init_types = ['comp_sim']
 metric = 'MSD'
 start_n_clusters = 5                                                # At least 2 clusters
-end_n_clusters = 30                                                 # One more than the desired number of clusters
+end_n_clusters = 29                                                 # Maximum number of clusters
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
@@ -29,12 +29,12 @@ if __name__ == '__main__':
         # `comp_sim` and `div_select` are ran only once to get the initiators
         elif init_type in ['comp_sim', 'div_select']:
             percentage = 10
-            mod = KmeansNANI(data=traj_numpy, n_clusters=end_n_clusters-1, metric=metric, 
+            mod = KmeansNANI(data=traj_numpy, n_clusters=end_n_clusters, metric=metric, 
                              N_atoms=N_atoms, init_type=init_type, percentage=percentage)
             initiators = mod.initiate_kmeans()
         
         all_scores = []
-        for i in range(start_n_clusters, end_n_clusters):
+        for i in range(start_n_clusters, end_n_clusters+1):
             total = 0
 
             # Run k-means clustering
