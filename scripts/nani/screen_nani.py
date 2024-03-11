@@ -12,10 +12,10 @@ sieve = 1
 
 # NANI parameters
 output_dir = 'outputs'                        
-init_types = ['comp_sim']
+init_types = ['comp_sim']                                           # Must be a list
 metric = 'MSD'
 start_n_clusters = 5                                                # At least 2 clusters
-end_n_clusters = 29                                                 # Maximum number of clusters
+end_n_clusters = 30                                                 # Maximum number of clusters
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
