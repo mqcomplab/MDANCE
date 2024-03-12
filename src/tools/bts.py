@@ -433,7 +433,7 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
             pass
     return index
 
-def align_traj(data, N_atoms, align_method='uni'):
+def align_traj(data, N_atoms, align_method=None):
     """Aligns trajectory using uniform or kronecker alignment.
 
     Parameters

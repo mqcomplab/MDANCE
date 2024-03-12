@@ -18,7 +18,7 @@ This clustering tutorial is meant for datasets for **all** applications (2D fing
 <details>
 <summary>Preparation for Molecular Dynamics Trajectory</summary>
 
-Prepare a valid topology file (e.g. `.pdb`, `.prmtop`), trajectory file (e.g. `.dcd`, `.nc`), and the atom selection. This step will convert a Molecular Dynamics trajectory to a numpy ndarray.  
+Prepare a valid topology file (e.g. `.pdb`, `.prmtop`), trajectory file (e.g. `.dcd`, `.nc`), and the atom selection. This step will convert a Molecular Dynamics trajectory to a numpy ndarray. Make sure the trajectory is already aligned and/or centered if needed!
 
 **Step-by-step tutorial can be found in the [scripts/inputs/preprocessing.ipynb](../scripts/inputs/preprocessing.ipynb).**
 </details>
