@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.cluster import KMeans, kmeans_plusplus
 from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
-from src.tools.bts import diversity_selection, calculate_comp_sim
+from ...tools.bts import diversity_selection, calculate_comp_sim
 
 class KmeansNANI:
     """K-means algorithm with the N-Ary Natural Initialization (NANI).
@@ -14,7 +14,7 @@ class KmeansNANI:
         Number of clusters.
     metric : {'MSD', 'RR', 'JT', etc}
         Metric used for extended comparisons. 
-        See `tools.bts.extended_comparison` for all available metrics.
+        See `...tools.bts.extended_comparison` for all available metrics.
     N_atoms : int
         Number of atoms.
     percentage : int
