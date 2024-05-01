@@ -1,6 +1,6 @@
 "This script aims to find the representative frame for each method below."""
 from src.tools.esim_modules import calc_medoid
-from src.modules.prime.sim_calc import _trim_outliers
+from src.modules.PRIME.sim_calc import _trim_outliers
 import numpy as np
 import json
 import re

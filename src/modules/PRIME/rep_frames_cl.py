@@ -12,8 +12,8 @@ No trim, RR index
 """
 import sys
 sys.path.insert(0, '../../')
+from src.modules.PRIME.rep_frames import gen_one_method_max, gen_all_methods_max
 import argparse
-import modules as mod
 
 parser = argparse.ArgumentParser(description='Generate method max with optional trim and n_ary')
 parser.add_argument('-m', '--method', type=str, help='method to use')
@@ -26,8 +26,8 @@ parser.add_argument('-d', '--norm_folder', type=str, help='norm_folder to access
 
 args = parser.parse_args()
 if args.method:
-    mod.gen_one_method_max(method=args.method, sim_folder=args.sim_folder, norm_folder=args.norm_folder, 
-                           trim_frac=args.trim_frac, n_ary=args.index)
+    gen_one_method_max(method=args.method, sim_folder=args.sim_folder, norm_folder=args.norm_folder, 
+                       trim_frac=args.trim_frac, n_ary=args.index)
 else:
-    mod.gen_all_methods_max(sim_folder=args.sim_folder, norm_folder=args.norm_folder, 
-                            trim_frac=args.trim_frac, n_ary=args.index)
+    gen_all_methods_max(sim_folder=args.sim_folder, norm_folder=args.norm_folder, 
+                        trim_frac=args.trim_frac, n_ary=args.index)

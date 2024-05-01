@@ -4,8 +4,8 @@ Example usage:
 """
 import sys
 sys.path.insert(0, '../../')
+from src.modules.PRIME.sim_calc import FrameSimilarity
 import argparse
-import modules as mod
 import json
 import time
 import os
@@ -30,7 +30,7 @@ args = parser.parse_args()
 
 # Calculate similarities
 start = time.perf_counter()
-lib = mod.FrameSimilarity(cluster_folder=args.cluster_folder, summary_file=args.summary_file, 
+lib = FrameSimilarity(cluster_folder=args.cluster_folder, summary_file=args.summary_file, 
                                n_clusters=args.n_clusters, trim_frac=args.trim_frac, 
                                n_ary=args.index, weighted_by_frames=args.weighted_by_frames)
 method_func = getattr(lib, f'calculate_{args.method}')
