@@ -61,4 +61,5 @@ else:
     print(f"{w}_{args.method}_{args.index}: Finished in {round(end-start,2)} second")
 
 if __name__ == '__main__':
-    os.system(f"python similarity.py -m medoid -n 11 -i RR")
+    os.system('python similarity.py -m union -n 6 -i SM -t 0.1  \
+              -d normed_clusters -s ../nani/outputs/summary_20.txt')
