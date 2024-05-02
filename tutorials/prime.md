@@ -31,7 +31,7 @@
 </table>
 
 ## Tutorial
-The following tutorial will guide you through the process of determining the native structure of a biomolecule using the PRIME algorithm. If you do not have clustered data. Please refer to other clustering algorithms such as [NANI](tutorials/nani.md) to cluster your data. If you already have clustered data, please skip to step 2.
+The following tutorial will guide you through the process of determining the native structure of a biomolecule using the PRIME algorithm. If you do not have clustered data. Please refer to other clustering algorithms such as [NANI](nani.md) to cluster your data. If you already have clustered data, please skip to step 2.
 
 ### 1. Cluster Trajectories
 [scripts/outputs/postprocessing.ipynb](../scripts/outputs/postprocessing.ipynb) will use the indices from last step to extract the designated frames from the original trajectory for each cluster. This will require a cluster assignment file from the clustering algorithm.
