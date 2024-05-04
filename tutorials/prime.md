@@ -1,13 +1,16 @@
 # PRIME Tutorial
 
 #### Table of Contents
-- [Installation](#installation)
+- [Overview](#overview)
 - [Tutorial](#tutorial)
   - [1. Cluster Trajectories](#1-cluster-trajectories)
   - [2. Cluster Normalization](#2-cluster-normalization)
   - [3. Similarity Calculations](#3-similarity-calculations)
   - [4. Representative Frames](#4-representative-frames)
 - [Further Reading](#further-reading)
+
+## Overview
+This clustering tutorial is meant for datasets for **all** applications (2D fingerprints, mass spectrometry imaging data, etc). Molecular Dynamics Trajectory has a different treatment. If specific step is only for Molecular Dynamics trajectory, it will be specified. Otherwise, it is applicable for all datasets.
 
 ## Tutorial
 The following tutorial will guide you through the process of determining the native structure of a biomolecule using the PRIME algorithm. If you do not have clustered data. Please refer to other clustering algorithms such as [NANI](nani.md) to cluster your data. If you already have clustered data, please skip to step 2.
