@@ -1,11 +1,6 @@
-<h3 align="center"> 
-    <img src="../img/logo.png" width="800" height=auto align="center"></a>
-    &nbsp
-    <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
-    </h3>
+# PRIME Tutorial
 
 #### Table of Contents
-- [Overview](#overview)
 - [Installation](#installation)
 - [Tutorial](#tutorial)
   - [1. Cluster Trajectories](#1-cluster-trajectories)
@@ -13,22 +8,6 @@
   - [3. Similarity Calculations](#3-similarity-calculations)
   - [4. Representative Frames](#4-representative-frames)
 - [Further Reading](#further-reading)
-
-## Overview
-
-<table>
-  <tr>
-    <td>
-      <p>Protein structures prediction is important because the accuracy of protein structures influence how our understanding of its function and its interactions with other molecules, which can help to design new drugs to target specific molecular interactions. <b>Protein Retrieval via Integrative Molecular Ensembles (PRIME)</b> is a novel algorithm that predicts the native structure of a protein from simulation or clustering data. This repo contains six different ways of determining the native structure of biomolecules from simulation or clustering data. These methods perfectly mapped all the structural motifs in the studied systems and required unprecedented linear scaling.</p>
-    </td>
-    <td>
-      <figure>
-        <img src="../img/2k2e.png" alt="2k2e" width="300" height="auto">
-        <figcaption><i>Fig 1. Superposition of the most representative structures found with extended indices (yellow) and experimental native structures (blue) of 2k2e.</i></figcaption>
-      </figure>
-    </td>
-  </tr>
-</table>
 
 ## Tutorial
 The following tutorial will guide you through the process of determining the native structure of a biomolecule using the PRIME algorithm. If you do not have clustered data. Please refer to other clustering algorithms such as [NANI](nani.md) to cluster your data. If you already have clustered data, please skip to step 2.
