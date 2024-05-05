@@ -62,6 +62,7 @@ python normalize.py
 ```bash
 python ../../src/modules/PRIME/similarity_cl.py -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
 ```
+
 To generate a similarity dictionary using data in [normed_clusters](../scripts/prime/normed_clusters) (make sure you are in the prime directory) using the union method (2.2 in *Fig 2*) and Sokal Michener index. In addition, 10% of the outliers were trimmed. You can either `python exec_similarity.py` or run example above.
 
 #### Outputs
