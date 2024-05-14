@@ -1,5 +1,6 @@
 # Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE)
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is written in Python and an extension of the *n*-ary similarity framework. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
+Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
 
 ## Table of Contents
 - [Background](#background)
