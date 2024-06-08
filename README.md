@@ -51,5 +51,5 @@ For more information on the PRIME algorithm, please refer to the [PRIME paper](h
 
 ## Installation
 ```
-git clone https://github.com/mqcomplab/MDANCE.git
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps mdance
 ```
