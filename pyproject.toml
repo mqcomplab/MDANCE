@@ -1,0 +1,18 @@
+[project]
+name = "MDANCE"
+version = "0.0.1"
+authors = [
+  { name="Lexin Chen", email="le.chen@ufl.edu" },
+]
+description = "a flexible n-ary clustering package for all applications."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/mqcomplab/MDANCE"
+Issues = "https://github.com/mqcomplab/MDANCE/issues"
