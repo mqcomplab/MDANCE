@@ -12,6 +12,16 @@ Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flex
 ## Background
 Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamics of biomolecules. However, the analysis of MD trajectories is challenging due to the large amount of data generated. Clustering is an unsupervised machine learning approach to group similar frames into clusters. The clustering results can be used to reveal the structure of the data, identify the most representative structures, and to study the dynamics of the system.
 
+## Installation
+```
+pip install mdance
+```
+To check for proper installation, run the following command:
+```python
+import mdance
+print(mdance.__version__)
+```
+
 ## Clustering Algorithms
 ### NANI
 <p align="center">
@@ -49,7 +59,3 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1). 
 
-## Installation
-```
-python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps mdance
-```
