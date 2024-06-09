@@ -1,10 +1,10 @@
 [project]
 name = "MDANCE"
-version = "0.0.1"
+version = "0.1.1"
 authors = [
-  { name="Lexin Chen", email="le.chen@ufl.edu" },
+  { name="Lexin Chen", email="lxchen017@gmail.com" },
 ]
-description = "a flexible n-ary clustering package for all applications."
+description = "flexible n-ary clustering package for all applications."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
