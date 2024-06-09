@@ -33,7 +33,10 @@ print(mdance.__version__)
 
 *k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for selecting initial centroids for *k*-Means clustering. NANI is an extension of the *k*-Means++ algorithm. NANI stratifies the data to high density region and perform diversity selection on top of the it to select the initial centroids. This is a deterministic algorithm that will always select the same initial centroids for the same dataset and improve on *k*-means++ by reducing the number of iterations required to converge and improve the clustering quality.
 
-**A tutorial is available for NANI at [tutorials/nani.md](tutorials/nani.md).**
+**[A tutorial is available for NANI](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/nani.md).**
+
+For more information on the NANI algorithm, please refer to the [NANI paper](https://www.biorxiv.org/content/10.1101/2024.03.07.583975v1). 
+
 
 ## Clustering Postprocessing
 ### PRIME
@@ -56,6 +59,8 @@ print(mdance.__version__)
     </td>
   </tr>
 </table>
+
+**[A tutorial is available for PRIME](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prime.md).**
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1). 
 
