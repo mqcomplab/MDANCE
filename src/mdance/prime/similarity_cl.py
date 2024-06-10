@@ -2,7 +2,7 @@
 Example usage:
 >>> python similarity.py -m medoid -n 11 -i RR
 """
-from mdance.modules.PRIME.sim_calc import FrameSimilarity
+from mdance.prime.sim_calc import FrameSimilarity
 import argparse
 import json
 import time

@@ -10,7 +10,7 @@ No trim, RR index
 20% trim, SM index
 >>> python scripts/rep_frames.py -t 0.2 -i SM
 """
-from mdance.modules.PRIME.rep_frames import gen_one_method_max, gen_all_methods_max
+from mdance.prime.rep_frames import gen_one_method_max, gen_all_methods_max
 import argparse
 
 parser = argparse.ArgumentParser(description='Generate method max with optional trim and n_ary')
