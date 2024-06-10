@@ -12,7 +12,7 @@ pip install mdance
 To check for proper installation, run the following command:
 ```python
 import mdance
-from mdance.modules.kmeansNANI import nani
+from mdance.modules.nani import kmeans_nani
 ```
 If it runs without any errors, the package is installed correctly.
 
