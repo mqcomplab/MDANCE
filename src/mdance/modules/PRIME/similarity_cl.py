@@ -2,9 +2,7 @@
 Example usage:
 >>> python similarity.py -m medoid -n 11 -i RR
 """
-import sys
-sys.path.insert(0, '../../')
-from src.modules.PRIME.sim_calc import FrameSimilarity
+from mdance.modules.PRIME.sim_calc import FrameSimilarity
 import argparse
 import json
 import time

@@ -6,6 +6,10 @@ src/MDANCE.egg-info/SOURCES.txt
 src/MDANCE.egg-info/dependency_links.txt
 src/MDANCE.egg-info/top_level.txt
 src/mdance/__init__.py
+src/mdance.egg-info/PKG-INFO
+src/mdance.egg-info/SOURCES.txt
+src/mdance.egg-info/dependency_links.txt
+src/mdance.egg-info/top_level.txt
 src/mdance/inputs/__init__.py
 src/mdance/inputs/preprocess.py
 src/mdance/modules/PRIME/__init__.py
