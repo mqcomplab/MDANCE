@@ -1,6 +1,6 @@
 [project]
 name = "MDANCE"
-version = "0.1.7"
+version = "0.1.8"
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]
