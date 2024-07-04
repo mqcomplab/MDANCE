@@ -3,10 +3,10 @@ import argparse
 
 def main():
     parser_dict = {
-        'method': {'flags': ['-m', '--method'], 'kwargs': {'type': str, 'help': 'method to use'}},
+        'method': {'flags': ['-m', '--method'], 'kwargs': {'type': str, 'help': 'method to use', 'required': True}},
         'sim_folder': {'flags': ['-s', '--sim_folder'], 'kwargs': {'type': str, 'help': 'folder to access'}},
-        'trim_frac': {'flags': ['-t', '--trim_frac'], 'kwargs': {'type': float, 'default': None, 'help': 'Trim parameter for gen_method_max method'}},
-        'index': {'flags': ['-i', '--index'], 'kwargs': {'type': str, 'default': 'RR', 'help': 'n_ary parameter for gen_method_max method'}},
+        'trim_frac': {'flags': ['-t', '--trim_frac'], 'kwargs': {'type': float, 'default': None, 'help': 'Trim parameter for gen_method_max method', 'required': True}},
+        'index': {'flags': ['-i', '--index'], 'kwargs': {'type': str, 'default': 'RR', 'help': 'n_ary parameter for gen_method_max method', 'required': True}},
         'norm_folder': {'flags': ['-d', '--norm_folder'], 'kwargs': {'type': str, 'help': 'norm_folder to access'}}
     }
     parser = argparse.ArgumentParser(description='Generate method max with optional trim and n_ary')
