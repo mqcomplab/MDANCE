@@ -23,3 +23,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/mqcomplab/MDANCE"
 Issues = "https://github.com/mqcomplab/MDANCE/issues"
+
+[project.scripts]
+prime_sim = "mdance.cli.prime_sim:main"
+prime_rep = "mdance.cli.mdance:main"
