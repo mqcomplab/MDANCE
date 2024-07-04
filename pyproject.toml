@@ -1,6 +1,6 @@
 [project]
 name = "MDANCE"
-version = "0.1.9"
+version = "0.2.0"
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]
@@ -17,7 +17,7 @@ dependencies = [
   'scikit-learn >= 0.24.0',
   'MDAnalysis >= 2.0.0',
   'shapeGMMTorch >= 1.0.0',
-  'torch >= 1.8.0',
+  'torch >= 2.2.2',
 ]
 
 [project.urls]

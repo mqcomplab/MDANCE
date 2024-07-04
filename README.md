@@ -13,9 +13,8 @@ pip install mdance
 To check for proper installation, run the following command:
 ```python
 import mdance
-from mdance.cluster.nani import KmeansNANI
+print(mdance.__version__)
 ```
-If it runs without any errors, the package is installed correctly.
 
 ## Clustering Algorithms
 ### NANI
