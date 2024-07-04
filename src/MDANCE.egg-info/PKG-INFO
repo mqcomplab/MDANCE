@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MDANCE
-Version: 0.1.7
+Version: 0.1.8
 Summary: a flexible n-ary clustering package for all applications.
 Author-email: Lexin Chen <le.chen@ufl.edu>
 Project-URL: Homepage, https://github.com/mqcomplab/MDANCE
@@ -31,7 +31,7 @@ pip install mdance
 To check for proper installation, run the following command:
 ```python
 import mdance
-from mdance.modules.nani import KmeansNANI
+from mdance.cluster.nani import KmeansNANI
 ```
 If it runs without any errors, the package is installed correctly.
 
