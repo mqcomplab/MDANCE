@@ -1,14 +1,12 @@
 import numpy as np
-import sys
-sys.path.insert(0, '../../')
-from src.inputs.preprocess import gen_traj_numpy, normalize_file, Normalizer
+from mdance.inputs.preprocess import gen_traj_numpy, normalize_file, Normalizer
 import re
 import glob
 import os
 
 # System info - EDIT THESE
 input_top = '../../examples/md/aligned_tau.pdb'
-unnormed_cluster_dir = '../outputs/labels_*'
+unnormed_cluster_dir = '../outputs/best_frames_*'
 output_dir = 'normed_clusters'
 output_base_name = 'normed_clusttraj'
 atomSelection = 'resid 3 to 12 and name N CA C O H'
@@ -31,4 +29,3 @@ if __name__ == '__main__':
         norm = Normalizer(data=traj, custom_min=min, custom_max=max)
         normed_frame = norm.get_v3_norm()
         np.save(f'{output_dir}/{output_base_name}.c{i}.npy', normed_frame)
-    

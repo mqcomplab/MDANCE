@@ -1,0 +1,29 @@
+[project]
+name = "MDANCE"
+version = "0.2.0"
+authors = [
+  { name="Lexin Chen", email="le.chen@ufl.edu" },
+]
+description = "a flexible n-ary clustering package for all applications."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'numpy >= 1.20.0',
+  'scikit-learn >= 0.24.0',
+  'MDAnalysis >= 2.0.0',
+  'shapeGMMTorch >= 1.0.0',
+  'torch >= 2.2.2',
+]
+
+[project.urls]
+Homepage = "https://github.com/mqcomplab/MDANCE"
+Issues = "https://github.com/mqcomplab/MDANCE/issues"
+
+[project.scripts]
+prime_sim = "mdance.cli.prime_sim:main"
+prime_rep = "mdance.cli.prime_rep:main"
