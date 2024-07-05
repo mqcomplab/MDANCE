@@ -1,8 +1,6 @@
 import numpy as np
-import sys
-sys.path.insert(0, "../../")
-from src.modules.kmeansNANI.nani import KmeansNANI
-from src.tools.bts import extended_comparison, calculate_medoid
+from mdance.cluster.nani import KmeansNANI
+from mdance.tools.bts import extended_comparison, calculate_medoid
 import os
 
 # System info - EDIT THESE
