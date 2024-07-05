@@ -47,7 +47,7 @@ python normalize.py
 2. `normed_data.npy`, appended all normed files together.
 
 ### 3. Similarity Calculations
-[scripts/prime/exec_similarity.py](../scripts/prime/exec_similarity.py) generates a similarity dictionary from running PRIME. 
+`prime_sim` generates a similarity dictionary from running PRIME. 
 
 - `-h` - for help with the argument options.
 - `-m` - methods, pairwise, union, medoid, outlier (*required*).
@@ -60,7 +60,7 @@ python normalize.py
 
 #### Example 
 ```bash
-python ../../src/modules/PRIME/similarity_cl.py -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
+prime_sim -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
 ```
 
 To generate a similarity dictionary using data in [normed_clusters](../scripts/prime/normed_clusters) (make sure you are in the prime directory) using the union method (2.2 in *Fig 2*) and Sokal Michener index. In addition, 10% of the outliers were trimmed. You can either `python exec_similarity.py` or run example above.
@@ -71,7 +71,7 @@ The result is a dictionary organized as followes:
 Keys are frame #. Values are [cluster 1 similarity, cluster #2 similarity, ..., average similarity of all clusters].
 
 ### 4. Representative Frames
-[scripts/prime/exec_rep_frames.py](../scripts/prime/exec_rep_frames.py) will determine the native structure of the protein using the similarity dictionary generated in step 5.
+`prime_rep` will determine the native structure of the protein using the similarity dictionary generated in step 5.
 
 -`h` - for help with the argument options.
 -`m` - methods (for one method, None for all methods)
@@ -82,7 +82,7 @@ Keys are frame #. Values are [cluster 1 similarity, cluster #2 similarity, ..., 
 
 #### Example 
 ```bash
-python ../../src/modules/PRIME/rep_frames_cl.py -m union -s outputs -d normed_clusters -t 0.1 -i SM
+prime_rep -m union -s outputs -d normed_clusters -t 0.1 -i SM
 ```
 
 #### Outputs

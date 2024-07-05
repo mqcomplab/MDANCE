@@ -2,7 +2,7 @@
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
 Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
 
-## Table of Contents
+## Menu
 - [Installation](#installation)
 - [Background](#background)
 - [Clustering Algorithms](#clustering-algorithms)
@@ -61,3 +61,5 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1). 
 
+### Collab or Contribute?!
+Please! Don't hesitate to reach out!
