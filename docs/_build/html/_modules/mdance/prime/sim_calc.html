@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mdance.prime.sim_calc &mdash; MDANCE  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MDANCE
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#module-mdance.cluster.nani">Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#prime">PRIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#tools">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#mdance-outputs-package">mdance.outputs package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">PRIME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../nani.html"><em>k</em>-means NANI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nani.html#table-of-contents">Table of Contents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MDANCE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mdance.prime.sim_calc</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mdance.prime.sim_calc</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">mdance.tools.esim_modules</span> <span class="kn">import</span> <span class="n">SimilarityIndex</span><span class="p">,</span> <span class="n">calc_medoid</span><span class="p">,</span> <span class="n">calc_outlier</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<div class="viewcode-block" id="FrameSimilarity">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity">[docs]</a>
+<span class="k">class</span> <span class="nc">FrameSimilarity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class to calculate the similarity between clusters.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        c0 (numpy.ndarray): The dominant cluster.</span>
+<span class="sd">        input_files (list): The list of cluster files.</span>
+<span class="sd">        summary_file (str): The path to the summary file.</span>
+<span class="sd">        n_clusters (int): The number of clusters to analyze.</span>
+<span class="sd">        weighted_by_frames (bool): Whether to weight the similarity values by the number of frames in the cluster.</span>
+<span class="sd">        n_ary (str): The n_ary similarity metric to use.</span>
+<span class="sd">        weight (str): The weight to use for the similarity metric.</span>
+<span class="sd">    </span>
+<span class="sd">    Methods:</span>
+<span class="sd">        calculate_pairwise: Calculates the similarity between the dominant cluster and all other clusters.</span>
+<span class="sd">        calculate_union: Calculates the similarity between the dominant cluster and the union of all other clusters.</span>
+<span class="sd">        _perform_calculation: Auxiliary function to calculate the similarity between the dominant cluster and a single cluster.</span>
+<span class="sd">        calculate_medoid: Calculates the similarity between the dominant cluster and the cluster with the lowest average distance to the dominant cluster.</span>
+<span class="sd">        calculate_outliers: Calculates the similarity between the dominant cluster and the cluster with the highest average distance to the dominant cluster.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">trim_frac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                 <span class="n">weighted_by_frames</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes instances for the FrameSimilarity class.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            cluster_folder (str): The path to the folder containing the normalized </span>
+<span class="sd">                cluster files.</span>
+<span class="sd">            summary_file (str): The path to the summary file containing the number </span>
+<span class="sd">                of frames for each cluster (CPPTRAJ clustering output).</span>
+<span class="sd">            trim_frac (float): The fraction of outliers to trim from the top cluster.</span>
+<span class="sd">            n_clusters (int): The number of clusters to analyze, None for all clusters.</span>
+<span class="sd">            weighted_by_frames (bool): Whether to weight similarity values by the </span>
+<span class="sd">                number of frames.</span>
+<span class="sd">            n_ary (str): The similarity metric to use for comparing clusters. </span>
+<span class="sd">            weight (str): The weighting scheme to use for comparing clusters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">            </span>
+<span class="sd">        Notes:</span>
+<span class="sd">            Options for `n_ary` and `weight` under `esim.py`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cluster_folder</span><span class="si">}</span><span class="s2">/normed_clusttraj.c0.npy&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">trim_frac</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c0</span> <span class="o">=</span> <span class="n">_trim_outliers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c0</span><span class="p">,</span> <span class="n">trim_frac</span><span class="o">=</span><span class="n">trim_frac</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cluster_folder</span><span class="si">}</span><span class="s2">/normed_clusttraj.c*&quot;</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">summary_file</span> <span class="o">=</span> <span class="n">summary_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span> <span class="o">=</span> <span class="n">weighted_by_frames</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_ary</span> <span class="o">=</span> <span class="n">n_ary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sims</span> <span class="o">=</span> <span class="p">{}</span>
+    
+<div class="viewcode-block" id="FrameSimilarity.calculate_pairwise">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_pairwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates pairwise similarity between each cluster and all other clusters.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            For each cluster file, loads the data and calculates the similarity score </span>
+<span class="sd">                with the top (c0) cluster.</span>
+<span class="sd">            The similarity score is calculated as the average of pairwise similarity </span>
+<span class="sd">                values between each frame in the cluster and the top c0 cluster.</span>
+<span class="sd">            The esim index used is defined by the `n_ary` parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            If `frame_weighted_sim` returns `False`, </span>
+<span class="sd">                nw_dict (dict): unweighted average similarity values.</span>
+<span class="sd">            If `frame_weighted_sim` returns `True`, </span>
+<span class="sd">                w_dict (dict): calls `weight_dict` function to weight similarity values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">each</span><span class="p">,</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_files</span><span class="p">):</span>
+            <span class="n">ck</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c0</span><span class="p">):</span>
+                <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ck</span><span class="p">):</span>
+                    <span class="n">c_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">pair_sim</span> <span class="o">=</span> <span class="n">SimilarityIndex</span><span class="p">(</span><span class="n">c_total</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> 
+                                               <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">)()</span>
+                    <span class="n">total</span> <span class="o">+=</span> <span class="n">pair_sim</span>
+                <span class="n">avg</span> <span class="o">=</span> <span class="n">total</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ck</span><span class="p">)</span>
+                <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg</span>
+
+        <span class="n">nw_dict</span> <span class="o">=</span> <span class="n">_format_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nw_dict</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_file</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="n">nw_dict</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrameSimilarity.calculate_union">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_union">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_union</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculates the extended similarity between the union of frame in c0 and cluster k.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            For each cluster file, loads the data and calculates the extended similarity.</span>
+<span class="sd">            The similarity score is calculated as the union similarity between </span>
+<span class="sd">                all frames in the cluster and the top c0 cluster.</span>
+<span class="sd">            The esim index used is defined by the `n_ary` parameter.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            If `frame_weighted_sim` returns `False`, </span>
+<span class="sd">                nw_dict (dict): unweighted average similarity values.</span>
+<span class="sd">            If `frame_weighted_sim` returns `True`, </span>
+<span class="sd">                w_dict (dict): calls `weight_dict` function to weight similarity values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">each</span><span class="p">,</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_files</span><span class="p">):</span>
+            <span class="n">ck</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c0</span><span class="p">):</span>
+                <span class="n">c_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ck</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span>
+                <span class="n">n_fingerprints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ck</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">SimilarityIndex</span><span class="p">(</span><span class="n">c_total</span><span class="p">,</span> <span class="n">n_fingerprints</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                                        <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">)()</span>
+                <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+        
+        <span class="n">nw_dict</span> <span class="o">=</span> <span class="n">_format_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nw_dict</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_file</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="n">nw_dict</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_perform_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_func</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Auxillary function for `calculate_medoid` and `calculate_outlier`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index_func (func): `calculate_medoid` or `calculate_outlier`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the average similarity between each pair of clusters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">each</span><span class="p">,</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_files</span><span class="p">):</span>
+            <span class="n">ck</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">index_func</span><span class="p">(</span><span class="n">ck</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+            <span class="n">medoid</span> <span class="o">=</span> <span class="n">ck</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c0</span><span class="p">):</span>
+                <span class="n">c_total</span> <span class="o">=</span> <span class="n">medoid</span> <span class="o">+</span> <span class="n">x</span>
+                <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">pair_sim</span> <span class="o">=</span> <span class="n">SimilarityIndex</span><span class="p">(</span><span class="n">c_total</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                                           <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">)()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pair_sim</span>
+        <span class="n">nw_dict</span> <span class="o">=</span> <span class="n">_format_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sims</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nw_dict</span>
+    
+<div class="viewcode-block" id="FrameSimilarity.calculate_medoid">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_medoid">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_medoid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the pairwise similarity between every frame in c0 and the medoid of each cluster.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            Calculate the medoid of each cluster using the `calculate_medoid` function from `esim`.</span>
+<span class="sd">            The pairwise similarity value between each frame in c0 and the medoid of each cluster is calculated </span>
+<span class="sd">            using similarity indices.</span>
+<span class="sd">            Calls the `_perform_calculation` aux function.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            If `frame_weighted_sim` returns `False`, </span>
+<span class="sd">                nw_dict (dict): unweighted average similarity values.</span>
+<span class="sd">            If `frame_weighted_sim` returns `True`, </span>
+<span class="sd">                w_dict (dict): calls `weight_dict` function to weight similarity values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nw_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_calculation</span><span class="p">(</span><span class="n">calc_medoid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nw_dict</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_file</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="n">nw_dict</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="FrameSimilarity.calculate_outlier">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_outlier">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_outlier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the pairwise similarity between every frame in c0 and the outlier of each cluster.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            Calculate the outlier of each cluster using the `calculate_outlier` function from `esim`.</span>
+<span class="sd">            The pairwise similarity value between each frame in c0 and the outlier of each cluster is calculated </span>
+<span class="sd">            using similarity indices.</span>
+<span class="sd">            Calls the `_perform_calculation` auxillary function.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            If `frame_weighted_sim` returns `False`, </span>
+<span class="sd">                nw_dict (dict): unweighted average similarity values.</span>
+<span class="sd">            If `frame_weighted_sim` returns `True`, </span>
+<span class="sd">                w_dict (dict): calls `weight_dict` function to weight similarity values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nw_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_calculation</span><span class="p">(</span><span class="n">calc_outlier</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nw_dict</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">weighted_by_frames</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">summary_file</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="n">nw_dict</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">)</span></div>
+</div>
+
+
+<span class="k">def</span> <span class="nf">_trim_outliers</span><span class="p">(</span><span class="n">total_data</span><span class="p">,</span> <span class="n">trim_frac</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="n">removal</span><span class="o">=</span><span class="s1">&#39;nan&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trims a desired percentage of outliers (most dissimilar) from the dataset </span>
+<span class="sd">    by calculating largest complement similarity.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        total_data (numpy.ndarray): A 2D array, containing the data to be trimmed.</span>
+<span class="sd">        trim_frac (float): The fraction of outliers to be removed. Must be between 0 and 1. Defaults to 0.1.</span>
+<span class="sd">        n_ary (str): The similarity metric to be used. Must be either &#39;RR&#39; or &#39;SM&#39;. Defaults to &#39;RR&#39;.</span>
+<span class="sd">        weight (str): The weight function to be used. Must be either &#39;nw&#39; or &#39;fraction&#39;. Defaults to &#39;nw&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: A 2D array, with a fraction trimed, corresponding </span>
+<span class="sd">            to the rows with the highest complement similarity scores.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_fingerprints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">total_data</span><span class="p">)</span>
+    <span class="n">c_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">total_data</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">comp_sims</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pixel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">total_data</span><span class="p">):</span>
+        <span class="n">c_total_i</span> <span class="o">=</span> <span class="n">c_total</span> <span class="o">-</span> <span class="n">total_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">sim_index</span> <span class="o">=</span> <span class="n">SimilarityIndex</span><span class="p">(</span><span class="n">c_total_i</span><span class="p">,</span> <span class="n">n_fingerprints</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_ary</span><span class="o">=</span><span class="n">n_ary</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+                                    <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">)()</span>
+        <span class="n">comp_sims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sim_index</span><span class="p">)</span>
+    <span class="n">comp_sims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">comp_sims</span><span class="p">)</span>
+    <span class="n">cutoff</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n_fingerprints</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">trim_frac</span><span class="p">)))</span>
+    <span class="n">highest_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argpartition</span><span class="p">(</span><span class="o">-</span><span class="n">comp_sims</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">)[:</span><span class="n">cutoff</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">removal</span> <span class="o">==</span> <span class="s1">&#39;nan&#39;</span><span class="p">:</span>
+        <span class="n">total_data</span><span class="p">[</span><span class="n">highest_indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">elif</span> <span class="n">removal</span> <span class="o">==</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span>
+        <span class="n">total_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">total_data</span><span class="p">,</span> <span class="n">highest_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total_data</span>
+
+<div class="viewcode-block" id="weight_dict">
+<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.weight_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates frame-weighted similarity values by the number of frames in each cluster.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file_path (str): Path to the json file containing the unweighted similarity values between each pair of clusters.</span>
+<span class="sd">        summary_file (str): Path to the summary file containing the number of frames in each cluster (CPPTRAJ output).</span>
+<span class="sd">        dict (dict): A dictionary containing the unweighted similarity values between each pair of clusters.</span>
+<span class="sd">        n_clusters (int): The number of clusters to analyze. Default is `None`, analyze all clusters from summary file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: frame-weighted similarity values between each pair of clusters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">file_path</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="nb">dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="nb">dict</span> <span class="o">=</span> <span class="nb">dict</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    
+    <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">summary_file</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">num</span> 
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">w_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">old_list</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">w_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">old_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weights</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">w_dict</span><span class="p">:</span>
+        <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">w_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">w_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">average</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">w_dict</span></div>
+
+
+<span class="k">def</span> <span class="nf">_format_dict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sorts dict to have frame # as the key and attaches the average value to the end of each key.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dict (dict): A dictionary containing the similarity values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Sorted by the keys with the average value attached to the end of each key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nw_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nw_dict</span><span class="p">:</span>
+                <span class="n">nw_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+            <span class="n">nw_dict</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">nw_dict</span><span class="p">:</span>
+        <span class="n">average</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">nw_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nw_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">nw_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">average</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">nw_dict</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, mqcomplab. Docs based on the Computational Molecular Science Python Cookiecutter version 1.1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

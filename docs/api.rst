@@ -1,36 +1,72 @@
-Behind the scenes Tools
-========================
-
-.. autosummary::
-   :toctree: autosummary
-
-   mdance.tools.bts
-
 Inputs
-=================
+====================
 
-.. autosummary::
-   :toctree: autosummary
+.. automodule:: mdance.inputs.preprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-   mdance.inputs.preprocess
+Cluster
+====================
 
-Clustering 
-=================
-
-.. autosummary::
-   :toctree: autosummary
-
-   mdance.cluster.nani
+.. automodule:: mdance.cluster.nani
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 PRIME
-=================
+====================
 
-.. autosummary::
-   :toctree: autosummary
+mdance.prime.rep\_frames module
+-------------------------------
 
-   mdance.prime.sim_calc
-   mdance.prime.rep_frames
-   mdance.cli.prime_sim
-   mdance.cli.prime_rep
+.. automodule:: mdance.prime.rep_frames
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-Outputs
+mdance.prime.sim\_calc module
+-----------------------------
+
+.. automodule:: mdance.prime.sim_calc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Tools
+====================
+
+mdance.tools.bts module
+-----------------------
+
+.. automodule:: mdance.tools.bts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.tools.esim\_modules module
+---------------------------------
+
+.. automodule:: mdance.tools.esim_modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.tools.isim\_modules module
+---------------------------------
+
+.. automodule:: mdance.tools.isim_modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.outputs package
+======================
+
+mdance.outputs.postprocess module
+---------------------------------
+
+.. automodule:: mdance.outputs.postprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
