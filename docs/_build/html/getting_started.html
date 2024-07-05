@@ -22,8 +22,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Molecular Dynamics Analysis with N-ary Clustering Ensembles (MDANCE)" href="about.html" />
-    <link rel="prev" title="Welcome to MDANCE’s documentation!" href="index.html" /> 
+    <link rel="next" title="Inputs" href="api.html" />
+    <link rel="prev" title="About MDANCE" href="about.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,6 +36,7 @@
           
           <a href="index.html" class="icon icon-home">
             MDANCE
+              <img src="_static/mdance.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2.0
@@ -50,20 +51,20 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About MDANCE</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="about.html">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Inputs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#module-mdance.cluster.nani">Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#cluster">Cluster</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#prime">PRIME</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#tools">Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#mdance-outputs-package">mdance.outputs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#outputs">Outputs</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
 <ul>
@@ -101,24 +102,31 @@
              
   <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
-<p>This page details how to get started with molecool. Molecool is a package which was developed for the MolSSI Best Practices workshop.</p>
+<p>Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE) is a flexible <em>n</em>-ary
+clustering package.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mdance</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>mdance
 </pre></div>
 </div>
 <p>To check for proper installation, run the following command:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import mdance&quot;</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;print(mdance.__version__)&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mdance</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mdance</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
 <p>To use MDANCE in a project, import the package and use its modules as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mdance</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mdance.cluster.nani</span> <span class="kn">import</span> <span class="n">KmeansNANI</span>
 
 <span class="c1"># Example usage</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data.npy&#39;</span><span class="p">)</span>
+<span class="n">mod</span> <span class="o">=</span> <span class="n">KmeansNANI</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;MSD&#39;</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">init_type</span><span class="o">=</span><span class="s1">&#39;comp_sim&#39;</span><span class="p">,</span> <span class="n">percentage</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">initiators</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">initiate_kmeans</span><span class="p">()</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="n">initiators</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -128,14 +136,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MDANCE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="about.html" class="btn btn-neutral float-right" title="Molecular Dynamics Analysis with N-ary Clustering Ensembles (MDANCE)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="about.html" class="btn btn-neutral float-left" title="About MDANCE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="Inputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, mqcomplab. Docs based on the Computational Molecular Science Python Cookiecutter version 1.1.</p>
+    <p>&#169; Copyright 2024, Lexin Chen and Ramón Alain Miranda Quintana.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

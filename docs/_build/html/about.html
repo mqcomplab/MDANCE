@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Molecular Dynamics Analysis with N-ary Clustering Ensembles (MDANCE) &mdash; MDANCE  documentation</title>
+  <title>About MDANCE &mdash; MDANCE  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -22,8 +22,8 @@
     <link rel="author" title="About these documents" href="#" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Inputs" href="api.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Welcome to MDANCE’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,6 +36,7 @@
           
           <a href="index.html" class="icon icon-home">
             MDANCE
+              <img src="_static/mdance.png" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2.0
@@ -50,8 +51,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">About MDANCE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#background">Background</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clustering-algorithms">Clustering Algorithms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clustering-postprocessing">Clustering Postprocessing</a></li>
@@ -61,14 +61,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Inputs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#module-mdance.cluster.nani">Cluster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#cluster">Cluster</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#prime">PRIME</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#tools">Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#mdance-outputs-package">mdance.outputs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#outputs">Outputs</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
 <ul>
@@ -94,7 +95,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</li>
+      <li class="breadcrumb-item active">About MDANCE</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/about.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,10 +105,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="molecular-dynamics-analysis-with-n-ary-clustering-ensembles-mdance">
-<h1>Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)<a class="headerlink" href="#molecular-dynamics-analysis-with-n-ary-clustering-ensembles-mdance" title="Link to this heading"></a></h1>
-<p>Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE) is a flexible <em>n</em>-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
-Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.</p>
+  <section id="about-mdance">
+<h1>About MDANCE<a class="headerlink" href="#about-mdance" title="Link to this heading"></a></h1>
+<p>Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE) is a flexible <em>n</em>-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics. Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#background" id="id1">Background</a></p></li>
@@ -169,14 +169,14 @@ Research contained in this package was supported by the National Institute of Ge
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api.html" class="btn btn-neutral float-right" title="Inputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MDANCE’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, mqcomplab. Docs based on the Computational Molecular Science Python Cookiecutter version 1.1.</p>
+    <p>&#169; Copyright 2024, Lexin Chen and Ramón Alain Miranda Quintana.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

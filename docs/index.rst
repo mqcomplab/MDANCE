@@ -8,9 +8,10 @@ MDANCE is a flexible *n*-ary clustering package for all applications (e.g. molec
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   getting_started
+
    about
+   getting_started
+
 
 .. toctree::
    :maxdepth: 2

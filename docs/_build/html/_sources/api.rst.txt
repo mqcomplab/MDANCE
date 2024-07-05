@@ -1,5 +1,7 @@
 Inputs
 ====================
+mdance.inputs.preprocess
+-------------------------
 
 .. automodule:: mdance.inputs.preprocess
    :members:
@@ -8,6 +10,8 @@ Inputs
 
 Cluster
 ====================
+mdance.cluster.nani
+--------------------
 
 .. automodule:: mdance.cluster.nani
    :members:
@@ -17,7 +21,7 @@ Cluster
 PRIME
 ====================
 
-mdance.prime.rep\_frames module
+mdance.prime.rep\_frames
 -------------------------------
 
 .. automodule:: mdance.prime.rep_frames
@@ -25,7 +29,7 @@ mdance.prime.rep\_frames module
    :undoc-members:
    :show-inheritance:
 
-mdance.prime.sim\_calc module
+mdance.prime.sim\_calc
 -----------------------------
 
 .. automodule:: mdance.prime.sim_calc
@@ -36,7 +40,7 @@ mdance.prime.sim\_calc module
 Tools
 ====================
 
-mdance.tools.bts module
+mdance.tools.bts
 -----------------------
 
 .. automodule:: mdance.tools.bts
@@ -44,7 +48,7 @@ mdance.tools.bts module
    :undoc-members:
    :show-inheritance:
 
-mdance.tools.esim\_modules module
+mdance.tools.esim\_modules
 ---------------------------------
 
 .. automodule:: mdance.tools.esim_modules
@@ -60,11 +64,11 @@ mdance.tools.isim\_modules module
    :undoc-members:
    :show-inheritance:
 
-mdance.outputs package
+Outputs
 ======================
 
-mdance.outputs.postprocess module
----------------------------------
+mdance.outputs.postprocess
+-------------------------------
 
 .. automodule:: mdance.outputs.postprocess
    :members:
