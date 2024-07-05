@@ -27,7 +27,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 ## Clustering Algorithms
 ### NANI
 <p align="center">
-<img src="img/nani-logo.PNG" width="100" height=auto align="center"></a></p>
+<img src="img/nani-logo.PNG" width="200" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>🪄NANI🪄the first installment of MDANCE</b></p>
