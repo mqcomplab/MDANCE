@@ -1,0 +1,12 @@
+name: docs
+channels:
+dependencies:
+    # Base depends
+  - python >=3.8
+  - pip install mdance
+
+
+
+    # Pip-only installs
+  #- pip:
+
