@@ -1,14 +1,25 @@
 # Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE)
-Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is written in Python and an extension of the *n*-ary similarity framework. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
+Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
 Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
 
 ## Table of Contents
+- [Installation](#installation)
 - [Background](#background)
 - [Clustering Algorithms](#clustering-algorithms)
   - [NANI](#nani)
 - [Clustering Postprocessing](#clustering-postprocessing)
   - [PRIME](#prime)
-- [Installation](#installation)
+
+## Installation
+```python
+pip install mdance
+```
+To check for proper installation, run the following command:
+
+```python
+import mdance
+print(mdance.__version__)
+```
 
 ## Background
 Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamics of biomolecules. However, the analysis of MD trajectories is challenging due to the large amount of data generated. Clustering is an unsupervised machine learning approach to group similar frames into clusters. The clustering results can be used to reveal the structure of the data, identify the most representative structures, and to study the dynamics of the system.
@@ -16,7 +27,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 ## Clustering Algorithms
 ### NANI
 <p align="center">
-<img src="img/nani-logo.PNG" width="200" height=auto align="center"></a></p>
+<img src="img/nani-logo.PNG" width="100" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>🪄NANI🪄the first installment of MDANCE</b></p>
@@ -50,7 +61,3 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1). 
 
-## Installation
-```
-git clone https://github.com/mqcomplab/MDANCE.git
-```
