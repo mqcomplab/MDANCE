@@ -1,7 +1,5 @@
 import numpy as np
-import sys
-sys.path.insert(0, '../../')
-from src.inputs.preprocess import normalize_file
+from mdance.inputs.preprocess import normalize_file
 
 # System info - EDIT THESE
 data_file = '../../examples/2D/blob_disk.csv'
