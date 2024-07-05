@@ -24,7 +24,6 @@ mdance.tools.isim\_modules module
 ---------------------------------
 
 .. automodule:: mdance.tools.isim_modules
-   :members:
    :undoc-members:
    :show-inheritance:
 

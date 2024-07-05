@@ -44,7 +44,6 @@ mdance.tools.bts
 -----------------------
 
 .. automodule:: mdance.tools.bts
-   :members:
    :undoc-members:
    :show-inheritance:
 

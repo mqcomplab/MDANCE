@@ -108,7 +108,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="calculate_counters">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.calculate_counters">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.calculate_counters">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_counters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_objects</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate 1-similarity, 0-similarity, and dissimilarity counters</span>
 
@@ -168,7 +168,7 @@
 
 
 <div class="viewcode-block" id="calculate_isim">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.calculate_isim">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.calculate_isim">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_isim</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_objects</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the iSIM index for RR, JT, or SM</span>
 
@@ -233,7 +233,7 @@
 
 
 <div class="viewcode-block" id="gen_sim_dict">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.gen_sim_dict">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.gen_sim_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">gen_sim_dict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_objects</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate a dictionary containing all the available similarity indexes</span>
 
@@ -287,19 +287,19 @@
 
 
 <div class="viewcode-block" id="calculate_medoid">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.calculate_medoid">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.calculate_medoid">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_medoid</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">calculate_comp_sim</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="n">n_ary</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="calculate_outlier">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.calculate_outlier">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.calculate_outlier">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_outlier</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">calculate_comp_sim</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="n">n_ary</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="calculate_comp_sim">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.isim_modules.calculate_comp_sim">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.isim_modules.calculate_comp_sim">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_comp_sim</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the complementary similarity for RR, JT, or SM</span>
 
