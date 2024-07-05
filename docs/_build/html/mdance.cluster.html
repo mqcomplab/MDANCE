@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mdance.cluster package &mdash; MDANCE  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d8b1e08c" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="mdance.prime package" href="mdance.prime.html" />
+    <link rel="prev" title="mdance.inputs package" href="mdance.inputs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MDANCE
+              <img src="_static/mdance.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About MDANCE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="mdance.inputs.html">mdance.inputs package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mdance.cluster package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mdance.cluster.nani">mdance.cluster.nani module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI"><code class="docutils literal notranslate"><span class="pre">KmeansNANI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.data"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.n_clusters"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.n_clusters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.metric"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.metric</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.N_atoms"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.N_atoms</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.percentage"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.init_type"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.init_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.labels"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.labels</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.centers"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.centers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.n_iter"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.n_iter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.cluster_dict"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.cluster_dict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.Properties"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.Properties</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans_info"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI._check_init_type"><code class="docutils literal notranslate"><span class="pre">KmeansNANI._check_init_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI._check_percentage"><code class="docutils literal notranslate"><span class="pre">KmeansNANI._check_percentage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.initiate_kmeans"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.initiate_kmeans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans_clustering"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_clustering()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.get_kmeans_info"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.get_kmeans_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.create_cluster_dict"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.create_cluster_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.write_centroids"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.write_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.compute_scores"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.compute_scores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.create_cluster_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.execute_kmeans_all"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.execute_kmeans_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.initiate_kmeans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_clustering()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.write_centroids()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mdance.cluster.nani.compute_scores"><code class="docutils literal notranslate"><span class="pre">compute_scores()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mdance.cluster">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.prime.html">mdance.prime package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.tools.html">mdance.tools package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.outputs.html">mdance.outputs package</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">cli</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nani.html"><em>k</em>-means NANI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nani.html#table-of-contents">Table of Contents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MDANCE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">mdance.cluster package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mdance.cluster.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mdance-cluster-package">
+<h1>mdance.cluster package<a class="headerlink" href="#mdance-cluster-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-mdance.cluster.nani">
+<span id="mdance-cluster-nani-module"></span><h2>mdance.cluster.nani module<a class="headerlink" href="#module-mdance.cluster.nani" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mdance.cluster.nani.</span></span><span class="sig-name descname"><span class="pre">KmeansNANI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comp_sim'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>K-means algorithm with the N-Ary Natural Initialization (NANI).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.data" title="Link to this definition"></a></dt>
+<dd><p>Input dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like of shape (n_samples, n_features)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.n_clusters">
+<span class="sig-name descname"><span class="pre">n_clusters</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.n_clusters" title="Link to this definition"></a></dt>
+<dd><p>Number of clusters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.metric">
+<span class="sig-name descname"><span class="pre">metric</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.metric" title="Link to this definition"></a></dt>
+<dd><p>Metric used for extended comparisons.
+See <cite>tools.bts.extended_comparison</cite> for all available metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>{‘MSD’, ‘RR’, ‘JT’, etc}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.N_atoms">
+<span class="sig-name descname"><span class="pre">N_atoms</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.N_atoms" title="Link to this definition"></a></dt>
+<dd><p>Number of atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.percentage">
+<span class="sig-name descname"><span class="pre">percentage</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.percentage" title="Link to this definition"></a></dt>
+<dd><p>Percentage of the dataset to be used for the initial selection of the
+initial centers. Default is 10.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.init_type">
+<span class="sig-name descname"><span class="pre">init_type</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.init_type" title="Link to this definition"></a></dt>
+<dd><p>Type of initiator selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>{‘div_select’, ‘comp_sim’, ‘k-means++’, ‘random’}</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.labels">
+<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.labels" title="Link to this definition"></a></dt>
+<dd><p>Labels of each point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like of shape (n_samples,)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.centers">
+<span class="sig-name descname"><span class="pre">centers</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.centers" title="Link to this definition"></a></dt>
+<dd><p>Cluster centers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like of shape (n_clusters, n_features)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.n_iter">
+<span class="sig-name descname"><span class="pre">n_iter</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.n_iter" title="Link to this definition"></a></dt>
+<dd><p>Number of iterations run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.cluster_dict">
+<span class="sig-name descname"><span class="pre">cluster_dict</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.cluster_dict" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of the clusters and their corresponding indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.Properties">
+<span class="sig-name descname"><span class="pre">Properties</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.Properties" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">----------</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans">
+<span class="sig-name descname"><span class="pre">kmeans</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans" title="Link to this definition"></a></dt>
+<dd><p>Tuple of the labels, centers and number of iterations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans_info">
+<span class="sig-name descname"><span class="pre">kmeans_info</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans_info" title="Link to this definition"></a></dt>
+<dd><p>Tuple of the labels, centers, number of iterations, scores and cluster dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__(data,</span> <span class="pre">n_clusters,</span> <span class="pre">metric,</span> <span class="pre">N_atoms,</span> <span class="pre">percentage=10,</span> <span class="pre">init_type='comp_sim'):</span></span></dt>
+<dd><p>Initializes the class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI._check_init_type">
+<span class="sig-name descname"><span class="pre">_check_init_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI._check_init_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI._check_init_type" title="Link to this definition"></a></dt>
+<dd><p>Checks the ‘init_type’ attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI._check_percentage">
+<span class="sig-name descname"><span class="pre">_check_percentage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI._check_percentage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI._check_percentage" title="Link to this definition"></a></dt>
+<dd><p>Checks the ‘percentage’ attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.initiate_kmeans">
+<span class="sig-name descname"><span class="pre">initiate_kmeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.initiate_kmeans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.initiate_kmeans" title="Link to this definition"></a></dt>
+<dd><p>Initializes the k-means algorithm with the selected initiators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans_clustering">
+<span class="sig-name descname"><span class="pre">kmeans_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initiators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.kmeans_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans_clustering" title="Link to this definition"></a></dt>
+<dd><p>Gets the k-means algorithm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.get_kmeans_info">
+<span class="sig-name descname"><span class="pre">get_kmeans_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.get_kmeans_info" title="Link to this definition"></a></dt>
+<dd><p>Gets the k-means information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.create_cluster_dict">
+<span class="sig-name descname"><span class="pre">create_cluster_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.create_cluster_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.create_cluster_dict" title="Link to this definition"></a></dt>
+<dd><p>Creates a dictionary of the clusters and their corresponding indices.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.write_centroids">
+<span class="sig-name descname"><span class="pre">write_centroids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centroids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.write_centroids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.write_centroids" title="Link to this definition"></a></dt>
+<dd><p>Writes the centroids of the k-means algorithm to a file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.compute_scores">
+<span class="sig-name descname"><span class="pre">compute_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.compute_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.compute_scores" title="Link to this definition"></a></dt>
+<dd><p>Computes the Davies-Bouldin and Calinski-Harabasz scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Davies-Bouldin and Calinski-Harabasz scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">create_cluster_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.create_cluster_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Creates a dictionary with the labels as keys and the indices of the data as values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with the labels as keys and the indices of the data as values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.execute_kmeans_all">
+<span class="sig-name descname"><span class="pre">execute_kmeans_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.execute_kmeans_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.execute_kmeans_all" title="Link to this definition"></a></dt>
+<dd><p>Function to complete all steps of KMeans for all different ‘init_type’ options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Labels, centers and number of iterations of the k-means algorithm.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">initiate_kmeans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.initiate_kmeans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd><p>Initializes the k-means algorithm with the selected initiating method
+(comp_sim, div_select, k-means++, random, vanilla_kmeans++).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The initial centers for k-means of shape (n_clusters, n_features).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">kmeans_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initiators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.kmeans_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd><p>Executes the k-means algorithm with the selected initiators.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>initiators</strong> (<em>{numpy.ndarray</em><em>, </em><em>'k-means++'</em><em>, </em><em>'random'}</em>) – Method for selecting initial centers.
+‘k-means++’ selects initial centers in a smart way to speed up convergence.
+‘random’ selects initial centers randomly.
+If ‘initiators’ is a numpy.ndarray, it must be of shape (n_clusters, n_features)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Labels, centers and number of iterations of the k-means algorithm.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">write_centroids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.write_centroids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd><p>Writes the centroids of the k-means algorithm to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>centers</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_clusters</em><em>, </em><em>n_features</em><em>)</em>) – Centroids of the k-means algorithm.</p></li>
+<li><p><strong>n_iter</strong> (<em>int</em>) – Number of iterations of the k-means algorithm.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.cluster.nani.compute_scores">
+<span class="sig-prename descclassname"><span class="pre">mdance.cluster.nani.</span></span><span class="sig-name descname"><span class="pre">compute_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#compute_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.compute_scores" title="Link to this definition"></a></dt>
+<dd><p>Computes the Davies-Bouldin and Calinski-Harabasz scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Davies-Bouldin and Calinski-Harabasz scores.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-mdance.cluster">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mdance.cluster" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mdance.inputs.html" class="btn btn-neutral float-left" title="mdance.inputs package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mdance.prime.html" class="btn btn-neutral float-right" title="mdance.prime package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Lexin Chen and Ramón Alain Miranda Quintana.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

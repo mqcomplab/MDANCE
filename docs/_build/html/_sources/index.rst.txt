@@ -17,7 +17,11 @@ MDANCE is a flexible *n*-ary clustering package for all applications (e.g. molec
    :maxdepth: 2
    :caption: MDANCE's API:
    
-   api
+   mdance.inputs
+   mdance.cluster
+   mdance.prime
+   mdance.tools
+   mdance.outputs
 
 .. toctree::
    :maxdepth: 2

@@ -54,15 +54,15 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Inputs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#cluster">Cluster</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#prime">PRIME</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#tools">Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api.html#outputs">Outputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mdance.inputs.html">mdance.inputs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mdance.cluster.html">mdance.cluster package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mdance.prime.html">mdance.prime package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mdance.tools.html">mdance.tools package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mdance.outputs.html">mdance.outputs package</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">PRIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">cli</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials:</span></p>
 <ul>
@@ -101,7 +101,7 @@
 <span class="kn">from</span> <span class="nn">mdance.tools.bts</span> <span class="kn">import</span> <span class="n">diversity_selection</span><span class="p">,</span> <span class="n">calculate_comp_sim</span>
 
 <div class="viewcode-block" id="KmeansNANI">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI">[docs]</a>
 <span class="k">class</span> <span class="nc">KmeansNANI</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;K-means algorithm with the N-Ary Natural Initialization (NANI).</span>
 <span class="sd">    </span>
@@ -191,7 +191,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_percentage</span><span class="p">()</span>
     
 <div class="viewcode-block" id="KmeansNANI._check_init_type">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI._check_init_type">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI._check_init_type">[docs]</a>
     <span class="k">def</span> <span class="nf">_check_init_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks the &#39;init_type&#39; attribute.</span>
 
@@ -206,7 +206,7 @@
 
         
 <div class="viewcode-block" id="KmeansNANI._check_percentage">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI._check_percentage">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI._check_percentage">[docs]</a>
     <span class="k">def</span> <span class="nf">_check_percentage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks the &#39;percentage&#39; attribute.</span>
 <span class="sd">        </span>
@@ -224,7 +224,7 @@
 
     
 <div class="viewcode-block" id="KmeansNANI.initiate_kmeans">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.initiate_kmeans">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.initiate_kmeans">[docs]</a>
     <span class="k">def</span> <span class="nf">initiate_kmeans</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the k-means algorithm with the selected initiating method</span>
 <span class="sd">        (comp_sim, div_select, k-means++, random, vanilla_kmeans++).</span>
@@ -257,7 +257,7 @@
 
     
 <div class="viewcode-block" id="KmeansNANI.kmeans_clustering">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.kmeans_clustering">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.kmeans_clustering">[docs]</a>
     <span class="k">def</span> <span class="nf">kmeans_clustering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initiators</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Executes the k-means algorithm with the selected initiators.</span>
 
@@ -288,7 +288,7 @@
 
 
 <div class="viewcode-block" id="KmeansNANI.create_cluster_dict">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.create_cluster_dict">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.create_cluster_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">create_cluster_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a dictionary with the labels as keys and the indices of the data as values.</span>
 <span class="sd">        </span>
@@ -309,7 +309,7 @@
 
     
 <div class="viewcode-block" id="KmeansNANI.compute_scores">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.compute_scores">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.compute_scores">[docs]</a>
     <span class="k">def</span> <span class="nf">compute_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the Davies-Bouldin and Calinski-Harabasz scores.</span>
 <span class="sd">        </span>
@@ -329,7 +329,7 @@
 
 
 <div class="viewcode-block" id="KmeansNANI.write_centroids">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.write_centroids">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.write_centroids">[docs]</a>
     <span class="k">def</span> <span class="nf">write_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">n_iter</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes the centroids of the k-means algorithm to a file.</span>
 
@@ -345,7 +345,7 @@
 
     
 <div class="viewcode-block" id="KmeansNANI.execute_kmeans_all">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.KmeansNANI.execute_kmeans_all">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.KmeansNANI.execute_kmeans_all">[docs]</a>
     <span class="k">def</span> <span class="nf">execute_kmeans_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Function to complete all steps of KMeans for all different &#39;init_type&#39; options.</span>
 
@@ -364,7 +364,7 @@
 
     
 <div class="viewcode-block" id="compute_scores">
-<a class="viewcode-back" href="../../../api.html#mdance.cluster.nani.compute_scores">[docs]</a>
+<a class="viewcode-back" href="../../../mdance.cluster.html#mdance.cluster.nani.compute_scores">[docs]</a>
 <span class="k">def</span> <span class="nf">compute_scores</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the Davies-Bouldin and Calinski-Harabasz scores.</span>
 <span class="sd">    </span>

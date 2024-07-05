@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inputs &mdash; MDANCE  documentation</title>
+  <title>mdance.tools package &mdash; MDANCE  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=d8b1e08c" />
@@ -23,8 +23,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="PRIME" href="cli.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+    <link rel="next" title="mdance.outputs package" href="mdance.outputs.html" />
+    <link rel="prev" title="mdance.prime package" href="mdance.prime.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,92 +57,12 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's API:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Inputs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.inputs.preprocess">mdance.inputs.preprocess</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer"><code class="docutils literal notranslate"><span class="pre">Normalizer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.file_path"><code class="docutils literal notranslate"><span class="pre">Normalizer.file_path</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.data"><code class="docutils literal notranslate"><span class="pre">Normalizer.data</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.custom_min"><code class="docutils literal notranslate"><span class="pre">Normalizer.custom_min</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.custom_max"><code class="docutils literal notranslate"><span class="pre">Normalizer.custom_max</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.normed_data"><code class="docutils literal notranslate"><span class="pre">Normalizer.normed_data</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.c_total"><code class="docutils literal notranslate"><span class="pre">Normalizer.c_total</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.min"><code class="docutils literal notranslate"><span class="pre">Normalizer.min</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.max"><code class="docutils literal notranslate"><span class="pre">Normalizer.max</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.get_min_max"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_min_max()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.get_v2_norm"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_v2_norm()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.get_v3_norm"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_v3_norm()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.inputs.preprocess.Normalizer.get_c_total"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_c_total()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_c_total()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_min_max()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_v2_norm()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">Normalizer.get_v3_norm()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.inputs.preprocess.gen_traj_numpy"><code class="docutils literal notranslate"><span class="pre">gen_traj_numpy()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.inputs.preprocess.normalize_file"><code class="docutils literal notranslate"><span class="pre">normalize_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.inputs.preprocess.read_cpptraj"><code class="docutils literal notranslate"><span class="pre">read_cpptraj()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#cluster">Cluster</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.cluster.nani">mdance.cluster.nani</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI"><code class="docutils literal notranslate"><span class="pre">KmeansNANI</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.data"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.data</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.n_clusters"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.n_clusters</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.metric"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.metric</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.N_atoms"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.N_atoms</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.percentage"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.percentage</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.init_type"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.init_type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.labels"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.labels</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.centers"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.centers</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.n_iter"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.n_iter</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.cluster_dict"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.cluster_dict</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.Properties"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.Properties</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans_info"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_info</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI._check_init_type"><code class="docutils literal notranslate"><span class="pre">KmeansNANI._check_init_type()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI._check_percentage"><code class="docutils literal notranslate"><span class="pre">KmeansNANI._check_percentage()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.initiate_kmeans"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.initiate_kmeans()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.kmeans_clustering"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_clustering()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.get_kmeans_info"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.get_kmeans_info()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.create_cluster_dict"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.create_cluster_dict()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.write_centroids"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.write_centroids()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.compute_scores"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.compute_scores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.create_cluster_dict()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.cluster.nani.KmeansNANI.execute_kmeans_all"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.execute_kmeans_all()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.initiate_kmeans()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.kmeans_clustering()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">KmeansNANI.write_centroids()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.cluster.nani.compute_scores"><code class="docutils literal notranslate"><span class="pre">compute_scores()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#prime">PRIME</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.prime.rep_frames">mdance.prime.rep_frames</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.prime.rep_frames.calculate_max_key"><code class="docutils literal notranslate"><span class="pre">calculate_max_key()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.prime.rep_frames.gen_all_methods_max"><code class="docutils literal notranslate"><span class="pre">gen_all_methods_max()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.prime.rep_frames.gen_one_method_max"><code class="docutils literal notranslate"><span class="pre">gen_one_method_max()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.prime.sim_calc">mdance.prime.sim_calc</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.prime.sim_calc.FrameSimilarity"><code class="docutils literal notranslate"><span class="pre">FrameSimilarity</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_medoid"><code class="docutils literal notranslate"><span class="pre">FrameSimilarity.calculate_medoid()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_outlier"><code class="docutils literal notranslate"><span class="pre">FrameSimilarity.calculate_outlier()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise"><code class="docutils literal notranslate"><span class="pre">FrameSimilarity.calculate_pairwise()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_union"><code class="docutils literal notranslate"><span class="pre">FrameSimilarity.calculate_union()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.prime.sim_calc.weight_dict"><code class="docutils literal notranslate"><span class="pre">weight_dict()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#tools">Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.tools.bts">mdance.tools.bts</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="mdance.inputs.html">mdance.inputs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.cluster.html">mdance.cluster package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.prime.html">mdance.prime package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mdance.tools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mdance.tools.bts">mdance.tools.bts module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.mean_sq_dev"><code class="docutils literal notranslate"><span class="pre">mean_sq_dev()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.msd_condensed"><code class="docutils literal notranslate"><span class="pre">msd_condensed()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.calculate_comp_sim"><code class="docutils literal notranslate"><span class="pre">calculate_comp_sim()</span></code></a></li>
@@ -152,20 +72,20 @@
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.diversity_selection"><code class="docutils literal notranslate"><span class="pre">diversity_selection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.get_new_index_n"><code class="docutils literal notranslate"><span class="pre">get_new_index_n()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.align_traj"><code class="docutils literal notranslate"><span class="pre">align_traj()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">align_traj()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">calculate_comp_sim()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">calculate_medoid()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">calculate_outlier()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">diversity_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">align_traj()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">calculate_comp_sim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">calculate_medoid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">calculate_outlier()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">diversity_selection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.equil_align"><code class="docutils literal notranslate"><span class="pre">equil_align()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.bts.extended_comparison"><code class="docutils literal notranslate"><span class="pre">extended_comparison()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13"><code class="docutils literal notranslate"><span class="pre">get_new_index_n()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14"><code class="docutils literal notranslate"><span class="pre">mean_sq_dev()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15"><code class="docutils literal notranslate"><span class="pre">msd_condensed()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16"><code class="docutils literal notranslate"><span class="pre">trim_outliers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">get_new_index_n()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">mean_sq_dev()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">msd_condensed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">trim_outliers()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.tools.esim_modules">mdance.tools.esim_modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-mdance.tools.esim_modules">mdance.tools.esim_modules module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.esim_modules.SimilarityIndex"><code class="docutils literal notranslate"><span class="pre">SimilarityIndex</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mdance.tools.esim_modules.SimilarityIndex.__call__"><code class="docutils literal notranslate"><span class="pre">SimilarityIndex.__call__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mdance.tools.esim_modules.SimilarityIndex.ac_nw"><code class="docutils literal notranslate"><span class="pre">SimilarityIndex.ac_nw()</span></code></a></li>
@@ -221,20 +141,14 @@
 <li class="toctree-l3"><a class="reference internal" href="#mdance.tools.isim_modules.gen_sim_dict"><code class="docutils literal notranslate"><span class="pre">gen_sim_dict()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mdance.tools">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#outputs">Outputs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-mdance.outputs.postprocess">mdance.outputs.postprocess</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.outputs.postprocess.numpy_array_to_crd_traj"><code class="docutils literal notranslate"><span class="pre">numpy_array_to_crd_traj()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mdance.outputs.postprocess.unnormalize_data"><code class="docutils literal notranslate"><span class="pre">unnormalize_data()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="mdance.outputs.html">mdance.outputs package</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's CLI:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">PRIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">cli</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials:</span></p>
 <ul>
@@ -256,9 +170,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Inputs</li>
+      <li class="breadcrumb-item active">mdance.tools package</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/mdance.tools.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -266,734 +180,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="inputs">
-<h1>Inputs<a class="headerlink" href="#inputs" title="Link to this heading"></a></h1>
-<section id="module-mdance.inputs.preprocess">
-<span id="mdance-inputs-preprocess"></span><h2>mdance.inputs.preprocess<a class="headerlink" href="#module-mdance.inputs.preprocess" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mdance.inputs.preprocess.</span></span><span class="sig-name descname"><span class="pre">Normalizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_avg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class for normalizing data from cpptraj CRD/MDCRD files.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.file_path">
-<span class="sig-name descname"><span class="pre">file_path</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.file_path" title="Link to this definition"></a></dt>
-<dd><p>The file path of the input data. If provided, the data is read from
-the file. Defaults to None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str, optional</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.data">
-<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.data" title="Link to this definition"></a></dt>
-<dd><p>The input data as a numpy array. If provided, the file_path argument
-is ignored. Defaults to None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array_like of shape (n_samples, n_features), optional</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.custom_min">
-<span class="sig-name descname"><span class="pre">custom_min</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.custom_min" title="Link to this definition"></a></dt>
-<dd><p>The minimum value to use for normalization. If not provided,
-the minimum value of the input data is used. Defaults to None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or None, optional</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.custom_max">
-<span class="sig-name descname"><span class="pre">custom_max</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.custom_max" title="Link to this definition"></a></dt>
-<dd><p>The maximum value to use for normalization. If not provided,
-the maximum value of the input data is used. Defaults to None.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float or None, optional</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.normed_data">
-<span class="sig-name descname"><span class="pre">normed_data</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.normed_data" title="Link to this definition"></a></dt>
-<dd><p>The normalized input data as a numpy array.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.c_total">
-<span class="sig-name descname"><span class="pre">c_total</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.c_total" title="Link to this definition"></a></dt>
-<dd><p>The sum of columns of the normalized input data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.min">
-<span class="sig-name descname"><span class="pre">min</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.min" title="Link to this definition"></a></dt>
-<dd><p>The minimum value of the input data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.max">
-<span class="sig-name descname"><span class="pre">max</span></span><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.max" title="Link to this definition"></a></dt>
-<dd><p>The maximum value of the input data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.get_min_max">
-<span class="sig-name descname"><span class="pre">get_min_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_min_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.get_min_max" title="Link to this definition"></a></dt>
-<dd><p>Returns the minimum and maximum values of the input data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.get_v2_norm">
-<span class="sig-name descname"><span class="pre">get_v2_norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_v2_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.get_v2_norm" title="Link to this definition"></a></dt>
-<dd><p>Returns the v2 normalized data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.get_v3_norm">
-<span class="sig-name descname"><span class="pre">get_v3_norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_v3_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.get_v3_norm" title="Link to this definition"></a></dt>
-<dd><p>Returns the v3 normalized data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.Normalizer.get_c_total">
-<span class="sig-name descname"><span class="pre">get_c_total</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_c_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.Normalizer.get_c_total" title="Link to this definition"></a></dt>
-<dd><p>Returns the c_total values.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">get_c_total</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_c_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
-<dd><p>Returns the ‘c_total’ values.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">get_min_max</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_min_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
-<dd><p>Returns the minimum and maximum values of the input data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">get_v2_norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_v2_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
-<dd><p>Returns the ‘v2’ normalized data.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">get_v3_norm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#Normalizer.get_v3_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
-<dd><p>Returns the ‘v3’ normalized data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.gen_traj_numpy">
-<span class="sig-prename descclassname"><span class="pre">mdance.inputs.preprocess.</span></span><span class="sig-name descname"><span class="pre">gen_traj_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prmtopFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajFileName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomSel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#gen_traj_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.gen_traj_numpy" title="Link to this definition"></a></dt>
-<dd><p>Reads in a trajectory and returns a 2D numpy array of the coordinates
-of the selected atoms.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>prmtopFileName</strong> (<em>str</em>) – The file path of the topology file.</p></li>
-<li><p><strong>trajFileName</strong> (<em>str</em>) – The file path of the trajectory file.</p></li>
-<li><p><strong>atomSel</strong> (<em>str</em>) – The atom selection string. For example, ‘resid 3:12 and name N H CA C O’.
-View details in the MDAnalysis documentation:
-<a class="reference external" href="https://docs.mdanalysis.org/stable/documentation_pages/selections.html">https://docs.mdanalysis.org/stable/documentation_pages/selections.html</a></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>traj_numpy</strong> – The 2D numpy array of the coordinates of the selected atoms.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">traj_numpy</span> <span class="o">=</span> <span class="n">gen_traj_numpy</span><span class="p">(</span><span class="s1">&#39;aligned_tau.pdb&#39;</span><span class="p">,</span> <span class="s1">&#39;aligned_tau.dcd&#39;</span><span class="p">,</span>
-<span class="go">                                &#39;resid 3:12 and name N CA C&#39;)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.normalize_file">
-<span class="sig-prename descclassname"><span class="pre">mdance.inputs.preprocess.</span></span><span class="sig-name descname"><span class="pre">normalize_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">break_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#normalize_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.normalize_file" title="Link to this definition"></a></dt>
-<dd><p>Normalize a single file and output the normalized data to a new file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file</strong> (<em>str</em>) – The file path of the input data.</p></li>
-<li><p><strong>output</strong> (<em>str</em>) – The file path of the output data.</p></li>
-<li><p><strong>break_line</strong> (<em>int</em>) – The number of columns per line of the input file. (have to n-1 because ignore first line)</p></li>
-<li><p><strong>norm_type</strong> (<em>str</em>) – The type of normalization to use. Can be “v2” or “v3”.</p></li>
-<li><p><strong>min</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The minimum value to use for normalization. If not provided,
-the minimum value of the input data is used. Defaults to None.</p></li>
-<li><p><strong>max</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The maximum value to use for normalization. If not provided,
-the maximum value of the input data is used. Defaults to None.</p></li>
-<li><p><strong>avg</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The average value to use for normalization. If not provided,
-the average value of the input data is used. Defaults to None.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The minimum, maximum, and average values of the input data.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.inputs.preprocess.read_cpptraj">
-<span class="sig-prename descclassname"><span class="pre">mdance.inputs.preprocess.</span></span><span class="sig-name descname"><span class="pre">read_cpptraj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">break_line</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/inputs/preprocess.html#read_cpptraj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.inputs.preprocess.read_cpptraj" title="Link to this definition"></a></dt>
-<dd><p>Read multiple AMBER CRD files to convert to numpy ndarray formatting and normalize the data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>break_line</strong> (<em>int</em>) – The number of columns per line of the input file. (have to n-1 because ignore first line)</p></li>
-<li><p><strong>norm_type</strong> (<em>str</em>) – The type of normalization to use. Can be “v2” or “v3”.</p></li>
-<li><p><strong>min</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The minimum value to use for normalization. If not provided,
-the minimum value of the input data is used. Defaults to None.</p></li>
-<li><p><strong>max</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The maximum value to use for normalization. If not provided,
-the maximum value of the input data is used. Defaults to None.</p></li>
-<li><p><strong>avg</strong> (<em>float</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – The average value to use for normalization. If not provided,
-the average value of the input data is used. Defaults to None.</p></li>
-<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to normalize the input data. If True, the data is
-normalized to the range [0, 1]. Defaults to False.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The concatenated input data as a numpy array.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="mdance-tools-package">
+<h1>mdance.tools package<a class="headerlink" href="#mdance-tools-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-</section>
-<section id="cluster">
-<h1>Cluster<a class="headerlink" href="#cluster" title="Link to this heading"></a></h1>
-<section id="module-mdance.cluster.nani">
-<span id="mdance-cluster-nani"></span><h2>mdance.cluster.nani<a class="headerlink" href="#module-mdance.cluster.nani" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mdance.cluster.nani.</span></span><span class="sig-name descname"><span class="pre">KmeansNANI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comp_sim'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>K-means algorithm with the N-Ary Natural Initialization (NANI).</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.data">
-<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.data" title="Link to this definition"></a></dt>
-<dd><p>Input dataset.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array-like of shape (n_samples, n_features)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.n_clusters">
-<span class="sig-name descname"><span class="pre">n_clusters</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.n_clusters" title="Link to this definition"></a></dt>
-<dd><p>Number of clusters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.metric">
-<span class="sig-name descname"><span class="pre">metric</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.metric" title="Link to this definition"></a></dt>
-<dd><p>Metric used for extended comparisons.
-See <cite>tools.bts.extended_comparison</cite> for all available metrics.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>{‘MSD’, ‘RR’, ‘JT’, etc}</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.N_atoms">
-<span class="sig-name descname"><span class="pre">N_atoms</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.N_atoms" title="Link to this definition"></a></dt>
-<dd><p>Number of atoms.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.percentage">
-<span class="sig-name descname"><span class="pre">percentage</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.percentage" title="Link to this definition"></a></dt>
-<dd><p>Percentage of the dataset to be used for the initial selection of the
-initial centers. Default is 10.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.init_type">
-<span class="sig-name descname"><span class="pre">init_type</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.init_type" title="Link to this definition"></a></dt>
-<dd><p>Type of initiator selection.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>{‘div_select’, ‘comp_sim’, ‘k-means++’, ‘random’}</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.labels">
-<span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.labels" title="Link to this definition"></a></dt>
-<dd><p>Labels of each point.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array-like of shape (n_samples,)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.centers">
-<span class="sig-name descname"><span class="pre">centers</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.centers" title="Link to this definition"></a></dt>
-<dd><p>Cluster centers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array-like of shape (n_clusters, n_features)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.n_iter">
-<span class="sig-name descname"><span class="pre">n_iter</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.n_iter" title="Link to this definition"></a></dt>
-<dd><p>Number of iterations run.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.cluster_dict">
-<span class="sig-name descname"><span class="pre">cluster_dict</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.cluster_dict" title="Link to this definition"></a></dt>
-<dd><p>Dictionary of the clusters and their corresponding indices.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.Properties">
-<span class="sig-name descname"><span class="pre">Properties</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.Properties" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">----------</span></span></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans">
-<span class="sig-name descname"><span class="pre">kmeans</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans" title="Link to this definition"></a></dt>
-<dd><p>Tuple of the labels, centers and number of iterations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans_info">
-<span class="sig-name descname"><span class="pre">kmeans_info</span></span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans_info" title="Link to this definition"></a></dt>
-<dd><p>Tuple of the labels, centers, number of iterations, scores and cluster dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__(data,</span> <span class="pre">n_clusters,</span> <span class="pre">metric,</span> <span class="pre">N_atoms,</span> <span class="pre">percentage=10,</span> <span class="pre">init_type='comp_sim'):</span></span></dt>
-<dd><p>Initializes the class.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI._check_init_type">
-<span class="sig-name descname"><span class="pre">_check_init_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI._check_init_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI._check_init_type" title="Link to this definition"></a></dt>
-<dd><p>Checks the ‘init_type’ attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI._check_percentage">
-<span class="sig-name descname"><span class="pre">_check_percentage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI._check_percentage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI._check_percentage" title="Link to this definition"></a></dt>
-<dd><p>Checks the ‘percentage’ attribute.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.initiate_kmeans">
-<span class="sig-name descname"><span class="pre">initiate_kmeans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.initiate_kmeans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.initiate_kmeans" title="Link to this definition"></a></dt>
-<dd><p>Initializes the k-means algorithm with the selected initiators.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.kmeans_clustering">
-<span class="sig-name descname"><span class="pre">kmeans_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initiators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.kmeans_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.kmeans_clustering" title="Link to this definition"></a></dt>
-<dd><p>Gets the k-means algorithm.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.get_kmeans_info">
-<span class="sig-name descname"><span class="pre">get_kmeans_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.get_kmeans_info" title="Link to this definition"></a></dt>
-<dd><p>Gets the k-means information.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.create_cluster_dict">
-<span class="sig-name descname"><span class="pre">create_cluster_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.create_cluster_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.create_cluster_dict" title="Link to this definition"></a></dt>
-<dd><p>Creates a dictionary of the clusters and their corresponding indices.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.write_centroids">
-<span class="sig-name descname"><span class="pre">write_centroids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centroids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.write_centroids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.write_centroids" title="Link to this definition"></a></dt>
-<dd><p>Writes the centroids of the k-means algorithm to a file.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.compute_scores">
-<span class="sig-name descname"><span class="pre">compute_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.compute_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.compute_scores" title="Link to this definition"></a></dt>
-<dd><p>Computes the Davies-Bouldin and Calinski-Harabasz scores.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Davies-Bouldin and Calinski-Harabasz scores.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">create_cluster_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.create_cluster_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
-<dd><p>Creates a dictionary with the labels as keys and the indices of the data as values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with the labels as keys and the indices of the data as values.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.cluster.nani.KmeansNANI.execute_kmeans_all">
-<span class="sig-name descname"><span class="pre">execute_kmeans_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.execute_kmeans_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.KmeansNANI.execute_kmeans_all" title="Link to this definition"></a></dt>
-<dd><p>Function to complete all steps of KMeans for all different ‘init_type’ options.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Labels, centers and number of iterations of the k-means algorithm.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">initiate_kmeans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.initiate_kmeans"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
-<dd><p>Initializes the k-means algorithm with the selected initiating method
-(comp_sim, div_select, k-means++, random, vanilla_kmeans++).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The initial centers for k-means of shape (n_clusters, n_features).</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">kmeans_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initiators</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.kmeans_clustering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
-<dd><p>Executes the k-means algorithm with the selected initiators.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>initiators</strong> (<em>{numpy.ndarray</em><em>, </em><em>'k-means++'</em><em>, </em><em>'random'}</em>) – Method for selecting initial centers.
-‘k-means++’ selects initial centers in a smart way to speed up convergence.
-‘random’ selects initial centers randomly.
-If ‘initiators’ is a numpy.ndarray, it must be of shape (n_clusters, n_features)</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Labels, centers and number of iterations of the k-means algorithm.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">write_centroids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#KmeansNANI.write_centroids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
-<dd><p>Writes the centroids of the k-means algorithm to a file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>centers</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_clusters</em><em>, </em><em>n_features</em><em>)</em>) – Centroids of the k-means algorithm.</p></li>
-<li><p><strong>n_iter</strong> (<em>int</em>) – Number of iterations of the k-means algorithm.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.cluster.nani.compute_scores">
-<span class="sig-prename descclassname"><span class="pre">mdance.cluster.nani.</span></span><span class="sig-name descname"><span class="pre">compute_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/cluster/nani.html#compute_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.cluster.nani.compute_scores" title="Link to this definition"></a></dt>
-<dd><p>Computes the Davies-Bouldin and Calinski-Harabasz scores.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>labels</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>,</em><em>)</em>) – Labels of the k-means algorithm.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Davies-Bouldin and Calinski-Harabasz scores.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-</section>
-<section id="prime">
-<h1>PRIME<a class="headerlink" href="#prime" title="Link to this heading"></a></h1>
-<section id="module-mdance.prime.rep_frames">
-<span id="mdance-prime-rep-frames"></span><h2>mdance.prime.rep_frames<a class="headerlink" href="#module-mdance.prime.rep_frames" title="Link to this heading"></a></h2>
-<p>This script aims to find the representative frame for each method below.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.prime.rep_frames.calculate_max_key">
-<span class="sig-prename descclassname"><span class="pre">mdance.prime.rep_frames.</span></span><span class="sig-name descname"><span class="pre">calculate_max_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/rep_frames.html#calculate_max_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.rep_frames.calculate_max_key" title="Link to this definition"></a></dt>
-<dd><p>Find the key with the max value</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.prime.rep_frames.gen_all_methods_max">
-<span class="sig-prename descclassname"><span class="pre">mdance.prime.rep_frames.</span></span><span class="sig-name descname"><span class="pre">gen_all_methods_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'v3_norm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted_by_frames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trim_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rep'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/rep_frames.html#gen_all_methods_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.rep_frames.gen_all_methods_max" title="Link to this definition"></a></dt>
-<dd><p>Generate the representative frame for each method.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>weighted_by_frames (bool, optional): Similarity is weighted by frames. Defaults to True.
-trim_frac (float, optional): . Defaults to 0.1.
-n_ary (str, optional): _description_. Defaults to “RR”.
-weight (str, optional): _description_. Defaults to ‘nw’.
-output_name (str, optional): _description_. Defaults to “rep”.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.prime.rep_frames.gen_one_method_max">
-<span class="sig-prename descclassname"><span class="pre">mdance.prime.rep_frames.</span></span><span class="sig-name descname"><span class="pre">gen_one_method_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'v3_norm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted_by_frames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trim_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rep'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/rep_frames.html#gen_one_method_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.rep_frames.gen_one_method_max" title="Link to this definition"></a></dt>
-<dd><p>Generate the representative frame for each method.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>weighted_by_frames (bool, optional): Similarity is weighted by frames. Defaults to True.
-trim_frac (float, optional): . Defaults to 0.1.
-n_ary (str, optional): _description_. Defaults to “RR”.
-weight (str, optional): _description_. Defaults to ‘nw’.
-output_name (str, optional): _description_. Defaults to “rep”.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-mdance.prime.sim_calc">
-<span id="mdance-prime-sim-calc"></span><h2>mdance.prime.sim_calc<a class="headerlink" href="#module-mdance.prime.sim_calc" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.FrameSimilarity">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mdance.prime.sim_calc.</span></span><span class="sig-name descname"><span class="pre">FrameSimilarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trim_frac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted_by_frames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nw'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#FrameSimilarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.FrameSimilarity" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A class to calculate the similarity between clusters.</p>
-<dl class="simple">
-<dt>Attributes:</dt><dd><p>c0 (numpy.ndarray): The dominant cluster.
-input_files (list): The list of cluster files.
-summary_file (str): The path to the summary file.
-n_clusters (int): The number of clusters to analyze.
-weighted_by_frames (bool): Whether to weight the similarity values by the number of frames in the cluster.
-n_ary (str): The n_ary similarity metric to use.
-weight (str): The weight to use for the similarity metric.</p>
-</dd>
-<dt>Methods:</dt><dd><p>calculate_pairwise: Calculates the similarity between the dominant cluster and all other clusters.
-calculate_union: Calculates the similarity between the dominant cluster and the union of all other clusters.
-_perform_calculation: Auxiliary function to calculate the similarity between the dominant cluster and a single cluster.
-calculate_medoid: Calculates the similarity between the dominant cluster and the cluster with the lowest average distance to the dominant cluster.
-calculate_outliers: Calculates the similarity between the dominant cluster and the cluster with the highest average distance to the dominant cluster.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.FrameSimilarity.calculate_medoid">
-<span class="sig-name descname"><span class="pre">calculate_medoid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#FrameSimilarity.calculate_medoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_medoid" title="Link to this definition"></a></dt>
-<dd><p>Calculates the pairwise similarity between every frame in c0 and the medoid of each cluster.</p>
-<dl class="simple">
-<dt>Notes:</dt><dd><p>Calculate the medoid of each cluster using the <cite>calculate_medoid</cite> function from <cite>esim</cite>.
-The pairwise similarity value between each frame in c0 and the medoid of each cluster is calculated
-using similarity indices.
-Calls the <cite>_perform_calculation</cite> aux function.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>False</cite>,</dt><dd><p>nw_dict (dict): unweighted average similarity values.</p>
-</dd>
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>True</cite>,</dt><dd><p>w_dict (dict): calls <cite>weight_dict</cite> function to weight similarity values.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.FrameSimilarity.calculate_outlier">
-<span class="sig-name descname"><span class="pre">calculate_outlier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#FrameSimilarity.calculate_outlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_outlier" title="Link to this definition"></a></dt>
-<dd><p>Calculates the pairwise similarity between every frame in c0 and the outlier of each cluster.</p>
-<dl class="simple">
-<dt>Notes:</dt><dd><p>Calculate the outlier of each cluster using the <cite>calculate_outlier</cite> function from <cite>esim</cite>.
-The pairwise similarity value between each frame in c0 and the outlier of each cluster is calculated
-using similarity indices.
-Calls the <cite>_perform_calculation</cite> auxillary function.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>False</cite>,</dt><dd><p>nw_dict (dict): unweighted average similarity values.</p>
-</dd>
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>True</cite>,</dt><dd><p>w_dict (dict): calls <cite>weight_dict</cite> function to weight similarity values.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise">
-<span class="sig-name descname"><span class="pre">calculate_pairwise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#FrameSimilarity.calculate_pairwise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise" title="Link to this definition"></a></dt>
-<dd><p>Calculates pairwise similarity between each cluster and all other clusters.</p>
-<dl>
-<dt>Notes:</dt><dd><dl class="simple">
-<dt>For each cluster file, loads the data and calculates the similarity score</dt><dd><p>with the top (c0) cluster.</p>
-</dd>
-<dt>The similarity score is calculated as the average of pairwise similarity</dt><dd><p>values between each frame in the cluster and the top c0 cluster.</p>
-</dd>
-</dl>
-<p>The esim index used is defined by the <cite>n_ary</cite> parameter.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>False</cite>,</dt><dd><p>nw_dict (dict): unweighted average similarity values.</p>
-</dd>
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>True</cite>,</dt><dd><p>w_dict (dict): calls <cite>weight_dict</cite> function to weight similarity values.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.FrameSimilarity.calculate_union">
-<span class="sig-name descname"><span class="pre">calculate_union</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#FrameSimilarity.calculate_union"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.FrameSimilarity.calculate_union" title="Link to this definition"></a></dt>
-<dd><p>Calculates the extended similarity between the union of frame in c0 and cluster k.</p>
-<dl>
-<dt>Notes:</dt><dd><p>For each cluster file, loads the data and calculates the extended similarity.
-The similarity score is calculated as the union similarity between</p>
-<blockquote>
-<div><p>all frames in the cluster and the top c0 cluster.</p>
-</div></blockquote>
-<p>The esim index used is defined by the <cite>n_ary</cite> parameter.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>False</cite>,</dt><dd><p>nw_dict (dict): unweighted average similarity values.</p>
-</dd>
-<dt>If <cite>frame_weighted_sim</cite> returns <cite>True</cite>,</dt><dd><p>w_dict (dict): calls <cite>weight_dict</cite> function to weight similarity values.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.prime.sim_calc.weight_dict">
-<span class="sig-prename descclassname"><span class="pre">mdance.prime.sim_calc.</span></span><span class="sig-name descname"><span class="pre">weight_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/prime/sim_calc.html#weight_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.prime.sim_calc.weight_dict" title="Link to this definition"></a></dt>
-<dd><p>Calculates frame-weighted similarity values by the number of frames in each cluster.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>file_path (str): Path to the json file containing the unweighted similarity values between each pair of clusters.
-summary_file (str): Path to the summary file containing the number of frames in each cluster (CPPTRAJ output).
-dict (dict): A dictionary containing the unweighted similarity values between each pair of clusters.
-n_clusters (int): The number of clusters to analyze. Default is <cite>None</cite>, analyze all clusters from summary file.</p>
-</dd>
-<dt>Returns:</dt><dd><p>dict: frame-weighted similarity values between each pair of clusters.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-</section>
-<section id="tools">
-<h1>Tools<a class="headerlink" href="#tools" title="Link to this heading"></a></h1>
 <section id="module-mdance.tools.bts">
-<span id="mdance-tools-bts"></span><h2>mdance.tools.bts<a class="headerlink" href="#module-mdance.tools.bts" title="Link to this heading"></a></h2>
+<span id="mdance-tools-bts-module"></span><h2>mdance.tools.bts module<a class="headerlink" href="#module-mdance.tools.bts" title="Link to this heading"></a></h2>
 <p>BTS: Behind the Scenes tools functions</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mdance.tools.bts.mean_sq_dev">
@@ -1041,8 +234,8 @@ n_clusters (int): The number of clusters to analyze. Default is <cite>None</cite
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id8">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">align_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#align_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">align_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#align_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
 <dd><p>Aligns trajectory using uniform or kronecker alignment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1065,8 +258,8 @@ n_clusters (int): The number of clusters to analyze. Default is <cite>None</cite
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id9">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_comp_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_comp_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_comp_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_comp_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
 <dd><p>Complementary similarity is calculates the similarity of a set
 without one object or observation using metrics in the extended comparison.
 The greater the complementary similarity, the more representative the object is.</p>
@@ -1088,8 +281,8 @@ The greater the complementary similarity, the more representative the object is.
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id10">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_medoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_medoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id2">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_medoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_medoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
 <dd><p>Calculates the medoid of a dataset using the metrics in extended comparison.
 Medoid is the most representative object of a set.</p>
 <dl class="field-list simple">
@@ -1110,8 +303,8 @@ Medoid is the most representative object of a set.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id11">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_outlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_outlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id3">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">calculate_outlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#calculate_outlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
 <dd><p>Calculates the outliers of a dataset using the metrics in extended comparison.
 Outliers are the least representative objects of a set.</p>
 <dl class="field-list simple">
@@ -1132,8 +325,8 @@ Outliers are the least representative objects of a set.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id12">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">diversity_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'medoid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#diversity_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id4">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">diversity_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'medoid'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#diversity_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
 <dd><p>Selects a diverse subset of the data using the complementary similarity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1230,8 +423,8 @@ See <cite>esim_modules.calculate_counters</cite> for more information.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id13">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">get_new_index_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_condensed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_from_n</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#get_new_index_n"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id13" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id5">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">get_new_index_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_condensed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_from_n</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#get_new_index_n"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
 <dd><p>Function to get the new index to add to the selected indices</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1260,8 +453,8 @@ See <cite>esim_modules.calculate_counters</cite> for more information.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id14">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">mean_sq_dev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#mean_sq_dev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id14" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id6">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">mean_sq_dev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#mean_sq_dev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
 <dd><p>O(N) Mean square deviation (MSD) calculation for n-ary objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1280,8 +473,8 @@ See <cite>esim_modules.calculate_counters</cite> for more information.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id15">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">msd_condensed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c_sum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sq_sum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#msd_condensed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id15" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id7">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">msd_condensed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c_sum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sq_sum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#msd_condensed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
 <dd><p>Condensed version of ‘mean_sq_dev’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1302,8 +495,8 @@ See <cite>esim_modules.calculate_counters</cite> for more information.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id16">
-<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">trim_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trimmed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comp_sim'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#trim_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id16" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="id8">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.bts.</span></span><span class="sig-name descname"><span class="pre">trim_outliers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_trimmed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'comp_sim'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/tools/bts.html#trim_outliers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
 <dd><p>Trims a desired percentage of outliers (most dissimilar) from the dataset
 by calculating largest complement similarity.</p>
 <dl class="field-list simple">
@@ -1334,7 +527,7 @@ However, if the criterion is ‘sim_to_medoid’, the highest indices are remove
 
 </section>
 <section id="module-mdance.tools.esim_modules">
-<span id="mdance-tools-esim-modules"></span><h2>mdance.tools.esim_modules<a class="headerlink" href="#module-mdance.tools.esim_modules" title="Link to this heading"></a></h2>
+<span id="mdance-tools-esim-modules-module"></span><h2>mdance.tools.esim_modules module<a class="headerlink" href="#module-mdance.tools.esim_modules" title="Link to this heading"></a></h2>
 <p>Miranda Quintana Group - University of Florida
 Extended Similarity Indices Modules</p>
 <p class="rubric">Notes</p>
@@ -1743,55 +936,8 @@ Only RR, JT, or SM are available. For other indexes use gen_sim_dict.</p></li>
 </dd></dl>
 
 </section>
-</section>
-<section id="outputs">
-<h1>Outputs<a class="headerlink" href="#outputs" title="Link to this heading"></a></h1>
-<section id="module-mdance.outputs.postprocess">
-<span id="mdance-outputs-postprocess"></span><h2>mdance.outputs.postprocess<a class="headerlink" href="#module-mdance.outputs.postprocess" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.outputs.postprocess.numpy_array_to_crd_traj">
-<span class="sig-prename descclassname"><span class="pre">mdance.outputs.postprocess.</span></span><span class="sig-name descname"><span class="pre">numpy_array_to_crd_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/outputs/postprocess.html#numpy_array_to_crd_traj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.outputs.postprocess.numpy_array_to_crd_traj" title="Link to this definition"></a></dt>
-<dd><p>Convert a numpy array to a AMBER CRD trajectory</p>
-<section id="parameters">
-<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
-<dl class="simple">
-<dt>array<span class="classifier">array_like of shape (n_samples, n_features)</span></dt><dd><p>The data to be converted.</p>
-</dd>
-<dt>num_columns<span class="classifier">int, optional</span></dt><dd><p>The number of columns per line. Defaults to 10.</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The string representation of the trajectory.</p>
-</dd>
-<dt class="field-even">rtype<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</section>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="mdance.outputs.postprocess.unnormalize_data">
-<span class="sig-prename descclassname"><span class="pre">mdance.outputs.postprocess.</span></span><span class="sig-name descname"><span class="pre">unnormalize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">norm_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/mdance/outputs/postprocess.html#unnormalize_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.outputs.postprocess.unnormalize_data" title="Link to this definition"></a></dt>
-<dd><p>Unnormalize data from 0 to 1 to the original range</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>norm_data</strong> (<em>array_like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – The normalized data.</p></li>
-<li><p><strong>min</strong> (<em>float</em>) – The minimum value of the original range.</p></li>
-<li><p><strong>max</strong> (<em>float</em>) – The maximum value of the original range.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The unnormalized data.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array_like of shape (n_samples, n_features)</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="module-mdance.tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mdance.tools" title="Link to this heading"></a></h2>
 </section>
 </section>
 
@@ -1799,8 +945,8 @@ Only RR, JT, or SM are available. For other indexes use gen_sim_dict.</p></li>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="cli.html" class="btn btn-neutral float-right" title="PRIME" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="mdance.prime.html" class="btn btn-neutral float-left" title="mdance.prime package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mdance.outputs.html" class="btn btn-neutral float-right" title="mdance.outputs package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
