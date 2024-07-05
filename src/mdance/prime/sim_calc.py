@@ -1,4 +1,4 @@
-from src.tools.esim_modules import SimilarityIndex, calc_medoid, calc_outlier
+from mdance.tools.esim_modules import SimilarityIndex, calc_medoid, calc_outlier
 import numpy as np
 import re
 import json

@@ -1,8 +1,6 @@
-import sys
-sys.path.insert(0, "../../")
 import numpy as np
-from src.modules.kmeansNANI.nani import KmeansNANI, compute_scores
-from src.tools.bts import extended_comparison
+from mdance.cluster.nani import KmeansNANI, compute_scores
+from mdance.tools.bts import extended_comparison
 import os
 
 # System info

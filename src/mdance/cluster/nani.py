@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.cluster import KMeans, kmeans_plusplus
 from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
-from src.tools.bts import diversity_selection, calculate_comp_sim
+from mdance.tools.bts import diversity_selection, calculate_comp_sim
 
 class KmeansNANI:
     """K-means algorithm with the N-Ary Natural Initialization (NANI).

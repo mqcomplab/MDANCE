@@ -1,0 +1,6 @@
+__version__ = '0.2.0'
+__author__ = 'Lexin Chen'
+__author_email__ = 'le.chen@ufl.edu'
+__description__ = 'a flexible n-ary clustering package for molecular dynamics trajectories.'
+__url__ = 'https://github.com/mqcomplab/MDANCE'
+__license__ = 'MIT'

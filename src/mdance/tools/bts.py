@@ -14,9 +14,9 @@ align_traj(data, N_atoms, align_method='uni')
 """
 import numpy as np
 import random
-from src.tools.esim_modules import gen_sim_dict
-from src.tools.isim_modules import gen_sim_dict
-from src.inputs.preprocess import gen_traj_numpy
+from mdance.tools.esim_modules import gen_sim_dict
+from mdance.tools.isim_modules import gen_sim_dict
+from mdance.inputs.preprocess import gen_traj_numpy
 import warnings
 from shapeGMMTorch import torch_align
 import MDAnalysis as mda

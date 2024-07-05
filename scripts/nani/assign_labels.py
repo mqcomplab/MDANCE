@@ -1,8 +1,6 @@
 import numpy as np
-import sys
-sys.path.insert(0, "../../")
-from src.modules.kmeansNANI.nani import KmeansNANI
-from src.tools.bts import extended_comparison, calculate_medoid
+from mdance.cluster.nani import KmeansNANI
+from mdance.tools.bts import extended_comparison, calculate_medoid
 import os
 
 # System info - EDIT THESE
@@ -65,6 +63,7 @@ if __name__ == '__main__':
     
     # Calculate population of each cluster
     with open(f'{output_dir}/summary_{n_clusters}.csv', 'w') as f:
-        f.write('# Cluster Index, Number of frames, Fraction out of total pixels\n')
+        f.write(f'# Number of clusters, {n_clusters}\n')
+        f.write('# Cluster Index, Fraction out of total pixels\n')
         for i, row in enumerate(np.bincount(labels)):
-            f.write(f'{i},{row},{row/len(labels)}\n')
+            f.write(f'{i},{row/len(labels)}\n')
