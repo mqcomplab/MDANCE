@@ -13,5 +13,5 @@ Python uses 0-based indexing, so the index will be 1 less than the actual frame 
 """
 import os
 
-os.system('python ../../src/modules/PRIME/rep_frames_cl.py -m union -s outputs \
-          -d normed_clusters -t 0.1 -i SM')
+os.system('python ../../src/mdance/cli/prime_rep.py -m union \
+          -s outputs -d normed_clusters -t 0.1 -i SM')
