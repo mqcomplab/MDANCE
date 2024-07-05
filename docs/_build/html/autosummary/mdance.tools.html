@@ -7,6 +7,7 @@
   <title>mdance.tools package &mdash; MDANCE  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d8b1e08c" />
 
   
   <!--[if lt IE 9]>
@@ -754,9 +755,101 @@ SM: Sokal-Michener, SSn: Sokal-Sneath n</p>
 </section>
 <section id="module-mdance.tools.isim_modules">
 <span id="mdance-tools-isim-modules-module"></span><h2>mdance.tools.isim_modules module<a class="headerlink" href="#module-mdance.tools.isim_modules" title="Link to this heading"></a></h2>
-</section>
-<section id="module-mdance.tools">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mdance.tools" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.calculate_comp_sim">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">calculate_comp_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#calculate_comp_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.calculate_comp_sim" title="Link to this definition"></a></dt>
+<dd><p>Calculate the complementary similarity for RR, JT, or SM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Array of arrays, each sub-array contains the binary object</p></li>
+<li><p><strong>n_objects</strong> (<em>int</em>) – Number of objects, only necessary if the column wize sum is the input data.</p></li>
+<li><p><strong>n_ary</strong> (<em>str</em>) – String with the initials of the desired similarity index to calculate the iSIM from.
+Only RR, JT, or SM are available. For other indexes use gen_sim_dict.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>comp_sims</strong> – 1D array with the complementary similarities of all the molecules in the set.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>nd.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.calculate_counters">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">calculate_counters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#calculate_counters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.calculate_counters" title="Link to this definition"></a></dt>
+<dd><p>Calculate 1-similarity, 0-similarity, and dissimilarity counters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Array of arrays, each sub-array contains the binary object
+OR Array with the columnwise sum, if so specify n_objects</p></li>
+<li><p><strong>n_objects</strong> (<em>int</em>) – Number of objects, only necessary if the column wize sum is the input data.</p></li>
+<li><p><strong>k</strong> (<em>int</em>) – Integer indicating the 1/k power used to approximate the average of the
+similarity values elevated to 1/k.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>counters</strong> – Dictionary with the weighted and non-weighted counters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.calculate_isim">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">calculate_isim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#calculate_isim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.calculate_isim" title="Link to this definition"></a></dt>
+<dd><p>Calculate the iSIM index for RR, JT, or SM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – Array of arrays, each sub-array contains the binary object
+OR Array with the columnwise sum, if so specify n_objects</p></li>
+<li><p><strong>n_objects</strong> (<em>int</em>) – Number of objects, only necessary if the column wize sum is the input data.</p></li>
+<li><p><strong>n_ary</strong> (<em>str</em>) – String with the initials of the desired similarity index to calculate the iSIM from.
+Only RR, JT, or SM are available. For other indexes use gen_sim_dict.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>isim</strong> – iSIM index for the specified similarity index.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.calculate_medoid">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">calculate_medoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#calculate_medoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.calculate_medoid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.calculate_outlier">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">calculate_outlier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RR'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#calculate_outlier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.calculate_outlier" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mdance.tools.isim_modules.gen_sim_dict">
+<span class="sig-prename descclassname"><span class="pre">mdance.tools.isim_modules.</span></span><span class="sig-name descname"><span class="pre">gen_sim_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mdance/tools/isim_modules.html#gen_sim_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mdance.tools.isim_modules.gen_sim_dict" title="Link to this definition"></a></dt>
+<dd><p>Calculate a dictionary containing all the available similarity indexes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>counters.</strong> (<em>See calculate</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>sim_dict</strong> – Dictionary with the weighted and non-weighted similarity indexes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 

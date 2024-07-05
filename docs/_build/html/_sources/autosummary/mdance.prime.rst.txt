@@ -20,10 +20,4 @@ mdance.prime.sim\_calc module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: mdance.prime
-   :members:
-   :undoc-members:
-   :show-inheritance:
