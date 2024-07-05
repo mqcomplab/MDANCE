@@ -102,7 +102,7 @@
 <span class="kn">import</span> <span class="nn">glob</span>
 
 <div class="viewcode-block" id="FrameSimilarity">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.FrameSimilarity">[docs]</a>
 <span class="k">class</span> <span class="nc">FrameSimilarity</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A class to calculate the similarity between clusters.</span>
 <span class="sd">    </span>
@@ -157,7 +157,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sims</span> <span class="o">=</span> <span class="p">{}</span>
     
 <div class="viewcode-block" id="FrameSimilarity.calculate_pairwise">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.FrameSimilarity.calculate_pairwise">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_pairwise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates pairwise similarity between each cluster and all other clusters.</span>
 
@@ -197,7 +197,7 @@
 
 
 <div class="viewcode-block" id="FrameSimilarity.calculate_union">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_union">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.FrameSimilarity.calculate_union">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_union</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Calculates the extended similarity between the union of frame in c0 and cluster k.</span>
 
@@ -257,7 +257,7 @@
         <span class="k">return</span> <span class="n">nw_dict</span>
     
 <div class="viewcode-block" id="FrameSimilarity.calculate_medoid">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_medoid">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.FrameSimilarity.calculate_medoid">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_medoid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the pairwise similarity between every frame in c0 and the medoid of each cluster.</span>
 
@@ -281,7 +281,7 @@
 
         
 <div class="viewcode-block" id="FrameSimilarity.calculate_outlier">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.FrameSimilarity.calculate_outlier">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.FrameSimilarity.calculate_outlier">[docs]</a>
     <span class="k">def</span> <span class="nf">calculate_outlier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the pairwise similarity between every frame in c0 and the outlier of each cluster.</span>
 
@@ -337,7 +337,7 @@
     <span class="k">return</span> <span class="n">total_data</span>
 
 <div class="viewcode-block" id="weight_dict">
-<a class="viewcode-back" href="../../../autosummary/mdance.prime.html#mdance.prime.sim_calc.weight_dict">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.prime.sim_calc.weight_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">weight_dict</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">summary_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_clusters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates frame-weighted similarity values by the number of frames in each cluster.</span>
 

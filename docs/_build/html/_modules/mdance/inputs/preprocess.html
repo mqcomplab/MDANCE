@@ -102,7 +102,7 @@
 <span class="kn">import</span> <span class="nn">re</span>
 
 <div class="viewcode-block" id="gen_traj_numpy">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.gen_traj_numpy">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.gen_traj_numpy">[docs]</a>
 <span class="k">def</span> <span class="nf">gen_traj_numpy</span><span class="p">(</span><span class="n">prmtopFileName</span><span class="p">,</span> <span class="n">trajFileName</span><span class="p">,</span> <span class="n">atomSel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reads in a trajectory and returns a 2D numpy array of the coordinates </span>
 <span class="sd">    of the selected atoms.</span>
@@ -144,7 +144,7 @@
 
 
 <div class="viewcode-block" id="Normalizer">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.Normalizer">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.Normalizer">[docs]</a>
 <span class="k">class</span> <span class="nc">Normalizer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for normalizing data from cpptraj CRD/MDCRD files.</span>
 
@@ -224,28 +224,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">c_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v3_norm</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">v3_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     
 <div class="viewcode-block" id="Normalizer.get_min_max">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.Normalizer.get_min_max">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.Normalizer.get_min_max">[docs]</a>
     <span class="k">def</span> <span class="nf">get_min_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the minimum and maximum values of the input data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg</span></div>
 
     
 <div class="viewcode-block" id="Normalizer.get_v2_norm">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.Normalizer.get_v2_norm">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.Normalizer.get_v2_norm">[docs]</a>
     <span class="k">def</span> <span class="nf">get_v2_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the &#39;v2&#39; normalized data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2_norm</span></div>
 
     
 <div class="viewcode-block" id="Normalizer.get_v3_norm">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.Normalizer.get_v3_norm">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.Normalizer.get_v3_norm">[docs]</a>
     <span class="k">def</span> <span class="nf">get_v3_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the &#39;v3&#39; normalized data.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">v3_norm</span></div>
 
     
 <div class="viewcode-block" id="Normalizer.get_c_total">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.Normalizer.get_c_total">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.Normalizer.get_c_total">[docs]</a>
     <span class="k">def</span> <span class="nf">get_c_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the &#39;c_total&#39; values.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c_total</span></div>
@@ -253,7 +253,7 @@
 
 
 <div class="viewcode-block" id="read_cpptraj">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.read_cpptraj">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.read_cpptraj">[docs]</a>
 <span class="k">def</span> <span class="nf">read_cpptraj</span><span class="p">(</span><span class="n">break_line</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">avg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read multiple AMBER CRD files to convert to numpy ndarray formatting and normalize the data.</span>
 <span class="sd">    </span>
@@ -309,7 +309,7 @@
 
 
 <div class="viewcode-block" id="normalize_file">
-<a class="viewcode-back" href="../../../autosummary/mdance.inputs.html#mdance.inputs.preprocess.normalize_file">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.inputs.preprocess.normalize_file">[docs]</a>
 <span class="k">def</span> <span class="nf">normalize_file</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">break_line</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">norm_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a single file and output the normalized data to a new file.</span>
 <span class="sd">    </span>

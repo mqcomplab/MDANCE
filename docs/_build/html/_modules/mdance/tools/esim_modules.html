@@ -108,7 +108,7 @@
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
 
 <div class="viewcode-block" id="calculate_counters">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.calculate_counters">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.calculate_counters">[docs]</a>
 <span class="k">def</span> <span class="nf">calculate_counters</span><span class="p">(</span><span class="n">c_total</span><span class="p">,</span> <span class="n">n_objects</span><span class="p">,</span> <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate 1-similarity, 0-similarity, and dissimilarity counters</span>
 
@@ -213,7 +213,7 @@
 
     
 <div class="viewcode-block" id="gen_sim_dict">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.gen_sim_dict">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.gen_sim_dict">[docs]</a>
 <span class="k">def</span> <span class="nf">gen_sim_dict</span><span class="p">(</span><span class="n">c_total</span><span class="p">,</span> <span class="n">n_objects</span><span class="p">,</span> <span class="n">c_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="s2">&quot;fraction&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a dictionary with the similarity indices</span>
 <span class="sd">    </span>
@@ -270,7 +270,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex">[docs]</a>
 <span class="k">class</span> <span class="nc">SimilarityIndex</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">n_objects</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">c_threshold</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">,</span> 
                  <span class="n">w_factor</span> <span class="o">=</span> <span class="s1">&#39;fraction&#39;</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="n">return_dict</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
@@ -303,7 +303,7 @@
          <span class="s1">&#39;nw_nw&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RR&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rr_nw_nw</span><span class="p">,</span> <span class="s1">&#39;SM&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sm_nw_nw</span><span class="p">}}</span>
    
 <div class="viewcode-block" id="SimilarityIndex.__call__">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.__call__">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.__call__">[docs]</a>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The default method to be called when the class is instantiated.</span>
 <span class="sd">        </span>
@@ -322,7 +322,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.gen_sim_dict">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.gen_sim_dict">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.gen_sim_dict">[docs]</a>
     <span class="k">def</span> <span class="nf">gen_sim_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates a dictionary of all similarity indices.</span>
@@ -335,7 +335,7 @@
     <span class="c1"># Calculate for individual Index Functions</span>
     <span class="c1"># Weighted Indices</span>
 <div class="viewcode-block" id="SimilarityIndex.ac_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ac_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ac_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ac_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ac_w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">]</span><span class="o">/</span>
                                             <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]))</span>
@@ -343,7 +343,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.bub_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.bub_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.bub_w">[docs]</a>
     <span class="k">def</span> <span class="nf">bub_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">bub_w</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">])</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">])</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -351,7 +351,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct1_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct1_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct1_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ct1_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct1_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]))</span>
@@ -359,7 +359,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct2_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct2_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct2_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ct2_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct2_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]))</span>
@@ -367,7 +367,7 @@
 
     
 <div class="viewcode-block" id="SimilarityIndex.ct3_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct3_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct3_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ct3_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct3_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]))</span>
@@ -375,7 +375,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct4_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct4_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct4_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ct4_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct4_w</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">]))</span>
@@ -383,7 +383,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.fai_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.fai_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.fai_w">[docs]</a>
     <span class="k">def</span> <span class="nf">fai_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">fai_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">])</span>
@@ -391,7 +391,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.gle_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.gle_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.gle_w">[docs]</a>
     <span class="k">def</span> <span class="nf">gle_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">gle_w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -399,7 +399,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ja_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ja_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ja_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ja_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ja_w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -407,7 +407,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ja0_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ja0_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ja0_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ja0_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ja0_w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -415,7 +415,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.jt_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.jt_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.jt_w">[docs]</a>
     <span class="k">def</span> <span class="nf">jt_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">jt_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -423,7 +423,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.rt_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.rt_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.rt_w">[docs]</a>
     <span class="k">def</span> <span class="nf">rt_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">rt_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -431,7 +431,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.rr_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.rr_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.rr_w">[docs]</a>
     <span class="k">def</span> <span class="nf">rr_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">rr_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">])</span>
@@ -439,7 +439,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.sm_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.sm_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.sm_w">[docs]</a>
     <span class="k">def</span> <span class="nf">sm_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">sm_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">])</span>
@@ -447,7 +447,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ss1_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ss1_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ss1_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ss1_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ss1_w</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">])</span>
@@ -455,7 +455,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ss2_w">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ss2_w">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ss2_w">[docs]</a>
     <span class="k">def</span> <span class="nf">ss2_w</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ss2_w</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span>
@@ -464,7 +464,7 @@
 
     <span class="c1"># Non-Weighted Indices</span>
 <div class="viewcode-block" id="SimilarityIndex.ac_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ac_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ac_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ac_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ac_nw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">]</span><span class="o">/</span>
                                             <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]))</span>
@@ -472,7 +472,7 @@
 
     
 <div class="viewcode-block" id="SimilarityIndex.bub_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.bub_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.bub_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">bub_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">bub_nw</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">])</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">])</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -480,7 +480,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct1_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct1_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct1_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ct1_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct1_nw</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]))</span>
@@ -488,7 +488,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct2_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct2_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct2_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ct2_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct2_nw</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_p&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_dis&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]))</span>
@@ -496,7 +496,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct3_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct3_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct3_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ct3_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct3_nw</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]))</span>
@@ -504,7 +504,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ct4_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ct4_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ct4_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ct4_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ct4_nw</span> <span class="o">=</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]))</span><span class="o">/</span>\
                 <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">]))</span>
@@ -512,7 +512,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.fai_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.fai_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.fai_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">fai_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">fai_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_d&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
@@ -520,7 +520,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.gle_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.gle_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.gle_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">gle_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">gle_nw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -528,7 +528,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ja_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ja_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ja_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ja_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ja_nw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -536,7 +536,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ja0_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ja0_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ja0_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ja0_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ja0_nw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_sim&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -544,7 +544,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.jt_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.jt_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.jt_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">jt_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">jt_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -552,7 +552,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.rt_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.rt_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.rt_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">rt_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">rt_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -560,7 +560,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.rr_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.rr_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.rr_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">rr_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">rr_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
@@ -568,7 +568,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.sm_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.sm_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.sm_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">sm_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">sm_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
@@ -576,7 +576,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ss1_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ss1_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ss1_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ss1_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ss1_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;w_a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_dis&#39;</span><span class="p">])</span>
@@ -584,7 +584,7 @@
 
 
 <div class="viewcode-block" id="SimilarityIndex.ss2_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.ss2_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.ss2_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">ss2_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ss2_nw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_w_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_sim&#39;</span><span class="p">])</span>
@@ -593,7 +593,7 @@
     
     <span class="c1"># Non-Weighted Indices for Denominator and Numerator</span>
 <div class="viewcode-block" id="SimilarityIndex.rr_nw_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.rr_nw_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.rr_nw_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">rr_nw_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">rr_nw_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
@@ -601,7 +601,7 @@
 
     
 <div class="viewcode-block" id="SimilarityIndex.sm_nw_nw">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.SimilarityIndex.sm_nw_nw">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.SimilarityIndex.sm_nw_nw">[docs]</a>
     <span class="k">def</span> <span class="nf">sm_nw_nw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">sm_nw_nw</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;total_sim&#39;</span><span class="p">])</span><span class="o">/</span>\
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counters</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
@@ -610,7 +610,7 @@
 
 
 <div class="viewcode-block" id="calc_medoid">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.calc_medoid">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.calc_medoid">[docs]</a>
 <span class="k">def</span> <span class="nf">calc_medoid</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">w_factor</span> <span class="o">=</span> <span class="s1">&#39;fraction&#39;</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="n">c_total</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the medoid of a set</span>
 <span class="sd">    </span>
@@ -651,7 +651,7 @@
 
 
 <div class="viewcode-block" id="calc_outlier">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.calc_outlier">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.calc_outlier">[docs]</a>
 <span class="k">def</span> <span class="nf">calc_outlier</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">w_factor</span> <span class="o">=</span> <span class="s1">&#39;fraction&#39;</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="n">c_total</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the medoid of a set</span>
 <span class="sd">    Arguments </span>
@@ -691,7 +691,7 @@
 
 
 <div class="viewcode-block" id="calc_comp_sim">
-<a class="viewcode-back" href="../../../autosummary/mdance.tools.html#mdance.tools.esim_modules.calc_comp_sim">[docs]</a>
+<a class="viewcode-back" href="../../../api.html#mdance.tools.esim_modules.calc_comp_sim">[docs]</a>
 <span class="k">def</span> <span class="nf">calc_comp_sim</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">c_threshold</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">n_ary</span> <span class="o">=</span> <span class="s1">&#39;RR&#39;</span><span class="p">,</span> <span class="n">w_factor</span> <span class="o">=</span> <span class="s1">&#39;fraction&#39;</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="n">c_total</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the complementary similarity for all elements&quot;&quot;&quot;</span>
 
