@@ -14,19 +14,19 @@ MDANCE is a flexible *n*-ary clustering package for all applications (e.g. molec
 
 .. toctree::
    :maxdepth: 2
-   :caption: MDANCE's API::
+   :caption: MDANCE's API:
    
    api
 
 .. toctree::
    :maxdepth: 2
-   :caption: MDANCE's CLI::
+   :caption: MDANCE's CLI:
    
    cli
 
 .. toctree::
    :maxdepth: 2
-   :caption: MDANCE's Tutorials::
+   :caption: MDANCE's Tutorials:
    
    nani
 
