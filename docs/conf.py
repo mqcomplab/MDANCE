@@ -50,6 +50,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
+    'myst_parser',
 ]
 
 autosummary_generate = True

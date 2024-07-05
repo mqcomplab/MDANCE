@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRIME Tutorial &mdash; MDANCE  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MDANCE
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's API::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Behind the scenes Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#inputs">Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#clustering">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#prime">PRIME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's CLI::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">PRIME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nani.html"><em>k</em>-means NANI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nani.html#table-of-contents">Table of Contents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MDANCE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PRIME Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/prime.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="prime-tutorial">
+<h1>PRIME Tutorial<a class="headerlink" href="#prime-tutorial" title="Link to this heading"></a></h1>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview"><span class="xref myst">Overview</span></a></p></li>
+<li><p><a class="reference internal" href="#tutorial"><span class="xref myst">Tutorial</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#1-cluster-trajectories"><span class="xref myst">1. Cluster Trajectories</span></a></p></li>
+<li><p><a class="reference internal" href="#2-cluster-normalization"><span class="xref myst">2. Cluster Normalization</span></a></p></li>
+<li><p><a class="reference internal" href="#3-similarity-calculations"><span class="xref myst">3. Similarity Calculations</span></a></p></li>
+<li><p><a class="reference internal" href="#4-representative-frames"><span class="xref myst">4. Representative Frames</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#further-reading"><span class="xref myst">Further Reading</span></a></p></li>
+</ul>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This clustering tutorial is meant for datasets Molecular Dynamics Trajectory. PRIME assumes a MD trajectory that has a well-sampled ensemble of conformations. The PRIME algorithm predicts the native structure of a protein from simulation or clustering data. These methods perfectly mapped all the structural motifs in the studied systems and required unprecedented linear scaling.</p>
+</section>
+<section id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h2>
+<p>The following tutorial will guide you through the process of determining the native structure of a biomolecule using the PRIME algorithm. If you do not have clustered data. Please refer to other clustering algorithms such as <a class="reference internal" href="nani.html"><span class="std std-doc">NANI</span></a> to cluster your data. If you already have clustered data, please skip to step 2.</p>
+<section id="cluster-trajectories">
+<h3>1. Cluster Trajectories<a class="headerlink" href="#cluster-trajectories" title="Link to this heading"></a></h3>
+<p><a class="reference download internal" download="" href="_downloads/6831637e12a21b105fc9225b4a236b72/postprocessing.ipynb"><span class="xref download myst">scripts/outputs/postprocessing.ipynb</span></a> will use the indices from last step to extract the designated frames from the original trajectory for each cluster. This will require a cluster assignment file from the clustering algorithm.</p>
+</section>
+<section id="cluster-normalization">
+<h3>2. Cluster Normalization<a class="headerlink" href="#cluster-normalization" title="Link to this heading"></a></h3>
+<p><a class="reference download internal" download="" href="_downloads/5931ba57ce98f4ed6c84d81b297c8b4f/normalize.py"><span class="xref download myst">scripts/prime/normalize.py</span></a> With already clustered data, this script will normalize the trajectory data between $[0,1]$ using the Min-Max Normalization.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># System info - EDIT THESE
+input_top = &#39;../../examples/md/aligned_tau.pdb&#39;
+unnormed_cluster_dir = &#39;../outputs/labels_*&#39;
+output_dir = &#39;normed_clusters&#39;
+output_base_name = &#39;normed_clusttraj&#39;
+atomSelection = &#39;resid 3 to 12 and name N CA C O H&#39;
+n_clusters = 6
+</pre></div>
+</div>
+<section id="inputs">
+<h4>Inputs<a class="headerlink" href="#inputs" title="Link to this heading"></a></h4>
+<section id="system-info">
+<h5>System info<a class="headerlink" href="#system-info" title="Link to this heading"></a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">input_top</span></code> is the topology file used in the clustering. <br>
+<code class="docutils literal notranslate"><span class="pre">unnormed_cluster_dir</span></code> is the directory where the clustering files are located from step 3. <br>
+<code class="docutils literal notranslate"><span class="pre">output_dir</span></code> is the directory where the normalized clustering files will be saved. <br>
+<code class="docutils literal notranslate"><span class="pre">output_base_name</span></code> is the base name for the output files. <br>
+<code class="docutils literal notranslate"><span class="pre">atomSelection</span></code> is the atom selection used in the clustering. <br>
+<code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> is the number of clusters used in the PRIME. If number less than total number of cluster, it will take top <em>n</em> number of clusters. <br></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>normalize.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="outputs">
+<h4>Outputs<a class="headerlink" href="#outputs" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">normed_clusttraj.c*.npy</span></code> files, normalized clustering files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normed_data.npy</span></code>, appended all normed files together.</p></li>
+</ol>
+</section>
+</section>
+<section id="similarity-calculations">
+<h3>3. Similarity Calculations<a class="headerlink" href="#similarity-calculations" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">prime_sim</span></code> generates a similarity dictionary from running PRIME.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h</span></code> - for help with the argument options.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-m</span></code> - methods, pairwise, union, medoid, outlier (<em>required</em>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-n</span></code> - number of clusters (<em>required</em>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span></code> - similarity index, RR or SM (<em>required</em>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span></code> - Fraction of outliers to trim in decimals (default is None).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-w</span></code> - Weighing clusters by frames it contains (default is True).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-d</span></code> - directory where the <code class="docutils literal notranslate"><span class="pre">normed_clusttraj.c*.npy</span></code> files are located (<em>required</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span></code> - location where <code class="docutils literal notranslate"><span class="pre">summary</span></code> file is located with population of each cluster (<em>required</em>)</p></li>
+</ul>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prime_sim<span class="w"> </span>-m<span class="w"> </span>union<span class="w"> </span>-n<span class="w"> </span><span class="m">6</span><span class="w"> </span>-i<span class="w"> </span>SM<span class="w"> </span>-t<span class="w"> </span><span class="m">0</span>.1<span class="w">  </span>-d<span class="w"> </span>normed_clusters<span class="w"> </span>-s<span class="w"> </span>../nani/outputs/summary_6.csv
+</pre></div>
+</div>
+<p>To generate a similarity dictionary using data in <a class="reference internal" href="#../scripts/prime/normed_clusters"><span class="xref myst">normed_clusters</span></a> (make sure you are in the prime directory) using the union method (2.2 in <em>Fig 2</em>) and Sokal Michener index. In addition, 10% of the outliers were trimmed. You can either <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">exec_similarity.py</span></code> or run example above.</p>
+</section>
+<section id="id1">
+<h4>Outputs<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">w_union_SM_t10.txt</span></code> file with the similarity dictionary.
+The result is a dictionary organized as followes:
+Keys are frame #. Values are [cluster 1 similarity, cluster #2 similarity, …, average similarity of all clusters].</p>
+</section>
+</section>
+<section id="representative-frames">
+<h3>4. Representative Frames<a class="headerlink" href="#representative-frames" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">prime_rep</span></code> will determine the native structure of the protein using the similarity dictionary generated in step 5.</p>
+<p>-<code class="docutils literal notranslate"><span class="pre">h</span></code> - for help with the argument options.
+-<code class="docutils literal notranslate"><span class="pre">m</span></code> - methods (for one method, None for all methods)
+-<code class="docutils literal notranslate"><span class="pre">s</span></code> - folder to access for <code class="docutils literal notranslate"><span class="pre">w_union_SM_t10.txt</span></code> file
+-<code class="docutils literal notranslate"><span class="pre">i</span></code> - similarity index (<em>required</em>)
+-<code class="docutils literal notranslate"><span class="pre">t</span></code> - Fraction of outliers to trim in decimals (default is None).
+-<code class="docutils literal notranslate"><span class="pre">d</span></code> - directory where the <code class="docutils literal notranslate"><span class="pre">normed_clusttraj.c*</span></code> files are located (required if method is None)</p>
+<section id="id2">
+<h4>Example<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prime_rep<span class="w"> </span>-m<span class="w"> </span>union<span class="w"> </span>-s<span class="w"> </span>outputs<span class="w"> </span>-d<span class="w"> </span>normed_clusters<span class="w"> </span>-t<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>-i<span class="w"> </span>SM
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h4>Outputs<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">w_rep_SM_t10_union.txt</span></code> file with the representative frames index.</p>
+</section>
+</section>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Link to this heading"></a></h2>
+<p>For more information on the PRIME algorithm, please refer to the <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1">PRIME paper</a>.</p>
+<p>Please Cite</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">chen_protein_2024</span><span class="p">,</span>
+<span class="w">	</span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Protein retrieval via integrative molecular ensembles ({PRIME}) through extended similarity indices}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://www.biorxiv.org/content/early/2024/03/21/2024.03.19.585783}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">doi</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{10.1101/2024.03.19.585783}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{bioRxiv : the preprint server for biology}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Chen, Lexin and Mondal, Arup and Perez, Alberto and Miranda-Quintana, Ramon Alain}</span><span class="p">,</span>
+<span class="w">	</span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2024}</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><img src="../img/methods.jpg" alt="methods" width="500" height=auto align="center"></a></p>
+<p><em>Fig 2. Six techniques of protein refinement. Blue is top cluster.</em></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, mqcomplab. Docs based on the Computational Molecular Science Python Cookiecutter version 1.1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mdance.tools.bts &mdash; MDANCE  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            MDANCE
+          </a>
+              <div class="version">
+                0.2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Molecular Dynamics Analysis with <em>N</em>-ary Clustering Ensembles (MDANCE)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's API::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Behind the scenes Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#inputs">Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#clustering">Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html#prime">PRIME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's CLI::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">PRIME</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">MDANCE's Tutorials::</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../nani.html"><em>k</em>-means NANI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nani.html#table-of-contents">Table of Contents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MDANCE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mdance.tools.bts</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mdance.tools.bts</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;BTS: Behind the Scenes tools functions</span>
+
+<span class="sd">Methods</span>
+<span class="sd">-------</span>
+<span class="sd">mean_sq_dev(matrix, N_atoms)</span>
+<span class="sd">msd_condensed(c_sum, sq_sum, N, N_atoms)</span>
+<span class="sd">calculate_comp_sim(matrix, metric, N_atoms)</span>
+<span class="sd">calculate_medoid(matrix, metric, N_atoms)</span>
+<span class="sd">calculate_outlier(matrix, metric, N_atoms)</span>
+<span class="sd">trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion=&#39;comp_sim&#39;)</span>
+<span class="sd">diversity_selection(matrix, percentage: int, metric, start=&#39;medoid&#39;, N_atoms=1)</span>
+<span class="sd">get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwargs)</span>
+<span class="sd">align_traj(data, N_atoms, align_method=&#39;uni&#39;)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">mdance.tools.esim_modules</span> <span class="kn">import</span> <span class="n">gen_sim_dict</span>
+<span class="kn">from</span> <span class="nn">mdance.tools.isim_modules</span> <span class="kn">import</span> <span class="n">gen_sim_dict</span>
+<span class="kn">from</span> <span class="nn">mdance.inputs.preprocess</span> <span class="kn">import</span> <span class="n">gen_traj_numpy</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">shapeGMMTorch</span> <span class="kn">import</span> <span class="n">torch_align</span>
+<span class="kn">import</span> <span class="nn">MDAnalysis</span> <span class="k">as</span> <span class="nn">mda</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="mean_sq_dev">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.mean_sq_dev">[docs]</a>
+<span class="k">def</span> <span class="nf">mean_sq_dev</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">N_atoms</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;O(N) Mean square deviation (MSD) calculation for n-ary objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    N_atoms : int</span>
+<span class="sd">        Number of atoms in the system.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        normalized MSD value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">sq_data</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">c_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sq_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">msd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">sq_sum</span> <span class="o">-</span> <span class="n">c_sum</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">norm_msd</span> <span class="o">=</span> <span class="n">msd</span> <span class="o">/</span> <span class="n">N_atoms</span>
+    <span class="k">return</span> <span class="n">norm_msd</span></div>
+
+
+<div class="viewcode-block" id="msd_condensed">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.msd_condensed">[docs]</a>
+<span class="k">def</span> <span class="nf">msd_condensed</span><span class="p">(</span><span class="n">c_sum</span><span class="p">,</span> <span class="n">sq_sum</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">N_atoms</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Condensed version of &#39;mean_sq_dev&#39;.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    c_sum : array-like of shape (n_features,)</span>
+<span class="sd">        Column sum of the data. </span>
+<span class="sd">    sq_sum : array-like of shape (n_features,)</span>
+<span class="sd">        Column sum of the squared data.</span>
+<span class="sd">    N : int</span>
+<span class="sd">        Number of data points.</span>
+<span class="sd">    N_atoms : int</span>
+<span class="sd">        Number of atoms in the system.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        normalized MSD value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">msd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">sq_sum</span> <span class="o">-</span> <span class="n">c_sum</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">norm_msd</span> <span class="o">=</span> <span class="n">msd</span> <span class="o">/</span> <span class="n">N_atoms</span>
+    <span class="k">return</span> <span class="n">norm_msd</span></div>
+
+
+<span class="k">def</span> <span class="nf">extended_comparison</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;MSD&#39;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the extended comparison of a dataset. </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : {array-like of shape (n_samples, n_features), tuple/list of length 1 or 2}</span>
+<span class="sd">        Input data matrix.</span>
+<span class="sd">        For &#39;full&#39;, use numpy.ndarray of shape (n_samples, n_features).</span>
+<span class="sd">        For &#39;condensed&#39;, use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).</span>
+<span class="sd">    data_type : {&#39;full&#39;, &#39;condensed&#39;}, optional</span>
+<span class="sd">        Type of data inputted. Defaults to &#39;full&#39;.</span>
+<span class="sd">        Options:</span>
+<span class="sd">            - &#39;full&#39;: Use numpy.ndarray of shape (n_samples, n_features).</span>
+<span class="sd">            - &#39;condensed&#39;: Use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;BUB&#39;, &#39;Fai&#39;, &#39;Gle&#39;, &#39;Ja&#39;, &#39;JT&#39;, &#39;RT&#39;, &#39;RR&#39;, &#39;SM&#39;, &#39;SS1&#39;, &#39;SS2&#39;}</span>
+<span class="sd">        Metric to use for the extended comparison. Defaults to &#39;MSD&#39;.</span>
+<span class="sd">        Available metrics:</span>
+<span class="sd">        Mean square deviation (MSD), Bhattacharyya&#39;s U coefficient (BUB),</span>
+<span class="sd">        Faiman&#39;s coefficient (Fai), Gleason&#39;s coefficient (Gle),</span>
+<span class="sd">        Jaccard&#39;s coefficient (Ja), Jaccard-Tanimoto coefficient (JT),</span>
+<span class="sd">        Rogers-Tanimoto coefficient (RT), Russell-Rao coefficient (RR),</span>
+<span class="sd">        Simpson&#39;s coefficient (SM), Sokal-Sneath 1 coefficient (SS1),</span>
+<span class="sd">        Sokal-Sneath 2 coefficient (SS2).</span>
+<span class="sd">    N : int, optional</span>
+<span class="sd">        Number of data points. Defaults to None.</span>
+<span class="sd">    N_atoms : int, optional</span>
+<span class="sd">        Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    **kwargs</span>
+<span class="sd">        c_threshold : int, optional</span>
+<span class="sd">            Coincidence threshold. Defaults to None.</span>
+<span class="sd">        w_factor : {&#39;fraction&#39;, &#39;power_n&#39;}, optional</span>
+<span class="sd">            Type of weight function that will be used. Defaults to &#39;fraction&#39;.</span>
+<span class="sd">            See `esim_modules.calculate_counters` for more information.</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If data is not a numpy.ndarray or tuple/list of length 2.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Extended comparison value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;data must be a numpy.ndarray&#39;</span><span class="p">)</span>
+        <span class="n">c_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">N</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+            <span class="n">sq_data</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">sq_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+    <span class="k">elif</span> <span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;condensed&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;data must be a tuple or list of length 1 or 2&#39;</span><span class="p">)</span>
+        <span class="n">c_sum</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+            <span class="n">sq_sum</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">msd_condensed</span><span class="p">(</span><span class="n">c_sum</span><span class="p">,</span> <span class="n">sq_sum</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">N_atoms</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;c_threshold&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">c_threshold</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c_threshold&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c_threshold</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="s1">&#39;w_factor&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">w_factor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;w_factor&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">w_factor</span> <span class="o">=</span> <span class="s1">&#39;fraction&#39;</span>
+            <span class="n">esim_dict</span> <span class="o">=</span> <span class="n">gen_sim_dict</span><span class="p">(</span><span class="n">c_sum</span><span class="p">,</span> <span class="n">n_objects</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">c_threshold</span><span class="o">=</span><span class="n">c_threshold</span><span class="p">,</span> <span class="n">w_factor</span><span class="o">=</span><span class="n">w_factor</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">esim_dict</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span>
+
+<div class="viewcode-block" id="calculate_comp_sim">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.calculate_comp_sim">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_comp_sim</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complementary similarity is calculates the similarity of a set </span>
+<span class="sd">    without one object or observation using metrics in the extended comparison.</span>
+<span class="sd">    The greater the complementary similarity, the more representative the object is.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    N_atoms : int, optional</span>
+<span class="sd">        Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Array of complementary similarities for each object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span> <span class="ow">and</span> <span class="n">N_atoms</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;N_atoms is being specified as 1. Please change if N_atoms is not 1.&#39;</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">sq_data_total</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">c_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">sq_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_data_total</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">comp_sims</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">object</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+        <span class="n">object_square</span> <span class="o">=</span> <span class="nb">object</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">c_sum_total</span> <span class="o">-</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sq_sum_total</span> <span class="o">-</span> <span class="n">object_square</span><span class="p">],</span>
+                                    <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> 
+                                    <span class="n">N</span><span class="o">=</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="n">comp_sims</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="n">comp_sims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">comp_sims</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">comp_sims</span></div>
+
+
+<div class="viewcode-block" id="calculate_medoid">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.calculate_medoid">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_medoid</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the medoid of a dataset using the metrics in extended comparison.</span>
+<span class="sd">    Medoid is the most representative object of a set.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    N_atoms : int, optional</span>
+<span class="sd">        Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        The index of the medoid in the dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span> <span class="ow">and</span> <span class="n">N_atoms</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;N_atoms is being specified as 1. Please change if N_atoms is not 1.&#39;</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">sq_data_total</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">c_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sq_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_data_total</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">max_dissim</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">object</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+        <span class="n">object_square</span> <span class="o">=</span> <span class="nb">object</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">c_sum_total</span> <span class="o">-</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sq_sum_total</span> <span class="o">-</span> <span class="n">object_square</span><span class="p">],</span>
+                                    <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> 
+                                    <span class="n">N</span><span class="o">=</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">max_dissim</span><span class="p">:</span>
+            <span class="n">max_dissim</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="calculate_outlier">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.calculate_outlier">[docs]</a>
+<span class="k">def</span> <span class="nf">calculate_outlier</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the outliers of a dataset using the metrics in extended comparison.</span>
+<span class="sd">    Outliers are the least representative objects of a set.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    N_atoms : int, optional</span>
+<span class="sd">        Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        The index of the outlier in the dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span> <span class="ow">and</span> <span class="n">N_atoms</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;N_atoms is being specified as 1. Please change if N_atoms is not 1.&#39;</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">sq_data_total</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">c_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">sq_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_data_total</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">min_dissim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="nb">object</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+        <span class="n">object_square</span> <span class="o">=</span> <span class="nb">object</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">c_sum_total</span> <span class="o">-</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sq_sum_total</span> <span class="o">-</span> <span class="n">object_square</span><span class="p">],</span>
+                                    <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> 
+                                    <span class="n">N</span><span class="o">=</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">min_dissim</span><span class="p">:</span>
+            <span class="n">min_dissim</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="trim_outliers">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.trim_outliers">[docs]</a>
+<span class="k">def</span> <span class="nf">trim_outliers</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">n_trimmed</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;comp_sim&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trims a desired percentage of outliers (most dissimilar) from the dataset </span>
+<span class="sd">    by calculating largest complement similarity.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    n_trimmed : float or int</span>
+<span class="sd">        The desired fraction of outliers to be removed or the number of outliers to be removed.</span>
+<span class="sd">        float : Fraction of outliers to be removed.</span>
+<span class="sd">        int : Number of outliers to be removed.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    N_atoms : int</span>
+<span class="sd">        Number of atoms in the system.</span>
+<span class="sd">    criterion : {&#39;comp_sim&#39;, &#39;sim_to_medoid&#39;}, optional</span>
+<span class="sd">        Criterion to use for data trimming. Defaults to &#39;comp_sim&#39;.</span>
+<span class="sd">        &#39;comp_sim&#39; removes the most dissimilar objects based on the complement similarity.</span>
+<span class="sd">        &#39;sim_to_medoid&#39; removes the most dissimilar objects based on the similarity to the medoid.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        A ndarray with desired fraction of outliers removed.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    If the criterion is &#39;comp_sim&#39;, the lowest indices are removed because they are the most outlier.</span>
+<span class="sd">    However, if the criterion is &#39;sim_to_medoid&#39;, the highest indices are removed because they are farthest from the medoid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_trimmed</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">cutoff</span> <span class="o">=</span> <span class="n">n_trimmed</span>
+    <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">n_trimmed</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cutoff</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_trimmed</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">criterion</span> <span class="o">==</span> <span class="s1">&#39;comp_sim&#39;</span><span class="p">:</span>
+        <span class="n">c_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">sq_sum_total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">matrix</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">comp_sims</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">c_sum</span> <span class="o">-</span> <span class="n">row</span>
+            <span class="n">sq</span> <span class="o">=</span> <span class="n">sq_sum_total</span> <span class="o">-</span> <span class="n">row</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">c</span><span class="p">,</span> <span class="n">sq</span><span class="p">],</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> 
+                                        <span class="n">N</span><span class="o">=</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+            <span class="n">comp_sims</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="n">comp_sims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">comp_sims</span><span class="p">)</span>
+        <span class="n">lowest_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">comp_sims</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[:</span><span class="n">cutoff</span><span class="p">]</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">lowest_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">criterion</span> <span class="o">==</span> <span class="s1">&#39;sim_to_medoid&#39;</span><span class="p">:</span>
+        <span class="n">medoid_index</span> <span class="o">=</span> <span class="n">calculate_medoid</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="n">medoid</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">medoid_index</span><span class="p">]</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">medoid_index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">frame</span><span class="p">,</span> <span class="n">medoid</span><span class="p">]),</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> 
+                                        <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">highest_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">values</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])[</span><span class="o">-</span><span class="n">cutoff</span><span class="p">:]</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">highest_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">matrix</span></div>
+
+
+<div class="viewcode-block" id="diversity_selection">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.diversity_selection">[docs]</a>
+<span class="k">def</span> <span class="nf">diversity_selection</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">percentage</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;medoid&#39;</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects a diverse subset of the data using the complementary similarity.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    percentage : int</span>
+<span class="sd">        Percentage of the data to select.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    start : {&#39;medoid&#39;, &#39;outlier&#39;, &#39;random&#39;, list}, optional</span>
+<span class="sd">        Seed of diversity selection. Defaults to &#39;medoid&#39;.</span>
+<span class="sd">    N_atoms : int, optional</span>
+<span class="sd">        Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        List of indices of the selected data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+    <span class="n">total_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_total</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="o">==</span><span class="s1">&#39;medoid&#39;</span><span class="p">:</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">calculate_medoid</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="n">selected_n</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">start</span> <span class="o">==</span> <span class="s1">&#39;outlier&#39;</span><span class="p">:</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">calculate_outlier</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+        <span class="n">selected_n</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">start</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_total</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">selected_n</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">selected_n</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Select a correct starting point: medoid, outlier, random or outlier&#39;</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_n</span><span class="p">)</span>
+    <span class="n">n_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="n">percentage</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">n_max</span> <span class="o">&gt;</span> <span class="n">n_total</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Percentage is too high&#39;</span><span class="p">)</span>
+    <span class="n">selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">selected_n</span><span class="p">]</span> 
+    <span class="n">selection</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+    <span class="n">selected_condensed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+        <span class="n">sq_selection</span> <span class="o">=</span> <span class="n">selection</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">sq_selected_condensed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sq_selection</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_max</span><span class="p">:</span>
+        <span class="n">select_from_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">total_indices</span><span class="p">,</span> <span class="n">selected_n</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+            <span class="n">new_index_n</span> <span class="o">=</span> <span class="n">get_new_index_n</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">selected_condensed</span><span class="o">=</span><span class="n">selected_condensed</span><span class="p">,</span>
+                                          <span class="n">sq_selected_condensed</span><span class="o">=</span><span class="n">sq_selected_condensed</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> 
+                                          <span class="n">select_from_n</span><span class="o">=</span><span class="n">select_from_n</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span>
+            <span class="n">sq_selected_condensed</span> <span class="o">+=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">new_index_n</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_index_n</span> <span class="o">=</span> <span class="n">get_new_index_n</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">selected_condensed</span><span class="o">=</span><span class="n">selected_condensed</span><span class="p">,</span> 
+                                          <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">select_from_n</span><span class="o">=</span><span class="n">select_from_n</span><span class="p">)</span>
+        <span class="n">selected_condensed</span> <span class="o">+=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">new_index_n</span><span class="p">]</span>
+        <span class="n">selected_n</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_index_n</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">selected_n</span></div>
+
+
+<div class="viewcode-block" id="get_new_index_n">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.get_new_index_n">[docs]</a>
+<span class="k">def</span> <span class="nf">get_new_index_n</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">selected_condensed</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">select_from_n</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to get the new index to add to the selected indices</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    matrix : array-like</span>
+<span class="sd">        Data matrix.</span>
+<span class="sd">    metric : {&#39;MSD&#39;, &#39;RR&#39;, &#39;JT&#39;, &#39;SM&#39;, etc}</span>
+<span class="sd">        Metric used for extended comparisons. See `extended_comparison` for details.</span>
+<span class="sd">    selected_condensed : array-like</span>
+<span class="sd">        Condensed sum of the selected fingerprints.</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of selected objects.</span>
+<span class="sd">    select_from_n : 1D array-like</span>
+<span class="sd">        Indices of the objects to select from.</span>
+<span class="sd">    **kwarg</span>
+<span class="sd">        sq_selected_condensed : array-like, optional</span>
+<span class="sd">            Condensed sum of the squared selected fingerprints. Defaults to None.</span>
+<span class="sd">        N_atoms : int, optional</span>
+<span class="sd">            Number of atoms in the system. Defaults to 1.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        index of the new fingerprint to add to the selected indices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;sq_selected_condensed&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">sq_selected_condensed</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sq_selected_condensed&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;N_atoms&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">N_atoms</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;N_atoms&#39;</span><span class="p">]</span>
+    <span class="c1"># Number of fingerprints already selected and the new one to add</span>
+    <span class="n">n_total</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1"># Placeholders values</span>
+    <span class="n">min_value</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1"># Calculate MSD for each unselected object and select the index with the highest value.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">select_from_n</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;MSD&#39;</span><span class="p">:</span>
+            <span class="n">sim_index</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">selected_condensed</span> <span class="o">+</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sq_selected_condensed</span> <span class="o">+</span> <span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)],</span>
+                                            <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">n_total</span><span class="p">,</span> <span class="n">N_atoms</span><span class="o">=</span><span class="n">N_atoms</span><span class="p">)</span> 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sim_index</span> <span class="o">=</span> <span class="n">extended_comparison</span><span class="p">([</span><span class="n">selected_condensed</span> <span class="o">+</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;condensed&#39;</span><span class="p">,</span> 
+                                            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">n_total</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sim_index</span> <span class="o">&gt;</span> <span class="n">min_value</span><span class="p">:</span>
+            <span class="n">min_value</span> <span class="o">=</span> <span class="n">sim_index</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">index</span></div>
+
+
+<div class="viewcode-block" id="align_traj">
+<a class="viewcode-back" href="../../../autosummary/mdance.tools.bts.html#mdance.tools.bts.align_traj">[docs]</a>
+<span class="k">def</span> <span class="nf">align_traj</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_atoms</span><span class="p">,</span> <span class="n">align_method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aligns trajectory using uniform or kronecker alignment.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        matrix of data to be aligned</span>
+<span class="sd">    N_atoms : int</span>
+<span class="sd">        number of atoms in the system</span>
+<span class="sd">    align_method : {&#39;uni&#39;, &#39;kron&#39;, &#39;uniform&#39;, &#39;kronecker&#39;}, optional</span>
+<span class="sd">        alignment method, by default &quot;uni&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        if align_method is not &#39;uni&#39;, &#39;uniform&#39;, &#39;kron&#39;, or &#39;kronecker&#39; or None</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array-like of shape (n_samples, n_features)</span>
+<span class="sd">        matrix of aligned data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">align_method</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">N_atoms</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+    <span class="n">traj_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">torch_align</span><span class="o">.</span><span class="n">torch_remove_center_of_geometry</span><span class="p">(</span><span class="n">traj_tensor</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">align_method</span> <span class="o">==</span> <span class="s1">&#39;uni&#39;</span> <span class="ow">or</span> <span class="n">align_method</span> <span class="o">==</span> <span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+        <span class="n">uniform_aligned_traj_tensor</span><span class="p">,</span> <span class="n">uniform_avg_tensor</span><span class="p">,</span> <span class="n">uniform_var_tensor</span> <span class="o">=</span> <span class="n">torch_align</span><span class="o">.</span><span class="n">torch_iterative_align_uniform</span><span class="p">(</span>
+            <span class="n">traj_tensor</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">aligned_traj_numpy</span> <span class="o">=</span> <span class="n">uniform_aligned_traj_tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">align_method</span> <span class="o">==</span> <span class="s1">&#39;kron&#39;</span> <span class="ow">or</span> <span class="n">align_method</span> <span class="o">==</span> <span class="s1">&#39;kronecker&#39;</span><span class="p">:</span>
+        <span class="n">kronecker_aligned_traj_tensor</span><span class="p">,</span> <span class="n">kronecker_avg_tensor</span><span class="p">,</span> <span class="n">kronecker_precision_tensor</span><span class="p">,</span> <span class="n">kronecker_lpdet_tensor</span> <span class="o">=</span> <span class="n">torch_align</span><span class="o">.</span><span class="n">torch_iterative_align_kronecker</span><span class="p">(</span>
+            <span class="n">traj_tensor</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">aligned_traj_numpy</span> <span class="o">=</span> <span class="n">kronecker_aligned_traj_tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Please select a correct alignment method: uni, kron, or None&#39;</span><span class="p">)</span>
+    <span class="n">reshaped</span> <span class="o">=</span> <span class="n">aligned_traj_numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">aligned_traj_numpy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">reshaped</span></div>
+
+
+<span class="k">def</span> <span class="nf">equil_align</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">sieve</span><span class="p">,</span> <span class="n">input_top</span><span class="p">,</span> <span class="n">input_traj</span><span class="p">,</span> <span class="n">mdana_atomsel</span><span class="p">,</span> <span class="n">cpptraj_atomsel</span><span class="p">,</span> <span class="n">ref_index</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Aligns the frames in the trajectory to the reference frame.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    indices : list</span>
+<span class="sd">        List of indices of the data points in the cluster.</span>
+<span class="sd">    input_top : str</span>
+<span class="sd">        Path to the input topology file.</span>
+<span class="sd">    input_traj : str</span>
+<span class="sd">        Path to the input trajectory file.</span>
+<span class="sd">    mdana_atomsel : str</span>
+<span class="sd">        Atom selection string for MDAnalysis.</span>
+<span class="sd">    cpptraj_atomsel : str</span>
+<span class="sd">        Atom selection string for cpptraj.</span>
+<span class="sd">    ref_index : int</span>
+<span class="sd">        Index of the reference frame.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    aligned_traj_numpy : numpy.ndarray</span>
+<span class="sd">        Numpy array of the aligned trajectory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">mda</span><span class="o">.</span><span class="n">Universe</span><span class="p">(</span><span class="n">input_top</span><span class="p">,</span> <span class="n">input_traj</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">mda</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unaligned_traj.pdb&#39;</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">n_atoms</span><span class="p">)</span> <span class="k">as</span> <span class="n">W</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">trajectory</span><span class="p">[[</span><span class="n">i</span> <span class="o">*</span> <span class="n">sieve</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]]:</span>
+            <span class="n">W</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;cpptraj.in&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;parm </span><span class="si">{</span><span class="n">input_top</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;trajin unaligned_traj.pdb</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;autoimage</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;reference </span><span class="si">{</span><span class="n">input_traj</span><span class="si">}</span><span class="s1"> frame </span><span class="si">{</span><span class="n">ref_index</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;rms ToAvg reference </span><span class="si">{</span><span class="n">cpptraj_atomsel</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;trajout aligned_traj.pdb nobox</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;run</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;cpptraj&#39;</span><span class="p">,</span> <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;cpptraj.in&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">)</span>
+    
+    <span class="c1"># Read aligned trajectory</span>
+    <span class="n">aligned_traj_numpy</span> <span class="o">=</span> <span class="n">gen_traj_numpy</span><span class="p">(</span><span class="n">input_top</span><span class="p">,</span> <span class="s1">&#39;aligned_traj.pdb&#39;</span><span class="p">,</span> <span class="n">atomSel</span><span class="o">=</span><span class="n">mdana_atomsel</span><span class="p">)</span>
+
+    <span class="c1"># Clean up</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;cpptraj.in&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;unaligned_traj.pdb&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;aligned_traj.pdb&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">aligned_traj_numpy</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, mqcomplab. Docs based on the Computational Molecular Science Python Cookiecutter version 1.1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
