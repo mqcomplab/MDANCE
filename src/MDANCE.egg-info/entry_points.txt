@@ -1,3 +1,0 @@
-[console_scripts]
-prime_rep = mdance.cli.prime_rep:main
-prime_sim = mdance.cli.prime_sim:main
