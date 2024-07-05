@@ -12,10 +12,4 @@ mdance.outputs.postprocess module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: mdance.outputs
-   :members:
-   :undoc-members:
-   :show-inheritance:

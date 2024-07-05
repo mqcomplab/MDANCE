@@ -12,10 +12,3 @@ mdance.inputs.preprocess module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: mdance.inputs
-   :members:
-   :undoc-members:
-   :show-inheritance:
