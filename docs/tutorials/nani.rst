@@ -77,11 +77,8 @@ System info
 '''''''''''
 
 | ``data_file`` is your input file with a 2D array. 
-| ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed
-according to the type of file format you have. However, ``array`` must
-be an array-like in the shape (number of samples, number of features).
-| ``output_base_name`` is the base name for the output file. The output
-file will be saved as ``output_base_name.npy``. 
+| ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed according to the type of file format you have. However, ``array`` must be an array-like in the shape (number of samples, number of features).
+| ``output_base_name`` is the base name for the output file. The output file will be saved as ``output_base_name.npy``. 
 
 .. raw:: html
 
@@ -112,25 +109,22 @@ script:
 
 .. _system-info-1:
 
+Inputs
+^^^^^^
+
 System info
 '''''''''''
 
-| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. 
-| ``N_atoms`` is the number of atoms used in
-the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
+| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
+| ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
 | ``sieve`` takes every sieve-th frame from the trajectory for analysis.
 
 NANI parameters
 ''''''''''''''''
 
 | ``output_dir`` is the directory to store the clustering results.
-| ``init_types`` is a **list** of selected seed
-selectors. User can input one or multiple. Each seed selector will have
-results in a separate file. ``metric`` is the metric used to calculate
-the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
-| ``start_n_clusters`` is the starting number for screening. **This number
-must be greater than 2**.
+| ``init_types`` is a **list** of selected seed selectors. User can input one or multiple. Each seed selector will have results in a separate file. ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
+| ``start_n_clusters`` is the starting number for screening. **This number must be greater than 2**.
 | ``end_n_clusters`` is the ending number for screening.
 
 Execution
@@ -192,12 +186,9 @@ Inputs
 System info
 '''''''''''
 
-| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. 
-| ``N_atoms`` is the number of atoms used in
-the clustering.
-| ``sieve`` takes every ``sieve``\ th frame from the
-trajectory for analysis.
+| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
+| ``N_atoms`` is the number of atoms used in the clustering.
+| ``sieve`` takes every ``sieve``\ th frame from the trajectory for analysis.
 
 *k*-means params
 ''''''''''''''''
