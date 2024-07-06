@@ -1,14 +1,14 @@
-import numpy as np
-import random
-from mdance.tools.esim_modules import gen_sim_dict
-from mdance.tools.isim_modules import gen_sim_dict
-from mdance.inputs.preprocess import gen_traj_numpy
-import warnings
 from shapeGMMTorch import torch_align
 import MDAnalysis as mda
-import torch
-import subprocess
+import numpy as np
 import os
+import random
+import subprocess
+import torch
+import warnings
+from mdance.tools.esim_modules import gen_sim_dict
+from mdance.tools.isim import gen_sim_dict
+from mdance.inputs.preprocess import gen_traj_numpy
 
 def mean_sq_dev(matrix, N_atoms):
     """O(N) Mean square deviation (MSD) calculation for n-ary objects.
@@ -71,25 +71,25 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
         Options:
             - 'full': Use numpy.ndarray of shape (n_samples, n_features).
             - 'condensed': Use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
-    metric : {'MSD', 'BUB', 'Fai', 'Gle', 'Ja', 'JT', 'RT', 'RR', 'SM', 'SS1', 'SS2'}
+    metric : str, optional
         Metric to use for the extended comparison. Defaults to 'MSD'.
         Available metrics:
-        Mean square deviation (MSD), Bhattacharyya's U coefficient (BUB),
-        Faiman's coefficient (Fai), Gleason's coefficient (Gle),
-        Jaccard's coefficient (Ja), Jaccard-Tanimoto coefficient (JT),
-        Rogers-Tanimoto coefficient (RT), Russell-Rao coefficient (RR),
-        Simpson's coefficient (SM), Sokal-Sneath 1 coefficient (SS1),
-        Sokal-Sneath 2 coefficient (SS2).
+        ``MSD``: Mean square deviation. ``BUB``: Bhattacharyya's U coefficient.
+        ``Fai``: Faiman's coefficient. ``Gle``: Gleason's coefficient.
+        ``Ja``: Jaccard's coefficient. ``JT``: Jaccard-Tanimoto coefficient.
+        ``RT``: Rogers-Tanimoto coefficient. ``RR``: Russell-Rao coefficient.
+        ``SM``: Sokal Michener. ``SS1``: Sokal-Sneath 1 coefficient.
+        ``SS2``: Sokal-Sneath 2 coefficient.
     N : int, optional
         Number of data points. Defaults to None.
     N_atoms : int, optional
-        Number of atoms in the system. Defaults to 1.
-    **kwargs
-        c_threshold : int, optional
-            Coincidence threshold. Defaults to None.
-        w_factor : {'fraction', 'power_n'}, optional
-            Type of weight function that will be used. Defaults to 'fraction'.
-            See `esim_modules.calculate_counters` for more information.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+    c_threshold : int, optional
+        Coincidence threshold. Defaults to None.
+    w_factor : {'fraction', 'power_n'}, optional
+        Type of weight function that will be used. Defaults to 'fraction'.
+        See ``mdance.tools.esim_modules.calculate_counters`` for more information.
     
     Raises
     ------
@@ -141,10 +141,12 @@ def calculate_comp_sim(matrix, metric, N_atoms=1):
     ----------
     matrix : array-like
         Data matrix.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons. 
+        See ```mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
-        Number of atoms in the system. Defaults to 1.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
     
     Returns
     -------
@@ -173,12 +175,14 @@ def calculate_medoid(matrix, metric, N_atoms=1):
 
     Parameters
     ----------
-    matrix : array-like
+    matrix : array-like of shape (n_samples, n_features)
         Data matrix.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons. 
+        See ```mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
-        Number of atoms in the system. Defaults to 1.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
     
     Returns
     -------
@@ -211,12 +215,14 @@ def calculate_outlier(matrix, metric, N_atoms=1):
 
     Parameters
     ----------
-    matrix : array-like
+    matrix : array-like of shape (n_samples, n_features)
         Data matrix.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons. 
+        See ```mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
-        Number of atoms in the system. Defaults to 1.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
     
     Returns
     -------
@@ -249,16 +255,18 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
 
     Parameters
     ----------
-    matrix : array-like
+    matrix : array-like of shape (n_samples, n_features)
         Data matrix.
     n_trimmed : float or int
         The desired fraction of outliers to be removed or the number of outliers to be removed.
         float : Fraction of outliers to be removed.
         int : Number of outliers to be removed.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons.
+        See ```mdance.tools.bts.extended_comparison``` for details.
     N_atoms : int
-        Number of atoms in the system.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
     criterion : {'comp_sim', 'sim_to_medoid'}, optional
         Criterion to use for data trimming. Defaults to 'comp_sim'.
         'comp_sim' removes the most dissimilar objects based on the complement similarity.
@@ -271,8 +279,11 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
     
     Notes
     -----
-    If the criterion is 'comp_sim', the lowest indices are removed because they are the most outlier.
-    However, if the criterion is 'sim_to_medoid', the highest indices are removed because they are farthest from the medoid.
+    ``criterion='comp_sim'``: the lowest indices are removed 
+        because they are the most outlier.
+    ``criterion='sim_to_medoid'``: the highest indices are removed 
+        because they are farthest from the medoid.
+    
     """
     N = len(matrix)
     if isinstance(n_trimmed, int):
@@ -311,16 +322,25 @@ def diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms
     
     Parameters
     ----------
-    matrix : array-like
+    matrix : array-like of shape (n_samples, n_features)
         Data matrix.
     percentage : int
         Percentage of the data to select.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons.
+        See ```mdance.tools.bts.extended_comparison``` for details.
     start : {'medoid', 'outlier', 'random', list}, optional
         Seed of diversity selection. Defaults to 'medoid'.
     N_atoms : int, optional
-        Number of atoms in the system. Defaults to 1.
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+    
+    Raises
+    ------
+    ValueError
+        If start is not 'medoid', 'outlier', 'random', or a list.
+    ValueError
+        If percentage is too high.
     
     Returns
     -------
@@ -376,19 +396,20 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
     ----------
     matrix : array-like
         Data matrix.
-    metric : {'MSD', 'RR', 'JT', 'SM', etc}
-        Metric used for extended comparisons. See `extended_comparison` for details.
-    selected_condensed : array-like
+    metric : {'MSD', 'JT', etc}
+        Metric used for extended comparisons.
+        See ```mdance.tools.bts.extended_comparison``` for details.
+    selected_condensed : array-like of shape (n_features,)
         Condensed sum of the selected fingerprints.
     n : int
         Number of selected objects.
-    select_from_n : 1D array-like
-        Indices of the objects to select from.
-    **kwarg
-        sq_selected_condensed : array-like, optional
-            Condensed sum of the squared selected fingerprints. Defaults to None.
-        N_atoms : int, optional
-            Number of atoms in the system. Defaults to 1.
+    select_from_n : array-like of shape (n_samples,)
+        Array of indices to select from.
+    sq_selected_condensed : array-like of shape (n_features,), optional
+        Condensed sum of the squared selected fingerprints. Defaults to None.
+    N_atoms : int, optional
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for all non Molecular Dynamics datasets.
     
     Returns
     -------
@@ -399,11 +420,14 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
         sq_selected_condensed = kwargs['sq_selected_condensed']
     if 'N_atoms' in kwargs:
         N_atoms = kwargs['N_atoms']
+    
     # Number of fingerprints already selected and the new one to add
     n_total = n + 1
+    
     # Placeholders values
     min_value = -1
     index = len(matrix) + 1
+    
     # Calculate MSD for each unselected object and select the index with the highest value.
     for i in select_from_n:
         if metric == 'MSD':
@@ -425,16 +449,16 @@ def align_traj(data, N_atoms, align_method=None):
     Parameters
     ----------
     data : array-like of shape (n_samples, n_features)
-        matrix of data to be aligned
+        Matrix of data to be aligned
     N_atoms : int
-        number of atoms in the system
+        Number of atoms in the system.
     align_method : {'uni', 'kron', 'uniform', 'kronecker'}, optional
-        alignment method, by default "uni"
+        Alignment method, Defaults to None.
     
     Raises
     ------
     ValueError
-        if align_method is not 'uni', 'uniform', 'kron', or 'kronecker' or None
+        if align_method is not ``uni``, ``kron``, or None
     
     Returns
     -------
@@ -506,11 +530,3 @@ def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_at
     os.remove('unaligned_traj.pdb')
     os.remove('aligned_traj.pdb')
     return aligned_traj_numpy
-
-if __name__ == "__main__":
-    arr = [[0, 1, 0, 0, 1, 0], 
-           [1, 0, 1, 1, 0, 1],
-           [1, 0, 0, 0, 1, 1],
-           [1, 1, 0, 1, 1, 1],
-           [0, 1, 1, 0, 1, 1]]
-    arr = np.array(arr)

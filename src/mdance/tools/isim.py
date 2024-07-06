@@ -1,15 +1,14 @@
+"""
+Miranda Quintana Group - University of Florida
+iSIM: instant similarity
+    
+Please, cite the original paper on iSIM:
+López-Pérez, K., Kim, T. D. & Miranda-Quintana, R. A. iSIM: instant similarity. 
+Digital Discovery 3, 1160–1171 (2024).
+https://doi.org/10.1039/D4DD00041B
+"""
+
 import numpy as np
-
-"""                             iSIM_MODULES
-    ----------------------------------------------------------------------
-    
-    Miranda-Quintana Group, Department of Chemistry, University of Florida 
-    
-    ----------------------------------------------------------------------
-    
-    Please, cite the original paper on iSIM:
-
-    """
 
 def calculate_counters(data, n_objects = None, k = 1):
     """Calculate 1-similarity, 0-similarity, and dissimilarity counters
@@ -31,7 +30,6 @@ def calculate_counters(data, n_objects = None, k = 1):
     -------
     counters : dict
         Dictionary with the weighted and non-weighted counters.
-
     """
     
     # Check if the data is a np.ndarray of a list
@@ -140,7 +138,8 @@ def gen_sim_dict(data, n_objects = None, k = 1):
     Returns
     -------
     sim_dict : dict
-        Dictionary with the weighted and non-weighted similarity indexes."""
+        Dictionary with the weighted and non-weighted similarity indexes.
+    """
  
     # Indices
     # AC: Austin-Colwell, BUB: Baroni-Urbani-Buser, CTn: Consoni-Todschini n
@@ -207,7 +206,7 @@ def calculate_comp_sim(data, n_ary = 'RR'):
     comp_sims : nd.array
         1D array with the complementary similarities of all the molecules in the set.
     """
-    
+
     n_objects = len(data) - 1
     
     c_total = np.sum(data, axis = 0)

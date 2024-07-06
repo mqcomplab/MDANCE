@@ -1,10 +1,16 @@
-""" Miranda Quintana Group - University of Florida
-Extended Similarity Indices Modules
+""" 
+Miranda Quintana Group - University of Florida
+eSIM: extended similarity
 
-Notes
------
 Please, cite the original papers on the n-ary indices:
+Miranda-Quintana, R. A., Bajusz, D., Rácz, A. & Héberger, K. Extended 
+similarity indices: the benefits of comparing more than two objects 
+simultaneously. Part 1: Theory and characteristics†. J Cheminform 13, 32 (2021).
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00505-3
+
+Miranda-Quintana, R. A., Rácz, A., Bajusz, D. & Héberger, K. Extended 
+similarity indices: the benefits of comparing more than two objects simultaneously. 
+Part 2: speed, consistency, diversity selection. J Cheminform 13, 33 (2021).
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00504-4
 """
 import numpy as np
