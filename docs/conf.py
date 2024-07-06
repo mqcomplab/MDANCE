@@ -21,7 +21,7 @@ import mdance
 # -- Project information -----------------------------------------------------
 
 project = 'MDANCE'
-copyright = ("2024, Lexin Chen and Ramón Alain Miranda Quintana")
+copyright = '2024, Lexin Chen and Ramón Alain Miranda Quintana'
 author = 'Lexin Chen'
 
 # The short X.Y version
@@ -45,10 +45,13 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
-    'nbsphinx',
+    'sphinx_gallery.gen_gallery',
 ]
 
-#autosummary_generate = True
+sphinx_gallery_conf = {
+    'examples_dirs': '../examples',
+    'gallery_dirs': 'examples',
+}
 
 # Napoleon settings
 napoleon_google_docstring = False
@@ -92,7 +95,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'default'
-
 
 # -- Options for HTML output -------------------------------------------------
 
