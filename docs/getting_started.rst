@@ -32,4 +32,3 @@ To use MDANCE in a project, import the package and use its modules as follows:
    initiators = mod.initiate_kmeans()
    kmeans = KMeans(n_clusters, init=initiators, n_init=1, random_state=None)
    kmeans.fit(data)
-

@@ -1,6 +1,11 @@
 About MDANCE
 ======================================================================
-Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics. Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
+Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible 
+*n*-ary clustering package that provides a set of tools for clustering Molecular 
+Dynamics trajectories. The package is designed to be modular and extensible, allowing 
+for the addition of new clustering algorithms and similarity metrics. Research contained 
+in this package was supported by the National Institute of General Medical Sciences of 
+the National Institutes of Health under award number R35GM150620.
 
 .. contents::
    :local:
@@ -11,11 +16,34 @@ Background
 
 Clustering Algorithms
 ---------------------
-- NANI
+NANI
+~~~~
+
+*k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for
+selecting initial centroids for *k*-Means clustering. NANI is an
+extension of the *k*-Means++ algorithm. NANI stratifies the data to high
+density region and perform diversity selection on top of the it to
+select the initial centroids. This is a deterministic algorithm that
+will always select the same initial centroids for the same dataset and
+improve on *k*-means++ by reducing the number of iterations required to
+converge and improve the clustering quality.
+
+For more information on the NANI algorithm, please refer to the `NANI
+paper <https://doi.org/10.1021/acs.jctc.4c00308>`__.
 
 Clustering Postprocessing
 -------------------------
-- PRIME
+PRIME
+~~~~~
+
+Protein Retrieval via Integrative Molecular Ensembles (PRIME) is a novel
+algorithm that predicts the native structure of a protein from
+simulation or clustering data. These methods perfectly mapped all the
+structural motifs in the studied systems and required unprecedented
+linear scaling.
+
+For more information on the PRIME algorithm, please refer to the `PRIME
+paper <https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1>`__.
 
 Contributing
 ------------

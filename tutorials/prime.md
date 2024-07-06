@@ -22,7 +22,7 @@ The following tutorial will guide you through the process of determining the nat
 [scripts/prime/normalize.py](../scripts/prime/normalize.py) With already clustered data, this script will normalize the trajectory data between $[0,1]$ using the Min-Max Normalization. 
 
     # System info - EDIT THESE
-    input_top = '../../examples/md/aligned_tau.pdb'
+    input_top = '../../data/md/aligned_tau.pdb'
     unnormed_cluster_dir = '../outputs/labels_*'
     output_dir = 'normed_clusters'
     output_base_name = 'normed_clusttraj'

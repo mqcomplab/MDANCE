@@ -2,7 +2,7 @@ import numpy as np
 from mdance.inputs.preprocess import normalize_file
 
 # System info - EDIT THESE
-data_file = '../../examples/2D/blob_disk.csv'
+data_file = '../../data/2D/blob_disk.csv'
 array = np.genfromtxt(data_file, delimiter=',')
 output_base_name = 'array'
 

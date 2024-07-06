@@ -5,7 +5,7 @@ import glob
 import os
 
 # System info - EDIT THESE
-input_top = '../../examples/md/aligned_tau.pdb'
+input_top = '../../data/md/aligned_tau.pdb'
 unnormed_cluster_dir = '../outputs/best_frames_*'
 output_dir = 'normed_clusters'
 output_base_name = 'normed_clusttraj'

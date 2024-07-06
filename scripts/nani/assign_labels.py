@@ -4,7 +4,7 @@ from mdance.tools.bts import extended_comparison, calculate_medoid
 import os
 
 # System info - EDIT THESE
-input_traj_numpy = '../../examples/md/backbone.npy'
+input_traj_numpy = '../../data/md/backbone.npy'
 N_atoms = 50
 sieve = 1
 

@@ -81,7 +81,7 @@ script:
 ::
 
    # System info - EDIT THESE
-   data_file = '../examples/2D/blob_disk.csv'
+   data_file = '../data/2D/blob_disk.csv'
    array = np.genfromtxt(data_file, delimiter=',')
    output_base_name = 'output_base_name'
 
@@ -114,7 +114,7 @@ script:
 ::
 
    # System info
-   input_traj_numpy = '../../examples/md/backbone.npy'
+   input_traj_numpy = '../../data/md/backbone.npy'
    N_atoms = 50
    sieve = 1
 
@@ -179,7 +179,7 @@ script:
 ::
 
    # System info - EDIT THESE
-   input_traj_numpy = '../../examples/md/backbone.npy'
+   input_traj_numpy = '../../data/md/backbone.npy'
    N_atoms = 50
    sieve = 1
 

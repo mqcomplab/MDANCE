@@ -31,7 +31,7 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 [**scripts/inputs/normalize.py**](../scripts/inputs/normalize.py) will normalize the dataset. The following parameters to be specified in the script:
 
     # System info - EDIT THESE
-    data_file = '../examples/2D/blob_disk.csv'
+    data_file = '../data/2D/blob_disk.csv'
     array = np.genfromtxt(data_file, delimiter=',')
     output_base_name = 'output_base_name'
 
@@ -46,7 +46,7 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 [scripts/nani/screen_nani.py](../scripts/nani/screen_nani.py) will run NANI for a range of clusters and calculate cluster quality metrics. For the best result, we recommend running NANI over a wide range of number of clusters. The following parameters to be specified in the script:
 
     # System info
-    input_traj_numpy = '../../examples/md/backbone.npy'
+    input_traj_numpy = '../../data/md/backbone.npy'
     N_atoms = 50
     sieve = 1
 
@@ -86,7 +86,7 @@ The clustering screening results will be analyzed using the Davies-Bouldin index
 The following parameters to be specified in the script:
 
     # System info - EDIT THESE
-    input_traj_numpy = '../../examples/md/backbone.npy'
+    input_traj_numpy = '../../data/md/backbone.npy'
     N_atoms = 50
     sieve = 1
 
