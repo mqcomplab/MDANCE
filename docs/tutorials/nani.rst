@@ -1,17 +1,6 @@
 *k*-means NANI Tutorial
 =======================
 
--  `Overview <#overview>`__
--  `Tutorial <#tutorial>`__
-
-   -  `1. Input Preparations <#1-input-preparations>`__
-   -  `2. NANI Screening <#2-nani-screening>`__
-   -  `3. Analysis of NANI Screening
-      Results <#3-analysis-of-nani-screening-results>`__
-   -  `4. Cluster Assignment <#4-cluster-assignment>`__
-   -  `5. Extract frames for each cluster
-      (Optional) <#5-extract-frames-for-each-cluster-optional>`__
-
 Overview
 --------
 
@@ -46,8 +35,8 @@ file (e.g. ``.dcd``, ``.nc``), and the atom selection. This step will
 convert a Molecular Dynamics trajectory to a numpy ndarray. **Make sure
 the trajectory is already aligned and/or centered if needed!**
 
-**Step-by-step tutorial can be found in
-the**\ `preprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/preprocessing.ipynb>`__\ **.**
+`preprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/preprocessing.ipynb>`__ 
+contains step-by-step tutorial to prepare the input for NANI. 
 
 .. raw:: html
 
@@ -88,12 +77,12 @@ Inputs
 System info
 '''''''''''
 
-``data_file`` is your input file with a 2D array. ``array`` is the array
-is the loaded dataset from ``data_file``. This step can be changed
+``data_file`` is your input file with a 2D array. |
+``array`` is the array is the loaded dataset from ``data_file``. This step can be changed
 according to the type of file format you have. However, ``array`` must
-be an array-like in the shape (number of samples, number of features).
+be an array-like in the shape (number of samples, number of features). |
 ``output_base_name`` is the base name for the output file. The output
-file will be saved as ``output_base_name.npy``.
+file will be saved as ``output_base_name.npy``. 
 
 .. raw:: html
 
@@ -127,23 +116,23 @@ script:
 System info
 '''''''''''
 
-- ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. 
-- ``N_atoms`` is the number of atoms used in
-the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
-- ``sieve`` takes every sieve-th frame from the trajectory for analysis.
+``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+will be your loaded dataset. |
+``N_atoms`` is the number of atoms used in
+the clustering. **For all non-Molecular Dynamics datasets, this is 1.** |
+``sieve`` takes every sieve-th frame from the trajectory for analysis.
 
 NANI parameters
 ''''''''''''''''
-- ``output_dir`` is the directory to store the
-clustering results. 
-- ``init_types`` is a **list** of selected seed
+
+``output_dir`` is the directory to store the clustering results. |
+``init_types`` is a **list** of selected seed
 selectors. User can input one or multiple. Each seed selector will have
 results in a separate file. ``metric`` is the metric used to calculate
-the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
-- ``start_n_clusters`` is the starting number for screening. **This number
-must be greater than 2**. 
-- ``end_n_clusters`` is the ending number for screening.
+the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details). |
+``start_n_clusters`` is the starting number for screening. **This number
+must be greater than 2**.  |
+``end_n_clusters`` is the ending number for screening.
 
 Execution
 ^^^^^^^^^
@@ -169,8 +158,8 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-**Step-by-step tutorial can be found in the **\ `analysis
-notebook <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__\ **.**
+`analysis notebook <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__
+contains step-by-step tutorial to analyze clustering screening results.
 
 4. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
@@ -204,21 +193,22 @@ Inputs
 System info
 '''''''''''
 
-- ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. 
-- ``N_atoms`` is the number of atoms used in
-the clustering. 
-- ``sieve`` takes every ``sieve``\ th frame from the
+``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+will be your loaded dataset. |
+``N_atoms`` is the number of atoms used in
+the clustering. |
+``sieve`` takes every ``sieve``\ th frame from the
 trajectory for analysis.
 
 *k*-means params
 ''''''''''''''''
 
-- ``n_clusters`` is the number of clusters for labeling. 
-- ``init_type`` is the seed selector to use. 
-- ``metric`` is the metric used to calculate the similarity between frames (See
-``mdance.tools.bts.extended_comparisons`` for details).
-- ``n_structures`` is the number of frames to extract from each cluster.
+``n_clusters`` is the number of clusters for labeling. |
+``init_type`` is the seed selector to use. |
+``metric`` is the metric used to calculate the similarity between frames (See
+``mdance.tools.bts.extended_comparisons`` for details). |
+``n_structures`` is the number of frames to extract from each cluster. |
+``output_dir`` is the directory to store the clustering results. |
 
 .. _execution-1:
 
