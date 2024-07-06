@@ -156,13 +156,13 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`analysis notebook <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__
+`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
 4. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
 
-`assign_labels.py <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
+`assign_labels.py <https://github.com/mqcomplab/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
 will assign labels to the clusters for *k*-means clustering using the
 initialization methods. The following parameters to be specified in the
 script:
