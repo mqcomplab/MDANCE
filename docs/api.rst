@@ -89,10 +89,10 @@ mdance.tools.bts
    :undoc-members:
    :show-inheritance:
 
-mdance.tools.isim\_modules
+mdance.tools.isim
 ---------------------------------
 
-.. automodule:: mdance.tools.isim_modules
+.. automodule:: mdance.tools.isim
    :members:
    :undoc-members:
    :show-inheritance:
