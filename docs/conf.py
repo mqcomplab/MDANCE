@@ -51,6 +51,7 @@ extensions = [
 sphinx_gallery_conf = {
     'examples_dirs': '../examples',
     'gallery_dirs': 'examples',
+    'filename_pattern': r'.*\.py'
 }
 
 # Napoleon settings

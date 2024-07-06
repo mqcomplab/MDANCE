@@ -26,8 +26,8 @@ MDANCE is a flexible *n*-ary clustering package for all applications (e.g. molec
    :maxdepth: 2
    :caption: Examples
 
-   examples/preprocessing.ipynb
-   examples/analysis_db.ipynb
+   examples/preprocessing
+   examples/analysis_db
 
 
 Indices and tables
