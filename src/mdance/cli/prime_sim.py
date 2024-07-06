@@ -1,8 +1,3 @@
-"""
-in scripts/prime directory
-python ../../src/mdance/cli/prime_rep.py -m union -s outputs -d normed_clusters -t 0.1 -i SM
-python ../../src/mdance/cli/prime_sim.py -m union -n 6 -i SM -t 0.1 -d normed_clusters -s ../nani/outputs/summary_6.csv
-"""
 from mdance.prime.sim_calc import FrameSimilarity
 import argparse
 import json
@@ -10,6 +5,13 @@ import os
 import time
 
 def main():
+    """Main function to run the command line interface for calculating
+    frame similarities.
+    
+    Returns
+    -------
+    txt file with dictionary of similarities.
+    """
     # Parse command-line arguments
     parser = argparse.ArgumentParser()
     parser_dict = {

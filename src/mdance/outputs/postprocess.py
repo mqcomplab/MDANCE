@@ -1,5 +1,5 @@
 def unnormalize_data(norm_data, min, max):
-    """Unnormalize data from 0 to 1 to the original range
+    """Unnormalize data from 0 to 1 to the original range.
     
     Parameters
     ----------

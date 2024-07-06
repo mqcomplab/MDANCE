@@ -1,17 +1,3 @@
-"""BTS: Behind the Scenes tools functions
-
-Methods
--------
-mean_sq_dev(matrix, N_atoms)
-msd_condensed(c_sum, sq_sum, N, N_atoms)
-calculate_comp_sim(matrix, metric, N_atoms)
-calculate_medoid(matrix, metric, N_atoms)
-calculate_outlier(matrix, metric, N_atoms)
-trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim')
-diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms=1)
-get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwargs)
-align_traj(data, N_atoms, align_method='uni')
-"""
 import numpy as np
 import random
 from mdance.tools.esim_modules import gen_sim_dict

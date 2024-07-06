@@ -2,6 +2,13 @@ from mdance.prime.rep_frames import gen_one_method_max, gen_all_methods_max
 import argparse
 
 def main():
+    """Main function to run the command line interface for generating
+    method max values.
+    
+    Returns
+    -------
+    txt file with method max values.
+    """
     parser_dict = {
         'method': {'flags': ['-m', '--method'], 'kwargs': {'type': str, 'help': 'method to use', 'required': True}},
         'sim_folder': {'flags': ['-s', '--sim_folder'], 'kwargs': {'type': str, 'help': 'folder to access'}},

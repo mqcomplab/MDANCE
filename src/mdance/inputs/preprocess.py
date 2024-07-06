@@ -15,7 +15,7 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     trajFileName : str
         The file path of the trajectory file.
     atomSel : str
-        The atom selection string. For example, 'resid 3:12 and name N H CA C O'.
+        The atom selection string. For example, `resid 3:12 and name N H CA C O`.
         View details in the MDAnalysis documentation: 
         https://docs.mdanalysis.org/stable/documentation_pages/selections.html
 
@@ -44,7 +44,7 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     return traj_numpy
 
 class Normalizer:
-    """Class for normalizing data from cpptraj CRD/MDCRD files.
+    """A class for normalizing data from cpptraj CRD/MDCRD files.
 
     Attributes
     ----------
@@ -68,17 +68,11 @@ class Normalizer:
         The minimum value of the input data.
     max : float
         The maximum value of the input data.
-    
-    Methods
-    -------
-    get_min_max()
-        Returns the minimum and maximum values of the input data.
-    get_v2_norm()
-        Returns the v2 normalized data.
-    get_v3_norm()
-        Returns the v3 normalized data.
-    get_c_total()
-        Returns the c_total values.
+        
+    Notes
+    -----
+    Not recommended due to inefficiency and 3-decimal precision loss.
+    Please use `gen_traj_numpy` for all Molecular Dynamics data.
     """ 
     def __init__(self, file_path=None, data=None, custom_min=None, custom_max=None, custom_avg=None):
         """Initialize the Normalizer class.
@@ -217,6 +211,11 @@ def normalize_file(file, break_line=None, norm_type=None):
     -------
     tuple
         The minimum, maximum, and average values of the input data.
+    
+    Notes
+    -----
+    Not recommended due to inefficiency and 3-decimal precision loss.
+    Please use `gen_traj_numpy` for all Molecular Dynamics data.
     """
     if file is not isinstance(file, str):
         frames = file
