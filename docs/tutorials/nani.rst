@@ -1,9 +1,6 @@
 *k*-means NANI Tutorial
 =======================
 
-Table of Contents
-=================
-
 -  `Overview <#overview>`__
 -  `Tutorial <#tutorial>`__
 
@@ -74,7 +71,7 @@ This step is **optional**. If you are using a metric that is NOT the
 mean-square deviation (MSD)–default metric, you will need to normalize
 the dataset. Otherwise, you can skip this step.
 
-`scripts/inputs/normalize.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/normalize.py>`__ will
+`normalize.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/normalize.py>`__ will
 normalize the dataset. The following parameters to be specified in the
 script:
 
@@ -105,7 +102,7 @@ file will be saved as ``output_base_name.npy``.
 2. NANI Screening
 ~~~~~~~~~~~~~~~~~
 
-`scripts/nani/screen_nani.py <../scripts/nani/screen_nani.py>`__ will
+`screen_nani.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/nani/screen_nani.py>`__ will
 run NANI for a range of clusters and calculate cluster quality metrics.
 For the best result, we recommend running NANI over a wide range of
 number of clusters. The following parameters to be specified in the
@@ -130,19 +127,23 @@ script:
 System info
 '''''''''''
 
-``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. ``N_atoms`` is the number of atoms used in
+- ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+will be your loaded dataset. 
+- ``N_atoms`` is the number of atoms used in
 the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
-``sieve`` takes every sieve-th frame from the trajectory for analysis.
-##### NANI parameters ``output_dir`` is the directory to store the
-clustering results. ``init_types`` is a **list** of selected seed
+- ``sieve`` takes every sieve-th frame from the trajectory for analysis.
+
+NANI parameters
+''''''''''''''''
+- ``output_dir`` is the directory to store the
+clustering results. 
+- ``init_types`` is a **list** of selected seed
 selectors. User can input one or multiple. Each seed selector will have
 results in a separate file. ``metric`` is the metric used to calculate
-the similarity between frames (See
-``extended_comparisons` <https://github.com/lexin-chen/MDANCE/blob/master/src/mdance/tools/bts.py>`__ for details).
-``start_n_clusters`` is the starting number for screening. **This number
-must be greater than 2**. ``end_n_clusters`` is the ending number for
-screening.
+the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
+- ``start_n_clusters`` is the starting number for screening. **This number
+must be greater than 2**. 
+- ``end_n_clusters`` is the ending number for screening.
 
 Execution
 ^^^^^^^^^
@@ -163,15 +164,18 @@ average mean-square deviation for that seed selector.
 
 The clustering screening results will be analyzed using the
 Davies-Bouldin index (DB). There are two criteria to select the number
-of clusters: (1) lowest DB and (2) maximum 2nd derivative of DB.
+of clusters: 
 
-**Step-by-step tutorial can be found in the**\ `analysis
+1. lowest DB
+2. maximum 2nd derivative of DB.
+
+**Step-by-step tutorial can be found in the **\ `analysis
 notebook <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__\ **.**
 
 4. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
 
-`scripts/nani/assign_labels.py <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
+`assign_labels.py <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
 will assign labels to the clusters for *k*-means clustering using the
 initialization methods. The following parameters to be specified in the
 script:
@@ -200,19 +204,21 @@ Inputs
 System info
 '''''''''''
 
-``input_traj_numpy`` is the numpy array prepared from step 1, if not it
-will be your loaded dataset. ``N_atoms`` is the number of atoms used in
-the clustering. ``sieve`` takes every ``sieve``\ th frame from the
+- ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+will be your loaded dataset. 
+- ``N_atoms`` is the number of atoms used in
+the clustering. 
+- ``sieve`` takes every ``sieve``\ th frame from the
 trajectory for analysis.
 
 *k*-means params
 ''''''''''''''''
 
-``n_clusters`` is the number of clusters for labeling. ``init_type`` is
-the seed selector to use. ``metric`` is the metric used to calculate the
-similarity between frames (See
-``extended_comparisons`` <https://github.com/lexin-chen/MDANCE/blob/master/src/mdance/tools/bts.py>`__ for details).
-``n_structures`` is the number of frames to extract from each cluster.
+- ``n_clusters`` is the number of clusters for labeling. 
+- ``init_type`` is the seed selector to use. 
+- ``metric`` is the metric used to calculate the similarity between frames (See
+``mdance.tools.bts.extended_comparisons`` for details).
+- ``n_structures`` is the number of frames to extract from each cluster.
 
 .. _execution-1:
 
@@ -235,6 +241,6 @@ Outputs
 5. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`scripts/outputs/postprocessing.ipynb <../scripts/outputs/postprocessing.ipynb>`__
+`postprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/outputs/postprocessing.ipynb>`__
 will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.

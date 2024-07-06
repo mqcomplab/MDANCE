@@ -1,5 +1,5 @@
 """
-Cluster Analysis using the Davies-Bouldin Index
+Cluster Analysis
 ===============================================
 MDANCE provides a pipeline to screen the optimal number of clusters for a given dataset.
 """
@@ -79,8 +79,7 @@ def plot_scores(scores_csv):
     ax.legend(fontsize=10)
     for axis in ['top','bottom','left','right']:
         plt.gca().spines[axis].set_linewidth(1.25)
-    plt.savefig(f'{base_name}_db.png', dpi=500, bbox_inches='tight', pad_inches=0.1, transparent=True)
-    plt.close()
+    plt.show()
     
 if __name__ == '__main__':
     for scores_csv in scores_csvs:
