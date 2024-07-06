@@ -9,17 +9,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 ###############################################################################
-# ``scores_csvs`` is the list of screening csv that were outputted from `screen_nani.py`. <br>
+# ``scores_csvs`` is the list of screening csv that were outputted from `screen_nani.py`.
 # The output of this notebook will also be the same directory as the input csvs.
 
 scores_csvs = ['../scripts/nani/outputs/10comp_sim_summary.csv']
 
 ###############################################################################
 # The function below will plot the Davies-Bouldin index and the optimal number of clusters.
-# - The optimal number of clusters is determined by the minimum Davies-Bouldin index or 
+#   - The optimal number of clusters is determined by the minimum Davies-Bouldin index or 
 # the minimum of the second derivative of the Davies-Bouldin index.
-# - Potential Errors
-#   - Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
+#   - Potential Errors
+#       - Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
 
 plt.rcParams['font.size'] = 14
 plt.rcParams['font.weight'] = 'bold'
