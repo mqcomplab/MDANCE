@@ -1,17 +1,11 @@
 *k*-means NANI Tutorial
 =======================
 
-Overview
---------
-
 This clustering tutorial is meant for datasets for **all** applications
 (2D fingerprints, mass spectrometry imaging data, etc). Molecular
 Dynamics Trajectory has a different treatment. If specific step is only
 for Molecular Dynamics trajectory, it will be specified. Otherwise, it
 is applicable for all datasets.
-
-Tutorial
---------
 
 1. Input Preparations
 ~~~~~~~~~~~~~~~~~~~~~
