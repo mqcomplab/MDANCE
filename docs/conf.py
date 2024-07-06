@@ -27,10 +27,9 @@ copyright = ("2024, Lexin Chen and Ramón Alain Miranda Quintana")
 author = 'Lexin Chen'
 
 # The short X.Y version
-version = '0.2.0'
+version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -180,7 +179,6 @@ texinfo_documents = [
      author, 'MDANCE', 'A flexible n-ary clustering package for all applications.',
      'Miscellaneous'),
 ]
-
 
 # -- Extension configuration -------------------------------------------------
 def setup(app):
