@@ -12,16 +12,23 @@ class KmeansNANI:
         Input dataset.
     n_clusters : int
         Number of clusters.
-    metric : {'MSD', 'RR', 'JT', etc}
+    metric : str
         Metric used for extended comparisons. 
         See `tools.bts.extended_comparison` for all available metrics.
+        e.g. 'MSD', 'RR', 'JT'.
     N_atoms : int
         Number of atoms.
     percentage : int
         Percentage of the dataset to be used for the initial selection of the 
         initial centers. Default is 10.
-    init_type : {'div_select', 'comp_sim', 'k-means++', 'random'}
+    init_type : str
         Type of initiator selection. 
+        e.g. 'div_select', 'comp_sim', 'k-means++', 'random'.
+        'comp_sim' selects the inital centers based on the diversity in the densest region of the data.
+        'div_select' selects the initial centers based on the highest diversity of all data.
+        'k-means++' selects the initial centers based on the greedy k-means++ algorithm.
+        'random' selects the initial centers randomly.
+        'vanilla_kmeans++' selects the initial centers based on the vanilla k-means++ algorithm.
     labels : array-like of shape (n_samples,)
         Labels of each point.
     centers : array-like of shape (n_clusters, n_features)
@@ -30,32 +37,6 @@ class KmeansNANI:
         Number of iterations run.
     cluster_dict : dict
         Dictionary of the clusters and their corresponding indices.
-    
-    Properties
-    ----------
-    kmeans : tuple
-        Tuple of the labels, centers and number of iterations.
-    kmeans_info : tuple
-        Tuple of the labels, centers, number of iterations, scores and cluster dictionary.
-
-    Methods
-    -------
-    __init__(data, n_clusters, metric, N_atoms, percentage=10, init_type='comp_sim'):
-        Initializes the class.
-    _check_init_type(self)
-        Checks the 'init_type' attribute.
-    _check_percentage(self)
-        Checks the 'percentage' attribute.
-    initiate_kmeans(self)
-        Initializes the k-means algorithm with the selected initiators.
-    kmeans_clustering(self, initiators)
-        Gets the k-means algorithm.
-    get_kmeans_info(self)
-        Gets the k-means information.
-    create_cluster_dict(self, labels)
-        Creates a dictionary of the clusters and their corresponding indices.
-    write_centroids(self, centroids, n_iter)
-        Writes the centroids of the k-means algorithm to a file.
     """
     def __init__(self, data, n_clusters, metric, N_atoms, init_type='comp_sim', **kwargs):
         """Initializes the KmeansNANI class.
@@ -66,20 +47,18 @@ class KmeansNANI:
             Input dataset.
         n_clusters : int
             Number of clusters.
-        metric : {'MSD', 'RR', 'JT', etc}
+        metric : str
             Metric used for extended comparisons. 
             See `tools.bts.extended_comparison` for all available metrics.
+            e.g. 'MSD', 'RR', 'JT'.
         N_atoms : int
             Number of atoms.
         percentage : int
             Percentage of the dataset to be used for the initial selection of the 
             initial centers. Default is 10.
-        init_type : {'comp_sim', 'div_select', 'k-means++', 'random', 'vanilla_kmeans++'}
-            'comp_sim' selects the inital centers based on the diversity in the densest region of the data.
-            'div_select' selects the initial centers based on the highest diversity of all data.
-            'k-means++' selects the initial centers based on the greedy k-means++ algorithm.
-            'random' selects the initial centers randomly.
-            'vanilla_kmeans++' selects the initial centers based on the vanilla k-means++ algorithm
+        init_type : str
+            Type of initiator selection. 
+            e.g. 'div_select', 'comp_sim', 'k-means++', 'random'.
         """
         self.data = data
         self.n_clusters = n_clusters
