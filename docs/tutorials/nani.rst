@@ -76,7 +76,7 @@ Inputs
 System info
 '''''''''''
 
-``data_file`` is your input file with a 2D array. 
+| ``data_file`` is your input file with a 2D array. 
 | ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed
 according to the type of file format you have. However, ``array`` must
 be an array-like in the shape (number of samples, number of features).
@@ -115,7 +115,7 @@ script:
 System info
 '''''''''''
 
-``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
 will be your loaded dataset. 
 | ``N_atoms`` is the number of atoms used in
 the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
@@ -124,7 +124,7 @@ the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
 NANI parameters
 ''''''''''''''''
 
-``output_dir`` is the directory to store the clustering results.
+| ``output_dir`` is the directory to store the clustering results.
 | ``init_types`` is a **list** of selected seed
 selectors. User can input one or multiple. Each seed selector will have
 results in a separate file. ``metric`` is the metric used to calculate
@@ -192,7 +192,7 @@ Inputs
 System info
 '''''''''''
 
-``input_traj_numpy`` is the numpy array prepared from step 1, if not it
+| ``input_traj_numpy`` is the numpy array prepared from step 1, if not it
 will be your loaded dataset. 
 | ``N_atoms`` is the number of atoms used in
 the clustering.
@@ -202,7 +202,7 @@ trajectory for analysis.
 *k*-means params
 ''''''''''''''''
 
-``n_clusters`` is the number of clusters for labeling.
+| ``n_clusters`` is the number of clusters for labeling.
 | ``init_type`` is the seed selector to use.
 | ``metric`` is the metric used to calculate the similarity between frames (See
 | ``mdance.tools.bts.extended_comparisons`` for details).
