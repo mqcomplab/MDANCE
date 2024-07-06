@@ -1,4 +1,3 @@
-"This script aims to find the representative frame for each method below."""
 from mdance.tools.esim_modules import calc_medoid
 from mdance.prime.sim_calc import _trim_outliers
 import numpy as np
@@ -6,7 +5,18 @@ import json
 import re
 
 def calculate_max_key(dict):
-    """Find the key with the max value"""
+    """Find the key with the max value
+    
+    Parameters
+    ----------
+    dict : dict
+        Dictionary with keys as strings and values as lists of floats
+    
+    Returns
+    -------
+    int
+        Key with the max value
+    """
     max_val = float('-inf')
     max_key = None
 
@@ -23,12 +33,28 @@ def gen_all_methods_max(sim_folder='nw', norm_folder='v3_norm', weighted_by_fram
                         trim_frac=0.1, n_ary='RR', weight='nw', output_name='rep'):
     """Generate the representative frame for each method.
 
-    Args:
-        weighted_by_frames (bool, optional): Similarity is weighted by frames. Defaults to True.
-        trim_frac (float, optional): . Defaults to 0.1.
-        n_ary (str, optional): _description_. Defaults to "RR".
-        weight (str, optional): _description_. Defaults to 'nw'.
-        output_name (str, optional): _description_. Defaults to "rep".
+    Parameters
+    ----------
+    sim_folder : str
+        Name of the folder containing the similarity matrices
+    norm_folder : str
+        Name of the folder containing the normalized data
+    weighted_by_frames : bool
+        Similarity is weighted by frames
+    trim_frac : float
+        Fraction of outliers to trim
+    n_ary : {'RR', 'SM'}
+        The n_ary similarity metric to use.
+    weight : {'nw', 'w'}
+        The weight to use.
+    output_name : str
+        Name of the output file
+    
+    Returns
+    -------
+    file
+        File containing the frame number with max values by method: medoid_all, medoid_c0, 
+        medoid_c0(trimmed), pairwise, union, medoid, outlier
     """
     if weighted_by_frames is True:
         w = "w_"
@@ -82,13 +108,37 @@ def gen_all_methods_max(sim_folder='nw', norm_folder='v3_norm', weighted_by_fram
 def gen_one_method_max(method, sim_folder='nw', norm_folder='v3_norm', weighted_by_frames=True, 
                        trim_frac=0.1, n_ary='RR', weight='nw', output_name='rep'):
     """Generate the representative frame for each method.
-
-    Args:
-        weighted_by_frames (bool, optional): Similarity is weighted by frames. Defaults to True.
-        trim_frac (float, optional): . Defaults to 0.1.
-        n_ary (str, optional): _description_. Defaults to "RR".
-        weight (str, optional): _description_. Defaults to 'nw'.
-        output_name (str, optional): _description_. Defaults to "rep".
+    
+    Parameters
+    ----------
+    method : {'medoid_all', 'medoid_c0', 'medoid_c0(trimmed)', 'pairwise', 'union', 'medoid', 'outlier'}
+        Method to use
+    sim_folder : str
+        Name of the folder containing the similarity matrices
+    norm_folder : str
+        Name of the folder containing the normalized data
+    weighted_by_frames : bool
+        Similarity is weighted by frames
+    trim_frac : float
+        Fraction of outliers to trim
+    n_ary : {'RR', 'SM'}
+        The n_ary similarity metric to use.
+    weight : {'nw', 'w'}
+        The weight to use.
+    output_name : str
+        Name of the output file
+    
+    Raises
+    ------
+    ValueError
+        Invalid method. Choose from ``medoid_all``, ``medoid_c0``, ``medoid_c0(trimmed)``, 
+        ``pairwise``, ``union``, ``medoid``, ``outlier``.
+        
+    Returns
+    -------
+    file
+        File containing the frame number with max values by method: medoid_all, medoid_c0, 
+        medoid_c0(trimmed), pairwise, union, medoid, outlier.
     """
     if method not in ['medoid_all', 'medoid_c0', 'medoid_c0(trimmed)', 'pairwise', 'union', 
                       'medoid', 'outlier']:

@@ -4,9 +4,9 @@ from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
 from mdance.tools.bts import diversity_selection, calculate_comp_sim
 
 class KmeansNANI:
-    """K-means algorithm with the N-Ary Natural Initialization (NANI).
+    """*k*-means NANI clustering alogorithm (*N*-Ary Natural Initialization).
     
-    Attributes
+    Parameters
     ----------
     data : array-like of shape (n_samples, n_features)
         Input dataset.
@@ -15,20 +15,22 @@ class KmeansNANI:
     metric : str
         Metric used for extended comparisons. 
         See `tools.bts.extended_comparison` for all available metrics.
-        e.g. 'MSD', 'RR', 'JT'.
+        e.g. ``MSD``, ``RR``, ``JT``.
     N_atoms : int
-        Number of atoms.
+        Number of atoms. `N_atoms=1` for all non Molecular Dynamics data.
     percentage : int
         Percentage of the dataset to be used for the initial selection of the 
         initial centers. Default is 10.
     init_type : str
-        Type of initiator selection. 
-        e.g. 'div_select', 'comp_sim', 'k-means++', 'random'.
-        'comp_sim' selects the inital centers based on the diversity in the densest region of the data.
-        'div_select' selects the initial centers based on the highest diversity of all data.
-        'k-means++' selects the initial centers based on the greedy k-means++ algorithm.
-        'random' selects the initial centers randomly.
-        'vanilla_kmeans++' selects the initial centers based on the vanilla k-means++ algorithm.
+        Type of initiator selection. Default is ``comp_sim``.
+        ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
+        ``div_select`` selects the initial centers based on the highest diversity of all data.
+        ``k-means++`` selects the initial centers based on the greedy `k`-means++ algorithm.
+        ``random`` selects the initial centers randomly.
+        ``vanilla_kmeans++`` selects the initial centers based on the vanilla `k`-means++ algorithm.
+    
+    Attributes
+    ----------
     labels : array-like of shape (n_samples,)
         Labels of each point.
     centers : array-like of shape (n_clusters, n_features)
@@ -39,27 +41,6 @@ class KmeansNANI:
         Dictionary of the clusters and their corresponding indices.
     """
     def __init__(self, data, n_clusters, metric, N_atoms, init_type='comp_sim', **kwargs):
-        """Initializes the KmeansNANI class.
-
-        Parameters
-        ----------
-        data : array-like of shape (n_samples, n_features)
-            Input dataset.
-        n_clusters : int
-            Number of clusters.
-        metric : str
-            Metric used for extended comparisons. 
-            See `tools.bts.extended_comparison` for all available metrics.
-            e.g. 'MSD', 'RR', 'JT'.
-        N_atoms : int
-            Number of atoms.
-        percentage : int
-            Percentage of the dataset to be used for the initial selection of the 
-            initial centers. Default is 10.
-        init_type : str
-            Type of initiator selection. 
-            e.g. 'div_select', 'comp_sim', 'k-means++', 'random'.
-        """
         self.data = data
         self.n_clusters = n_clusters
         self.metric = metric
@@ -71,19 +52,19 @@ class KmeansNANI:
             self._check_percentage()
     
     def _check_init_type(self):
-        """Checks the 'init_type' attribute.
+        """Checks the ``init_type`` attribute.
 
         Raises
         ------
         ValueError
-            If 'init_type' is not one of the following: 
-            'comp_sim', 'div_select', 'k-means++', 'random', 'vanilla_kmeans++'.
+            If ``init_type`` is not one of the following: ``comp_sim``, ``div_select``, 
+            ``k-means++``, ``random``, ``vanilla_kmeans++``.
         """
         if self.init_type not in ['comp_sim', 'div_select', 'k-means++', 'random', 'vanilla_kmeans++']:
             raise ValueError('init_type must be one of the following: comp_sim, div_select, k-means++, random, vanilla_kmeans++.')
         
     def _check_percentage(self):
-        """Checks the 'percentage' attribute.
+        """Checks the ``percentage`` attribute.
         
         Raises
         ------
@@ -98,9 +79,12 @@ class KmeansNANI:
             raise ValueError('percentage must be an integer [0, 100].')
     
     def initiate_kmeans(self):
-        """Initializes the k-means algorithm with the selected initiating method
-        (comp_sim, div_select, k-means++, random, vanilla_kmeans++).
-
+        """Initializes the k-means algorithm with the selected initiators.
+        Raises
+        ------
+        ValueError
+            If the number of initiators is less than the number of clusters.
+        
         Returns
         -------
         numpy.ndarray
@@ -134,14 +118,14 @@ class KmeansNANI:
         ----------
         initiators : {numpy.ndarray, 'k-means++', 'random'}
             Method for selecting initial centers.
-            'k-means++' selects initial centers in a smart way to speed up convergence.
-            'random' selects initial centers randomly.
-            If 'initiators' is a numpy.ndarray, it must be of shape (n_clusters, n_features) 
+            ``k-means++`` selects initial centers in a smart way to speed up convergence.
+            ``random`` selects initial centers randomly.
+            numpy.ndarray selects initial centers based on the input array.
 
         Returns
         -------
         tuple
-            Labels, centers and number of iterations of the k-means algorithm.
+            Labels, centers and number of iterations of the *k*-means algorithm.
         """
         if self.init_type in ['k-means++', 'random']:
             initiators = self.init_type
@@ -209,7 +193,7 @@ class KmeansNANI:
         Returns
         -------
         tuple
-            Labels, centers and number of iterations of the k-means algorithm.
+            Labels, centers and number of iterations of the *k*-means algorithm.
         """
         if self.init_type in ['comp_sim', 'div_select', 'vanilla_kmeans++']:
             initiators = self.initiate_kmeans()
