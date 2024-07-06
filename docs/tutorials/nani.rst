@@ -50,7 +50,7 @@ convert a Molecular Dynamics trajectory to a numpy ndarray. **Make sure
 the trajectory is already aligned and/or centered if needed!**
 
 **Step-by-step tutorial can be found in
-the**\ `scripts/inputs/preprocessing.ipynb <../scripts/inputs/preprocessing.ipynb>`__\ **.**
+the**\ `preprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/preprocessing.ipynb>`__\ **.**
 
 .. raw:: html
 
@@ -74,7 +74,7 @@ This step is **optional**. If you are using a metric that is NOT the
 mean-square deviation (MSD)–default metric, you will need to normalize
 the dataset. Otherwise, you can skip this step.
 
-`scripts/inputs/normalize.py <../scripts/inputs/normalize.py>`__ will
+`scripts/inputs/normalize.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/normalize.py>`__ will
 normalize the dataset. The following parameters to be specified in the
 script:
 
@@ -139,7 +139,7 @@ clustering results. ``init_types`` is a **list** of selected seed
 selectors. User can input one or multiple. Each seed selector will have
 results in a separate file. ``metric`` is the metric used to calculate
 the similarity between frames (See
-```extended_comparisons`` <../src/tools/bts.py>`__ for details).
+``extended_comparisons` <https://github.com/lexin-chen/MDANCE/blob/master/src/mdance/tools/bts.py>`__ for details).
 ``start_n_clusters`` is the starting number for screening. **This number
 must be greater than 2**. ``end_n_clusters`` is the ending number for
 screening.
@@ -166,12 +166,12 @@ Davies-Bouldin index (DB). There are two criteria to select the number
 of clusters: (1) lowest DB and (2) maximum 2nd derivative of DB.
 
 **Step-by-step tutorial can be found in the**\ `analysis
-notebook <../scripts/nani/analysis_db.ipynb>`__\ **.**
+notebook <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__\ **.**
 
 4. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
 
-`scripts/nani/assign_labels.py <../scripts/nani/assign_labels.py>`__
+`scripts/nani/assign_labels.py <https://github.com/lexin-chen/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
 will assign labels to the clusters for *k*-means clustering using the
 initialization methods. The following parameters to be specified in the
 script:
@@ -211,7 +211,7 @@ trajectory for analysis.
 ``n_clusters`` is the number of clusters for labeling. ``init_type`` is
 the seed selector to use. ``metric`` is the metric used to calculate the
 similarity between frames (See
-```extended_comparisons`` <../src/tools/bts.py>`__ for details).
+``extended_comparisons`` <https://github.com/lexin-chen/MDANCE/blob/master/src/mdance/tools/bts.py>`__ for details).
 ``n_structures`` is the number of frames to extract from each cluster.
 
 .. _execution-1:

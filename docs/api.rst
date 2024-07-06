@@ -1,18 +1,90 @@
-mdance.tools
+Clustering
+======================
+
+mdance.cluster.nani
+--------------------------
+
+.. automodule:: mdance.cluster.nani
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Command line interface
+====================
+
+mdance.cli.prime_sim
+-----------------------
+
+.. automodule:: mdance.cli.prime_sim
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.cli.prime_rep
+-----------------------
+
+.. automodule:: mdance.cli.prime_rep
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Inputs
+=====================
+
+mdance.inputs.preprocess
+-------------------------------
+
+.. automodule:: mdance.inputs.preprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Outputs
+======================
+
+mdance.outputs.postprocess
+---------------------------------
+
+.. automodule:: mdance.outputs.postprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+PRIME
+====================
+
+mdance.prime.sim\_calc
+-----------------------------
+
+.. automodule:: mdance.prime.sim_calc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+mdance.prime.rep\_frames
+-------------------------------
+
+.. automodule:: mdance.prime.rep_frames
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Tools
 ====================
 
 mdance.tools.bts
 -----------------------
 
 .. automodule:: mdance.tools.bts
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mdance.tools.esim\_modules
----------------------------------
-
-.. automodule:: mdance.tools.esim_modules
    :members:
    :undoc-members:
    :show-inheritance:
@@ -25,60 +97,10 @@ mdance.tools.isim\_modules
    :undoc-members:
    :show-inheritance:
 
-
-
-mdance.inputs
-=====================
-
-mdance.inputs.preprocess module
--------------------------------
-
-.. automodule:: mdance.inputs.preprocess
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-
-mdance.cluster
-======================
-
-mdance.cluster.nani
---------------------------
-
-.. automodule:: mdance.cluster.nani
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mdance.prime
-====================
-
-mdance.prime.rep\_frames module
--------------------------------
-
-.. automodule:: mdance.prime.rep_frames
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mdance.prime.sim\_calc module
------------------------------
-
-.. automodule:: mdance.prime.sim_calc
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-
-mdance.outputs
-======================
-
-mdance.outputs.postprocess
+mdance.tools.esim\_modules
 ---------------------------------
 
-.. automodule:: mdance.outputs.postprocess
+.. automodule:: mdance.tools.esim_modules
    :members:
    :undoc-members:
    :show-inheritance:
