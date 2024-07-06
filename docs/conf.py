@@ -16,9 +16,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-
 import mdance
-
 
 # -- Project information -----------------------------------------------------
 
@@ -47,6 +45,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
+    'nbsphinx',
 ]
 
 #autosummary_generate = True
