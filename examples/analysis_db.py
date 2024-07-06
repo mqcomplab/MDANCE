@@ -1,22 +1,25 @@
 """
 Cluster Analysis using the Davies-Bouldin Index
 ===============================================
+MDANCE provides a pipeline to screen the optimal number of clusters for a given dataset.
 """
+###############################################################################
+# To begin with, let's first import the modules we will use:
 import matplotlib.pyplot as plt
 import numpy as np
 
-"""
-``scores_csvs`` is the list of screening csv that were outputted from `screen_nani.py`. <br>
-The output of this notebook will also be the same directory as the input csvs.
-"""
-scores_csvs = ['outputs/10comp_sim_summary.csv']
+###############################################################################
+# ``scores_csvs`` is the list of screening csv that were outputted from `screen_nani.py`. <br>
+# The output of this notebook will also be the same directory as the input csvs.
 
-"""
-Potential Errors
-^^^^^^^^^^^^^^^^
+scores_csvs = ['../scripts/nani/outputs/10comp_sim_summary.csv']
 
-- Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
-"""
+###############################################################################
+# The function below will plot the Davies-Bouldin index and the optimal number of clusters.
+# - The optimal number of clusters is determined by the minimum Davies-Bouldin index or 
+# the minimum of the second derivative of the Davies-Bouldin index.
+# - Potential Errors
+#   - Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
 
 plt.rcParams['font.size'] = 14
 plt.rcParams['font.weight'] = 'bold'
