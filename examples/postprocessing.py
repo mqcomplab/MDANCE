@@ -16,10 +16,8 @@ import numpy as np
 
 ###############################################################################
 # Read the original trajectory file with MDAnalysis.
-#   - ``input_top`` is the path to the topology file.
-# Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
-#   - ``input_traj`` is the path to the trajectory file.
-# Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
+#   - ``input_top`` is the path to the topology file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
+#   - ``input_traj`` is the path to the trajectory file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 
 input_top = '../data/md/aligned_tau.pdb'
 input_traj = '../data/md/aligned_1000_tau.dcd'

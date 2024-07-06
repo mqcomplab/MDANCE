@@ -16,8 +16,7 @@ scores_csvs = ['../scripts/nani/outputs/10comp_sim_summary.csv']
 
 ###############################################################################
 # The function below will plot the Davies-Bouldin index and the optimal number of clusters.
-#   - The optimal number of clusters is determined by the minimum Davies-Bouldin index or 
-# the minimum of the second derivative of the Davies-Bouldin index.
+#   - The optimal number of clusters is determined by the minimum Davies-Bouldin index or the minimum of the second derivative of the Davies-Bouldin index.
 #   - Potential Errors
 #       - Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
 
