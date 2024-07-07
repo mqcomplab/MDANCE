@@ -11,8 +11,15 @@ is applicable for all datasets.
 
 Tutorial
 --------
+1. Clone the repository
+~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Input Preparations
+.. code:: bash
+
+   $ git clone https://github.com/mqcomplab/MDANCE.git
+   $ cd MDANCE/scripts/nani
+
+2. Input Preparations
 ~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html
@@ -84,7 +91,7 @@ System info
 
    </details>
 
-2. NANI Screening
+3. NANI Screening
 ~~~~~~~~~~~~~~~~~
 
 `screen_nani.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/nani/screen_nani.py>`__ will
@@ -130,6 +137,8 @@ NANI parameters
 Execution
 ^^^^^^^^^
 
+Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
+
 .. code:: bash
 
    $ python screen_nani.py
@@ -141,7 +150,7 @@ csv file containing the number of clusters and the corresponding number
 of iterations, Callinski-Harabasz score, Davies-Bouldin score, and
 average mean-square deviation for that seed selector.
 
-3. Analysis of NANI Screening Results
+4. Analysis of NANI Screening Results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The clustering screening results will be analyzed using the
@@ -154,7 +163,7 @@ of clusters:
 `analysis notebook <../examples/analysis_db.html>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
-4. Cluster Assignment
+5. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
 
 `assign_labels.py <https://github.com/mqcomplab/MDANCE/blob/master/scripts/nani/assign_labels.py>`__
@@ -205,6 +214,8 @@ System info
 Execution
 ^^^^^^^^^
 
+Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
+
 .. code:: bash
 
    $ python assign_labels.py
@@ -218,9 +229,9 @@ Outputs
 2. csv file containing the cluster labels for each frame.
 3. csv file containing the population of each cluster.
 
-5. Extract frames for each cluster (Optional)
+6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`postprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/outputs/postprocessing.ipynb>`__
+`postprocessing.ipynb <../examples/postprocessing.html>`__
 will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.

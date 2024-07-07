@@ -1,6 +1,7 @@
 """
 Learn NANI in 60 seconds!
 ===============================================
+
 How to use NANI in 60 seconds? Say no more! 
 
 **Note: This is the simplest example to get you started.**

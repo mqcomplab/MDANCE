@@ -154,7 +154,7 @@ Please Cite
        year = {2024},
    }
 
-.. image:: _static/img/methods.jpg
+.. image:: ../img/methods.jpg
   :width: 500
   :alt: Alternative text
 
