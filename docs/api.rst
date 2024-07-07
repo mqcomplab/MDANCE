@@ -38,10 +38,8 @@ Inputs
 mdance.inputs.preprocess
 -------------------------------
 
-.. automodule:: mdance.inputs.preprocess
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. autofunction:: mdance.inputs.preprocess.gen_traj_numpy
+.. autofunction:: mdance.inputs.preprocess.normalize_file
 
 
 

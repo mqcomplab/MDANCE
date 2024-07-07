@@ -1,6 +1,6 @@
 [project]
 name = "MDANCE"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]
@@ -23,6 +23,7 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/mqcomplab/MDANCE"
 Issues = "https://github.com/mqcomplab/MDANCE/issues"
+Documentation = "https://mdance.readthedocs.io/en/latest/"
 
 [project.scripts]
 prime_sim = "mdance.cli.prime_sim:main"

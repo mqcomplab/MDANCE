@@ -17,7 +17,7 @@ class KmeansNANI:
         See `tools.bts.extended_comparison` for all available metrics.
         e.g. ``MSD``, ``RR``, ``JT``.
     N_atoms : int
-        Number of atoms. `N_atoms=1` for all non Molecular Dynamics data.
+        Number of atoms. ``N_atoms=1`` for all non Molecular Dynamics data.
     percentage : int
         Percentage of the dataset to be used for the initial selection of the 
         initial centers. Default is 10.
@@ -25,9 +25,9 @@ class KmeansNANI:
         Type of initiator selection. Default is ``comp_sim``.
         ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
         ``div_select`` selects the initial centers based on the highest diversity of all data.
-        ``k-means++`` selects the initial centers based on the greedy `k`-means++ algorithm.
+        ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
         ``random`` selects the initial centers randomly.
-        ``vanilla_kmeans++`` selects the initial centers based on the vanilla `k`-means++ algorithm.
+        ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
     
     Attributes
     ----------
@@ -79,7 +79,8 @@ class KmeansNANI:
             raise ValueError('percentage must be an integer [0, 100].')
     
     def initiate_kmeans(self):
-        """Initializes the k-means algorithm with the selected initiators.
+        """Initializes the *k*-means algorithm with the selected initiators.
+        
         Raises
         ------
         ValueError
@@ -88,7 +89,7 @@ class KmeansNANI:
         Returns
         -------
         numpy.ndarray
-            The initial centers for k-means of shape (n_clusters, n_features).
+            The initial centers for *k*-means of shape (n_clusters, n_features).
         """
         if self.init_type == 'comp_sim':
             n_total = len(self.data)
@@ -112,7 +113,7 @@ class KmeansNANI:
         return initiators
     
     def kmeans_clustering(self, initiators):
-        """Executes the k-means algorithm with the selected initiators.
+        """Executes the *k*-means algorithm with the selected initiators.
 
         Parameters
         ----------
@@ -125,7 +126,7 @@ class KmeansNANI:
         Returns
         -------
         tuple
-            Labels, centers and number of iterations of the *k*-means algorithm.
+            Labels, centers and number of iterations.
         """
         if self.init_type in ['k-means++', 'random']:
             initiators = self.init_type
@@ -145,7 +146,7 @@ class KmeansNANI:
         Parameters
         ----------
         labels : array-like of shape (n_samples,)
-            Labels of the k-means algorithm.
+            Cluster labels.
         
         Returns
         -------
@@ -163,7 +164,7 @@ class KmeansNANI:
         Parameters
         ----------
         labels : array-like of shape (n_samples,)
-            Labels of the k-means algorithm.
+            Cluster labels.
         
         Returns
         -------
@@ -175,25 +176,25 @@ class KmeansNANI:
         return ch_score, db_score
 
     def write_centroids(self, centers, n_iter):
-        """Writes the centroids of the k-means algorithm to a file.
+        """Writes the centroids to a file.
 
         Parameters
         ----------
         centers : array-like of shape (n_clusters, n_features)
-            Centroids of the k-means algorithm.
+            Centroids of the clusters.
         n_iter : int
-            Number of iterations of the k-means algorithm.
+            Number of iterations until converage.
         """
         header = f'Number of clusters: {self.n_clusters}, Number of iterations: {n_iter}\n\nCentroids\n'
         np.savetxt('centroids.txt', centers, delimiter=',', header=header)
     
     def execute_kmeans_all(self):
-        """Function to complete all steps of KMeans for all different 'init_type' options.
+        """Function to complete all steps of NANI for all different ``init_type`` options.
 
         Returns
         -------
         tuple
-            Labels, centers and number of iterations of the *k*-means algorithm.
+            Labels, centers and number of iterations.
         """
         if self.init_type in ['comp_sim', 'div_select', 'vanilla_kmeans++']:
             initiators = self.initiate_kmeans()
@@ -208,7 +209,7 @@ def compute_scores(data, labels):
     Parameters
     ----------
     labels : array-like of shape (n_samples,)
-        Labels of the k-means algorithm.
+        Cluster labels.
     
     Returns
     -------

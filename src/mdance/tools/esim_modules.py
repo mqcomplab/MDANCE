@@ -1,8 +1,9 @@
 """ 
 Miranda Quintana Group - University of Florida
-eSIM: extended similarity
+eSIM: extended similarity indices
 
-Please, cite the original papers on the n-ary indices:
+Please, cite the original papers on the *n*-ary indices:
+
 Miranda-Quintana, R. A., Bajusz, D., Rácz, A. & Héberger, K. Extended 
 similarity indices: the benefits of comparing more than two objects 
 simultaneously. Part 1: Theory and characteristics†. J Cheminform 13, 32 (2021).
@@ -30,15 +31,15 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
     c_threshold : {None, 'dissimilar', int}
         Coincidence threshold.
         None : Default, c_threshold = n_objects % 2
-        'dissimilar' : c_threshold = ceil(n_objects / 2)
+        ``dissimilar`` : c_threshold = ceil(n_objects / 2)
         int : Integer number < n_objects
         float : Real number in the (0 , 1) interval. Indicates the % of the total data that will serve as threshold.
 
     w_factor : {"fraction", "power_n"}
         Type of weight function that will be used.
-        'fraction' : similarity = d[k]/n
+        ``fraction`` : similarity = d[k]/n
                      dissimilarity = 1 - (d[k] - n_objects % 2)/n_objects
-        'power_n' : similarity = n**-(n_objects - d[k])
+        ``power_n`` : similarity = n**-(n_objects - d[k])
                     dissimilarity = n**-(d[k] - n_objects % 2)
         other values : similarity = dissimilarity = 1
 
@@ -140,9 +141,9 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     Notes
     -----
     Available indices:
-    BUB: Baroni-Urbani-Buser, Fai: Faith, Gle: Gleason, Ja: Jaccard,
-    JT: Jaccard-Tanimoto, RT: Rogers-Tanimoto, RR: Russel-Rao
-    SM: Sokal-Michener, SSn: Sokal-Sneath n
+        - BUB: Baroni-Urbani-Buser, Fai: Faith, Gle: Gleason, Ja: Jaccard,
+        - JT: Jaccard-Tanimoto, RT: Rogers-Tanimoto, RR: Russel-Rao
+        - SM: Sokal-Michener, SSn: Sokal-Sneath n
     """
     
     counters = calculate_counters(c_total, n_objects, c_threshold=c_threshold, 
@@ -173,14 +174,32 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     return Indices
 
 class SimilarityIndex:
+    """*O(N)* similarity index calculation for a set.
+    
+    Parameters
+    ----------
+    data : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
+    n_objects : int
+        Number of objects to be compared.
+    c_threshold : {None, 'dissimilar', int}
+        Coincidence threshold.
+    n_ary : str
+        string with the initials of the desired similarity index to calculate the medoid from.
+    w_factor : str
+        Type of weight function that will be used.
+    weight : str
+        Type of weight function that will be used.
+    return_dict : bool
+        If True, returns a dictionary with all the similarity indices.
+    
+    Returns
+    -------
+    float or dict
+        The similarity index.
+    """
     def __init__(self, data, n_objects = None, c_threshold = None, n_ary = 'RR', 
                  w_factor = 'fraction', weight = 'nw', return_dict = False):
-        # Indices
-        # AC: Austin-Colwell, BUB: Baroni-Urbani-Buser, CTn: Consoni-Todschini n
-        # Fai: Faith, Gle: Gleason, Ja: Jaccard, Ja0: Jaccard 0-variant
-        # JT: Jaccard-Tanimoto, RT: Rogers-Tanimoto, RR: Russel-Rao
-        # SM: Sokal-Michener, SSn: Sokal-Sneath n
-
         self.data = data
         self.n_objects = n_objects
         self.n_ary = n_ary
@@ -208,12 +227,9 @@ class SimilarityIndex:
         
         Returns:
         --------
-        If `return_dict` attribute is True, returns a dictionary of similarity scores.
-        If `return_dict` attribute is False, returns the similarity score obtained by
-        applying the specified n-ary comparison method (`n_ary`) and weight function
-        (`weight`) to the dataset.
+        float or dict
+            The similarity index or a dictionary with all the similarity indices.
         """
-
         if self.return_dict:
             return self.gen_dict()
         else:
@@ -402,27 +418,35 @@ class SimilarityIndex:
         return sm_nw_nw
 
 def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_total = None):
-    """Calculate the medoid of a set
+    """*O(N) medoid calculation for a set.
     
-    Arguments 
-    --------    
-    data : np.array
-        np.array of all the binary objects
-
+    Parameters
+    ----------
+    data : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
+    n_objects : int
+        Number of objects to be compared.
+    c_threshold : {None, 'dissimilar', int}
+        Coincidence threshold.
     n_ary : str
-        string with the initials of the desired similarity index to calculate the medoid from. 
-        See gen_sim_dict description for keys
+        string with the initials of the desired similarity index to calculate the medoid from.
+    w_factor : str
+        Type of weight function that will be used.
+    weight : str
+        Type of weight function that will be used.
+    c_total : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
     
-    weight : str, default = 'nw'
-        string with the initials of the desired weighting factor to calculate the medoid from.
+    Raises
+    ------
+    ValueError
+        If the dimensions of the objects and columnwise sum differ.
     
-    w_factor : str, default = 'fraction'
-        desired weighing factors for the counters
-
-    c_total: np.array, default = None
-        np.array with the columnwise sums.
+    Returns
+    -------
+    int
+        The index of the medoid.
     """
-        
     if c_total and len(data[0]) != c_total: raise ValueError("Dimensions of objects and columnwise sum differ")
     elif not c_total: c_total = np.sum(data, axis = 0)
     n_objects = len(data)
@@ -430,7 +454,8 @@ def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tota
     min_sim = 1.01
     comp_sums = c_total - data
     for i, obj in enumerate(comp_sums):
-        SI = SimilarityIndex(obj, n_objects = n_objects - 1, n_ary = n_ary, w_factor = w_factor, weight = weight)
+        SI = SimilarityIndex(obj, n_objects = n_objects - 1, n_ary = n_ary, 
+                             w_factor = w_factor, weight = weight)
         sim_index = SI()
         if sim_index < min_sim:
             min_sim = sim_index
@@ -440,26 +465,35 @@ def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tota
     return index
 
 def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_total = None):
-    """Calculate the medoid of a set
-    Arguments 
-    --------    
-    data : np.array
-        np.array of all the binary objects
-
+    """*O(N) outlier calculation for a set.
+    
+    Parameters
+    ----------
+    data : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
+    n_objects : int
+        Number of objects to be compared.
+    c_threshold : {None, 'dissimilar', int}
+        Coincidence threshold.
     n_ary : str
-        string with the initials of the desired similarity index to calculate the medoid from. 
-        See gen_sim_dict description for keys
+        string with the initials of the desired similarity index to calculate the medoid from.
+    w_factor : str
+        Type of weight function that will be used.
+    weight : str
+        Type of weight function that will be used.
+    c_total : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
     
-    weight : str, default = 'nw'
-        string with the initials of the desired weighting factor to calculate the medoid from.
+    Raises
+    ------
+    ValueError
+        If the dimensions of the objects and columnwise sum differ.
     
-    w_factor : str, default = 'fraction'
-        desired weighing factors for the counters
-
-    c_total: np.array, default = None
-        np.array with the columnwise sums.
+    Returns
+    -------
+    int
+        The index of the outlier.
     """
-
     if c_total and len(data[0]) != c_total: raise ValueError("Dimensions of objects and columnwise sum differ")
     elif not c_total: c_total = np.sum(data, axis = 0)
     n_objects = len(data)
@@ -467,7 +501,8 @@ def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tot
     max_sim = -0.01
     comp_sums = c_total - data 
     for i, obj in enumerate(comp_sums):
-        SI = SimilarityIndex(obj, n_objects = n_objects - 1, n_ary = n_ary, w_factor = w_factor, weight = weight)
+        SI = SimilarityIndex(obj, n_objects = n_objects - 1, n_ary = n_ary, 
+                             w_factor = w_factor, weight = weight)
         sim_index = SI()
         if sim_index > max_sim:
             max_sim = sim_index
@@ -476,9 +511,37 @@ def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tot
             pass
     return index
 
-def calc_comp_sim(data, c_threshold = None, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_total = None):
-    """Calculate the complementary similarity for all elements"""
-
+def calc_comp_sim(data, c_threshold = None, n_ary = 'RR', w_factor = 'fraction', 
+                  weight = 'nw', c_total = None):
+    """*O(N) complementary similarity calculation for a set.
+    
+    Parameters
+    ----------
+    data : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
+    n_objects : int
+        Number of objects to be compared.
+    c_threshold : {None, 'dissimilar', int}
+        Coincidence threshold.
+    n_ary : str
+        string with the initials of the desired similarity index to calculate the medoid from.
+    w_factor : str
+        Type of weight function that will be used.
+    weight : str
+        Type of weight function that will be used.
+    c_total : array-like of shape (n_objects, n_features)
+        Vector containing the sums of each column of the fingerprint matrix.
+    
+    Raises
+    ------
+    ValueError
+        If the dimensions of the objects and columnwise sum differ.
+    
+    Returns
+    -------
+    list
+        A list with the complementary similarities of all the molecules in the set.
+    """
     if c_total and len(data[0]) != c_total: raise ValueError("Dimensions of objects and columnwise sum differ")
     elif not c_total: c_total = np.sum(data, axis = 0)
 
