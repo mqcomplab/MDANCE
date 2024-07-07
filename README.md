@@ -27,7 +27,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 ## Clustering Algorithms
 ### NANI
 <p align="center">
-<img src="img/nani-logo.PNG" width="200" height=auto align="center"></a></p>
+<img src="docs/_static/img/nani-logo.PNG" width="200" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>🪄NANI🪄the first installment of MDANCE</b></p>
@@ -40,7 +40,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 ## Clustering Postprocessing
 ### PRIME
 <h3 align="center"> 
-    <img src="img/logo.png" width="800" height=auto align="center"></a>
+    <img src="docs/_static/img/logo.png" width="800" height=auto align="center"></a>
     &nbsp
     <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
     </h3>
@@ -52,7 +52,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
     </td>
     <td>
       <figure>
-        <img src="img/2k2e.png" alt="2k2e" width="300" height="auto">
+        <img src="docs/_static/img/2k2e.png" alt="2k2e" width="300" height="auto">
         <figcaption><i>Fig 1. Superposition of the most representative structures found with extended indices (yellow) and experimental native structures (blue) of 2k2e.</i></figcaption>
       </figure>
     </td>

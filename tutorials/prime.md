@@ -103,6 +103,6 @@ Please Cite
 }
 ```
 
-<img src="../img/methods.jpg" alt="methods" width="500" height=auto align="center"></a>
+<img src="../docs/_static/img/methods.jpg" alt="methods" width="500" height=auto align="center"></a>
 
 *Fig 2. Six techniques of protein refinement. Blue is top cluster.*

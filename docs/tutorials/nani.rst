@@ -34,7 +34,7 @@ file (e.g. ``.dcd``, ``.nc``), and the atom selection. This step will
 convert a Molecular Dynamics trajectory to a numpy ndarray. **Make sure
 the trajectory is already aligned and/or centered if needed!**
 
-`preprocessing.ipynb <https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/preprocessing.ipynb>`__ 
+`Preprocessing Notebook <../examples/preprocessing.html>`__ 
 contains step-by-step tutorial to prepare the input for NANI. 
 
 .. raw:: html
@@ -132,7 +132,7 @@ Execution
 
 .. code:: bash
 
-   python screen_nani.py
+   $ python screen_nani.py
 
 Outputs
 ^^^^^^^
@@ -151,7 +151,7 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/master/scripts/nani/analysis_db.ipynb>`__
+`analysis notebook <../examples/analysis_db.html>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
 4. Cluster Assignment
@@ -207,7 +207,7 @@ Execution
 
 .. code:: bash
 
-   python assign_labels.py
+   $ python assign_labels.py
 
 .. _outputs-1:
 
