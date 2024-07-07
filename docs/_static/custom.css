@@ -29,3 +29,8 @@ body {
   .wy-side-nav-search, .wy-nav-top {
       background: #272525;
   }
+
+code.literal {
+    color: #ff1981 !important;
+    background-color: #f0f2f2 !important;
+  }
