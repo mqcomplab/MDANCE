@@ -15,14 +15,15 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     trajFileName : str
         The file path of the trajectory file.
     atomSel : str
-        The atom selection string. For example, `resid 3:12 and name N H CA C O`.
+        The atom selection string. For example, ``resid 3:12 and name N H CA C O``.
         View details in the MDAnalysis documentation: 
         https://docs.mdanalysis.org/stable/documentation_pages/selections.html
 
     Returns
     -------
     traj_numpy : np.ndarray
-        The 2D numpy array of the coordinates of the selected atoms.
+        The 2D numpy array of shape (n_frames, n_atoms*3) containing the coordinates
+        of the selected atoms.
         
     Examples
     --------

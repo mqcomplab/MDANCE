@@ -164,7 +164,7 @@ class KmeansNANI:
         Parameters
         ----------
         labels : array-like of shape (n_samples,)
-            Labels of the k-means algorithm.
+            Cluster labels.
         
         Returns
         -------
@@ -176,12 +176,12 @@ class KmeansNANI:
         return ch_score, db_score
 
     def write_centroids(self, centers, n_iter):
-        """Writes the centroids of the k-means algorithm to a file.
+        """Writes the centroids to a file.
 
         Parameters
         ----------
         centers : array-like of shape (n_clusters, n_features)
-            Centroids of the k-means algorithm.
+            Centroids of the clusters.
         n_iter : int
             Number of iterations until converage.
         """
