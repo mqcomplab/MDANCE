@@ -46,6 +46,24 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
 class Normalizer:
     """A class for normalizing data from cpptraj CRD/MDCRD files.
 
+    Parameters
+    ----------
+    file_path : str, optional
+        The file path of the input data. If provided, the data is read from
+        the file. Defaults to None.
+    data : array_like of shape (n_samples, n_features), optional
+        The input data as a numpy array. If provided, the file_path argument
+        is ignored. Defaults to None.
+    custom_min : {float, None}, optional
+        The minimum value to use for normalization. If not provided, 
+        the minimum value of the input data is used. Defaults to None.
+    custom_max : {float, None}, optional
+        The maximum value to use for normalization. If not provided,
+        the maximum value of the input data is used. Defaults to None.
+    custom_avg : {float, None}, optional
+        The average value to use for normalization. If not provided,
+        the average value of the input data is used. Defaults to None.
+            
     Attributes
     ----------
     file_path : str, optional
@@ -71,30 +89,10 @@ class Normalizer:
         
     Notes
     -----
-    Not recommended due to inefficiency and 3-decimal precision loss.
-    Please use `gen_traj_numpy` for all Molecular Dynamics data.
+    Used for non-Molecular Dynamics data.
+    Please use ``gen_traj_numpy`` for all Molecular Dynamics data.
     """ 
     def __init__(self, file_path=None, data=None, custom_min=None, custom_max=None, custom_avg=None):
-        """Initialize the Normalizer class.
-        
-        Parameters
-        ----------
-        file_path : str, optional
-            The file path of the input data. If provided, the data is read from
-            the file. Defaults to None.
-        data : array_like of shape (n_samples, n_features), optional
-            The input data as a numpy array. If provided, the file_path argument
-            is ignored. Defaults to None.
-        custom_min : {float, None}, optional
-            The minimum value to use for normalization. If not provided, 
-            the minimum value of the input data is used. Defaults to None.
-        custom_max : {float, None}, optional
-            The maximum value to use for normalization. If not provided,
-            the maximum value of the input data is used. Defaults to None.
-        custom_avg : {float, None}, optional
-            The average value to use for normalization. If not provided,
-            the average value of the input data is used. Defaults to None.
-        """
         if file_path:
             self.file_path = file_path
             self.data = np.genfromtxt(self.file_path)
@@ -139,7 +137,7 @@ def read_cpptraj(break_line=None, norm_type=None, min=None, max=None, avg=None, 
     break_line : int
         The number of columns per line of the input file. (have to n-1 because ignore first line)
     norm_type : str
-        The type of normalization to use. Can be "v2" or "v3".
+        The type of normalization to use. Can be ``v2`` or ``v3``.
     min : float or None, optional
         The minimum value to use for normalization. If not provided,
         the minimum value of the input data is used. Defaults to None.
@@ -157,6 +155,11 @@ def read_cpptraj(break_line=None, norm_type=None, min=None, max=None, avg=None, 
     -------
     np.ndarray
         The concatenated input data as a numpy array.
+        
+    Notes
+    -----
+    Not recommended due to inefficiency and 3-decimal precision loss.
+    Please use ``gen_traj_numpy`` for all Molecular Dynamics data.
     """
     input_files = sorted(glob.glob("clusttraj.c*"), key=lambda x: int(re.findall("\d+", x)[0]))
     break_line = break_line
@@ -196,7 +199,7 @@ def normalize_file(file, break_line=None, norm_type=None):
     break_line : int
         The number of columns per line of the input file. (have to n-1 because ignore first line)
     norm_type : str
-        The type of normalization to use. Can be "v2" or "v3".
+        The type of normalization to use. Can be ``v2`` or ``v3``.
     min : float or None, optional
         The minimum value to use for normalization. If not provided,
         the minimum value of the input data is used. Defaults to None.
@@ -215,7 +218,7 @@ def normalize_file(file, break_line=None, norm_type=None):
     Notes
     -----
     Not recommended due to inefficiency and 3-decimal precision loss.
-    Please use `gen_traj_numpy` for all Molecular Dynamics data.
+    Please use ``gen_traj_numpy`` for all Molecular Dynamics data.
     """
     if file is not isinstance(file, str):
         frames = file

@@ -11,12 +11,12 @@ from mdance.tools.isim import gen_sim_dict
 from mdance.inputs.preprocess import gen_traj_numpy
 
 def mean_sq_dev(matrix, N_atoms):
-    """O(N) Mean square deviation (MSD) calculation for n-ary objects.
+    """*O(N)* Mean square deviation (MSD) calculation for n-ary objects.
     
     Parameters
     ----------
     matrix : array-like of shape (n_samples, n_features)
-        Data matrix.
+        Input data matrix.
     N_atoms : int
         Number of atoms in the system.
     
@@ -64,22 +64,21 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
     ----------
     matrix : {array-like of shape (n_samples, n_features), tuple/list of length 1 or 2}
         Input data matrix.
-        For 'full', use numpy.ndarray of shape (n_samples, n_features).
-        For 'condensed', use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
+            - ``full``: use numpy.ndarray of shape (n_samples, n_features).
+            - ``condensed``: use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
     data_type : {'full', 'condensed'}, optional
-        Type of data inputted. Defaults to 'full'.
-        Options:
-            - 'full': Use numpy.ndarray of shape (n_samples, n_features).
-            - 'condensed': Use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
+        Type of data inputted. Defaults to 'full'. Options:
+            - ``full``: Use numpy.ndarray of shape (n_samples, n_features).
+            - ``condensed``: Use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
     metric : str, optional
-        Metric to use for the extended comparison. Defaults to 'MSD'.
-        Available metrics:
-        ``MSD``: Mean square deviation. ``BUB``: Bhattacharyya's U coefficient.
-        ``Fai``: Faiman's coefficient. ``Gle``: Gleason's coefficient.
-        ``Ja``: Jaccard's coefficient. ``JT``: Jaccard-Tanimoto coefficient.
-        ``RT``: Rogers-Tanimoto coefficient. ``RR``: Russell-Rao coefficient.
-        ``SM``: Sokal Michener. ``SS1``: Sokal-Sneath 1 coefficient.
-        ``SS2``: Sokal-Sneath 2 coefficient.
+        Metric to use for the extended comparison. Defaults to ``MSD``.
+        Additional metrics:
+            - ``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
+            - ``CTn``: Consoni-Todschini n, ``Fai``: Faith, 
+            - ``Gle``: Gleason, ``Ja``: Jaccard, 
+            - ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
+            - ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
+            - ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n
     N : int, optional
         Number of data points. Defaults to None.
     N_atoms : int, optional
@@ -269,8 +268,8 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
         ``N_atoms=1`` for all non Molecular Dynamics datasets.
     criterion : {'comp_sim', 'sim_to_medoid'}, optional
         Criterion to use for data trimming. Defaults to 'comp_sim'.
-        'comp_sim' removes the most dissimilar objects based on the complement similarity.
-        'sim_to_medoid' removes the most dissimilar objects based on the similarity to the medoid.
+        ``comp_sim`` removes the most dissimilar objects based on the complement similarity.
+        ``sim_to_medoid`` removes the most dissimilar objects based on the similarity to the medoid.
         
     Returns
     -------
@@ -452,8 +451,10 @@ def align_traj(data, N_atoms, align_method=None):
         Matrix of data to be aligned
     N_atoms : int
         Number of atoms in the system.
-    align_method : {'uni', 'kron', 'uniform', 'kronecker'}, optional
+    align_method : {'uni', 'kron'}, optional
         Alignment method, Defaults to None.
+            - ``uni``or ``uniform``: Uniform alignment.
+            - ``kron`` or ``kronecker``: Kronecker alignment.
     
     Raises
     ------

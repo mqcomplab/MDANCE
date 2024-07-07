@@ -3,6 +3,7 @@ Miranda Quintana Group - University of Florida
 iSIM: instant similarity
     
 Please, cite the original paper on iSIM:
+
 López-Pérez, K., Kim, T. D. & Miranda-Quintana, R. A. iSIM: instant similarity. 
 Digital Discovery 3, 1160–1171 (2024).
 https://doi.org/10.1039/D4DD00041B
