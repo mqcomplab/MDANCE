@@ -19,7 +19,7 @@ from mdance.inputs.preprocess import gen_traj_numpy
 #Inputs
 #   - ``input_top`` is the path to the topology file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 #   - ``input_traj`` is the path to the trajectory file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
-#   - **Note**: The trajectory file should be already aligned and centered beforehand if needed!
+#       - **The trajectory file should be aligned and centered beforehand if needed! **
 #   - ``output_name`` is the name of the output file. The output file will be saved as ``{output_name}.npy`` for faster loading in the future.
 #   - ``atomSelection`` is the atom selection used for clustering that must be compatible with the `MDAnalysis Atom Selections Language <https://userguide.mdanalysis.org/stable/selections.html>`_.
 #   - ``gen_traj_numpy`` will convert the trajectory to a numpy array with the shape ``(n_frames, n_atoms * 3)`` for comparison purposes.

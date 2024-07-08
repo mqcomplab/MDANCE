@@ -17,13 +17,12 @@ Tutorial
 The following tutorial will guide you through the process of determining
 the native structure of a biomolecule using the PRIME algorithm. If you
 do not have clustered data. Please refer to other clustering algorithms
-such as `NANI <nani.html>`__ to cluster your data, follow from step 1-5.
+such as `NANI <nani.html>`__ to cluster your data, follow all steps.
 
 1. Clone the MDANCE Repository
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-First things first, clone the MDANCE repository and navigate to the
-scripts/prime directory.
+First things first, clone the MDANCE repository if you haven't already.
 
 .. code:: bash
 
@@ -60,6 +59,11 @@ System info
 | ``atomSelection`` is the atom selection used in the clustering. 
 | ``n_clusters`` is the number of clusters used in the PRIME. If number less than total number of cluster, it will take top *n* number of clusters.
 
+Execution
+^^^^^^^^^
+
+Make sure your pwd is ``$PATH/MDANCE/scripts/prime``.
+
 .. code:: bash
 
    $ python normalize.py
@@ -75,17 +79,19 @@ Outputs
 
 ``prime_sim`` generates a similarity dictionary from running PRIME.
 
-| ``-h`` - for help with the argument options.
-| ``-m`` - methods, pairwise, union, medoid, outlier (*required*).
-| ``-n`` - number of clusters (*required*).
-| ``-i`` - similarity index, RR or SM (*required*).
-| ``-t`` - Fraction of outliers to trim in decimals (default is None).
-| ``-w`` - Weighing clusters by frames it contains (default is True).
-| ``-d`` - directory where the ``normed_clusttraj.c*.npy`` files are located (*required*)
-| ``-s`` - location where ``summary`` file is located with population of each cluster (*required*)
+| ``-h``    Help with the argument options.
+| ``-m``    Methods, {pairwise, union, medoid, outlier} (*required*).
+| ``-n``    Number of clusters (*required*).
+| ``-i``    Similarity index, {RR or SM} (*required*).
+| ``-t``    Fraction of outliers to trim in decimals (default is None).
+| ``-w``    Weighing clusters by frames it contains (default is True).
+| ``-d``    Directory where the ``normed_clusttraj.c*.npy`` files are located (*required*)
+| ``-s``    Location where ``summary`` file is located with population of each cluster (*required*)
 
-Example
-^^^^^^^
+Execution
+^^^^^^^^^
+
+Make sure your pwd is ``$PATH/MDANCE/scripts/prime``.
 
 .. code:: bash
 
@@ -103,26 +109,37 @@ Outputs
 
 | ``w_union_SM_t10.txt`` file with the similarity dictionary. 
 | The result is a dictionary organized as followes: 
-| Keys are frame #. 
-| Values are [cluster 1 similarity, cluster 2 similarity, …, average similarity of all clusters].
 
+.. code:: plaintext
+
+    {
+        "frame_0": [   
+            0.7,    # cluster 1 similarity.
+            0.9,    # cluster 2 similarity.
+            ...,
+            0.8     # average similarity of all above similarities.
+        ] 
+    }
+    
 4. Representative Frames
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``prime_rep`` will determine the native structure of the protein using
 the similarity dictionary generated in step 5.
 
-| ``h`` - for help with the argument options. 
-| ``m`` - methods (for one method, None for all methods).
-| ``s`` - folder to access for ``w_union_SM_t10.txt`` file.
-| ``i`` - similarity index (*required*)
-| ``t`` - Fraction of outliers to trim in decimals (default is None).
-| ``d`` - directory where the ``normed_clusttraj.c*`` files are located (required if method is None)
+| ``-h``    for help with the argument options. 
+| ``-m``    methods (for one method, None for all methods).
+| ``-s``    folder to access for ``w_union_SM_t10.txt`` file.
+| ``-i``    similarity index (*required*)
+| ``-t``    Fraction of outliers to trim in decimals (default is None).
+| ``-d``    directory where the ``normed_clusttraj.c*`` files are located (required if method is None)
 
 .. _example-1:
 
-Example
-^^^^^^^
+Execution
+^^^^^^^^^
+
+Make sure your pwd is ``$PATH/MDANCE/scripts/prime``.
 
 .. code:: bash
 
