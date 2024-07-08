@@ -12,6 +12,9 @@ is applicable for all datasets.
 Tutorial
 --------
 1. Clone the repository
+
+Clone the MDANCE repository if you haven't already.
+
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: bash

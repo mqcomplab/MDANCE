@@ -17,13 +17,12 @@ Tutorial
 The following tutorial will guide you through the process of determining
 the native structure of a biomolecule using the PRIME algorithm. If you
 do not have clustered data. Please refer to other clustering algorithms
-such as `NANI <nani.html>`__ to cluster your data, follow from step 1-5.
+such as `NANI <nani.html>`__ to cluster your data, follow all steps.
 
 1. Clone the MDANCE Repository
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-First things first, clone the MDANCE repository and navigate to the
-scripts/prime directory.
+First things first, clone the MDANCE repository if you haven't already.
 
 .. code:: bash
 
