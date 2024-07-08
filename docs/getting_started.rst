@@ -19,4 +19,4 @@ To check for proper installation, run the following command:
 
 Usage
 -----
-To use MDANCE in a project, take a look at **`Learn NANI in 60 seconds <examples/nani101.html>`_**.
+To use MDANCE in a project, take a look at `Learn NANI in 60 seconds <examples/nani101.html>`_ and `NANI Tutorial <tutorials/nani.html>`_.

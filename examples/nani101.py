@@ -46,9 +46,9 @@ ax1[1].set_title('True Labels', fontsize=16, fontweight='bold')
 plt.show()
 
 ###############################################################################
+# NANI
 # As you can see, *k*-means++ initialization did not get it right. 
 # Let's use NANI to optimize initial centroids.
-# NANI
 #   - Create an instance of KmeansNANI.
 #   - ``data``: data to cluster.
 #   - ``n_clusters``: number of clusters.
@@ -59,7 +59,7 @@ initiators = mod.initiate_kmeans()
 initiators = initiators[:n_clusters]
 
 ###############################################################################
-# K-means
+# *k*-means with NANI
 #   - Create an instance of KMeans.
 #   - ``n_clusters``: number of clusters.
 #   - ``init``: initial centroids.
@@ -71,7 +71,7 @@ kmeans.fit(data)
 kmeans_labels = kmeans.labels_
 ###############################################################################
 # Plot
-#   - Plot the data with different colors for each cluster.
+#   - Visualize the clustered results to true labels.
 
 fig, ax2 = plt.subplots(1, 2, figsize=(12, 8), sharex=True, sharey=True)
 ax2[0].scatter(data[:, 0], data[:, 1], c=kmeans_labels, cmap='tab10', s=20)
