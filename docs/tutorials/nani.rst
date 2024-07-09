@@ -47,6 +47,8 @@ the trajectory is already aligned and/or centered if needed!**
 `Preprocessing Notebook <../examples/preprocessing.html>`__ 
 contains step-by-step tutorial to prepare the input for NANI. 
 
+A copy of this notebook can be found in ``$PATH/MDANCE/scripts/inputs/preprocessing.ipynb``.
+
 .. raw:: html
 
    </details>
@@ -126,7 +128,7 @@ System info
 '''''''''''
 
 | ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
-| ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, this is 1.**
+| ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, ``N_atoms=1``.**
 | ``sieve`` takes every sieve-th frame from the trajectory for analysis.
 
 NANI parameters
@@ -166,6 +168,8 @@ of clusters:
 `analysis notebook <../examples/analysis_db.html>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
+A copy of this notebook can be found in ``$PATH/MDANCE/scripts/nani/analysis_db.ipynb``.
+
 5. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -199,7 +203,7 @@ System info
 '''''''''''
 
 | ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
-| ``N_atoms`` is the number of atoms used in the clustering.
+| ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, ``N_atoms=1``.**
 | ``sieve`` takes every ``sieve``\ th frame from the trajectory for analysis.
 
 *k*-means params
@@ -228,9 +232,9 @@ Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
 Outputs
 ^^^^^^^
 
-1. csv file containing the indices of the best frames in each cluster.
-2. csv file containing the cluster labels for each frame.
-3. csv file containing the population of each cluster.
+* csv file containing the indices of the best frames in each cluster.
+* csv file containing the cluster labels for each frame.
+* csv file containing the population of each cluster.
 
 6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,3 +242,5 @@ Outputs
 `postprocessing.ipynb <../examples/postprocessing.html>`__
 will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.
+
+A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.

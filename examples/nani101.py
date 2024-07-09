@@ -4,10 +4,11 @@ Learn NANI in 60 seconds!
 
 How to use NANI in 60 seconds? Say no more! 
 
-**Note: This is the simplest example to get you started.**
-
 The main idea is to use the NANI to optimize initial centroids so *k*-means is 100% 
-deterministic, converges faster, and finds better solutions.
+deterministic, converges faster, and finds better solutions. Here is a simple
+example to get started.
+
+The pwd of this script is ``$PATH/MDANCE/examples``.
 """
 
 ###############################################################################
@@ -40,13 +41,15 @@ og_kmeans_labels = og_kmeans.labels_
 
 fig1, ax1 = plt.subplots(1, 2, figsize=(12, 8), sharex=True, sharey=True)
 ax1[0].scatter(data[:, 0], data[:, 1], c=og_kmeans_labels, cmap='tab10', s=20)
-ax1[0].set_title('K-means++ Labels', fontsize=16, fontweight='bold')
+ax1[0].set_title('k-means++ Labels', fontsize=16, fontweight='bold')
 ax1[1].scatter(data[:, 0], data[:, 1], c=true_labels, cmap='tab10', s=20)
 ax1[1].set_title('True Labels', fontsize=16, fontweight='bold')
 plt.show()
 
 ###############################################################################
 # NANI
+# -------------
+#
 # As you can see, *k*-means++ initialization did not get it right. 
 # Let's use NANI to optimize initial centroids.
 #   - Create an instance of KmeansNANI.
@@ -75,7 +78,7 @@ kmeans_labels = kmeans.labels_
 
 fig, ax2 = plt.subplots(1, 2, figsize=(12, 8), sharex=True, sharey=True)
 ax2[0].scatter(data[:, 0], data[:, 1], c=kmeans_labels, cmap='tab10', s=20)
-ax2[0].set_title('K-means Labels', fontsize=16, fontweight='bold')
+ax2[0].set_title('NANI Labels', fontsize=16, fontweight='bold')
 ax2[1].scatter(data[:, 0], data[:, 1], c=true_labels, cmap='tab10', s=20)
 ax2[1].set_title('True Labels', fontsize=16, fontweight='bold')
 plt.show()
