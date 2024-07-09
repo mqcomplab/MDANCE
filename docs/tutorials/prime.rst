@@ -180,3 +180,7 @@ Please Cite
   :alt: Alternative text
 
 *Fig 2. Six techniques of protein refinement. Blue is top cluster.*
+
+:code:`mdance.tools.bts.extended_comparison <_extended>`
+
+.. _extended: api.html#mdance.tools.bts.extended_comparison
