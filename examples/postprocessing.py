@@ -4,12 +4,14 @@ Clustering Results Postprocessing
 
 MDANCE provides a set of tools to postprocess the clustering results. 
 This snippet demonstrates how to write out trajectories for each cluster.
+
+The pwd of this script is ``$PATH/MDANCE/examples``.
 """
 
 ###############################################################################
 # Imports
-#   - ``numpy <https://numpy.org/>`` for manipulating arrays. 
-#   - ``MDAnalysis <https://www.mdanalysis.org/>`` for reading and writing trajectory files.
+#   - `numpy <https://numpy.org/>`_ for manipulating arrays. 
+#   - `MDAnalysis <https://www.mdanalysis.org/>`_ for reading and writing trajectory files.
 
 import MDAnalysis as mda
 import numpy as np
@@ -36,7 +38,7 @@ cluster_assignment = '../scripts/nani/outputs/best_frames_indices_6.csv'
 # Define the frames to extract 
 #   - ``x`` is the frame number.
 #   - ``y`` is the cluster number.
-#   - Output will be written to a DCD file for each cluster (can be changed to PDB, NCDF, etc depending on topology format).
+#   - Output will be written to a DCD file for each cluster. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 
 x, y = np.loadtxt(cluster_assignment, delimiter=',', skiprows=2, dtype=int, unpack=True)
 

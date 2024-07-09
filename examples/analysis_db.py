@@ -3,6 +3,8 @@ Cluster Analysis
 ===============================================
 
 MDANCE provides a pipeline to screen the optimal number of clusters for a given dataset.
+
+The pwd of this script is ``$PATH/MDANCE/examples``.
 """
 ###############################################################################
 # To begin with, let's first import the modules we will use:
@@ -20,10 +22,6 @@ scores_csvs = ['../scripts/nani/outputs/10comp_sim_summary.csv']
 #   - The optimal number of clusters is determined by the minimum Davies-Bouldin index or the minimum of the second derivative of the Davies-Bouldin index.
 #   - Potential Errors
 #       - Please remember to remove the row with ``None,None`` in the screening csv if there is an error.
-
-plt.rcParams['font.size'] = 14
-plt.rcParams['font.weight'] = 'bold'
-font_size = 14
 
 def plot_scores(scores_csv):
     """Plot the Davies-Bouldin index and the optimal number of clusters.
@@ -51,8 +49,8 @@ def plot_scores(scores_csv):
     
     fig, ax = plt.subplots()
     ax.plot(n_clus, db, color='#005cde', label='DBI', linewidth=3.5)
-    ax.set_xlabel('Cluster Number', fontsize=font_size, fontweight='bold')
-    ax.set_ylabel('Davies-Bouldin Index', fontsize=font_size, fontweight='bold')
+    ax.set_xlabel('Cluster Number', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Davies-Bouldin Index', fontsize=14, fontweight='bold')
     ax.axvline(x=min_db, color='#de005c', linestyle='--', label=f'Optimal Cluster Number: {int(min_db)}', linewidth=2.5)
     ax.axvline(x=second_min_db, color='#00ab64', linestyle='--', label=f'Second Optimal Cluster Number: {int(second_min_db)}', linewidth=2.5)
 
