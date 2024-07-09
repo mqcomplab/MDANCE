@@ -48,11 +48,11 @@ def plot_scores(scores_csv):
     second_min_db = n_clus[second_min_index]
     
     fig, ax = plt.subplots()
-    ax.plot(n_clus, db, color='#005cde', label='DBI', linewidth=3.5)
-    ax.set_xlabel('Cluster Number', fontsize=14, fontweight='bold')
-    ax.set_ylabel('Davies-Bouldin Index', fontsize=14, fontweight='bold')
-    ax.axvline(x=min_db, color='#de005c', linestyle='--', label=f'Optimal Cluster Number: {int(min_db)}', linewidth=2.5)
-    ax.axvline(x=second_min_db, color='#00ab64', linestyle='--', label=f'Second Optimal Cluster Number: {int(second_min_db)}', linewidth=2.5)
+    ax.plot(n_clus, db, color='#005cde', label='DBI', linewidth=2)
+    ax.set_xlabel('Cluster Number')
+    ax.set_ylabel('Davies-Bouldin Index')
+    ax.axvline(x=min_db, color='#de005c', linestyle='--', label=f'Optimal Cluster Number: {int(min_db)}', linewidth=2)
+    ax.axvline(x=second_min_db, color='#00ab64', linestyle='--', label=f'Second Optimal Cluster Number: {int(second_min_db)}', linewidth=2)
 
     # Calculate the second derivative (before + after - 2*current)
     arr = db
@@ -69,14 +69,12 @@ def plot_scores(scores_csv):
         sorted_indices = np.argsort(result[:, 1])[::-1]
         sorted_result = result[sorted_indices]
         min_x = sorted_result[0][0]
-        ax.axvline(x=min_x, color='#de8200', linestyle='--', label=f'Optimal 2nd deriv Cluster Number: {int(min_x)}', linewidth=2.5)
+        ax.axvline(x=min_x, color='#de8200', linestyle='--', label=f'Optimal 2nd deriv Cluster Number: {int(min_x)}', linewidth=2)
         if len(sorted_result) >= 2:
             sec_min_x = sorted_result[1][0]
-            ax.axvline(x=sec_min_x, color='#6400ab', linestyle='--', label=f'Second Optimal 2nd deriv Cluster Number: {int(sec_min_x)}', linewidth=2.5)
+            ax.axvline(x=sec_min_x, color='#6400ab', linestyle='--', label=f'Second Optimal 2nd deriv Cluster Number: {int(sec_min_x)}', linewidth=2)
     
     ax.legend(fontsize=10)
-    for axis in ['top','bottom','left','right']:
-        plt.gca().spines[axis].set_linewidth(1.25)
     plt.show()
     
 if __name__ == '__main__':
