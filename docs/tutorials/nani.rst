@@ -1,6 +1,10 @@
 *k*-means NANI Tutorial
 =======================
 
+.. contents::
+   :local:
+   :depth: 2
+
 Overview
 --------
 This clustering tutorial is meant for datasets for **all** applications
@@ -11,11 +15,11 @@ is applicable for all datasets.
 
 Tutorial
 --------
+
 1. Clone the repository
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Clone the MDANCE repository if you haven't already.
-
-~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code:: bash
 
