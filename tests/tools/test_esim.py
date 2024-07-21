@@ -2,6 +2,7 @@ import mdance.tools.esim_modules as esim
 import numpy as np
 import pytest
 
+
 @pytest.fixture(scope='module')
 def bit_data():
     arr = np.array(
@@ -13,13 +14,16 @@ def bit_data():
         ])
     return arr
 
+
 @pytest.fixture(scope='module')
 def c_sum(bit_data):
     return np.sum(bit_data, axis=0)
 
+
 @pytest.fixture(scope='module')
 def n_objects(bit_data):
     return len(bit_data)
+
 
 def test_calculate_counters(c_sum, n_objects):
     counter_dict = esim.calculate_counters(c_sum, n_objects)
@@ -30,6 +34,7 @@ def test_calculate_counters(c_sum, n_objects):
         'total_dis': 4, 'total_w_dis': 4.0, 
         'p': 6, 'w_p': 5.2}
     assert counter_dict == expected_dict
+
 
 def test_gen_sim_dict(c_sum, n_objects):
     sim_dict = esim.gen_sim_dict(c_sum, n_objects)
@@ -44,15 +49,18 @@ def test_gen_sim_dict(c_sum, n_objects):
     for key in sim_dict:
         assert abs(sim_dict[key] - expected_dict[key]) < 1e-10
 
+
 def test_calc_medoid(bit_data):
     medoid_idx = esim.calc_medoid(bit_data)
     expected_idx = 3
     assert medoid_idx == expected_idx
 
+
 def test_calc_outlier(bit_data):
     outlier_idx = esim.calc_outlier(bit_data)
     expected_idx = 0
     assert outlier_idx == expected_idx
+
 
 def test_calc_comp_sim(bit_data):
     comp_sim = esim.calc_comp_sim(bit_data)
