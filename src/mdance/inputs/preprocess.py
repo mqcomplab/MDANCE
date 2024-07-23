@@ -4,6 +4,7 @@ import MDAnalysis as mda
 import numpy as np
 import re
 
+
 def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     """Reads in a trajectory and returns a 2D numpy array of the coordinates 
     of the selected atoms.
@@ -16,8 +17,7 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
         The file path of the trajectory file.
     atomSel : str
         The atom selection string. For example, ``resid 3:12 and name N H CA C O``.
-        View details in the MDAnalysis documentation: 
-        https://docs.mdanalysis.org/stable/documentation_pages/selections.html
+        View details in the `MDAnalysis documentation`_.
 
     Returns
     -------
@@ -29,6 +29,9 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     --------
     >>> traj_numpy = gen_traj_numpy('aligned_tau.pdb', 'aligned_tau.dcd', 
                                     'resid 3:12 and name N CA C')
+
+    .. _MDAnalysis documentation:
+         https://docs.mdanalysis.org/stable/documentation_pages/selections.html
     """
     coord = mda.Universe(prmtopFileName,trajFileName)
     print('Number of atoms in trajectory:', coord.atoms.n_atoms)
@@ -43,6 +46,7 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
     # Flatten 3D array to 2D array
     traj_numpy = traj_numpy.reshape(traj_numpy.shape[0],-1)
     return traj_numpy
+
 
 class Normalizer:
     """A class for normalizing data from cpptraj CRD/MDCRD files.
@@ -119,16 +123,17 @@ class Normalizer:
         return self.min, self.max, self.avg
     
     def get_v2_norm(self):
-        """Returns the 'v2' normalized data."""
+        """Returns the ``v2`` normalized data."""
         return self.v2_norm
     
     def get_v3_norm(self):
-        """Returns the 'v3' normalized data."""
+        """Returns the ``v3`` normalized data."""
         return self.v3_norm
     
     def get_c_total(self):
-        """Returns the 'c_total' values."""
+        """Returns the ``c_total`` values."""
         return self.c_total
+
 
 def read_cpptraj(break_line=None, norm_type=None, min=None, max=None, avg=None, normalize=False):
     """Read multiple AMBER CRD files to convert to numpy ndarray formatting and normalize the data.
@@ -188,6 +193,7 @@ def read_cpptraj(break_line=None, norm_type=None, min=None, max=None, avg=None, 
         data = np.concatenate(frames_list, axis=0)
         return data
 
+
 def normalize_file(file, break_line=None, norm_type=None): 
     """Normalize a single file and output the normalized data to a new file.
     
@@ -215,11 +221,6 @@ def normalize_file(file, break_line=None, norm_type=None):
     -------
     tuple
         The minimum, maximum, and average values of the input data.
-    
-    Notes
-    -----
-    Not recommended due to inefficiency and 3-decimal precision loss.
-    Please use ``gen_traj_numpy`` for all Molecular Dynamics data.
     """
     if file is not isinstance(file, str):
         frames = file

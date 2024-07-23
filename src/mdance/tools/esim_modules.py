@@ -14,8 +14,10 @@ similarity indices: the benefits of comparing more than two objects simultaneous
 Part 2: speed, consistency, diversity selection. J Cheminform 13, 33 (2021).
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00504-4
 """
+
 import numpy as np
 from math import ceil
+
 
 def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     """Calculate 1-similarity, 0-similarity, and dissimilarity counters
@@ -30,18 +32,18 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
 
     c_threshold : {None, 'dissimilar', int}
         Coincidence threshold.
-        None : Default, c_threshold = n_objects % 2
-        ``dissimilar`` : c_threshold = ceil(n_objects / 2)
-        int : Integer number < n_objects
-        float : Real number in the (0 , 1) interval. Indicates the % of the total data that will serve as threshold.
+            - None : Default, c_threshold = n_objects % 2
+            - ``dissimilar`` : c_threshold = ceil(n_objects / 2)
+            - int : Integer number < n_objects
+            - float : Real number in the (0, 1) interval. Indicates the % of the total data that will serve as threshold.
 
     w_factor : {"fraction", "power_n"}
         Type of weight function that will be used.
-        ``fraction`` : similarity = d[k]/n
-                     dissimilarity = 1 - (d[k] - n_objects % 2)/n_objects
-        ``power_n`` : similarity = n**-(n_objects - d[k])
-                    dissimilarity = n**-(d[k] - n_objects % 2)
-        other values : similarity = dissimilarity = 1
+            - ``fraction`` : similarity = d[k]/n
+                        dissimilarity = 1 - (d[k] - n_objects % 2)/n_objects
+            - ``power_n`` : similarity = n**-(n_objects - d[k])
+                        dissimilarity = n**-(d[k] - n_objects % 2)
+            - other values : similarity = dissimilarity = 1
 
     Returns
     -------
@@ -118,7 +120,8 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
                 "total_dis": total_dis, "total_w_dis": total_w_dis,
                 "p": p, "w_p": w_p}
     return counters
-    
+
+
 def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     """Generate a dictionary with the similarity indices
     
@@ -172,6 +175,7 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     Indices = {'BUB':bub_nw, 'Fai':fai_nw, 'Gle':gle_nw, 'Ja':ja_nw, 'JT':jt_nw, 
                'RT':rt_nw, 'RR':rr_nw, 'SM':sm_nw, 'SS1':ss1_nw, 'SS2':ss2_nw}
     return Indices
+
 
 class SimilarityIndex:
     """*O(N)* similarity index calculation for a set.
@@ -417,8 +421,9 @@ class SimilarityIndex:
                 (self.counters['p'])
         return sm_nw_nw
 
+
 def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_total = None):
-    """*O(N) medoid calculation for a set.
+    """*O(N)* medoid calculation for a set.
     
     Parameters
     ----------
@@ -464,8 +469,9 @@ def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tota
             pass
     return index
 
+
 def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_total = None):
-    """*O(N) outlier calculation for a set.
+    """*O(N)* outlier calculation for a set.
     
     Parameters
     ----------
@@ -511,9 +517,10 @@ def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tot
             pass
     return index
 
+
 def calc_comp_sim(data, c_threshold = None, n_ary = 'RR', w_factor = 'fraction', 
                   weight = 'nw', c_total = None):
-    """*O(N) complementary similarity calculation for a set.
+    """*O(N)* complementary similarity calculation for a set.
     
     Parameters
     ----------

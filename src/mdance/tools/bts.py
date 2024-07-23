@@ -1,14 +1,15 @@
-from shapeGMMTorch import torch_align
 import MDAnalysis as mda
 import numpy as np
 import os
 import random
+from shapeGMMTorch import torch_align
 import subprocess
 import torch
 import warnings
-from mdance.tools.esim_modules import gen_sim_dict
-from mdance.tools.isim import gen_sim_dict
+
+import mdance.tools.esim_modules as esim
 from mdance.inputs.preprocess import gen_traj_numpy
+
 
 def mean_sq_dev(matrix, N_atoms):
     """*O(N)* Mean square deviation (MSD) calculation for n-ary objects.
@@ -33,8 +34,9 @@ def mean_sq_dev(matrix, N_atoms):
     norm_msd = msd / N_atoms
     return norm_msd
 
+
 def msd_condensed(c_sum, sq_sum, N, N_atoms):
-    """Condensed version of 'mean_sq_dev'.
+    """Condensed version of ``mean_sq_dev``.
 
     Parameters
     ----------
@@ -56,6 +58,7 @@ def msd_condensed(c_sum, sq_sum, N, N_atoms):
     norm_msd = msd / N_atoms
     return norm_msd
 
+
 def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=1, 
                         **kwargs):
     """*O(N)* Extended comparison function for n-ary objects. 
@@ -63,14 +66,14 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
     Parameters
     ----------
     matrix : {array-like of shape (n_samples, n_features), tuple/list of length 1 or 2}
-        Input data matrix.
+        Input data matrix or condensed data. Options:
             - ``full``: use numpy.ndarray of shape (n_samples, n_features).
             - ``condensed``: use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
     data_type : {'full', 'condensed'}, optional
         Type of data inputted. Defaults to 'full'. Options:
             - ``full``: Use numpy.ndarray of shape (n_samples, n_features).
             - ``condensed``: Use tuple/list of length 1 (c_sum) or 2 (c_sum, sq_sum).
-    metric : str, optional
+    metric : {'MSD', 'JT', etc}
         Metric to use for the extended comparison. Defaults to ``MSD``.
         Additional metrics:
             - ``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
@@ -83,12 +86,12 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
         Number of data points. Defaults to None.
     N_atoms : int, optional
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     c_threshold : int, optional
         Coincidence threshold. Defaults to None.
     w_factor : {'fraction', 'power_n'}, optional
         Type of weight function that will be used. Defaults to 'fraction'.
-        See ``mdance.tools.esim_modules.calculate_counters`` for more information.
+            - See ``mdance.tools.esim_modules.calculate_counters`` for more information.
     
     Raises
     ------
@@ -100,12 +103,12 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
     float
         Extended comparison value.
     """
+    if not N:
+        N = len(matrix)
     if data_type == 'full':
         if not isinstance(matrix, np.ndarray):
             raise TypeError('data must be a numpy.ndarray')
         c_sum = np.sum(matrix, axis=0)
-        if not N:
-            N = len(matrix)
         if metric == 'MSD':
             sq_data = matrix ** 2
             sq_sum = np.sum(sq_data, axis=0)
@@ -127,9 +130,10 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None, N_atoms=
                 w_factor = kwargs['w_factor']
             else:
                 w_factor = 'fraction'
-            esim_dict = gen_sim_dict(c_sum, n_objects=N, c_threshold=c_threshold, w_factor=w_factor)
-            
+            esim_dict = esim.gen_sim_dict(c_sum, n_objects=N, c_threshold=c_threshold, 
+                                          w_factor=w_factor)
             return 1 - esim_dict[metric]
+
 
 def calculate_comp_sim(matrix, metric, N_atoms=1):
     """*O(N)* Complementary similarity calculation for n-ary objects.
@@ -140,10 +144,10 @@ def calculate_comp_sim(matrix, metric, N_atoms=1):
         Data matrix.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons. 
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     
     Returns
     -------
@@ -166,6 +170,7 @@ def calculate_comp_sim(matrix, metric, N_atoms=1):
     comp_sims = np.array(comp_sims)
     return comp_sims
 
+
 def calculate_medoid(matrix, metric, N_atoms=1):
     """*O(N)* medoid calculation for *n*-ary objects.
 
@@ -175,10 +180,9 @@ def calculate_medoid(matrix, metric, N_atoms=1):
         Data matrix.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons. 
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
-        Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     
     Returns
     -------
@@ -205,6 +209,7 @@ def calculate_medoid(matrix, metric, N_atoms=1):
             pass
     return index
 
+
 def calculate_outlier(matrix, metric, N_atoms=1):
     """*O(N)* Outlier calculation for *n*-ary objects.
 
@@ -214,10 +219,10 @@ def calculate_outlier(matrix, metric, N_atoms=1):
         Data matrix.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons. 
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int, optional
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     
     Returns
     -------
@@ -244,6 +249,7 @@ def calculate_outlier(matrix, metric, N_atoms=1):
             pass
     return index
 
+
 def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
     """Trims a desired percentage of outliers (most dissimilar) from the dataset 
     by calculating largest complement similarity. *O(N)* time complexity.
@@ -258,32 +264,26 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
         int : Number of outliers to be removed.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons.
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     N_atoms : int
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     criterion : {'comp_sim', 'sim_to_medoid'}, optional
         Criterion to use for data trimming. Defaults to 'comp_sim'.
-        ``comp_sim`` removes the most dissimilar objects based on the complement similarity.
-        ``sim_to_medoid`` removes the most dissimilar objects based on the similarity to the medoid.
+            - ``comp_sim`` removes the most dissimilar objects based on the complement similarity.
+            - ``sim_to_medoid`` removes the most dissimilar objects based on the similarity to the medoid.
         
     Returns
     -------
     numpy.ndarray
         A ndarray with desired fraction of outliers removed.
-    
-    Notes
-    -----
-    ``criterion='comp_sim'``: the lowest indices are removed 
-        because they are the most outlier.
-    ``criterion='sim_to_medoid'``: the highest indices are removed 
-        because they are farthest from the medoid.
     """
     N = len(matrix)
     if isinstance(n_trimmed, int):
         cutoff = n_trimmed
     elif 0 < n_trimmed < 1:
         cutoff = int(np.floor(N * float(n_trimmed)))
+    
     if criterion == 'comp_sim':
         c_sum = np.sum(matrix, axis = 0)
         sq_sum_total = np.sum(matrix ** 2, axis=0)
@@ -297,6 +297,7 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
         comp_sims = np.array(comp_sims)
         lowest_indices = np.argsort(comp_sims[:, 1])[:cutoff]
         matrix = np.delete(matrix, lowest_indices, axis=0)
+    
     elif criterion == 'sim_to_medoid':
         medoid_index = calculate_medoid(matrix, metric, N_atoms=N_atoms)
         medoid = matrix[medoid_index]
@@ -309,7 +310,9 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
         values = np.array(values)
         highest_indices = np.argsort(values[:, 1])[-cutoff:]
         matrix = np.delete(matrix, highest_indices, axis=0)
+    
     return matrix
+
 
 def diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms=1):
     """Selects a diverse subset of the data using the complementary similarity. 
@@ -323,19 +326,19 @@ def diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms
         Percentage of the data to select.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons.
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     start : {'medoid', 'outlier', 'random', list}, optional
         Seed of diversity selection. Defaults to 'medoid'.
     N_atoms : int, optional
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     
     Raises
     ------
     ValueError
-        If start is not ``medoid``, ``outlier``, ``random``, or a list.
+        If ``start`` is not ``medoid``, ``outlier``, ``random``, or a list.
     ValueError
-        If percentage is too high.
+        If ``percentage`` is too high.
     
     Returns
     -------
@@ -344,6 +347,7 @@ def diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms
     """
     n_total = len(matrix)
     total_indices = np.array(range(n_total))
+    
     if start =='medoid':
         seed = calculate_medoid(matrix, metric=metric, N_atoms=N_atoms)
         selected_n = [seed]
@@ -384,6 +388,7 @@ def diversity_selection(matrix, percentage: int, metric, start='medoid', N_atoms
         n = len(selected_n)
     return selected_n
 
+
 def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwargs):
     """Function to get the new index to add to the selected indices
     
@@ -393,7 +398,7 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
         Data matrix.
     metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons.
-        See ``mdance.tools.bts.extended_comparison`` for details.
+            - See ``mdance.tools.bts.extended_comparison`` for details.
     selected_condensed : array-like of shape (n_features,)
         Condensed sum of the selected fingerprints.
     n : int
@@ -404,7 +409,7 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
         Condensed sum of the squared selected fingerprints. Defaults to None.
     N_atoms : int, optional
         Number of atoms in the system used for normalization.
-        ``N_atoms=1`` for all non Molecular Dynamics datasets.
+            - ``N_atoms=1`` for all non-Molecular Dynamics datasets.
     
     Returns
     -------
@@ -438,6 +443,7 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
             pass
     return index
 
+
 def align_traj(data, N_atoms, align_method=None):
     """Aligns trajectory using uniform or kronecker alignment.
 
@@ -449,7 +455,7 @@ def align_traj(data, N_atoms, align_method=None):
         Number of atoms in the system.
     align_method : {'uni', 'kron'}, optional
         Alignment method, Defaults to None.
-            - ``uni``or ``uniform``: Uniform alignment.
+            - ``uni`` or ``uniform``: Uniform alignment.
             - ``kron`` or ``kronecker``: Kronecker alignment.
     
     Raises
@@ -469,18 +475,23 @@ def align_traj(data, N_atoms, align_method=None):
     dtype = torch.float32
     traj_tensor = torch.tensor(data, device=device, dtype=dtype)
     torch_align.torch_remove_center_of_geometry(traj_tensor)
+    
     if align_method == 'uni' or align_method == 'uniform':
         uniform_aligned_traj_tensor, uniform_avg_tensor, uniform_var_tensor = torch_align.torch_iterative_align_uniform(
             traj_tensor, device=device, dtype=dtype, verbose=True)
         aligned_traj_numpy = uniform_aligned_traj_tensor.cpu().numpy()
+    
     elif align_method == 'kron' or align_method == 'kronecker':
         kronecker_aligned_traj_tensor, kronecker_avg_tensor, kronecker_precision_tensor, kronecker_lpdet_tensor = torch_align.torch_iterative_align_kronecker(
             traj_tensor, device=device, dtype=dtype, verbose=True)
         aligned_traj_numpy = kronecker_aligned_traj_tensor.cpu().numpy()
+    
     else:
         raise ValueError('Please select a correct alignment method: uni, kron, or None')
+    
     reshaped = aligned_traj_numpy.reshape(aligned_traj_numpy.shape[0], -1)
     return reshaped
+
 
 def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_atomsel, ref_index):
     """ Aligns the frames in the trajectory to the reference frame.

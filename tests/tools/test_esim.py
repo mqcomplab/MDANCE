@@ -52,14 +52,12 @@ def test_gen_sim_dict(c_sum, n_objects):
 
 def test_calc_medoid(bit_data):
     medoid_idx = esim.calc_medoid(bit_data)
-    expected_idx = 3
-    assert medoid_idx == expected_idx
+    assert medoid_idx == 3
 
 
 def test_calc_outlier(bit_data):
     outlier_idx = esim.calc_outlier(bit_data)
-    expected_idx = 0
-    assert outlier_idx == expected_idx
+    assert outlier_idx == 0
 
 
 def test_calc_comp_sim(bit_data):

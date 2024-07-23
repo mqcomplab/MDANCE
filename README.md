@@ -11,14 +11,14 @@ Research contained in this package was supported by the National Institute of Ge
   - [PRIME](#prime)
 
 ## Installation
-```python
-pip install mdance
+```bash
+$ pip install mdance
 ```
 To check for proper installation, run the following command:
 
 ```python
-import mdance
-print(mdance.__version__)
+>>> import mdance
+>>> mdance.__version__
 ```
 
 ## Background

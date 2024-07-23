@@ -1,7 +1,9 @@
 import numpy as np
 from sklearn.cluster import KMeans, kmeans_plusplus
 from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
+
 from mdance.tools.bts import diversity_selection, calculate_comp_sim
+
 
 class KmeansNANI:
     """*k*-means NANI clustering alogorithm (*N*-Ary Natural Initialization).
@@ -18,16 +20,16 @@ class KmeansNANI:
         e.g. ``MSD``, ``RR``, ``JT``.
     N_atoms : int
         Number of atoms. ``N_atoms=1`` for all non Molecular Dynamics data.
-    percentage : int
-        Percentage of the dataset to be used for the initial selection of the 
-        initial centers. Default is 10.
     init_type : str
         Type of initiator selection. Default is ``comp_sim``.
-        ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
-        ``div_select`` selects the initial centers based on the highest diversity of all data.
-        ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
-        ``random`` selects the initial centers randomly.
-        ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
+            - ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
+            - ``div_select`` selects the initial centers based on the highest diversity of all data.
+            - ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
+            - ``random`` selects the initial centers randomly.
+            - ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
+    percentage : int
+        Percentage of the dataset to be used for the initial selection of the 
+        initial centers. Default is 10. (**kwargs)
     
     Attributes
     ----------
@@ -202,9 +204,10 @@ class KmeansNANI:
         elif self.init_type == 'k-means++' or self.init_type == 'random':
             labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
         return labels, centers, n_iter
-    
+
+
 def compute_scores(data, labels):
-    """Computes the Davies-Bouldin and Calinski-Harabasz scores.
+    """Computes the Calinski-Harabasz and Davies-Bouldin scores.
     
     Parameters
     ----------
@@ -214,7 +217,7 @@ def compute_scores(data, labels):
     Returns
     -------
     tuple
-        Davies-Bouldin and Calinski-Harabasz scores.
+        Calinski-Harabasz and Davies-Bouldin scores (in that order).
     """
     ch_score = calinski_harabasz_score(data, labels)
     db_score = davies_bouldin_score(data, labels)

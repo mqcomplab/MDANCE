@@ -1,8 +1,10 @@
-from mdance.tools.esim_modules import calc_medoid
-from mdance.prime.sim_calc import _trim_outliers
 import numpy as np
 import json
 import re
+
+from mdance.tools.esim_modules import calc_medoid
+from mdance.prime.sim_calc import _trim_outliers
+
 
 def calculate_max_key(dict):
     """Find the key with the max value
@@ -28,6 +30,7 @@ def calculate_max_key(dict):
 
     max_key = int(re.findall(r'\d+', max_key)[0])
     return max_key
+
 
 def gen_all_methods_max(sim_folder='nw', norm_folder='v3_norm', weighted_by_frames=True, 
                         trim_frac=0.1, n_ary='RR', weight='nw', output_name='rep'):
@@ -104,6 +107,7 @@ def gen_all_methods_max(sim_folder='nw', norm_folder='v3_norm', weighted_by_fram
         with open(f"{sim_folder}/{w}outlier_{n_ary}{t}.txt", "r") as file:
             outlier = json.load(file)
         output.write(f"{calculate_max_key(outlier)}")
+
 
 def gen_one_method_max(method, sim_folder='nw', norm_folder='v3_norm', weighted_by_frames=True, 
                        trim_frac=0.1, n_ary='RR', weight='nw', output_name='rep'):

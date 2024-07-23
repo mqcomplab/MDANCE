@@ -1,8 +1,10 @@
-from mdance.prime.sim_calc import FrameSimilarity
 import argparse
 import json
 import os
 import time
+
+from mdance.prime.sim_calc import FrameSimilarity
+
 
 def main():
     """Main function to run the command line interface for calculating
@@ -56,6 +58,7 @@ def main():
             file.write(json.dumps(new_sims, indent=4))
         end = time.perf_counter()
         print(f"{w}_{args.method}_{args.index}: Finished in {round(end-start,2)} second")
+
 
 if __name__ == '__main__':
     main()
