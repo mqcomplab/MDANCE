@@ -160,20 +160,23 @@ Further Reading
 ---------------
 
 For more information on the PRIME algorithm, please refer to the `PRIME
-paper <https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1>`__.
+paper <https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362>`__.
 
 Please Cite
 
 .. code:: bibtex
 
-   @article{chen_protein_2024,
-       title = {Protein retrieval via integrative molecular ensembles ({PRIME}) through extended similarity indices},
-       url = {https://www.biorxiv.org/content/early/2024/03/21/2024.03.19.585783},
-       doi = {10.1101/2024.03.19.585783},
-       journal = {bioRxiv : the preprint server for biology},
-       author = {Chen, Lexin and Mondal, Arup and Perez, Alberto and Miranda-Quintana, Ramon Alain},
-       year = {2024},
-   }
+    @article{chen_protein_2024,
+        title = {Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices},
+        issn = {1549-9618},
+        url = {https://doi.org/10.1021/acs.jctc.4c00362},
+        doi = {10.1021/acs.jctc.4c00362},
+        journal = {Journal of Chemical Theory and Computation},
+        author = {Chen, Lexin and Mondal, Arup and Perez, Alberto and Miranda-Quintana, Ramón Alain},
+        month = jul,
+        year = {2024},
+        note = {Publisher: American Chemical Society},
+    }
 
 .. image:: ../img/methods.jpg
   :width: 500
