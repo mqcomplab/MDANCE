@@ -2,20 +2,20 @@ Getting Started
 ===============
 
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary 
-clustering package.
+clustering package that provides a set of tools for clustering Molecular Dynamics trajectories.
 
 Installation
 ------------
 .. code-block:: bash
 
-   pip install mdance
+   $ pip install mdance
 
 To check for proper installation, run the following command:
 
 .. code-block:: python
     
-   import mdance
-   print(mdance.__version__)
+   >>> import mdance
+   >>> mdance.__version__
 
 Usage
 -----

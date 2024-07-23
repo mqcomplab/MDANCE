@@ -43,7 +43,7 @@ structural motifs in the studied systems and required unprecedented
 linear scaling.
 
 For more information on the PRIME algorithm, please refer to the `PRIME
-paper <https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1>`__.
+paper <https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362>`__.
 
 Contributing
 ------------
@@ -60,7 +60,7 @@ If you use MDANCE in your research, please cite the following paper:
 .. code-block:: bibtex
 
     @article{chen_k-means_2024,
-        title = {k-{Means} {NANI}: {An} {Improved} {Clustering} {Algorithm} for {Molecular} {Dynamics} {Simulations}},
+        title = {k-Means NANI: An Improved Clustering Algorithm for Molecular Dynamics Simulations},
         issn = {1549-9618},
         url = {https://doi.org/10.1021/acs.jctc.4c00308},
         doi = {10.1021/acs.jctc.4c00308},
