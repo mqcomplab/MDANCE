@@ -59,7 +59,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
   </tr>
 </table>
 
-For more information on the PRIME algorithm, please refer to the [PRIME paper](https://www.biorxiv.org/content/10.1101/2024.03.19.585783v1). 
+For more information on the PRIME algorithm, please refer to the [PRIME paper](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362). 
 
 ### Collab or Contribute?!
 Please! Don't hesitate to reach out!
