@@ -11,6 +11,7 @@ https://doi.org/10.1039/D4DD00041B
 
 import numpy as np
 
+
 def calculate_counters(data, n_objects = None, k = 1):
     """Calculate 1-similarity, 0-similarity, and dissimilarity counters
 
@@ -18,7 +19,7 @@ def calculate_counters(data, n_objects = None, k = 1):
     ---------
     data : np.ndarray
         Array of arrays, each sub-array contains the binary object 
-        OR Array with the columnwise sum, if so specify n_objects
+        OR Array with the columnwise sum, if so specify ``n_objects``.
 
     n_objects : int
         Number of objects, only necessary if the column wize sum is the input data.
@@ -66,6 +67,7 @@ def calculate_counters(data, n_objects = None, k = 1):
     counters = {"a": a, "d": d, "total_sim": total_sim,
                 "total_dis": total_dis, "p": p}
     return counters
+
 
 def calculate_isim(data, n_objects = None, n_ary = 'RR'):
     """Calculate the iSIM index for RR, JT, or SM
@@ -129,6 +131,7 @@ def calculate_isim(data, n_objects = None, n_ary = 'RR'):
 
         return (a + d)/p
 
+
 def gen_sim_dict(data, n_objects = None, k = 1):
     """Calculate a dictionary containing all the available similarity indexes
 
@@ -181,11 +184,14 @@ def gen_sim_dict(data, n_objects = None, k = 1):
     #           'JT':jt, 'RT':rt, 'RR':rr, 'SM':sm, 'SS1':ss1, 'SS2':ss2}
     return Indices
 
+
 def calculate_medoid(data, n_ary = 'RR'):
     return np.argmin(calculate_comp_sim(data, n_ary = n_ary))
 
+
 def calculate_outlier(data, n_ary = 'RR'):
     return np.argmax(calculate_comp_sim(data, n_ary = n_ary))
+
 
 def calculate_comp_sim(data, n_ary = 'RR'):
     """Calculate the complementary similarity for RR, JT, or SM

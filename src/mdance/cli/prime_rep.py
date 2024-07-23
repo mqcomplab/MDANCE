@@ -1,5 +1,7 @@
-from mdance.prime.rep_frames import gen_one_method_max, gen_all_methods_max
 import argparse
+
+from mdance.prime.rep_frames import gen_one_method_max, gen_all_methods_max
+
 
 def main():
     """Main function to run the command line interface for generating
@@ -27,6 +29,7 @@ def main():
     else:
         gen_all_methods_max(sim_folder=args.sim_folder, norm_folder=args.norm_folder, 
                             trim_frac=args.trim_frac, n_ary=args.index)
+
 
 if __name__ == '__main__':
     main()

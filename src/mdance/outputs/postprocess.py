@@ -18,8 +18,9 @@ def unnormalize_data(norm_data, min, max):
     unnorm_data = norm_data * (max - min) + min
     return unnorm_data
 
+
 def numpy_array_to_crd_traj(matrix, num_columns=10):
-    """Convert a numpy array to a AMBER CRD trajectory
+    """Convert a numpy array to a AMBER CRD trajectory.
 
     Parameters:
     -----------

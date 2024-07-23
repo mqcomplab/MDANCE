@@ -1,8 +1,10 @@
-from mdance.tools.esim_modules import SimilarityIndex, calc_medoid, calc_outlier
+import glob
+import json
 import numpy as np
 import re
-import json
-import glob
+
+from mdance.tools.esim_modules import SimilarityIndex, calc_medoid, calc_outlier
+
 
 class FrameSimilarity:
     """A class to calculate the similarity between clusters.
@@ -168,6 +170,7 @@ class FrameSimilarity:
         elif self.weighted_by_frames:
             return weight_dict(file_path=None, summary_file=self.summary_file, dict=nw_dict, n_clusters=self.n_clusters)
 
+
 def _trim_outliers(total_data, trim_frac=0.1, n_ary='RR', weight='nw', removal='nan'):
     """Trims a desired percentage of outliers (most dissimilar) from the dataset 
     by calculating largest complement similarity.
@@ -206,6 +209,7 @@ def _trim_outliers(total_data, trim_frac=0.1, n_ary='RR', weight='nw', removal='
     elif removal == 'delete':
         total_data = np.delete(total_data, highest_indices, axis=0)
     return total_data
+
 
 def weight_dict(file_path=None, summary_file=None, dict=None, n_clusters=None):
     """Calculates frame-weighted similarity values by the number of frames in each cluster.
@@ -248,6 +252,7 @@ def weight_dict(file_path=None, summary_file=None, dict=None, n_clusters=None):
         average = sum(w_dict[k]) / len(w_dict[k])
         w_dict[k].append(average)
     return w_dict
+
 
 def _format_dict(dict):
     """Sorts dict to have frame # as the key and attaches the average value to the end of each key.
