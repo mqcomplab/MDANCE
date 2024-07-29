@@ -37,7 +37,7 @@ def continuous_data():
 
 @pytest.fixture(scope='module')
 def sim_data():
-    return np.load('../../data/md/backbone.npy')
+    return np.load('data/md/backbone.npy')
 
 
 @pytest.fixture(scope='module', params=['bit_data', 'continuous_data', 'sim_data'])
@@ -86,7 +86,6 @@ def test_extended_comparison_full(matrix, bit_data, continuous_data, sim_data):
         N_atoms = 50
         expected_msd = 17.646554567969837
     msd = bts.mean_sq_dev(matrix, N_atoms=N_atoms)
-    print(msd)
     assert np.allclose(msd, expected_msd, rtol=1e-05, atol=1e-08)
     ec = bts.extended_comparison(matrix, 'full', 'MSD', N_atoms=N_atoms)
     assert np.allclose(ec, expected_msd, rtol=1e-05, atol=1e-08)
@@ -158,7 +157,7 @@ def test_calculate_comp_sim(matrix, bit_data, continuous_data, sim_data):
             [4, 41.960625]]
     elif np.array_equal(matrix, sim_data):
         N_atoms = 50
-        expected_cc = np.load('cc_sim.npy')
+        expected_cc = np.load('tests/expected_outputs/cc_sim.npy')
     cc = bts.calculate_comp_sim(matrix, 'MSD', N_atoms=N_atoms)
     expected_cc = np.array(expected_cc)
     assert np.allclose(cc, expected_cc, rtol=1e-05, atol=1e-08)
@@ -219,7 +218,7 @@ def test_trim_outliers(matrix, bit_data, continuous_data, sim_data):
     elif np.array_equal(matrix, sim_data):
         N_atoms = 50
         output = bts.trim_outliers(matrix, 0.99, 'MSD', N_atoms)
-        expected_matrix = np.load('trimmed_sim.npy')
+        expected_matrix = np.load('tests/expected_outputs/trimmed_sim.npy')
     assert np.array_equal(output, expected_matrix)
 
 
