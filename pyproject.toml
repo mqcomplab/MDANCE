@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "MDANCE"
-version = "0.2.2"
+version = "0.2.5"
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]
@@ -29,3 +33,6 @@ Issues = "https://github.com/mqcomplab/MDANCE/issues"
 [project.scripts]
 prime_sim = "mdance.cli.prime_sim:main"
 prime_rep = "mdance.cli.prime_rep:main"
+
+[tool.setuptools.package-data]
+"mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd"]
