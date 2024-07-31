@@ -4,8 +4,9 @@ iSIM: instant similarity
     
 Please, cite the original paper on iSIM:
 
-López-Pérez, K., Kim, T. D. & Miranda-Quintana, R. A. iSIM: instant similarity. 
-Digital Discovery 3, 1160–1171 (2024).
+`López-Pérez, K., Kim, T.D. & Miranda-Quintana, R.A. Digital Discovery 3, 1160–1171 (2024).`_
+
+.. _`López-Pérez, K., Kim, T.D. & Miranda-Quintana, R.A. Digital Discovery 3, 1160–1171 (2024).`:
 https://doi.org/10.1039/D4DD00041B
 """
 
@@ -79,7 +80,7 @@ def calculate_isim(data, n_objects = None, n_ary = 'RR'):
         OR Array with the columnwise sum, if so specify n_objects
     
     n_objects : int
-        Number of objects, only necessary if the column wize sum is the input data.
+        Number of objects, only necessary if the columnwise sum is the input data.
 
     n_ary : str
         String with the initials of the desired similarity index to calculate the iSIM from. 
