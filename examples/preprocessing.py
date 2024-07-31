@@ -5,8 +5,6 @@ Preprocessing of Molecular Dynamics Data
 MDANCE provides a set of tools to preprocess molecular dynamics trajectories before clustering. 
 This includes reading the trajectories, normalizing them, and aligning them. 
 This snippet demonstrates how to read a trajectory and save it as a numpy array.
-
-The pwd of this script is ``$PATH/MDANCE/examples``.
 """
 
 ###############################################################################
@@ -15,6 +13,8 @@ The pwd of this script is ``$PATH/MDANCE/examples``.
 #   - ``gen_traj_numpy`` for using the `MDAnalysis <https://www.mdanalysis.org/>`_ library to read the trajectories and save them as numpy arrays.
 
 import numpy as np
+
+from mdance import data
 from mdance.inputs.preprocess import gen_traj_numpy
 
 ###############################################################################
@@ -26,9 +26,9 @@ from mdance.inputs.preprocess import gen_traj_numpy
 #   - ``atomSelection`` is the atom selection used for clustering that must be compatible with the `MDAnalysis Atom Selections Language <https://userguide.mdanalysis.org/stable/selections.html>`_.
 #   - ``gen_traj_numpy`` will convert the trajectory to a numpy array with the shape ``(n_frames, n_atoms * 3)`` for comparison purposes.
 
-input_top = '../data/md/aligned_tau.pdb'
-input_traj = '../data/md/aligned_1000_tau.dcd'
-output_base_name = '../data/md/backbone'
+input_top = data.top
+input_traj = data.traj
+output_base_name = 'backbone'
 atomSelection = 'resid 3 to 12 and name N CA C O H'
 
 traj_numpy = gen_traj_numpy(input_top, input_traj, atomSelection)

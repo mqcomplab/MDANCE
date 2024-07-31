@@ -4,19 +4,19 @@ eSIM: extended similarity indices
 
 Please, cite the original papers on the *n*-ary indices:
 
-Miranda-Quintana, R. A., Bajusz, D., Rácz, A. & Héberger, K. Extended 
-similarity indices: the benefits of comparing more than two objects 
-simultaneously. Part 1: Theory and characteristics†. J Cheminform 13, 32 (2021).
+`Miranda-Quintana, R.A., Bajusz, D., Rácz, A. & Héberger, K. J Cheminform 13, 32 (2021).`_
+
+`Miranda-Quintana, R.A., Rácz, A., Bajusz, D. & Héberger, K. J Cheminform 13, 33 (2021).`_
+
+.. _Miranda-Quintana, R.A., Bajusz, D., Rácz, A. & Héberger, K. J Cheminform 13, 32 (2021).:
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00505-3
 
-Miranda-Quintana, R. A., Rácz, A., Bajusz, D. & Héberger, K. Extended 
-similarity indices: the benefits of comparing more than two objects simultaneously. 
-Part 2: speed, consistency, diversity selection. J Cheminform 13, 33 (2021).
+.. _Miranda-Quintana, R.A., Rácz, A., Bajusz, D. & Héberger, K. J Cheminform 13, 33 (2021).:
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00504-4
 """
 
 import numpy as np
-from math import ceil
+from math import ceil, log
 
 
 def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"):
@@ -133,7 +133,7 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
         Number of objects to be compared.
     c_threshold : {None, 'dissimilar', int}
         Coincidence threshold.
-    w_factor : {"fraction", "power_n"}
+    w_factor : {'fraction', 'power_n'}
         Type of weight function that will be used.
     
     Returns
@@ -141,12 +141,13 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     dict
         Dictionary with the similarity indices.
     
-    Notes
-    -----
-    Available indices:
-        - BUB: Baroni-Urbani-Buser, Fai: Faith, Gle: Gleason, Ja: Jaccard,
-        - JT: Jaccard-Tanimoto, RT: Rogers-Tanimoto, RR: Russel-Rao
-        - SM: Sokal-Michener, SSn: Sokal-Sneath n
+    .. note::
+        Available indices:
+        - ``BUB``: Baroni-Urbani-Buser, ``Fai``: Faith, 
+        - ``Gle``: Gleason, ``Ja``: Jaccard,
+        - ``JT``: Jaccard-Tanimoto, ``RT``: Rogers-Tanimoto, 
+        - ``RR``: Russel-Rao, ``SM``: Sokal-Michener, 
+        - ``SSn``: Sokal-Sneath n
     """
     
     counters = calculate_counters(c_total, n_objects, c_threshold=c_threshold, 
@@ -190,7 +191,7 @@ class SimilarityIndex:
         Coincidence threshold.
     n_ary : str
         string with the initials of the desired similarity index to calculate the medoid from.
-    w_factor : str
+    w_factor : {'fraction', 'power_n'}
         Type of weight function that will be used.
     weight : str
         Type of weight function that will be used.
@@ -429,13 +430,9 @@ def calc_medoid(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tota
     ----------
     data : array-like of shape (n_objects, n_features)
         Vector containing the sums of each column of the fingerprint matrix.
-    n_objects : int
-        Number of objects to be compared.
-    c_threshold : {None, 'dissimilar', int}
-        Coincidence threshold.
     n_ary : str
         string with the initials of the desired similarity index to calculate the medoid from.
-    w_factor : str
+    w_factor : {'fraction', 'power_n'}
         Type of weight function that will be used.
     weight : str
         Type of weight function that will be used.
@@ -477,13 +474,9 @@ def calc_outlier(data, n_ary = 'RR', w_factor = 'fraction', weight = 'nw', c_tot
     ----------
     data : array-like of shape (n_objects, n_features)
         Vector containing the sums of each column of the fingerprint matrix.
-    n_objects : int
-        Number of objects to be compared.
-    c_threshold : {None, 'dissimilar', int}
-        Coincidence threshold.
     n_ary : str
         string with the initials of the desired similarity index to calculate the medoid from.
-    w_factor : str
+    w_factor : {'fraction', 'power_n'}
         Type of weight function that will be used.
     weight : str
         Type of weight function that will be used.
@@ -532,7 +525,7 @@ def calc_comp_sim(data, c_threshold = None, n_ary = 'RR', w_factor = 'fraction',
         Coincidence threshold.
     n_ary : str
         string with the initials of the desired similarity index to calculate the medoid from.
-    w_factor : str
+    w_factor : {'fraction', 'power_n'}
         Type of weight function that will be used.
     weight : str
         Type of weight function that will be used.

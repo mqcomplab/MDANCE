@@ -1,10 +1,13 @@
 import numpy as np
-from mdance.cluster.nani import KmeansNANI
-from mdance.tools.bts import extended_comparison, calculate_medoid
 import os
 
+from mdance.cluster.nani import KmeansNANI
+from mdance import data
+from mdance.tools.bts import extended_comparison, calculate_medoid
+
+
 # System info - EDIT THESE
-input_traj_numpy = '../../data/md/backbone.npy'
+input_traj_numpy = data.sim_traj_numpy
 N_atoms = 50
 sieve = 1
 
@@ -14,6 +17,7 @@ init_type = 'comp_sim'                                              # Default
 metric = 'MSD'                                                      # Default
 n_structures = 11                                                   # Default
 output_dir = 'outputs'                                              # Default
+
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):

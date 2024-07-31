@@ -95,10 +95,10 @@ mdance.tools.isim
    :undoc-members:
    :show-inheritance:
 
-mdance.tools.esim\_modules
+mdance.tools.esim
 ---------------------------------
 
-.. automodule:: mdance.tools.esim_modules
+.. automodule:: mdance.tools.esim
    :members:
    :undoc-members:
    :show-inheritance:

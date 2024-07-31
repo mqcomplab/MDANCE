@@ -14,22 +14,24 @@ class KmeansNANI:
         Input dataset.
     n_clusters : int
         Number of clusters.
-    metric : str
+    metric : {'MSD', 'JT', etc}
         Metric used for extended comparisons. 
-        See `tools.bts.extended_comparison` for all available metrics.
-        e.g. ``MSD``, ``RR``, ``JT``.
-    N_atoms : int
-        Number of atoms. ``N_atoms=1`` for all non Molecular Dynamics data.
+        More in ``mdance.tools.bts.extended_comparison``.
+    N_atoms : int, optional
+        Number of atoms in the system used for normalization.
+        ``N_atoms=1`` for non-Molecular Dynamics datasets.
     init_type : str
-        Type of initiator selection. Default is ``comp_sim``.
-            - ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
-            - ``div_select`` selects the initial centers based on the highest diversity of all data.
-            - ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
-            - ``random`` selects the initial centers randomly.
-            - ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
+        Type of initiator selection. More in notes. Default is ``comp_sim``.
     percentage : int
         Percentage of the dataset to be used for the initial selection of the 
         initial centers. Default is 10. (**kwargs)
+    
+    .. note::
+        - ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
+        - ``div_select`` selects the initial centers based on the highest diversity of all data.
+        - ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
+        - ``random`` selects the initial centers randomly.
+        - ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
     
     Attributes
     ----------
@@ -101,13 +103,13 @@ class KmeansNANI:
             top_comp_sim_indices = [int(i[0]) for i in sorted_comp_sim][:n_max]
             top_cc_data = self.data[top_comp_sim_indices]
             initiators_indices = diversity_selection(top_cc_data, 100, self.metric, 
-                                                     'medoid', self.N_atoms)
+                                                     self.N_atoms, 'medoid')
             initiators = top_cc_data[initiators_indices]
             if len(initiators) < self.n_clusters:
                 raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
         elif self.init_type == 'div_select':
             initiators_indices = diversity_selection(self.data, self.percentage, self.metric, 
-                                                     'medoid', self.N_atoms)
+                                                     self.N_atoms, 'medoid')
             initiators = self.data[initiators_indices]
         elif self.init_type == 'vanilla_kmeans++':
             initiators, indices = kmeans_plusplus(self.data, self.n_clusters, 

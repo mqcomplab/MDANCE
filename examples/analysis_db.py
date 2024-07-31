@@ -8,6 +8,7 @@ The pwd of this script is ``$PATH/MDANCE/examples``.
 """
 ###############################################################################
 # To begin with, let's first import the modules we will use:
+
 import matplotlib.pyplot as plt
 import numpy as np
 

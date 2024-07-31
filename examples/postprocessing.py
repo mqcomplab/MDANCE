@@ -16,13 +16,15 @@ The pwd of this script is ``$PATH/MDANCE/examples``.
 import MDAnalysis as mda
 import numpy as np
 
+from mdance import data
+
 ###############################################################################
 # Read the original trajectory file with MDAnalysis.
 #   - ``input_top`` is the path to the topology file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 #   - ``input_traj`` is the path to the trajectory file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 
-input_top = '../data/md/aligned_tau.pdb'
-input_traj = '../data/md/aligned_1000_tau.dcd'
+input_top = data.top
+input_traj = data.traj
 
 u = mda.Universe(input_top, input_traj)
 print(f'Number of atoms in the trajectory: {u.atoms.n_atoms}')

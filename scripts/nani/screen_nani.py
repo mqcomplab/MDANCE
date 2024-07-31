@@ -1,10 +1,13 @@
 import numpy as np
-from mdance.cluster.nani import KmeansNANI, compute_scores
-from mdance.tools.bts import extended_comparison
 import os
 
+from mdance.cluster.nani import KmeansNANI, compute_scores
+from mdance import data
+from mdance.tools.bts import extended_comparison
+
+
 # System info
-input_traj_numpy = '../../data/md/backbone.npy'
+input_traj_numpy = data.sim_traj_numpy
 N_atoms = 50
 sieve = 1
 
@@ -14,6 +17,7 @@ init_types = ['comp_sim']                                           # Must be a 
 metric = 'MSD'
 start_n_clusters = 5                                                # At least 2 clusters
 end_n_clusters = 30                                                 # Maximum number of clusters
+
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):

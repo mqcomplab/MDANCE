@@ -2,7 +2,7 @@ import numpy as np
 import json
 import re
 
-from mdance.tools.esim_modules import calc_medoid
+from mdance.tools.esim import calc_medoid
 from mdance.prime.sim_calc import _trim_outliers
 
 
