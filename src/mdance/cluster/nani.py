@@ -103,13 +103,13 @@ class KmeansNANI:
             top_comp_sim_indices = [int(i[0]) for i in sorted_comp_sim][:n_max]
             top_cc_data = self.data[top_comp_sim_indices]
             initiators_indices = diversity_selection(top_cc_data, 100, self.metric, 
-                                                     'medoid', self.N_atoms)
+                                                     self.N_atoms, 'medoid')
             initiators = top_cc_data[initiators_indices]
             if len(initiators) < self.n_clusters:
                 raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
         elif self.init_type == 'div_select':
             initiators_indices = diversity_selection(self.data, self.percentage, self.metric, 
-                                                     'medoid', self.N_atoms)
+                                                     self.N_atoms, 'medoid')
             initiators = self.data[initiators_indices]
         elif self.init_type == 'vanilla_kmeans++':
             initiators, indices = kmeans_plusplus(self.data, self.n_clusters, 
