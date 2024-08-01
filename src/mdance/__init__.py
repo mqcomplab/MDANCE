@@ -1,4 +1,4 @@
-__version__ = '0.2.5'
+__version__ = '0.2.6'
 __author__ = 'Lexin Chen'
 __author_email__ = 'le.chen@ufl.edu'
 __description__ = 'a flexible n-ary clustering package for molecular dynamics trajectories.'

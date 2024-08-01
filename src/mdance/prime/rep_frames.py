@@ -1,6 +1,7 @@
-import numpy as np
 import json
 import re
+
+import numpy as np
 
 from mdance.tools.esim import calc_medoid
 from mdance.prime.sim_calc import _trim_outliers

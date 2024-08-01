@@ -1,5 +1,6 @@
-import numpy as np
 import os
+
+import numpy as np
 
 from mdance.cluster.nani import KmeansNANI, compute_scores
 from mdance import data

@@ -14,7 +14,10 @@ Potential Error:
 IndexError: list index out of range
 Check -n argument to ensure it is not greater than the number of clusters in the directory.
 """
+
 import os
+
+
 if __name__ == '__main__':
     os.system('python ../../src/mdance/cli/prime_sim.py -m union -n 6 \
               -i SM -t 0.1 -d normed_clusters -s ../nani/outputs/summary_6.csv')

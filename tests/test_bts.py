@@ -3,7 +3,7 @@ import pytest
 
 from mdance.inputs.preprocess import normalize_file
 from mdance import data
-import mdance.tools.bts as bts
+from mdance.tools import bts
 
 
 @pytest.fixture(scope='module')

@@ -1,8 +1,11 @@
-import numpy as np
-from mdance.inputs.preprocess import gen_traj_numpy, normalize_file, Normalizer
-import re
 import glob
 import os
+import re
+
+import numpy as np
+
+from mdance.inputs.preprocess import gen_traj_numpy, normalize_file, Normalizer
+
 
 # System info - EDIT THESE
 input_top = '../../data/md/aligned_tau.pdb'
@@ -11,6 +14,7 @@ output_dir = 'normed_clusters'
 output_base_name = 'normed_clusttraj'
 atomSelection = 'resid 3 to 12 and name N CA C O H'
 n_clusters = 6
+
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):

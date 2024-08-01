@@ -15,12 +15,12 @@ https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00505-3
 https://jcheminf.biomedcentral.com/articles/10.1186/s13321-021-00504-4
 """
 
-import numpy as np
 from math import ceil, log
 
+import numpy as np
 
-def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"):
-    """Calculate 1-similarity, 0-similarity, and dissimilarity counters
+def calculate_counters(c_total, n_objects, c_threshold=None, w_factor='fraction'):
+    """Calculate 1-similarity, 0-similarity, and dissimilarity counters.
 
     Parameters
     ---------
@@ -30,19 +30,20 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
     n_objects : int
         Number of objects to be compared.
 
-    c_threshold : {None, 'dissimilar', int}
+    c_threshold : {None, 'dissimilar', int}, default=None
         Coincidence threshold.
             - None : Default, c_threshold = n_objects % 2
             - ``dissimilar`` : c_threshold = ceil(n_objects / 2)
             - int : Integer number < n_objects
-            - float : Real number in the (0, 1) interval. Indicates the % of the total data that will serve as threshold.
+            - float : Real number in the (0, 1) interval. Indicates the % 
+              of the total data that will serve as threshold.
 
-    w_factor : {"fraction", "power_n"}
+    w_factor : {"fraction", "power_n"}, default='fraction'
         Type of weight function that will be used.
             - ``fraction`` : similarity = d[k]/n
-                        dissimilarity = 1 - (d[k] - n_objects % 2)/n_objects
+                    dissimilarity = 1 - (d[k] - n_objects % 2)/n_objects
             - ``power_n`` : similarity = n**-(n_objects - d[k])
-                        dissimilarity = n**-(d[k] - n_objects % 2)
+                    dissimilarity = n**-(d[k] - n_objects % 2)
             - other values : similarity = dissimilarity = 1
 
     Returns
@@ -59,21 +60,21 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
         c_threshold = n_objects % 2
     if isinstance(c_threshold, int):
         if c_threshold >= n_objects:
-            raise ValueError("c_threshold cannot be equal or greater than n_objects.")
+            raise ValueError('c_threshold cannot be equal or greater than n_objects.')
         c_threshold = c_threshold
     if 0 < c_threshold < 1:
         c_threshold *= n_objects
     
     # Set w_factor
     if w_factor:
-        if "power" in w_factor:
+        if 'power' in w_factor:
             power = int(w_factor.split("_")[-1])
             def f_s(d):
                 return power**-float(n_objects - d)
     
             def f_d(d):
                 return power**-float(d - n_objects % 2)
-        elif w_factor == "fraction":
+        elif w_factor == 'fraction':
             def f_s(d):
                 return d/n_objects
     
@@ -122,8 +123,18 @@ def calculate_counters(c_total, n_objects, c_threshold=None, w_factor="fraction"
     return counters
 
 
-def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
-    """Generate a dictionary with the similarity indices
+def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor='fraction'):
+    """Generate a dictionary with the similarity indices.
+    
+    Valid values for metric are:
+
+    - ``MSD``: Mean Square Deviation.
+    - Extended or Instant Similarity Metrics : ``AC``: Austin-Colwell, 
+      ``BUB``: Baroni-Urbani-Buser, ``CTn``: Consoni-Todschini n, 
+      ``Fai``: Faith, ``Gle``: Gleason, ``Ja``: Jaccard, 
+      ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
+      ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
+      ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
     
     Parameters
     ----------
@@ -140,14 +151,6 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor="fraction"):
     -------
     dict
         Dictionary with the similarity indices.
-    
-    .. note::
-        Available indices:
-        - ``BUB``: Baroni-Urbani-Buser, ``Fai``: Faith, 
-        - ``Gle``: Gleason, ``Ja``: Jaccard,
-        - ``JT``: Jaccard-Tanimoto, ``RT``: Rogers-Tanimoto, 
-        - ``RR``: Russel-Rao, ``SM``: Sokal-Michener, 
-        - ``SSn``: Sokal-Sneath n
     """
     
     counters = calculate_counters(c_total, n_objects, c_threshold=c_threshold, 

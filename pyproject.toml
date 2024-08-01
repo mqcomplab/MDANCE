@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MDANCE"
-version = "0.2.5"
+version = "0.2.6"
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]

@@ -1,8 +1,9 @@
 import glob
 from itertools import chain
+import re
+
 import MDAnalysis as mda
 import numpy as np
-import re
 
 
 def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
