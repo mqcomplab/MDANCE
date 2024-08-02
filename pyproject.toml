@@ -37,5 +37,12 @@ prime_rep = "mdance.cli.prime_rep:main"
 [tool.setuptools.package-data]
 "mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd"]
 
+[tool.setuptools]
+zip-safe = true
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["docs", "examples", "scripts", "tests", "tutorials"]
+
 [tool.setuptools_scm]
 version_file = "src/mdance/_version.py"
