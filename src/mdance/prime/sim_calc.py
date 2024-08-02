@@ -1,7 +1,8 @@
 import glob
 import json
-import numpy as np
 import re
+
+import numpy as np
 
 from mdance.tools.esim import SimilarityIndex, calc_medoid, calc_outlier
 

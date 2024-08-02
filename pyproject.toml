@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools>=64", "versioneer[toml]", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "MDANCE"
-version = "0.2.5"
+dynamic = ["version"]
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
 ]
@@ -36,3 +36,10 @@ prime_rep = "mdance.cli.prime_rep:main"
 
 [tool.setuptools.package-data]
 "mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd"]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "src/mdance/_version.py"
+versionfile_build = "src/mdance/_version.py"
+tag_prefix = ""

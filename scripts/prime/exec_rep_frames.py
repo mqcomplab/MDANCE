@@ -11,7 +11,9 @@ Note:
 Output will generate the index of the representative frames for the given method.
 Python uses 0-based indexing, so the index will be 1 less than the actual frame number.
 """
+
 import os
+
 
 os.system('python ../../src/mdance/cli/prime_rep.py -m union \
           -s outputs -d normed_clusters -t 0.1 -i SM')

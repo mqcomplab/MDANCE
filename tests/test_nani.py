@@ -9,16 +9,25 @@ from mdance.cluster.nani import KmeansNANI
 
 @pytest.fixture(scope='module')
 def traj_numpy():
+    """
+    Load the trajectory data.
+    """
     return np.load(data.sim_traj_numpy)
 
 
 @pytest.fixture(scope='module')
 def blobs():
+    """
+    Generate blobs.
+    """
     data, true_labels = make_blobs(n_samples=100, centers=7, n_features=2, random_state=0)
     return data, true_labels
 
 
 def test_nani(traj_numpy):
+    """
+    Test the NANI algorithm.
+    """
     n_clusters = 6
     mod = KmeansNANI(traj_numpy, n_clusters, 'MSD', N_atoms=50,
                      init_type='comp_sim', percentage=10)
@@ -36,6 +45,9 @@ def test_nani(traj_numpy):
 
 
 def test_nani_2(blobs):
+    """
+    Test the NANI algorithm.
+    """
     data, true_labels = blobs
     n_clusters = 7
     mod = KmeansNANI(data, n_clusters, metric='MSD', N_atoms=1,

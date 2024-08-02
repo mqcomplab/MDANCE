@@ -1,8 +1,10 @@
 import numpy as np
 
 def test_db():
+    """
+    Test the Davies-Bouldin index and the optimal number of clusters.
+    """
     scores_csv = 'scripts/nani/outputs/10comp_sim_summary.csv'
-    base_name = scores_csv.split('\\')[-1].split('.csv')[0]
     n_clus, db = np.loadtxt(scores_csv, unpack=True, delimiter=',', usecols=(0, 3))
 
     # Plot the Davies-Bouldin index and the optimal number of clusters

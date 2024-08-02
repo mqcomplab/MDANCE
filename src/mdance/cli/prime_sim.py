@@ -13,17 +13,35 @@ def main():
     Returns
     -------
     txt file with dictionary of similarities.
+
+    Examples
+    --------
+    $ prime_sim -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
     """
     # Parse command-line arguments
     parser = argparse.ArgumentParser()
     parser_dict = {
-        'method': {'flags': ['-m', '--method'], 'kwargs': {'help': 'Method to use for similarity calculation. (pairwise, union, medoid, outlier)', 'required': True}},
-        'n_clusters': {'flags': ['-n', '--n_clusters'], 'kwargs': {'type': int, 'help': 'Number of clusters for analysis', 'required': True}},
-        'index': {'flags': ['-i', '--index'], 'kwargs': {'help': 'Similarity Index to use (e.g. RR or SM)', 'required': True}},
-        'trim_frac': {'flags': ['-t', '--trim_frac'], 'kwargs': {'type': float, 'help': 'Fraction of outliers to trim. (e.g. 0.1, default: None)', 'default': None}},
-        'weighted_by_frames': {'flags': ['-w', '--weighted_by_frames'], 'kwargs': {'help': 'Weighing clusters by frames it contains. (default: True)', 'default': True}},
-        'cluster_folder': {'flags': ['-d', '--cluster_folder'], 'kwargs': {'help': 'Location of the cluster files directory', 'default': "new_clusters/"}},
-        'summary_file': {'flags': ['-s', '--summary_file'], 'kwargs': {'help': 'Location of CPPTRAJ cluster summary file', 'default': "summary"}}
+        'method': {'flags': ['-m', '--method'], 
+                   'kwargs': {'help': 'Method to use for similarity calculation. (pairwise, union, medoid, outlier)', 
+                              'required': True}},
+        'n_clusters': {'flags': ['-n', '--n_clusters'], 
+                       'kwargs': {'type': int, 'help': 'Number of clusters for analysis', 
+                                  'required': True}},
+        'index': {'flags': ['-i', '--index'], 
+                  'kwargs': {'help': 'Similarity Index to use (e.g. RR or SM)', 
+                             'required': True}},
+        'trim_frac': {'flags': ['-t', '--trim_frac'], 
+                      'kwargs': {'type': float, 'help': 'Fraction of outliers to trim. (e.g. 0.1, default: None)', 
+                                 'default': None}},
+        'weighted_by_frames': {'flags': ['-w', '--weighted_by_frames'], 
+                               'kwargs': {'help': 'Weighing clusters by frames it contains. (default: True)', 
+                                          'default': True}},
+        'cluster_folder': {'flags': ['-d', '--cluster_folder'], 
+                           'kwargs': {'help': 'Location of the cluster files directory', 
+                                      'default': "new_clusters/"}},
+        'summary_file': {'flags': ['-s', '--summary_file'], 
+                         'kwargs': {'help': 'Location of CPPTRAJ cluster summary file', 
+                                    'default': "summary"}}
     }
     for key, value in parser_dict.items():
         parser.add_argument(*value['flags'], **value['kwargs'])

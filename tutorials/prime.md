@@ -39,7 +39,7 @@ The following tutorial will guide you through the process of determining the nat
 `n_clusters` is the number of clusters used in the PRIME. If number less than total number of cluster, it will take top *n* number of clusters. <br>
 
 ```bash
-python normalize.py
+$ python normalize.py
 ```
 
 #### Outputs
@@ -60,7 +60,7 @@ python normalize.py
 
 #### Example 
 ```bash
-prime_sim -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
+$ prime_sim -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
 ```
 
 To generate a similarity dictionary using data in [normed_clusters](../scripts/prime/normed_clusters) (make sure you are in the prime directory) using the union method (2.2 in *Fig 2*) and Sokal Michener index. In addition, 10% of the outliers were trimmed. You can either `python exec_similarity.py` or run example above.
@@ -82,7 +82,7 @@ Keys are frame #. Values are [cluster 1 similarity, cluster #2 similarity, ..., 
 
 #### Example 
 ```bash
-prime_rep -m union -s outputs -d normed_clusters -t 0.1 -i SM
+$ prime_rep -m union -s outputs -d normed_clusters -t 0.1 -i SM
 ```
 
 #### Outputs
