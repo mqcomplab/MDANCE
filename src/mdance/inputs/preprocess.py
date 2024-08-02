@@ -28,6 +28,7 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
         
     Examples
     --------
+    >>> from mdance.inputs.preprocess import gen_traj_numpy
     >>> traj_numpy = gen_traj_numpy('aligned_tau.pdb', 'aligned_tau.dcd', 
                                     'resid 3:12 and name N CA C')
 
