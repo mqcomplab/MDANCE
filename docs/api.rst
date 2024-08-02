@@ -1,4 +1,4 @@
-Clustering
+mdance.cluster
 ======================
 
 mdance.cluster.nani
@@ -11,7 +11,7 @@ mdance.cluster.nani
 
 
 
-Command line interface
+mdance.cli
 ====================
 
 mdance.cli.prime_sim
@@ -32,7 +32,7 @@ mdance.cli.prime_rep
 
 
 
-Inputs
+mdance.inputs
 =====================
 
 mdance.inputs.preprocess
@@ -43,7 +43,7 @@ mdance.inputs.preprocess
 
 
 
-Outputs
+mdance.outputs
 ======================
 
 mdance.outputs.postprocess
@@ -55,7 +55,7 @@ mdance.outputs.postprocess
    :show-inheritance:
 
 
-PRIME
+mdance.prime
 ====================
 
 mdance.prime.sim\_calc
@@ -76,7 +76,7 @@ mdance.prime.rep\_frames
    :show-inheritance:
 
 
-Tools
+mdance.tools
 ====================
 
 mdance.tools.bts
