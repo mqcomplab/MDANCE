@@ -36,20 +36,23 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 
 *k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for selecting initial centroids for *k*-Means clustering. NANI is an extension of the *k*-Means++ algorithm. NANI stratifies the data to high density region and perform diversity selection on top of the it to select the initial centroids. This is a deterministic algorithm that will always select the same initial centroids for the same dataset and improve on *k*-means++ by reducing the number of iterations required to converge and improve the clustering quality.
 
-**A tutorial is available for NANI at [tutorials/nani.md](tutorials/nani.md).**
 
-Example usage:
+#### Example Usage:
 
 ```python
 >>> from mdance.cluster.nani import KmeansNANI
 >>> data = np.load('data.npy')
->>> n_clusters = 4
->>> mod = KmeansNANI(data, n_clusters=n_clusters, metric='MSD', N_atoms=1, init_type='comp_sim', percentage=10)
+>>> N = 4
+>>> mod = KmeansNANI(data, n_clusters=N, metric='MSD', N_atoms=1)
 >>> initiators = mod.initiate_kmeans()
->>> initiators = initiators[:n_clusters]
->>> kmeans = KMeans(n_clusters, init=initiators, n_init=1, random_state=None)
+>>> initiators = initiators[:N]
+>>> kmeans = KMeans(N, init=initiators, n_init=1, random_state=None)
 >>> kmeans.fit(data)
 ```
+
+**A tutorial is available for NANI [here](https://mdance.readthedocs.io/en/latest/tutorials/nani.html).**
+
+For more information on the NANI algorithm, please refer to the [NANI paper](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308).
 
 ## Clustering Postprocessing
 ### PRIME
@@ -72,6 +75,8 @@ Example usage:
     </td>
   </tr>
 </table>
+
+**A tutorial is available for PRIME [here](https://mdance.readthedocs.io/en/latest/tutorials/prime.html).**
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362). 
 
