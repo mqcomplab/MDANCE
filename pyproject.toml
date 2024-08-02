@@ -40,6 +40,6 @@ prime_rep = "mdance.cli.prime_rep:main"
 [tool.versioneer]
 VCS = "git"
 style = "pep440"
-versionfile_source = "_version.py"
-versionfile_build = "_version.py"
+versionfile_source = "mdance/_version.py"
+versionfile_build = "mdance/_version.py"
 tag_prefix = ""
