@@ -14,6 +14,7 @@ from math import ceil, log
 
 import numpy as np
 
+
 def calculate_counters(c_total, n_objects, c_threshold=None, w_factor='fraction'):
     """Calculate 1-similarity, 0-similarity, and dissimilarity counters.
 

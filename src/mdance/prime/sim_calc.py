@@ -26,6 +26,30 @@ class FrameSimilarity:
         The n_ary similarity metric to use.
     weight : {'nw', 'w', 'fraction'}
         The weight to use for the similarity metric.
+
+    Returns
+    -------
+    dict
+        A dictionary containing the average similarity between each pair of clusters.
+    
+    References
+    ----------
+    Chen, L., Mondal, A., Perez, A. & Miranda-Quintana, R.A. `"Protein Retrieval 
+    via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices."`_.
+    *Journal of Chemical Theory and Computation* **2024** 20 (14), 6303-6315
+
+    Examples
+    --------
+    >>> from mdance.prime.sim_calc import FrameSimilarity
+    >>> sim = FrameSimilarity(cluster_folder="path/to/cluster_folder", summary_file="path/to/summary_file",
+    ...                       trim_frac=0.1, n_clusters=10, weighted_by_frames=True, n_ary='RR', weight='nw')   
+    >>> sim.calculate_pairwise()
+    >>> sim.calculate_union()
+    >>> sim.calculate_medoid()
+    >>> sim.calculate_outlier()
+
+    .. _"Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices.": https://pubs.acs.org/doi/10.1021/acs.jctc.0c01294
+        https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362
     """
     def __init__(self, cluster_folder=None, summary_file=None, trim_frac=None, n_clusters=None, 
                  weighted_by_frames=True, n_ary='RR', weight='nw'):

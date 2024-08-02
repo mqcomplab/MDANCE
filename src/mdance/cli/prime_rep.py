@@ -13,7 +13,8 @@ def main():
 
     Examples
     --------
-    $ prime_rep -m union -s outputs -d normed_clusters -t 0.1 -i SM
+    .. code-block:: bash
+        $ prime_rep -m union -s outputs -d normed_clusters -t 0.1 -i SM
     """
     parser_dict = {
         'method': {'flags': ['-m', '--method'], 

@@ -95,13 +95,15 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None,
     
     Valid values for metric are:
 
-    - ``MSD``: Mean Square Deviation.
-    - Extended or Instant Similarity Metrics : ``AC``: Austin-Colwell, 
-      ``BUB``: Baroni-Urbani-Buser, ``CTn``: Consoni-Todschini n, 
-      ``Fai``: Faith, ``Gle``: Gleason, ``Ja``: Jaccard, 
-      ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
-      ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
-      ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
+    ``MSD``: Mean Square Deviation.
+    
+    Extended or Instant Similarity Metrics : 
+        |``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
+        | ``CTn``: Consoni-Todschini n, ``Fai``: Faith, 
+        | ``Gle``: Gleason, ``Ja``: Jaccard, 
+        | ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
+        | ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
+        | ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
 
     Parameters
     ----------
@@ -563,9 +565,11 @@ def align_traj(data, N_atoms, align_method=None):
     References
     ----------
     Klem, H., Hocky, G. M., and McCullagh M., `"Size-and-Shape Space Gaussian 
-    Mixture Models for Structural Clustering of Molecular Dynamics Trajectories" 
-    <10.1021/acs.jctc.1c01290`_.
-    Journal of Chemical Theory and Computation 2022 18 (5), 3218-3230
+    Mixture Models for Structural Clustering of Molecular Dynamics Trajectories"`_.
+    *Journal of Chemical Theory and Computation* **2022** 18 (5), 3218-3230
+
+    .. _"Size-and-Shape Space Gaussian Mixture Models for Structural Clustering of Molecular Dynamics Trajectories":
+        https://pubs.acs.org/doi/abs/10.1021/acs.jctc.1c01290
     """
     if not align_method:
         return data
