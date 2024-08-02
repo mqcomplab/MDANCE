@@ -14,9 +14,9 @@ The pwd of this script is ``$PATH/MDANCE/examples``.
 ###############################################################################
 # Let's start with importing necessary libraries.
 
+from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.datasets import make_blobs
-from matplotlib import pyplot as plt
 
 from mdance.cluster.nani import KmeansNANI
 
