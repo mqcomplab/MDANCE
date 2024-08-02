@@ -1,4 +1,11 @@
-__version__ = '0.2.6'
+from importlib.metadata import version, PackageNotFoundError
+
+
+try:
+    __version__ = version("mdance")
+except PackageNotFoundError:
+    pass
+
 __author__ = 'Lexin Chen'
 __author_email__ = 'le.chen@ufl.edu'
 __description__ = 'a flexible n-ary clustering package for molecular dynamics trajectories.'

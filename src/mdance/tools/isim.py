@@ -4,9 +4,7 @@ iSIM: instant similarity
     
 Please, cite the original paper on iSIM:
 
-`López-Pérez, K., Kim, T.D. & Miranda-Quintana, R.A. Digital Discovery 3, 1160–1171 (2024).`_
-
-.. _`López-Pérez, K., Kim, T.D. & Miranda-Quintana, R.A. Digital Discovery 3, 1160–1171 (2024).`:
+López-Pérez, K., Kim, T.D. & Miranda-Quintana, R.A. Digital Discovery 3, 1160–1171 (2024).
 https://doi.org/10.1039/D4DD00041B
 """
 
