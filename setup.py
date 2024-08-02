@@ -7,5 +7,6 @@ setup(
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     package_dir={'': 'src'},
-    packages=find_packages("src")
+    packages=find_packages(where='src')
+    
 )
