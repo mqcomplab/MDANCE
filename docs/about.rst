@@ -1,5 +1,6 @@
-About MDANCE
-======================================================================
+<p align="center">
+<img src="_static/mdance.png" width="300" height=auto align="center"></a></p>
+
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible 
 *n*-ary clustering package that provides a set of tools for clustering Molecular 
 Dynamics trajectories. The package is designed to be modular and extensible, allowing 
@@ -19,6 +20,9 @@ Clustering Algorithms
 NANI
 ~~~~
 
+<p align="center">
+<img src="img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+
 *k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for
 selecting initial centroids for *k*-Means clustering. NANI is an
 extension of the *k*-Means++ algorithm. NANI stratifies the data to high
@@ -35,6 +39,12 @@ Clustering Postprocessing
 -------------------------
 PRIME
 ~~~~~
+
+<h3 align="center"> 
+    <img src="img/logo.png" width="800" height=auto align="center"></a>
+    &nbsp
+    <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
+    </h3>
 
 Protein Retrieval via Integrative Molecular Ensembles (PRIME) is a novel
 algorithm that predicts the native structure of a protein from
