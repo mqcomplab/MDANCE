@@ -124,13 +124,16 @@ def gen_sim_dict(c_total, n_objects, c_threshold=None, w_factor='fraction'):
     
     Valid values for metric are:
 
-    - ``MSD``: Mean Square Deviation.
-    - Extended or Instant Similarity Metrics : ``AC``: Austin-Colwell, 
-      ``BUB``: Baroni-Urbani-Buser, ``CTn``: Consoni-Todschini n, 
-      ``Fai``: Faith, ``Gle``: Gleason, ``Ja``: Jaccard, 
-      ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
-      ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
-      ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
+    ``MSD``: Mean Square Deviation.
+
+    Extended or Instant Similarity Metrics
+
+    | ``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
+    | ``CTn``: Consoni-Todschini n, ``Fai``: Faith, 
+    | ``Gle``: Gleason, ``Ja``: Jaccard, 
+    | ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
+    | ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
+    | ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
     
     Parameters
     ----------
