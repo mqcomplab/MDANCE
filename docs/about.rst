@@ -4,7 +4,7 @@ About MDANCE
 
     <p align="center">
     <img src="_static/mdance.png" width="300" height=auto align="center"></a></p>
-    
+
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible 
 *n*-ary clustering package that provides a set of tools for clustering Molecular 
 Dynamics trajectories. The package is designed to be modular and extensible, allowing 
@@ -24,6 +24,7 @@ Clustering Algorithms
 NANI
 ~~~~
 .. raw:: html
+
     <p align="center">
     <img src="img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
 
@@ -44,6 +45,7 @@ Clustering Postprocessing
 PRIME
 ~~~~~
 .. raw:: html
+    
     <h3 align="center"> 
         <img src="img/logo.png" width="800" height=auto align="center"></a>
         &nbsp

@@ -1,6 +1,10 @@
 *k*-means NANI Tutorial
 =======================
+.. raw:: html
 
+    <p align="center">
+    <img src="../img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+   
 .. contents::
    :local:
    :depth: 2
