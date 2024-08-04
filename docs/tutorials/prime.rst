@@ -1,9 +1,10 @@
-PRIME Tutorial
-==============
 .. raw:: html
     
     <h3 align="center"> 
         <img src="img/logo.png" width="800" height=auto align="center"></a>
+
+PRIME Tutorial
+==============
 
 .. contents::
    :local:

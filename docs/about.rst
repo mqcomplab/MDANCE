@@ -26,7 +26,8 @@ NANI
 .. raw:: html
 
     <p align="center">
-    <img src="img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+        <img src="_static/nani-logo.PNG" width="150" height="auto" align="center">
+    </p>
 
 *k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for
 selecting initial centroids for *k*-Means clustering. NANI is an
@@ -47,10 +48,10 @@ PRIME
 .. raw:: html
     
     <h3 align="center"> 
-        <img src="img/logo.png" width="800" height=auto align="center"></a>
-        &nbsp
+        <img src="_static/logo.png" width="800" height="auto" align="center">
+        &nbsp;
         <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
-        </h3>
+    </h3>
 
 Protein Retrieval via Integrative Molecular Ensembles (PRIME) is a novel
 algorithm that predicts the native structure of a protein from
