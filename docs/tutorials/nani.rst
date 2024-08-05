@@ -1,12 +1,7 @@
 .. raw:: html
 
     <p align="center">
-    <img src="../img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
-
-
-.. image:: ../img/nani-logo.PNG
-  :width: 500
-  :alt: Alternative text
+    <img src="../_static/nani-logo.PNG" width="150" height=auto align="center"></a></p>
 
 
 *k*-means NANI Tutorial
