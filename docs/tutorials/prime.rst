@@ -1,7 +1,7 @@
 .. raw:: html
-    
+
     <h3 align="center"> 
-        <img src="../_static/logo.png" width="800" height=auto align="center"></a>
+        <img src="../_static/logo.png" width="800" height=auto align="center"></a></h3>
 
 
 PRIME Tutorial
