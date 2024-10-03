@@ -11,5 +11,5 @@ cc_sim = importlib.resources.files(__name__) / 'cc_sim.npy'
 trimmed_sim = importlib.resources.files(__name__) / 'trimmed_sim.npy'
 
 blob_disk = importlib.resources.files(__name__) / 'blob_disk.csv'
-diamond = importlib.resources.files(__name__) / 'diamond9.csv'
+diamonds = importlib.resources.files(__name__) / 'diamond9.csv'
 ellipses = importlib.resources.files(__name__) / 'ellipses.csv'

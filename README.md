@@ -28,7 +28,7 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 ## Clustering Algorithms
 ### NANI
 <p align="center">
-<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/nani-logo.PNG" width="150" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>🪄NANI🪄the first installment of MDANCE</b></p>
@@ -56,9 +56,11 @@ For more information on the NANI algorithm, please refer to the [NANI paper](htt
 
 ## Clustering Postprocessing
 ### PRIME
-<h3 align="center"> 
-    <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/logo.png" width="800" height=auto align="center"></a>
-    &nbsp
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/logo.png" width="800" height=auto align="center"></a></p>
+
+<h3 align="center">
     <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
     </h3>
 

@@ -1,5 +1,9 @@
-MDANCE
-=========================================================
+.. raw:: html
+
+    <p align="center">
+    <img src="_static/mdance.png" width="300" height=auto align="center"></a></p>
+
+
 Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories.
 
 .. toctree::

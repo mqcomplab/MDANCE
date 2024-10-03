@@ -1,3 +1,9 @@
+.. raw:: html
+
+    <p align="center">
+    <img src="../_static/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+
+
 *k*-means NANI Tutorial
 =======================
 

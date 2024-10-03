@@ -98,12 +98,13 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None,
     ``MSD``: Mean Square Deviation.
     
     Extended or Instant Similarity Metrics : 
-        |``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
-        | ``CTn``: Consoni-Todschini n, ``Fai``: Faith, 
-        | ``Gle``: Gleason, ``Ja``: Jaccard, 
-        | ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
-        | ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
-        | ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
+    
+    | ``AC``: Austin-Colwell, ``BUB``: Baroni-Urbani-Buser, 
+    | ``CTn``: Consoni-Todschini n, ``Fai``: Faith, 
+    | ``Gle``: Gleason, ``Ja``: Jaccard, 
+    | ``Ja0``: Jaccard 0-variant, ``JT``: Jaccard-Tanimoto, 
+    | ``RT``: Rogers-Tanimoto, ``RR``: Russel-Rao,
+    | ``SM``: Sokal-Michener, ``SSn``: Sokal-Sneath n.
 
     Parameters
     ----------
@@ -124,10 +125,10 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None,
         for non-MD systems.
     c_threshold : int, default=None
         Coincidence threshold for calculating extended similarity. It must 
-        be an options allowed by :func:`mdance.tools.esim_modules.calculate_counters`.
+        be an options allowed by :func:`mdance.tools.esim.calculate_counters`.
     w_factor : {'fraction', 'power_n'}, default='fraction'
         The type of weight function for calculating extended similarity. It must 
-        be an options allowed by :func:`mdance.tools.esim_modules.calculate_counters`.
+        be an options allowed by :func:`mdance.tools.esim.calculate_counters`.
     
     Raises
     ------
