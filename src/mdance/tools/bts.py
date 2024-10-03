@@ -205,24 +205,29 @@ def calculate_comp_sim(matrix, metric, N_atoms=1):
     >>> import numpy as np
     >>> X = np.array([[1, 2], [2, 2], [2, 3], [8, 7], [8, 8]])
     >>> bts.calculate_comp_sim(X, metric='MSD', N_atoms=1)
-    array([[0, 31],
-           [1, 34.375],
-           [2, 36.75],
-           [3, 27.75],
-           [4, 23.875]])
+    array([31, 34.375, 36.75, 27.75, 23.875])
     """
     N = len(matrix)
-    sq_data_total = matrix ** 2
-    c_sum_total = np.sum(matrix, axis = 0)
-    sq_sum_total = np.sum(sq_data_total, axis=0)
-    comp_sims = []
-    for i, object in enumerate(matrix):
-        object_square = object ** 2
-        value = extended_comparison([c_sum_total - object, sq_sum_total - object_square],
-                                    data_type='condensed', metric=metric, 
-                                    N=N - 1, N_atoms=N_atoms)
-        comp_sims.append((i, value))
-    comp_sims = np.array(comp_sims)
+    sq_data = matrix ** 2
+    c_sum = np.sum(matrix, axis=0)
+    sq_sum = np.sum(sq_data, axis=0)
+    comp_csum = c_sum - matrix
+    comp_sqsum = sq_sum - sq_data
+    
+    if metric == 'MSD':
+        comp_msd = np.sum(2 * ((N-1) * comp_sqsum - comp_csum ** 2), axis=1) / (N-1)**2
+        comp_sims = comp_msd / N_atoms
+    
+    else:
+        comp_sims = []
+        for object in matrix:
+            object_square = object ** 2
+            value = extended_comparison([c_sum - object, sq_sum - object_square],
+                                        data_type='condensed', metric=metric, 
+                                        N=N-1, N_atoms=N_atoms)
+            comp_sims.append(value)
+        comp_sims = np.array(comp_sims)
+
     return comp_sims
 
 
@@ -253,23 +258,7 @@ def calculate_medoid(matrix, metric, N_atoms=1):
     >>> bts.calculate_medoid(X, metric='MSD', N_atoms=1)
     2
     """
-    N = len(matrix)
-    sq_data_total = matrix ** 2
-    c_sum_total = np.sum(matrix, axis=0)
-    sq_sum_total = np.sum(sq_data_total, axis=0)  
-    index = len(matrix) + 1
-    max_dissim = -1
-    for i, object in enumerate(matrix):
-        object_square = object ** 2
-        value = extended_comparison([c_sum_total - object, sq_sum_total - object_square],
-                                    data_type='condensed', metric=metric, 
-                                    N=N - 1, N_atoms=N_atoms)
-        if value > max_dissim:
-            max_dissim = value
-            index = i
-        else:
-            pass
-    return index
+    return np.argmax(calculate_comp_sim(matrix, metric, N_atoms=1))
 
 
 def calculate_outlier(matrix, metric, N_atoms=1):
@@ -299,23 +288,7 @@ def calculate_outlier(matrix, metric, N_atoms=1):
     >>> bts.calculate_outlier(X, metric='MSD', N_atoms=1)
     4
     """
-    N = len(matrix)
-    sq_data_total = matrix ** 2
-    c_sum_total = np.sum(matrix, axis=0)
-    sq_sum_total = np.sum(sq_data_total, axis=0)  
-    index = len(matrix) + 1
-    min_dissim = np.Inf
-    for i, object in enumerate(matrix):
-        object_square = object ** 2
-        value = extended_comparison([c_sum_total - object, sq_sum_total - object_square],
-                                    data_type='condensed', metric=metric, 
-                                    N=N - 1, N_atoms=N_atoms)
-        if value < min_dissim:
-            min_dissim = value
-            index = i
-        else:
-            pass
-    return index
+    return np.argmin(calculate_comp_sim(matrix, metric, N_atoms=1))
 
 
 def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
