@@ -24,7 +24,7 @@ def main():
     --------
     $ prime_sim -m union -n 6 -i SM -t 0.1  -d normed_clusters -s ../nani/outputs/summary_6.csv
 
-    .. _"Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices.": https://pubs.acs.org/doi/10.1021/acs.jctc.0c01294
+    .. _"Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices.": 
         https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362
     """
     # Parse command-line arguments

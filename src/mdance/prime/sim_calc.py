@@ -48,7 +48,7 @@ class FrameSimilarity:
     >>> sim.calculate_medoid()
     >>> sim.calculate_outlier()
 
-    .. _"Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices.": https://pubs.acs.org/doi/10.1021/acs.jctc.0c01294
+    .. _"Protein Retrieval via Integrative Molecular Ensembles (PRIME) through Extended Similarity Indices.": 
         https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362
     """
     def __init__(self, cluster_folder=None, summary_file=None, trim_frac=None, n_clusters=None, 

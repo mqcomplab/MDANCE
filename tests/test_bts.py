@@ -3,7 +3,9 @@ import pytest
 
 from mdance.inputs.preprocess import normalize_file
 from mdance import data
-from mdance.tools import bts
+import sys
+sys.path.insert(0, '../')
+from src.mdance.tools import bts
 
 
 @pytest.fixture(scope='module')
@@ -141,24 +143,15 @@ def test_calculate_comp_sim(matrix, bit_data, continuous_data, sim_data):
     """
     if np.array_equal(matrix, bit_data):
         N_atoms = 1
-        expected_cc = [
-            [0, 2.25],
-            [1, 2.0],
-            [2, 2.625],
-            [3, 2.625],
-            [4, 2.5]]
+        expected_cc = np.array([2.25, 2.0, 2.625, 2.625, 2.5])
         
     elif np.array_equal(matrix, continuous_data):
         N_atoms = 2
-        expected_cc = [
-            [0, 51.120625],
-            [1, 35.741250],
-            [2, 42.540625],
-            [3, 49.545625],
-            [4, 41.960625]]
+        expected_cc = np.array([51.120625, 35.74125, 42.540625, 49.545625, 41.960625])
     elif np.array_equal(matrix, sim_data):
         N_atoms = 50
         expected_cc = np.load(data.cc_sim)
+        expected_cc = expected_cc[:, 1]
     cc = bts.calculate_comp_sim(matrix, 'MSD', N_atoms=N_atoms)
     expected_cc = np.array(expected_cc)
     assert np.allclose(cc, expected_cc, rtol=1e-05, atol=1e-08)
