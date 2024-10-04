@@ -104,9 +104,8 @@ class KmeansNANI:
             n_total = len(self.data)
             n_max = int(n_total * self.percentage / 100)
             comp_sim = calculate_comp_sim(self.data, self.metric, self.N_atoms)
-            sorted_comp_sim = sorted(comp_sim, key=lambda item: item[1], 
-                                     reverse=True)
-            top_comp_sim_indices = [int(i[0]) for i in sorted_comp_sim][:n_max]
+            sorted_indices = np.argsort(comp_sim)   
+            top_comp_sim_indices = sorted_indices[-n_max:]
             top_cc_data = self.data[top_comp_sim_indices]
             initiators_indices = diversity_selection(top_cc_data, 100, 
                                                      self.metric, self.N_atoms, 
