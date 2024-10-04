@@ -39,7 +39,7 @@ def test_nani(traj_numpy):
     labels = kmeans.labels_
     sort_labels_by_size = np.argsort(np.bincount(labels))[::-1]
     labels = np.array([np.where(sort_labels_by_size == i)[0][0] for i in labels])
-    expected_labels = np.loadtxt('scripts/nani/outputs/labels_6.csv', delimiter=',')
+    expected_labels = np.loadtxt(data.labels_6, delimiter=',')
     expected_labels = expected_labels[:, 1]
     assert np.allclose(labels, expected_labels)
 
