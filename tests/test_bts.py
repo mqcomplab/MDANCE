@@ -3,9 +3,7 @@ import pytest
 
 from mdance.inputs.preprocess import normalize_file
 from mdance import data
-import sys
-sys.path.insert(0, '../')
-from src.mdance.tools import bts
+from mdance.tools import bts
 
 
 @pytest.fixture(scope='module')
