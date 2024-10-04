@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def test_db():
     """
     Test the Davies-Bouldin index and the optimal number of clusters.

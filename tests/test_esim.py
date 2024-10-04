@@ -3,6 +3,7 @@ import pytest
 
 import mdance.tools.esim as esim
 
+
 @pytest.fixture(scope='module')
 def bit_data():
     """
