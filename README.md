@@ -49,6 +49,9 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 >>> kmeans = KMeans(N, init=initiators, n_init=1, random_state=None)
 >>> kmeans.fit(data)
 ```
+<a target="_blank" href="https://colab.research.google.com/github/mqcomplab/MDANCE/blob/main/tutorials/MDANCE.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 **A tutorial is available for NANI [here](https://mdance.readthedocs.io/en/latest/tutorials/nani.html).**
 
