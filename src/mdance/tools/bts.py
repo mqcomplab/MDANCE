@@ -41,6 +41,8 @@ def mean_sq_dev(matrix, N_atoms):
     32.8
     """
     N = len(matrix)
+    if N == 1:
+        return 0
     sq_data = matrix ** 2
     c_sum = np.sum(matrix, axis=0)
     sq_sum = np.sum(sq_data, axis=0)
@@ -84,6 +86,8 @@ def msd_condensed(c_sum, sq_sum, N, N_atoms):
     >>> bts.msd_condensed(c_sum, sq_sum, N=5, N_atoms=1)
     32.8
     """
+    if N == 1:
+        return 0
     msd = np.sum(2 * (N * sq_sum - c_sum ** 2)) / (N ** 2)
     norm_msd = msd / N_atoms
     return norm_msd
@@ -153,6 +157,8 @@ def extended_comparison(matrix, data_type='full', metric='MSD', N=None,
     if data_type == 'full':
         if not isinstance(matrix, np.ndarray):
             raise TypeError('data must be a numpy.ndarray')
+        if matrix.ndim != 2:
+            raise ValueError('Input must be numpy ndarray of shape (n_samples, n_features)')
         c_sum = np.sum(matrix, axis=0)
         if metric == 'MSD':
             sq_data = matrix ** 2
