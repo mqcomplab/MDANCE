@@ -265,7 +265,7 @@ def calculate_medoid(matrix, metric, N_atoms=1):
     >>> bts.calculate_medoid(X, metric='MSD', N_atoms=1)
     2
     """
-    return np.argmax(calculate_comp_sim(matrix, metric, N_atoms=1))
+    return np.argmax(calculate_comp_sim(matrix, metric, N_atoms))
 
 
 def calculate_outlier(matrix, metric, N_atoms=1):
@@ -295,7 +295,7 @@ def calculate_outlier(matrix, metric, N_atoms=1):
     >>> bts.calculate_outlier(X, metric='MSD', N_atoms=1)
     4
     """
-    return np.argmin(calculate_comp_sim(matrix, metric, N_atoms=1))
+    return np.argmin(calculate_comp_sim(matrix, metric, N_atoms))
 
 
 def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
