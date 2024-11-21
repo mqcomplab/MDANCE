@@ -3,7 +3,9 @@ import pytest
 
 from mdance.inputs.preprocess import normalize_file
 from mdance import data
-from mdance.tools import bts
+import sys
+sys.path.insert(0, "./")
+from src.mdance.tools import bts
 
 
 @pytest.fixture(scope='module')
@@ -111,6 +113,25 @@ def test_extended_comparison_condensed(matrix, bit_data, continuous_data, sim_da
     ec = bts.extended_comparison((c_sum, sq_sum), 'condensed', 'MSD', n_objects, N_atoms)
     assert np.allclose(ec, expected_msd, rtol=1e-05, atol=1e-08)
 
+
+def test_ec_1D():
+    """
+    Test the extended_comparison function with zero values.
+    """
+    matrix = np.array([1, 0, 0, 0, 0, 0])
+    with pytest.raises(ValueError):
+        bts.extended_comparison(matrix, 'full', 'MSD')
+
+
+def test_ec_one_object(c_sum, sq_sum):
+    """
+    Test the extended_comparison function with zero values.
+    """
+    matrix = np.array([[1, 0, 0, 0, 0, 0]])
+    msd = bts.extended_comparison(matrix, 'full', 'MSD')
+    assert msd == 0.0
+    msd = bts.extended_comparison([c_sum, sq_sum], 'condensed', 'MSD', N=1)
+    assert msd == 0.0
 
 def test_extended_comparisons_esim(matrix, bit_data, continuous_data, sim_data,
                                    c_sum, n_objects):
