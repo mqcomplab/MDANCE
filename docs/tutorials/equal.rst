@@ -174,7 +174,7 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`$PATH/MDANCE/scripts/equal/analysis.ipynb <https://github.com/mqcomplab/MDANCE/blob/master/scripts/equal/analysis_db.ipynb.ipynb>`_ will analyze the eQual screening results. 
+`$PATH/MDANCE/scripts/equal/analysis.ipynb <https://github.com/mqcomplab/MDANCE/blob/master/scripts/equal/analysis_db.ipynb>`_ will analyze the eQual screening results. 
 
 5. Assign labels to the frames
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
