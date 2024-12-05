@@ -41,6 +41,13 @@ converge and improve the clustering quality.
 For more information on the NANI algorithm, please refer to the `NANI
 paper <https://doi.org/10.1021/acs.jctc.4c00308>`__.
 
+eQual
+~~~~~
+eQual is a O*(N)* clustering algorithm that use the radial threshold to grow the cluster to 
+maximize similarity between members in a cluster. It is an extension of the Radial Threshold 
+Clustering algorithm [(Daura and Oscar Conchillo-Solé)](https://pubs.acs.org/doi/pdf/10.1021/acs.jcim.2c01079). 
+eQual has improved with new seed selection methods and tie-breaking criteria.
+
 Clustering Postprocessing
 -------------------------
 PRIME
