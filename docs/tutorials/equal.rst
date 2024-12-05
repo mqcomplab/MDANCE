@@ -138,7 +138,7 @@ System info
 eQual params
 ^^^^^^^^^^^^
 
-| `metric` is the metric used to calculate the similarity between frames (See `extended_comparisons <https://github.com/mqcomplab/MDANCE/blob/master/tools/bts.py#L92>`_ for details). 
+| `metric` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details). 
 | `n_seeds` is the is the number of seeds selected per iteration. If `n_medoids` is greater than 1, then multiple clusters will be proposed; the cluster with the densest and greatest similarity of members will be selected. Performance time will increase with more seeds. 
 | `check_sim` is boolean to check the similarity of the seed to the cluster. 
 | `reject_lowd` is boolean to reject low density clusters. `sim_threshold` needs to be specified. 
