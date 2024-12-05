@@ -28,6 +28,7 @@ Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flex
    :caption: MDANCE's Tutorials
    
    tutorials/nani
+   tutorials/equal
    tutorials/prime
 
 .. toctree::
