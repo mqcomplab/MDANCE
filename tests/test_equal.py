@@ -1,11 +1,8 @@
-import sys
-sys.path.insert(0, "./")
-
 import numpy as np
 import pytest
 from sklearn.datasets import make_blobs
 
-from src.mdance.cluster.equal import ExtendedQuality, compute_scores
+from mdance.cluster.equal import ExtendedQuality, compute_scores
 
 
 @pytest.fixture(scope='module')
