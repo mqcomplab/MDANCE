@@ -24,7 +24,7 @@ min_samples = 10                                                    # Default
 start_threshold = 5
 end_threshold = 6
 step = 0.1
-save_clusters = True                                                # Default False
+save_clusters = False                                                # Default False
 
 
 if __name__ == '__main__':
