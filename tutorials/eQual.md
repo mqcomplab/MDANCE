@@ -11,8 +11,6 @@ Table of Contents
     - [5. Extract frames for each cluster (Optional)](#5-extract-frames-for-each-cluster-optional)
 
 ## Overview
-eQual is a quality clustering algorithm that use the radial threshold to grow the cluster to maximize similarity between members in a cluster. It is an extension of the Radial Threshold Clustering algorithm [(Daura and Oscar Conchillo-Solé)](https://pubs.acs.org/doi/pdf/10.1021/acs.jcim.2c01079). eQual has improved with new seed selection methods and tie-breaking criteria.
-
 eQual selects the seed to start the clustering. It then grows the cluster by adding the neighbors within a threshold away from the seed. This threshold is calculated using the mean-square deviation from the seed. The iteration continues until it runs out of neighbors and chosen neighbors will be removed from orginal dataset. A new iteration begins and selects medoid and its neighbors from the available dataset. If user selects multiple medoids, then the medoid that proposed the densest and most similar cluster will be chosen. The process repeats and the algorithm terminates when the dataset is empty.
 
 This clustering tutorial is meant for datasets for all applications (2D fingerprints, mass spectrometry imaging data, etc). Molecular Dynamics Trajectory has a different treatment. If specific step is only for Molecular Dynamics trajectory, it will be specified. Otherwise, it is applicable for all datasets.

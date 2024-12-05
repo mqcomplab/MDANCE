@@ -57,6 +57,13 @@ Molecular Dynamics (MD) simulations are a powerful tool for studying the dynamic
 
 For more information on the NANI algorithm, please refer to the [NANI paper](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308).
 
+### eQual
+eQual is a quality clustering algorithm that use the radial threshold to grow the cluster to maximize similarity between members in a cluster. It is an extension of the Radial Threshold Clustering algorithm [(Daura and Oscar Conchillo-Solé)](https://pubs.acs.org/doi/pdf/10.1021/acs.jcim.2c01079). eQual has improved with new seed selection methods and tie-breaking criteria.
+
+**A tutorial is available for eQual [here](https://mdance.readthedocs.io/en/latest/tutorials/equal.html).**
+
+For more information on the eQual algorithm, please refer to the [eQual paper](https://www.biorxiv.org/content/10.1101/2024.12.05.627001v1).
+
 ## Clustering Postprocessing
 ### PRIME
 
