@@ -30,6 +30,20 @@ body {
       background: #272525;
   }
 
+/* anything related to the light theme */
+html[data-theme="light"] {
+
+    /* whatever you want to change */
+    background: white;
+}
+
+/* anything related to the dark theme */
+html[data-theme="dark"] {
+
+    /* whatever you want to change */
+    background: black;
+}
+
 code.literal {
     color: #aa2583; /* !important background-color: #f0f2f2 important */
   }
