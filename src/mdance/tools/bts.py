@@ -577,7 +577,7 @@ def align_traj(data, N_atoms, align_method=None):
 
 
 def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_atomsel, ref_index):
-    """ Aligns the frames in the trajectory to the reference frame.
+    """Aligns the frames in the trajectory to the reference frame.
     
     Parameters
     ----------
@@ -623,3 +623,97 @@ def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_at
     os.remove('unaligned_traj.pdb')
     os.remove('aligned_traj.pdb')
     return aligned_traj_numpy
+
+
+def rep_sample(data, metric='MSD', N_atoms=1, n_bins=10, n_samples=100, 
+               hard_cap=True):
+    """Representative sampling according to comp_sim values.
+    
+    Divides the range of comp_sim values in nbins and then
+    uniformly selects n_samples molecules, consecutively
+    taking one from each bin
+    
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        The data to be sampled.
+    metric : str, default='MSD'
+        The metric to be used for the comparison.
+    N_atoms : int, default=1
+        Number of atoms in the Molecular Dynamics (MD) system. ``N_atom=1`` 
+        for non-MD systems.
+    n_bins : int, default=10
+        Number of bins to divide the comp_sim values.
+    n_samples : int, default=100
+        Number of samples to be selected.
+    hard_cap : bool, default=True
+        If True, the number of samples will be exactly n_samples.
+        If False, the number of samples may not be exactly n_samples.
+        
+    Returns
+    -------
+    sampled_mols : list
+        List of indices of the sampled objects in the original data
+    """
+    n = len(data)
+    if n_samples < 1:
+        n_samples = int(n * n_samples)
+    cs = calculate_comp_sim(data, metric=metric, N_atoms=N_atoms)
+    tups = []
+    for i, comp in enumerate(cs):
+        tups.append((i, comp))
+    comp_sims = np.sort(cs)
+    mi = np.min(comp_sims)
+    ma = np.max(comp_sims)
+    D = ma - mi
+    step = D / n_bins
+    bins = []
+    indices = np.array(list(range(n)))
+    for i in range(n_bins - 1):
+        low = mi + i * step
+        up = mi + (i + 1) * step
+        bins.append(indices[(comp_sims >= low) * (comp_sims < up)])
+    bins.append(indices[(comp_sims >= up) * (comp_sims <= ma)])
+    order_sampled = []
+    i = 0
+    while len(order_sampled) < n_samples:
+        for b in bins:
+            if len(b) > i:
+                order_sampled.append(b[i])
+                if hard_cap:
+                    if len(order_sampled) >= n_samples:
+                        break
+            else:
+                pass
+        i += 1
+    tups.sort(key = lambda tups : tups[1])
+    sampled_mols = []
+    for i in order_sampled:
+        sampled_mols.append(tups[i][0])
+    return sampled_mols
+
+
+def refine_dis_matrix(matrix):
+    """Refine a distance matrix by setting the diagonal to zero and
+    symmetrizing the matrix.
+    
+    Parameters
+    ----------
+    matrix : array-like of shape (n_samples, n_features)
+        A feature array.
+    
+    Returns
+    -------
+    numpy.ndarray
+        A refined 2D matrix.
+    """
+    distances = np.array(matrix)
+    if distances.ndim != 2:
+        raise ValueError('Matrix must be 2D')
+    if distances.shape[0] != distances.shape[1]:
+        raise ValueError('Matrix must be square')
+    distances += distances.T
+    distances *= 0.5
+    distances -= np.min(distances)
+    np.fill_diagonal(distances, 0)
+    return distances
