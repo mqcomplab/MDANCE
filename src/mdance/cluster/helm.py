@@ -476,8 +476,7 @@ class HELM:
                 for i in clust:
                     n_mols += nani_sizes[i]
                 Clusters[level].append([clust, (0, 0), n_mols])
-        return Clusters, merge_distances
-
+        return Clusters
 
 def z_matrix(cluster_dict):
     """Converts the cluster dictionary to a linkage matrix for plotting dendrogram.
