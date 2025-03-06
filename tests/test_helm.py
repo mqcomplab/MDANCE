@@ -337,8 +337,9 @@ def toy_helm_mod(toy_clusters):
 
 def test_ward_clust(toy_helm_mod):
     """Test the ``ward_clust()`` function."""
-    helm, merged = toy_helm_mod()
-    
+    helm = toy_helm_mod()
+    matrix = toy_helm_mod.gen_link_matrix()
+    merged = matrix[:,2]
     expected_dict = {
         4: [
             [[0], (0, 0), 3], 
