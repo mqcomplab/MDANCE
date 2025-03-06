@@ -1,17 +1,20 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/mdance.png" width="300" height=auto align="center"></a></p>
 
-MDANCE (Molecular Dynamics Analysis with *N*-ary Clustering Ensembles) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is written in Python and an extension of the *n*-ary similarity framework. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
+MDANCE (Molecular Dynamics Analysis with *N*-ary Clustering Ensembles) is a flexible *n*-ary clustering package that provides a set of tools for clustering Molecular Dynamics trajectories. The package is written in Python and an extension of the *n*-ary similarity framework. The package is designed to be modular and extensible, allowing for the addition of new clustering algorithms and similarity metrics.
 
 ## Menu
 - [Installation](#installation)
 - [Background](#background)
 - [Clustering Algorithms](#clustering-algorithms)
   - [NANI](#nani)
+  - [eQual](#equal)
+  - [SHINE](#shine)
+  - [HELM](#helm)
 - [Clustering Postprocessing](#clustering-postprocessing)
   - [PRIME](#prime)
+- [Notes](#notes)
 
-## Installation
 ## Installation
 ```bash
 $ pip install mdance
@@ -62,7 +65,27 @@ eQual is a O*(N)* clustering algorithm that use the radial threshold to grow the
 
 **A tutorial is available for eQual [here](https://mdance.readthedocs.io/en/latest/tutorials/equal.html).**
 
-For more information on the eQual algorithm, please refer to the [eQual paper](https://www.biorxiv.org/content/10.1101/2024.12.05.627001v1).
+For more information on the eQual algorithm, please refer to the [eQual preprint](https://www.biorxiv.org/content/10.1101/2024.12.05.627001v1).
+
+
+### SHINE
+<p align="center">
+<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/SHINE.PNG" width="150" height=auto align="center"></a></p>
+
+<h3 align="center">
+    <p><b>Pathway Analysis SHINE!</b></p>
+    </h3>
+
+Sampling Hierarchical Intrinsic *N*-ary Ensembles (SHINE) is a hierarchical clustering tool for pathway analysis. This can be particularly useful if you want to identical the dominant pathway(s) of your enhanced sampling simulations.
+
+**A tutorial is available for SHINE [here](tutorial/SHINE.ipynb).**
+
+For more information on the SHINE algorithm, please refer to the [SHINE preprint](https://www.biorxiv.org/content/10.1101/2025.02.07.636541v1).
+
+### HELM
+HELM is a hierarchical agglomerative clustering algorithm that uses the *n*-ary similarity to merge clusters at each level. It transformed from the traditional hierarchical clustering algorithm to be more efficient and scalable turning a $O(N^2)$ algorithm to $O(N)$. It specializes in recognizing dominant conformations within an ensemble and is often used alongside NANI to achieve a balance between efficiency and precision. 
+
+**A tutorial is available for HELM [here](tutorial/helm.md).**
 
 ## Clustering Postprocessing
 ### PRIME
@@ -92,5 +115,8 @@ For more information on the eQual algorithm, please refer to the [eQual paper](h
 
 For more information on the PRIME algorithm, please refer to the [PRIME paper](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362). 
 
-### Collab or Contribute?!
+### Notes
+Research contained in this package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
+
+Collab or Contribute?!
 Please! Don't hesitate to reach out!
