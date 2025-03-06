@@ -70,7 +70,7 @@ For more information on the eQual algorithm, please refer to the [eQual preprint
 
 ### SHINE
 <p align="center">
-<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/SHINE.PNG" width="150" height=auto align="center"></a></p>
+<img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/SHINE.png" width="150" height=auto align="center"></a></p>
 
 <h3 align="center">
     <p><b>Pathway Analysis SHINE!</b></p>
