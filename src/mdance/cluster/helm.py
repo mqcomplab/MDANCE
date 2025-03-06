@@ -442,9 +442,6 @@ class HELM:
             for clust in self.cluster_dict[k]:
                 nani_sizes.append(clust[2])
         
-        # Merge distances
-        merge_distances = self.link_matrix[:,2].copy()
-        
         # Cluster IDs
         k = len(self.link_matrix) + 1
         cluster_list = []
