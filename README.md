@@ -78,7 +78,7 @@ For more information on the eQual algorithm, please refer to the [eQual preprint
 
 Sampling Hierarchical Intrinsic *N*-ary Ensembles (SHINE) is a hierarchical clustering tool for pathway analysis. This can be particularly useful if you want to identical the dominant pathway(s) of your enhanced sampling simulations.
 
-**A tutorial is available for SHINE [here](tutorial/SHINE.ipynb).**
+**A tutorial is available for SHINE [here](tutorials/SHINE.ipynb).**
 
 For more information on the SHINE algorithm, please refer to the [SHINE preprint](https://www.biorxiv.org/content/10.1101/2025.02.07.636541v1).
 

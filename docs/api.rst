@@ -9,6 +9,26 @@ mdance.cluster.nani
    :undoc-members:
    :show-inheritance:
 
+mdance.cluster.equal
+--------------------------
+.. automodule:: mdance.cluster.equal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.cluster.helm
+--------------------------
+.. automodule:: mdance.cluster.helm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mdance.cluster.shine
+--------------------------
+.. automodule:: mdance.cluster.shine
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 mdance.cli
