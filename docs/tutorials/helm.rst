@@ -1,25 +1,18 @@
 HELM - Hierarchical Extended Linkage Method
 ===========================================
 
-Table of Contents
-=================
-- `Overview <#overview>`_
-- `Tutorial <#tutorial>`_
-  | `1. Input Preparations <#1-input-preparations>`_
-  | `2. Prior Clustering (Optional) <#2-prior-clustering-optional>`_
-  | `3. HELM clustering <#3-helm-clustering>`_
-  | `4. Get most optimal number of clusters <#4-get-most-optimal-number-of-clusters>`_
-  | `5. Assign cluster labels to the trajectory <#5-assign-cluster-labels-to-the-trajectory>`_
-  | `6. Extract frames for each cluster (Optional) <#6-extract-frames-for-each-cluster-optional>`_
+.. contents::
+   :local:
+   :depth: 2
 
 Overview
-========
+--------
 HELM is a hierarchical agglomerative clustering algorithm that uses the *n*-ary similarity to merge clusters at each level. It transformed from the traditional hierarchical clustering algorithm to be more efficient and scalable turning a :math:`O(N^2)` algorithm to :math:`O(N)`. It specializes in recognizing dominant conformations within an ensemble and is often used alongside NANI to achieve a balance between efficiency and precision.
 
 This clustering tutorial is meant for datasets for all applications (2D fingerprints, mass spectrometry imaging data, etc). Molecular Dynamics Trajectory has a different treatment. If a specific step is only for Molecular Dynamics trajectory, it will be specified. Otherwise, it is applicable for all datasets.
 
 Tutorial
-========
+--------
 
 1. Clone the repository
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,35 +103,37 @@ System info
 
 HELM requires a set of initial clusters to start with. You can start from any clustering method. An example is with the NANI clustering also among this tutorial set. All you need is to have the cluster labels similar to this format:
 
-.. code-block:: text
+:: 
 
-    #frame,cluster
-    0,0
-    1,0
-    2,1
-    3,1
-    4,2
+   #frame,cluster
+   0,0
+   1,0
+   2,1
+   3,1
+   4,2
 
 4. HELM clustering
 ~~~~~~~~~~~~~~~~~~
 
 `scripts/helm/intra/run_helm.py <../scripts/helm/intra/run_helm_intra.py>`_ will run HELM clustering on the dataset. The following parameters need to be specified in the script:
 
-.. code-block:: python
+::
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    cluster_labels = '../labels_60.csv'
-    sieve = 1
-    N_atoms = 50                                    # Number of atoms in the system
+   # System info - EDIT THESE
+   input_traj_numpy = data.sim_traj_numpy
+   cluster_labels = '../labels_60.csv'
+   sieve = 1
+   N_atoms = 50                                    # Number of atoms in the system
 
-    # HELM params - EDIT THESE
-    metric = 'MSD'                                  # Default  
-    N0 = 60                                         # How many clusters to start with
-    final_target = 1                                # How many clusters to end with
-    align_method = None                             # Default
-    save_pairwise_sim = False                       # Default
-    merging_scheme = 'inter'                        # {'inter', 'intra'}
+   # HELM params - EDIT THESE
+   metric = 'MSD'                                  # Default  
+   N0 = 60                                         # How many clusters to start with
+   final_target = 1                                # How many clusters to end with
+   align_method = None                             # Default
+   save_pairwise_sim = False                       # Default
+   merging_scheme = 'inter'                        # {'inter', 'intra'}
+
+.. _system-info-1:
 
 Inputs
 ^^^^^^
@@ -161,15 +156,15 @@ System info
 Execution
 ^^^^^^^^^
 
-.. code-block:: bash
+.. code:: bash
 
-    python run_helm_intra.py
+   $ python run_helm_intra.py
 
 Outputs
 ^^^^^^^
 
-| Pickle file containing the clustering results.
-| CSV file containing the Calinski-Harabasz and Davies-Bouldin scores for each number of clusters.
+* Pickle file containing the clustering results.
+* CSV file containing the Calinski-Harabasz and Davies-Bouldin scores for each number of clusters.
 
 5. Get most optimal number of clusters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -181,28 +176,28 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`scripts/helm/intra/analysis_db.ipynb <../scripts/helm/intra/analysis_db.ipynb>`_
+`analysis notebook <../scripts/helm/intra/analysis_db.ipynb>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
 6. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~~
 
-`scripts/helm/intra/assign_labels.py <../scripts/helm/intra/assign_labels_intra.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
+`assign_labels_intra.py <../scripts/helm/intra/assign_labels_intra.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
 
-.. code-block:: python
+::
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+   # System info - EDIT THESE
+   input_traj_numpy = data.sim_traj_numpy
+   N_atoms = 50
+   sieve = 1
 
-    # HELM params - EDIT THESE
-    n_clusters = 10
-    pre_cluster_labels = '../labels_60.csv'
-    pickle_file = 'inter-helm.pkl'
-    metric = 'MSD'                                                      # Default
-    extract_type = 'top'                                                # Default
-    n_structures = 11                                                   # Default
+   # HELM params - EDIT THESE
+   n_clusters = 10
+   pre_cluster_labels = '../labels_60.csv'
+   pickle_file = 'inter-helm.pkl'
+   metric = 'MSD'                                                      # Default
+   extract_type = 'top'                                                # Default
+   n_structures = 11                                                   # Default
 
 .. _inputs-1:
 
@@ -238,9 +233,9 @@ Execution
 Outputs
 ^^^^^^^
 
-- ``helm_cluster_labels.csv``: Contains the cluster labels for each frame.
-- ``helm_best_frames_indices.csv``: Contains the indices of the best or random frames to extract from each cluster.
-- ``helm_summary.csv``: Contains the summary of the clustered population.
+* ``helm_cluster_labels.csv``: Contains the cluster labels for each frame.
+* ``helm_best_frames_indices.csv``: Contains the indices of the best or random frames to extract from each cluster.
+* ``helm_summary.csv``: Contains the summary of the clustered population.
 
 6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
