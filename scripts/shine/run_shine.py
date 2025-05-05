@@ -15,7 +15,7 @@ N_atoms = 1                                                 # Number of atoms in
 sampling = 'diversity'                                      # Sampling scheme {'diversity', 'quota'}
 frac = 0.5                                                  # Fraction of frames to be sampled
 merge_scheme = 'intra'                                      # Merge scheme {'intra', 'semi_sum', 'min'}
-
+t = 2                                                       # This would be max number of clusters requested
 
 if __name__ == '__main__':
     frames_all = []
@@ -27,7 +27,7 @@ if __name__ == '__main__':
         frames_all.append((traj, frame))
     
     # Run SHINE
-    mod = Shine(frames_all, 'MSD', N_atoms=1 , t=2, criterion='maxclust', 
+    mod = Shine(frames_all, 'MSD', N_atoms=1 , t=t, criterion='maxclust', 
                 link='ward', merge_scheme=merge_scheme, 
                 sampling='diversity', frac=frac)
     link, clusters = mod.run()
