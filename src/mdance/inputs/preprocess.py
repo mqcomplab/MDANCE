@@ -6,7 +6,7 @@ import MDAnalysis as mda
 import numpy as np
 
 
-def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
+def gen_traj_numpy(prmtopFileName, trajFileName, atomSel, verbose=True):
     """Reads in a trajectory and returns a 2D numpy array of the coordinates 
     of the selected atoms.
     
@@ -36,10 +36,11 @@ def gen_traj_numpy(prmtopFileName, trajFileName, atomSel):
          https://docs.mdanalysis.org/stable/documentation_pages/selections.html
     """
     coord = mda.Universe(prmtopFileName,trajFileName)
-    print('Number of atoms in trajectory:', coord.atoms.n_atoms)
-    print('Number of frames in trajectory:', coord.trajectory.n_frames)
     atomSel = coord.select_atoms(atomSel)
-    print('Number of atoms in selection:', atomSel.n_atoms)
+    if verbose:
+        print('Number of atoms in trajectory:', coord.atoms.n_atoms)
+        print('Number of frames in trajectory:', coord.trajectory.n_frames)
+        print('Number of atoms in selection:', atomSel.n_atoms)
     # Create traj data of the atom selection
     traj_numpy = np.empty((coord.trajectory.n_frames,atomSel.n_atoms, 3), dtype=float)
     # Loop every frame and store the coordinates of the atom selection
