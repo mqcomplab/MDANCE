@@ -155,11 +155,10 @@ class Shine:
             The MSD pairwise distances between the trajectories 
             using the merge scheme.
         """
-        ntrajs = len(self.pathways)
         distances = []
-        for i in range(ntrajs):
+        for i in self.pathways.keys():
             distances.append([])
-            for j in range(ntrajs):
+            for j in self.pathways.keys():
                 if i == j:
                     distances[-1].append(0)
                 else:
@@ -244,7 +243,7 @@ class Shine:
             result.append(f"{start}-{end}")
         return ", ".join(result)
 
-    def labels(self):
+    def labels(self, condensed=True):
         """
         Generate custom labels for the dendrogram plot
         
@@ -256,7 +255,13 @@ class Shine:
         label_indices = []
         for cluster in np.unique(self.clusters):
             label_indices.append(np.where(self.clusters == cluster)[0])
-        custom_labels = [f"{self.group_consecutive_indices(cluster)}" for cluster in label_indices]
+        label_traj_idx = [np.array(list(self.pathways.keys()))[indices] for indices in label_indices]
+
+        if condensed:
+            custom_labels = [f"{self.group_consecutive_indices(cluster)}" for cluster in label_traj_idx]
+        else:
+            custom_labels = label_traj_idx
+            
         return custom_labels
 
     def plot(self):
