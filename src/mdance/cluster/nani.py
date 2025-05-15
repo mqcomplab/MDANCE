@@ -46,7 +46,7 @@ class KmeansNANI:
     cluster_dict : dict
         Dictionary of the clusters and their corresponding indices.
     """
-    def __init__(self, data, n_clusters, metric, N_atoms, init_type='comp_sim', 
+    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat', 
                  **kwargs):
         self.data = data
         self.n_clusters = n_clusters
@@ -54,7 +54,7 @@ class KmeansNANI:
         self.N_atoms = N_atoms
         self.init_type = init_type
         self._check_init_type()
-        if self.init_type == 'comp_sim' or self.init_type == 'div_select':
+        if self.init_type in ['comp_sim', 'div_select', 'strat_reduced']:
             self.percentage = kwargs.get('percentage', 10)
             self._check_percentage()
     
@@ -68,9 +68,11 @@ class KmeansNANI:
             ``k-means++``, ``random``, ``vanilla_kmeans++``.
         """
         if self.init_type not in ['comp_sim', 'div_select', 'k-means++', 
-                                  'random', 'vanilla_kmeans++']:
+                                  'random', 'vanilla_kmeans++', 'strat_all',
+                                  'strat_reduced']:
             raise ValueError('init_type must be one of the following: comp_sim, \
-                             div_select, k-means++, random, vanilla_kmeans++.')
+                             div_select, k-means++, random, vanilla_kmeans++, strat_all, \
+                             strat_reduced.')
         
     def _check_percentage(self):
         """Checks the ``percentage`` attribute.
@@ -119,9 +121,9 @@ class KmeansNANI:
                 raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
         
         elif self.init_type == 'strat_all':
-            initiators = diversity_selection(self.data, self.percentage, self.metric, 
+            initiator_idxs = diversity_selection(self.data, 100, self.metric, 
                                              self.N_atoms, 'strat', 'medoid')
-        
+            initiators = self.data[initiator_idxs]
         elif self.init_type == 'div_select':
             initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
                                                      self.N_atoms, 'comp_sim', 'medoid')
