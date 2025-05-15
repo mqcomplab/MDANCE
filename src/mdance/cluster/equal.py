@@ -245,7 +245,7 @@ class ExtendedQuality:
         top_comp_sim_indices = sorted_indices[-n_max:]
         top_cc_data = self.data[top_comp_sim_indices]
         medoids_indices = diversity_selection(top_cc_data, 100, self.metric, 
-                                              self.N_atoms, 'medoid')
+                                              self.N_atoms, 'comp_sim', 'medoid')
         seeds = top_cc_data[medoids_indices]
         return seeds
     
