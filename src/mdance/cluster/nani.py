@@ -100,30 +100,36 @@ class KmeansNANI:
         numpy.ndarray
             The initial centers for *k*-means of shape (n_clusters, n_features).
         """
-        if self.init_type == 'comp_sim':
+        if self.init_type in ['strat_reduced', 'comp_sim']:
             n_total = len(self.data)
             n_max = int(n_total * self.percentage / 100)
             comp_sim = calculate_comp_sim(self.data, self.metric, self.N_atoms)
-            sorted_indices = np.argsort(comp_sim)   
+            sorted_indices = np.argsort(comp_sim)
             top_comp_sim_indices = sorted_indices[-n_max:]
             top_cc_data = self.data[top_comp_sim_indices]
-            initiators_indices = diversity_selection(top_cc_data, 100, 
-                                                     self.metric, self.N_atoms, 
-                                                     'medoid')
-            initiators = top_cc_data[initiators_indices]
+
+            if self.init_type == 'strat_reduced':
+                sampling_method, start_method = 'strat', 'medoid'
+            else:
+                sampling_method, start_method = 'comp_sim', 'medoid'
+            initiator_idxs = diversity_selection(top_cc_data, 100, self.metric, self.N_atoms, 
+                                                 sampling_method, start_method)
+            initiators = top_cc_data[initiator_idxs]
             if len(initiators) < self.n_clusters:
-                raise ValueError('The number of initiators is less than the number \
-                                 of clusters. Try increasing the percentage.')
+                raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
+        
+        elif self.init_type == 'strat_all':
+            initiators = diversity_selection(self.data, self.percentage, self.metric, 
+                                             self.N_atoms, 'strat', 'medoid')
+        
         elif self.init_type == 'div_select':
-            initiators_indices = diversity_selection(self.data, self.percentage, 
-                                                     self.metric, self.N_atoms, 
-                                                     'medoid')
-            initiators = self.data[initiators_indices]
+            initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
+                                                     self.N_atoms, 'comp_sim', 'medoid')
+            initiators = self.data[initiator_idxs]
         elif self.init_type == 'vanilla_kmeans++':
-            initiators, indices = kmeans_plusplus(self.data, self.n_clusters, 
-                                                  random_state=None, 
+            initiators, indices = kmeans_plusplus(self.data, self.n_clusters, random_state=None, 
                                                   n_local_trials=1)
-        return initiators
+        return initiators[:self.n_clusters]
     
     def kmeans_clustering(self, initiators):
         """Executes the *k*-means algorithm with the selected initiators.
@@ -143,8 +149,6 @@ class KmeansNANI:
         """
         if self.init_type in ['k-means++', 'random']:
             initiators = self.init_type
-        elif isinstance(initiators, np.ndarray):
-            initiators = initiators[:self.n_clusters]
         n_init = 1
         kmeans = KMeans(self.n_clusters, init=initiators, n_init=n_init, 
                         random_state=None)
