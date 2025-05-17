@@ -237,8 +237,9 @@ from the original trajectory for each cluster.
 
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
 
+
 Further Reading
----------------
+~~~~~~~~~~~~~~~
 
 For more information on the eQual algorithm, please refer to the `eQual
 paper <https://pubs.acs.org/doi/10.1021/acs.jcim.4c02341>`__.

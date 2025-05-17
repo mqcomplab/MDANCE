@@ -247,7 +247,7 @@ from the original trajectory for each cluster.
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
 
 Further Reading
----------------
+~~~~~~~~~~~~~~~
 
 For more information on the HELM algorithm, please refer to the `HELM
 paper <https://www.biorxiv.org/content/10.1101/2025.03.05.641742v1>`__.
