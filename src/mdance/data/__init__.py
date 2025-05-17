@@ -7,6 +7,8 @@ top = importlib.resources.files(__name__) / 'aligned_tau.pdb'
 traj = importlib.resources.files(__name__) / 'aligned_1000_tau.dcd'
 sim_traj_numpy = importlib.resources.files(__name__) / 'backbone.npy'
 labels_6 = importlib.resources.files(__name__) / 'labels_6.csv'
+labels_6_strat_all = importlib.resources.files(__name__) / 'labels_6_strat_all.csv'
+labels_6_strat_reduced = importlib.resources.files(__name__) / 'labels_6_strat_reduced.csv'
 
 cc_sim = importlib.resources.files(__name__) / 'cc_sim.npy'
 trimmed_sim = importlib.resources.files(__name__) / 'trimmed_sim.npy'
