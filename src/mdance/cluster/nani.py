@@ -8,10 +8,11 @@ from mdance.tools.bts import diversity_selection, calculate_comp_sim
 class KmeansNANI:
     """*k*-means NANI clustering alogorithm (*N*-Ary Natural Initialization).
     
-    Valid Values for ``init_types``:
-
-    | ``comp_sim`` selects the inital centers based on the diversity in the densest region of the data.
-    | ``div_select`` selects the initial centers based on the highest diversity of all data.
+    Valid Values for ``init_types``: (*k* means number of clusters)
+    | ``strat_all``: A number of bins are computed based on specified percentage of the data. Stratified sampling is then applied, and the first *k* points from the stratified data are selected as the initial centers.
+    | ``strat_reduced``: Identifies high-density regions using complementary similarity, selecting a specified percentage of points. Applies stratified sampling to this subset using a number of bins based on the subset size, and selects the first *k* points as initial centers.
+    | ``comp_sim``: Identifies high-density regions using complementary similarity, selecting a percentage% of the data. From this subset, diversity selection (with ``comp_sim`` as the sampling method) is used to choose the first *k* points as the initial centers.
+    | ``div_select``: Applies diversity selection (using ``comp_sim`` as the sampling method) on specified percentage% of points. First *k* points are the initial centers.
     | ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
     | ``random`` selects the initial centers randomly.
     | ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
@@ -54,9 +55,10 @@ class KmeansNANI:
         self.N_atoms = N_atoms
         self.init_type = init_type
         self._check_init_type()
-        if self.init_type in ['comp_sim', 'div_select', 'strat_reduced']:
+        if self.init_type in ['comp_sim', 'div_select', 'strat_reduced', 'strat_all']:
             self.percentage = kwargs.get('percentage', 10)
             self._check_percentage()
+    
     
     def _check_init_type(self):
         """Checks the ``init_type`` attribute.
@@ -73,7 +75,8 @@ class KmeansNANI:
             raise ValueError('init_type must be one of the following: comp_sim, \
                              div_select, k-means++, random, vanilla_kmeans++, strat_all, \
                              strat_reduced.')
-        
+    
+    
     def _check_percentage(self):
         """Checks the ``percentage`` attribute.
         
@@ -88,6 +91,7 @@ class KmeansNANI:
             raise TypeError('percentage must be an integer [0, 100].')
         if not 0 <= self.percentage <= 100:
             raise ValueError('percentage must be an integer [0, 100].')
+    
     
     def initiate_kmeans(self):
         """Initializes the *k*-means algorithm with the selected initiators.
@@ -117,21 +121,26 @@ class KmeansNANI:
             initiator_idxs = diversity_selection(top_cc_data, 100, self.metric, self.N_atoms, 
                                                  sampling_method, start_method)
             initiators = top_cc_data[initiator_idxs]
-            if len(initiators) < self.n_clusters:
-                raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
-        
+            
         elif self.init_type == 'strat_all':
-            initiator_idxs = diversity_selection(self.data, 100, self.metric, 
-                                             self.N_atoms, 'strat', 'medoid')
+            initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
+                                                 self.N_atoms, 'strat', 'medoid')
             initiators = self.data[initiator_idxs]
+        
         elif self.init_type == 'div_select':
             initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
-                                                     self.N_atoms, 'comp_sim', 'medoid')
+                                                 self.N_atoms, 'comp_sim', 'medoid')
             initiators = self.data[initiator_idxs]
+        
         elif self.init_type == 'vanilla_kmeans++':
             initiators, indices = kmeans_plusplus(self.data, self.n_clusters, random_state=None, 
                                                   n_local_trials=1)
+        
+        if len(initiators) < self.n_clusters:
+            raise ValueError('The number of initiators is less than the number of clusters. Try increasing the percentage.')
+        
         return initiators[:self.n_clusters]
+    
     
     def kmeans_clustering(self, initiators):
         """Executes the *k*-means algorithm with the selected initiators.
@@ -160,6 +169,7 @@ class KmeansNANI:
         n_iter = kmeans.n_iter_
         return labels, centers, n_iter
 
+
     def create_cluster_dict(self, labels):
         """Creates a dictionary with the labels as keys and the indices of the 
         data as values.
@@ -179,6 +189,7 @@ class KmeansNANI:
             dict_labels[i] = np.where(labels == i)[0]
         return dict_labels
     
+    
     def compute_scores(self, labels):
         """Computes the Davies-Bouldin and Calinski-Harabasz scores.
         
@@ -196,6 +207,7 @@ class KmeansNANI:
         db_score = davies_bouldin_score(self.data, labels)
         return ch_score, db_score
 
+
     def write_centroids(self, centers, n_iter):
         """Writes the centroids to a file.
 
@@ -208,6 +220,7 @@ class KmeansNANI:
         """
         header = f'Number of clusters: {self.n_clusters}, Number of iterations: {n_iter}\n\nCentroids\n'
         np.savetxt('centroids.txt', centers, delimiter=',', header=header)
+    
     
     def execute_kmeans_all(self):
         """Function to complete all steps of NANI for all different ``init_type`` options.
