@@ -236,3 +236,26 @@ will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.
 
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
+
+Further Reading
+---------------
+
+For more information on the eQual algorithm, please refer to the `eQual
+paper <https://pubs.acs.org/doi/10.1021/acs.jcim.4c02341>`__.
+
+Please Cite
+
+.. code:: bibtex
+
+   @article{chen_extended_2025,
+      title = {Extended {Quality} ({eQual}): {Radial} {Threshold} {Clustering} {Based} on n-ary {Similarity}},
+      issn = {1549-9596},
+      url = {https://doi.org/10.1021/acs.jcim.4c02341},
+      doi = {10.1021/acs.jcim.4c02341},
+      journal = {Journal of Chemical Information and Modeling},
+      author = {Chen, Lexin and Smith, Micah and Roe, Daniel R. and Miranda-Quintana, Ramón Alain},
+      month = may,
+      year = {2025},
+      note = {Publisher: American Chemical Society},
+   }
+    

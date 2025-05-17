@@ -52,7 +52,7 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 
     # NANI parameters
     output_dir = 'outputs'                        
-    init_types = ['comp_sim']
+    init_type = ['strat_all']
     metric = 'MSD'
     start_n_clusters = 2
     end_n_clusters = 30
@@ -63,7 +63,7 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 `sieve` takes every sieve-th frame from the trajectory for analysis. <br>
 ##### NANI parameters
 `output_dir` is the directory to store the clustering results. <br>
-`init_types` is a **list** of selected seed selectors. User can input one or multiple. Each seed selector will have results in a separate file. <br>
+`init_type` is selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details).  <br>
 `metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
 `start_n_clusters` is the starting number for screening. **This number must be greater than 2**.<br>
 `end_n_clusters` is the ending number for screening. <br>
@@ -92,7 +92,7 @@ The following parameters to be specified in the script:
 
     # K-means params - EDIT THESE
     n_clusters = 6
-    init_type = 'comp_sim'                                              
+    init_type = 'strat_all'                                              
     metric = 'MSD'                                                      
     n_structures = 11                                                   
     output_dir = 'outputs'                                              
@@ -105,7 +105,7 @@ The following parameters to be specified in the script:
 
 ##### *k*-means params
 `n_clusters` is the number of clusters for labeling. <br>
-`init_type` is the seed selector to use. <br>
+`init_type` is selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). <br>
 `metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
 `n_structures` is the number of frames to extract from each cluster. 
 

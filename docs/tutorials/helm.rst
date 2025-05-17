@@ -115,7 +115,7 @@ HELM requires a set of initial clusters to start with. You can start from any cl
 4. HELM clustering
 ~~~~~~~~~~~~~~~~~~
 
-`scripts/helm/intra/run_helm.py <../scripts/helm/intra/run_helm_intra.py>`_ will run HELM clustering on the dataset. The following parameters need to be specified in the script:
+`scripts/helm/intra/run_helm.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/run_helm_intra.py>`_ will run HELM clustering on the dataset. The following parameters need to be specified in the script:
 
 ::
 
@@ -146,7 +146,7 @@ System info
 | ``N_atoms``: The number of atoms used in the clustering.
 
 - **HELM params**
-| ``metric``: The metric used to calculate the similarity between frames (See `extended_comparisons <../src/mdance/tools/bts.py#L96>`_ for details).
+| ``metric``: The metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``N0``: The number of clusters to start with.
 | ``final_target``: The number of clusters to end with.
 | ``align_method`` *(optional)*: The method to align the clusters. Default is None.
@@ -176,13 +176,13 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`analysis notebook <../scripts/helm/intra/analysis_db.ipynb>`__
+`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/analysis_db.ipynb>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
 6. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~~
 
-`assign_labels_intra.py <../scripts/helm/intra/assign_labels_intra.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
+`assign_labels_intra.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/assign_labels_intra.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
 
 ::
 
@@ -219,7 +219,7 @@ HELM params
 | ``n_clusters``: The number of clusters to assign labels to. Use the most optimal number of clusters from analysis in step 4.
 | ``pre_cluster_labels``: The cluster labels from step 2.
 | ``pickle_file``: The clustering results from step 3.
-| ``metric``: The metric used to calculate the similarity between frames (See `extended_comparisons <../src/mdance/tools/bts.py#L96>`_ for details).
+| ``metric``: The metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``extract_type``: The type of extraction method to use. {``top``, ``random``}. ``top`` means to extract the top ``n_structures`` from each cluster. ``random`` means to extract ``n_structures`` random structures from each cluster.
 | ``n_structures``: The number of structures to extract from each cluster.
 
@@ -245,3 +245,11 @@ will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.
 
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
+
+Further Reading
+---------------
+
+For more information on the HELM algorithm, please refer to the `HELM
+paper <https://www.biorxiv.org/content/10.1101/2025.03.05.641742v1>`__.
+
+Please Cite

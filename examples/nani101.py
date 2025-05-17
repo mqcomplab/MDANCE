@@ -57,7 +57,7 @@ plt.show()
 #   - ``n_clusters``: number of clusters.
 
 mod = KmeansNANI(data=data, n_clusters=n_clusters, metric='MSD', N_atoms=1, 
-                 init_type='comp_sim', percentage=10)
+                 init_type='strat_all', percentage=10)
 initiators = mod.initiate_kmeans()
 initiators = initiators[:n_clusters]
 

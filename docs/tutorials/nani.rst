@@ -124,7 +124,7 @@ script:
 
    # NANI parameters
    output_dir = 'outputs'                        
-   init_types = ['comp_sim']
+   init_type = 'strat_all'
    metric = 'MSD'
    start_n_clusters = 2
    end_n_clusters = 30
@@ -145,7 +145,8 @@ NANI parameters
 ''''''''''''''''
 
 | ``output_dir`` is the directory to store the clustering results.
-| ``init_types`` is a **list** of selected seed selectors. User can input one or multiple. Each seed selector will have results in a separate file. ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
+| ``init_type`` is the selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). 
+| ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``start_n_clusters`` is the starting number for screening. **This number must be greater than 2**.
 | ``end_n_clusters`` is the ending number for screening.
 
@@ -197,7 +198,7 @@ script:
 
    # K-means params - EDIT THESE
    n_clusters = 6
-   init_type = 'comp_sim'                                              
+   init_type = 'strat_all'                                              
    metric = 'MSD'                                                      
    n_structures = 11                                                   
    output_dir = 'outputs'                                              
@@ -220,9 +221,8 @@ System info
 ''''''''''''''''
 
 | ``n_clusters`` is the number of clusters for labeling.
-| ``init_type`` is the seed selector to use.
-| ``metric`` is the metric used to calculate the similarity between frames (See
-| ``mdance.tools.bts.extended_comparisons`` for details).
+| ``init_type`` is the seed selector to use (See ``mdance.cluster.nani.KmeansNANI`` for details). 
+| ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``n_structures`` is the number of frames to extract from each cluster.
 | ``output_dir`` is the directory to store the clustering results.
 
@@ -254,3 +254,32 @@ will use the indices from last step to extract the designated frames
 from the original trajectory for each cluster.
 
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
+
+Further Reading
+---------------
+
+For more information on the NANI algorithm, please refer to the `NANI
+paper <https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308>`__.
+
+Please Cite
+
+.. code:: bibtex
+
+   @article{chen_k-means_2024,
+      title = {k-{Means} {NANI}: {An} {Improved} {Clustering} {Algorithm} for {Molecular} {Dynamics} {Simulations}},
+      volume = {20},
+      copyright = {https://doi.org/10.15223/policy-029},
+      issn = {1549-9618, 1549-9626},
+      shorttitle = {k-{Means} {NANI}},
+      url = {https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308},
+      doi = {10.1021/acs.jctc.4c00308},
+      abstract = {One of the key challenges of k-means clustering is the seed selection or the initial centroid estimation since the clustering result depends heavily on this choice. Alternatives such as k-means++ have mitigated this limitation by estimating the centroids using an empirical probability distribution. However, with high-dimensional and complex data sets such as those obtained from molecular simulation, k-means++ fails to partition the data in an optimal manner. Furthermore, stochastic elements in all flavors of k-means++ will lead to a lack of reproducibility. K-means N-Ary Natural Initiation (NANI) is presented as an alternative to tackle this challenge by using efficient n-ary comparisons to both identify high-density regions in the data and select a diverse set of initial conformations. Centroids generated from NANI are not only representative of the data and different from one another, helping k-means to partition the data accurately, but also deterministic, providing consistent cluster populations across replicates. From peptide and protein folding molecular simulations, NANI was able to create compact and well-separated clusters as well as accurately find the metastable states that agree with the literature. NANI can cluster diverse data sets and be used as a standalone tool or as part of our MDANCE clustering package.},
+      language = {en},
+      number = {13},
+      urldate = {2024-07-09},
+      journal = {Journal of Chemical Theory and Computation},
+      author = {Chen, Lexin and Roe, Daniel R. and Kochert, Matthew and Simmerling, Carlos and Miranda-Quintana, Ramón Alain},
+      month = jul,
+      year = {2024},
+      pages = {5583--5597},
+   }

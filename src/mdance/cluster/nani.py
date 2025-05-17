@@ -47,7 +47,7 @@ class KmeansNANI:
     cluster_dict : dict
         Dictionary of the clusters and their corresponding indices.
     """
-    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat', 
+    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat_all', 
                  **kwargs):
         self.data = data
         self.n_clusters = n_clusters
@@ -230,11 +230,11 @@ class KmeansNANI:
         tuple
             Labels, centers and number of iterations.
         """
-        if self.init_type in ['comp_sim', 'div_select', 'vanilla_kmeans++']:
+        if self.init_type == 'k-means++' or self.init_type == 'random':
+            labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
+        else:
             initiators = self.initiate_kmeans()
             labels, centers, n_iter = self.kmeans_clustering(initiators)
-        elif self.init_type == 'k-means++' or self.init_type == 'random':
-            labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
         return labels, centers, n_iter
 
 
