@@ -233,23 +233,59 @@ def test_trim_outliers(matrix, bit_data, continuous_data, sim_data):
     assert np.array_equal(output, expected_matrix)
 
 
-def test_diversity_selection(matrix, bit_data, continuous_data, sim_data):
+def test_diversity_selection_comp_sim(matrix, bit_data, continuous_data, sim_data):
     """
-    Test the diversity_selection function.
+    Test the diversity_selection function coupled with the ``comp_sim`` method.
     """
     if np.array_equal(matrix, bit_data):
         N_atoms = 1
         expected_idxs = [2, 0]
-        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms)
+        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms, method='comp_sim')
     elif np.array_equal(matrix, continuous_data):
         N_atoms = 2
         expected_idxs = [0, 1]
-        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms)
+        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms, method='comp_sim')
     elif np.array_equal(matrix, sim_data):
         N_atoms = 50
         expected_idxs = [409, 4972, 3136, 754, 1064, 1735, 4037, 2375, 
                          1335, 1257, 4639, 1711, 3393, 3264, 737, 1634, 
                          5792, 1734, 3392, 3304, 1353, 1467, 525, 3238, 
                          450, 2970, 5102, 1253, 3979, 2951]
-        idxs = bts.diversity_selection(matrix, 0.5, 'MSD', N_atoms=N_atoms)
+        idxs = bts.diversity_selection(matrix, 0.5, 'MSD', N_atoms=N_atoms, method='comp_sim')
+    
     assert idxs == expected_idxs
+
+
+def test_diversity_selection_strat(matrix, bit_data, continuous_data, sim_data):
+    """
+    Test the diversity_selection function coupled with the 'strat' method.
+    """
+    if np.array_equal(matrix, bit_data):
+        N_atoms = 1
+        expected_idxs = [2, 1]
+        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms, method='strat', start='medoid')
+        
+
+    elif np.array_equal(matrix, continuous_data):
+        N_atoms = 2
+        expected_idxs = [0, 1]
+        idxs = bts.diversity_selection(matrix, 40, 'MSD', N_atoms=N_atoms, method='strat')
+        
+    elif np.array_equal(matrix, sim_data):
+        N_atoms = 50
+        expected_idxs = [409, 2819, 763, 2272, 3437, 468, 2031, 4536, 1809, 1861, 
+                         1343, 1207, 4690, 2514, 1239, 5676, 1437, 1995, 775, 5592, 
+                         5614, 1576, 3384, 771, 5409, 510, 3084, 5009, 3245, 754]
+        
+        idxs = bts.diversity_selection(matrix, 0.5, 'MSD', N_atoms=N_atoms, method='strat')
+    
+    assert idxs == expected_idxs
+    
+
+def test_diversity_selection_strat_edge_case():
+    """
+    Test the diversity_selection function with a single object.
+    """
+    X = np.array([[1, 2], [2, 2], [2, 3], [8, 7], [8, 8], [2, 9]])
+    with pytest.raises(ValueError, match="Percentage is too low for the given matrix size"):
+        bts.diversity_selection(X, 10, 'MSD', N_atoms=1, method='strat', start='medoid')

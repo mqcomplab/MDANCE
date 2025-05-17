@@ -374,7 +374,7 @@ def trim_outliers(matrix, n_trimmed, metric, N_atoms, criterion='comp_sim'):
 
 
 def diversity_selection(matrix, percentage: int, metric, N_atoms=1, 
-                        start='medoid'):
+                        method='strat', start='medoid'):
     """*O(N)* method of selecting the most diverse subset of a data 
     matrix using the complementary similarity. 
     
@@ -383,13 +383,19 @@ def diversity_selection(matrix, percentage: int, metric, N_atoms=1,
     matrix : array-like of shape (n_samples, n_features)
         A feature array.
     percentage : int
-        Percentage of the data to select.
+        If ``method='strat'``, percentage indicates how many bins of stratified 
+        data will be generated. If ``method='comp_sim'``, percentage indicates the
+        percentage of data to be selected.
     metric : str, default='MSD'
         The metric to when calculating distance between *n* objects in an array. 
         It must be an options allowed by :func:`mdance.tools.bts.extended_comparison`.
     N_atoms : int, default=1
         Number of atoms in the system used for normalization.
         ``N_atoms=1`` for non-Molecular Dynamics datasets.
+    method : {'strat', 'comp_sim'}, default='strat'
+        The method to use for diversity selection. ``strat``: stratified
+        sampling. ``comp_sim``: maximizing the MSD between the selected
+        objects and the rest of the data.
     start : {'medoid', 'outlier', 'random', list}, default='medoid'
         The initial seed for initiating diversity selection. Either 
         from one of the options or a list of indices are valid inputs.
@@ -410,55 +416,73 @@ def diversity_selection(matrix, percentage: int, metric, N_atoms=1,
     --------
     >>> from mdance.tools import bts
     >>> import numpy as np
-    >>> X = np.array([[1, 2], [2, 2], [2, 3], [8, 7], [8, 8]])
-    >>> bts.diversity_selection(X, percentage=10, metric='MSD', N_atoms=1)
-    [2]
+    >>> X = np.array([[1, 2], [2, 2], [2, 3], [8, 7], [8, 8], [2, 9], [1, 8], [2, 7]])
+    >>> bts.diversity_selection(X, percentage=30, metric='MSD', N_atoms=1)
+    [7 4]
     """
     n_total = len(matrix)
-    total_indices = np.array(range(n_total))
-    
-    if start =='medoid':
-        seed = calculate_medoid(matrix, metric=metric, N_atoms=N_atoms)
-        selected_n = [seed]
-    elif start == 'outlier':
-        seed = calculate_outlier(matrix, metric=metric, N_atoms=N_atoms)
-        selected_n = [seed]
-    elif start == 'random':
-        seed = random.randint(0, n_total - 1)
-        selected_n = [seed]
-    elif isinstance(start, list):
-        selected_n = start
-    else:
-        raise ValueError('Select a correct starting point: medoid, outlier, \
-                         random or outlier')
-
-    n = len(selected_n)
     n_max = int(np.floor(n_total * percentage / 100))
     if n_max > n_total:
-        raise ValueError('Percentage is too high')
-    selection = [matrix[i] for i in selected_n] 
-    selection = np.array(selection)
-    selected_condensed = np.sum(selection, axis=0)
-    if metric == 'MSD':
-        sq_selection = selection ** 2
-        sq_selected_condensed = np.sum(sq_selection, axis=0)
+        raise ValueError('Percentage is too high for the given matrix size')
     
-    while len(selected_n) < n_max:
-        select_from_n = np.delete(total_indices, selected_n)
-        if metric == 'MSD':
-            new_index_n = get_new_index_n(matrix, metric=metric, 
-                                          selected_condensed=selected_condensed,
-                                          sq_selected_condensed=sq_selected_condensed, 
-                                          n=n, select_from_n=select_from_n, 
-                                          N_atoms=N_atoms)
-            sq_selected_condensed += matrix[new_index_n] ** 2
+    if method == 'strat':
+        if n_max <= 1:
+            raise ValueError('Percentage is too low for the given matrix size')
+        if n_max == 1:
+            indices_to_select = [0]
         else:
-            new_index_n = get_new_index_n(matrix, metric=metric, 
-                                          selected_condensed=selected_condensed, 
-                                          n=n, select_from_n=select_from_n)
-        selected_condensed += matrix[new_index_n]
-        selected_n.append(new_index_n)
+            step = (n_total - 1) / (n_max - 1)
+            indices_to_select = np.round(np.arange(n_max) * step).astype(int)
+            indices_to_select[0] = 0
+        comp_sims = calculate_comp_sim(matrix, metric=metric, N_atoms=N_atoms)
+        sorted_comps = np.argsort(-comp_sims)
+        selected_n = sorted_comps[indices_to_select].tolist()
+        
+    elif method == 'comp_sim':
+        total_indices = np.array(range(n_total))
+        
+        if start =='medoid':
+            seed = calculate_medoid(matrix, metric=metric, N_atoms=N_atoms)
+            selected_n = [seed]
+        elif start == 'outlier':
+            seed = calculate_outlier(matrix, metric=metric, N_atoms=N_atoms)
+            selected_n = [seed]
+        elif start == 'random':
+            seed = random.randint(0, n_total - 1)
+            selected_n = [seed]
+        elif isinstance(start, list):
+            selected_n = start
+        else:
+            raise ValueError('Select a correct starting point: medoid, outlier, \
+                            random or outlier')
+
         n = len(selected_n)
+        
+        selection = [matrix[i] for i in selected_n] 
+        selection = np.array(selection)
+        selected_condensed = np.sum(selection, axis=0)
+        if metric == 'MSD':
+            sq_selection = selection ** 2
+            sq_selected_condensed = np.sum(sq_selection, axis=0)
+        
+        while len(selected_n) < n_max:
+            select_from_n = np.delete(total_indices, selected_n)
+            if metric == 'MSD':
+                new_index_n = get_new_index_n(matrix, metric=metric, 
+                                            selected_condensed=selected_condensed,
+                                            sq_selected_condensed=sq_selected_condensed, 
+                                            n=n, select_from_n=select_from_n, 
+                                            N_atoms=N_atoms)
+                sq_selected_condensed += matrix[new_index_n] ** 2
+            else:
+                new_index_n = get_new_index_n(matrix, metric=metric, 
+                                            selected_condensed=selected_condensed, 
+                                            n=n, select_from_n=select_from_n)
+            selected_condensed += matrix[new_index_n]
+            selected_n.append(new_index_n)
+            n = len(selected_n)
+    else:
+        raise ValueError('Select a correct sampling method: strat or comp_sim')
     return selected_n
 
 

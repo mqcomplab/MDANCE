@@ -129,7 +129,8 @@ class Shine:
                 if self.sampling == 'diversity':
                     if self.frame_cutoff <= len(traj):
                         div_idxs = diversity_selection(traj, self.frac * 100, 
-                                                       self.metric, self.N_atoms)
+                                                       self.metric, self.N_atoms,
+                                                       'comp_sim', 'medoid')
                         self.pathways[traj_idx] = traj[div_idxs]
                     else:
                         self.pathways[traj_idx] = traj
