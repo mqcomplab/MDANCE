@@ -145,7 +145,7 @@ NANI parameters
 ''''''''''''''''
 
 | ``output_dir`` is the directory to store the clustering results.
-| ``init_type`` of selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). 
+| ``init_type`` is the selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). 
 | ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``start_n_clusters`` is the starting number for screening. **This number must be greater than 2**.
 | ``end_n_clusters`` is the ending number for screening.
