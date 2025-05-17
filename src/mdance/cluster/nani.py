@@ -47,7 +47,7 @@ class KmeansNANI:
     cluster_dict : dict
         Dictionary of the clusters and their corresponding indices.
     """
-    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat', 
+    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat_all', 
                  **kwargs):
         self.data = data
         self.n_clusters = n_clusters
