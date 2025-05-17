@@ -230,11 +230,11 @@ class KmeansNANI:
         tuple
             Labels, centers and number of iterations.
         """
-        if self.init_type in ['comp_sim', 'div_select', 'vanilla_kmeans++']:
+        if self.init_type == 'k-means++' or self.init_type == 'random':
+            labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
+        else:
             initiators = self.initiate_kmeans()
             labels, centers, n_iter = self.kmeans_clustering(initiators)
-        elif self.init_type == 'k-means++' or self.init_type == 'random':
-            labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
         return labels, centers, n_iter
 
 
