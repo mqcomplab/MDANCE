@@ -14,7 +14,7 @@ sieve = 1
 
 # K-means params - EDIT THESE
 n_clusters = 6
-init_type = 'comp_sim'                                              # Default
+init_type = 'strat_all'                                             # Default
 metric = 'MSD'                                                      # Default
 n_structures = 11                                                   # Default
 output_dir = 'outputs'                                              # Default
