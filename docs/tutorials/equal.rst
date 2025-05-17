@@ -240,7 +240,7 @@ A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postproce
 Further Reading
 ---------------
 
-For more information on the PRIME algorithm, please refer to the `PRIME
+For more information on the eQual algorithm, please refer to the `PRIME
 paper <https://pubs.acs.org/doi/10.1021/acs.jcim.4c02341>`__.
 
 Please Cite
