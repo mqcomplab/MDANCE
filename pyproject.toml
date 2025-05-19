@@ -42,8 +42,8 @@ minversion = "6.0"
 addopts = "-ra --strict-markers"
 testpaths = ["tests"]
 
-[tool.setuptools]
-packages = ["mdance"]
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "mdance.__version__"}
