@@ -435,7 +435,7 @@ def diversity_selection(matrix, percentage: int, metric, N_atoms=1,
             indices_to_select = np.round(np.arange(n_max) * step).astype(int)
             indices_to_select[0] = 0
         comp_sims = calculate_comp_sim(matrix, metric=metric, N_atoms=N_atoms)
-        sorted_comps = np.argsort(-comp_sims)
+        sorted_comps = np.argsort(-comp_sims, kind='stable')
         selected_n = sorted_comps[indices_to_select].tolist()
         
     elif method == 'comp_sim':
