@@ -256,7 +256,7 @@ from the original trajectory for each cluster.
 A copy of this notebook can be found in ``$PATH/MDANCE/scripts/outputs/postprocessing.ipynb``.
 
 Further Reading
----------------
+~~~~~~~~~~~~~~~
 
 For more information on the NANI algorithm, please refer to the `NANI
 paper <https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308>`__.
