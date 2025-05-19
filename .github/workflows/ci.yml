@@ -34,7 +34,7 @@ jobs:
       - name: Install project and dev dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install .[dev]
+          pip install -e ".[dev]"
 
       - name: Run tests with pytest
         run: pytest
