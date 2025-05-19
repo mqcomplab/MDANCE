@@ -17,11 +17,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-  'numpy >= 1.20.0',
-  'scikit-learn >= 0.24.0',
-  'MDAnalysis >= 2.0.0',
-  'shapeGMMTorch >= 1.0.0',
-  'torch >= 2.2.2',
+  "numpy >= 1.20.0",
+  "scikit-learn >= 0.24.0",
+  "MDAnalysis >= 2.0.0",
+  "shapeGMMTorch >= 1.0.0",
+  "torch >= 2.2.2",
 ]
 
 [project.urls]
@@ -36,3 +36,19 @@ prime_rep = "mdance.cli.prime_rep:main"
 
 [tool.setuptools.package-data]
 "mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "mdance.__version__"}
+
+[project.optional-dependencies]
+dev = [
+  "pytest >= 7.0",
+]
