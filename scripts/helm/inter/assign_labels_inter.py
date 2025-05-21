@@ -96,11 +96,6 @@ if __name__ == '__main__':
             for frame in cluster:
                 f.write(f'{frame * sieve},{i}\n')
     
-    # Save medoid indices for each cluster
-    all_medoids = [(i, j * sieve) for i, j in all_medoids]
-    np.savetxt(f'helm_medoid_indices_{n_clusters}.csv', all_medoids, fmt='%d', 
-               delimiter=',', header='cluster_index,medoid_index')
-    
     # Population of top 10 clusters
     top_10_frac = sum(float(i) for i in individual_frac[:10])
     with open(f'helm_summary_{n_clusters}.csv', 'w') as f:
