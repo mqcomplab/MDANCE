@@ -47,12 +47,37 @@ if __name__ == '__main__':
     all_medoids = []
     individual_frac = []
     frame_indices_all = {}
-    best_frame_indices = []
+    best_frame_indices = {}
     for i, index in enumerate(sorted_indices):
         frame_indices_all[i] = []
         cluster_dict[i] = cluster_indices[index[0]]
         pre_clus_indices = cluster_dict[i][0]
         individual_frac.append('%.6f' % (cluster_dict[i][2] / total_frames))
+        
+        # Concatenate data that corresponds to the cluster_dict[i] (pre_clus_indices)
+        frames = np.concatenate([pre_clusters[j] for j in pre_clus_indices])
+        
+        # Calculate medoid of each cluster.
+        medoid_index = calculate_medoid(frames, metric=metric, N_atoms=N_atoms)
+        all_medoids.append((i, medoid_index))
+        
+        # Find random n_structures from the cluster with medoid as the first structure
+        if extract_type == 'random':
+            best_frame_indices[i] = [medoid_index]
+            if n_structures > len(frames):
+                n_structures = len(frames)
+            best_frame_indices[i].extend(np.random.choice(len(frames), n_structures - 1, replace=False))
+        
+        # Find the closest frame to the medoid in the pre_clusters
+        elif extract_type == 'top':
+            medoid = frames[medoid_index]
+            msd_to_medoid = []
+            for j, frame in enumerate(frames):
+                msd_to_medoid.append((j, extended_comparison(np.array([frame, medoid]), data_type='full', 
+                                                             metric=metric, N_atoms=N_atoms)))
+            msd_to_medoid = np.array(msd_to_medoid)
+            sorted_indices = np.argsort(msd_to_medoid[:, 1])
+            best_frame_indices[i] = [idx for idx in sorted_indices[:n_structures]]
         
         # Find the corresponding frame indices in the original data
         for j, label in enumerate(pre_labels):
@@ -60,42 +85,26 @@ if __name__ == '__main__':
                 if label == index:
                     frame_indices_all[i].append(pre_frames[j])
     
-    for key in frame_indices_all:
-        # Concatenate data that corresponds to the cluster_dict[i] (pre_clus_indices)
-        frames = np.stack([traj_numpy[j] for j in frame_indices_all[key]])
-        if len(frames) > 2:
-            medoid_index = calculate_medoid(frames, metric=metric, N_atoms=N_atoms)
-            all_medoids.append((i, medoid_index))
-            
-            # Find the closest frame to the medoid in the pre_clusters
-            medoid = frames[medoid_index]
-            msd_to_medoid = []
-            for j, frame in enumerate(frames):
-                msd_to_medoid.append((j, extended_comparison(np.array([frame, medoid]), data_type='full', 
-                                                             metric=metric, N_atoms=N_atoms)))
-            msd_to_medoid = np.array(msd_to_medoid)
-            sorted = np.argsort(msd_to_medoid[:, 1])[:n_structures]
-            best = np.array(frame_indices_all[key])[sorted]
-            best_frame_indices.append(best)
-        else:
-            best_frame_indices.append(None)
-    
-    
     # Save cluster labels
     with open(f'helm_cluster_labels_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
         f.write('# frame_index,cluster_index\n')
         for cluster in frame_indices_all.keys():
-            for i, frame in enumerate(frame_indices_all[cluster]):       
+            for frame in frame_indices_all[cluster]:
                 f.write(f'{frame * sieve},{cluster}\n')
-         
+                
     # Save best frame indices for each cluster
     with open(f'helm_best_frames_indices_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
         f.write('# frame_index,cluster_index\n')
-        for i, cluster in enumerate(best_frame_indices):
-            for frame in cluster:
-                f.write(f'{frame * sieve},{i}\n')
+        for cluster in best_frame_indices.keys():
+            for frame in best_frame_indices[cluster]:
+                f.write(f'{frame * sieve},{cluster}\n')
+    
+    # Save medoid indices for each cluster
+    all_medoids = [(i, j * sieve) for i, j in all_medoids]
+    np.savetxt(f'helm_medoid_indices_{n_clusters}.csv', all_medoids, fmt='%d', 
+               delimiter=',', header='cluster_index,medoid_index')
     
     # Population of top 10 clusters
     top_10_frac = sum(float(i) for i in individual_frac[:10])
