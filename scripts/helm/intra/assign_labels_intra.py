@@ -63,7 +63,6 @@ if __name__ == '__main__':
     for key in frame_indices_all:
         # Concatenate data that corresponds to the cluster_dict[i] (pre_clus_indices)
         frames = np.stack([traj_numpy[j] for j in frame_indices_all[key]])
-        print(frames.shape)
         if len(frames) > 2:
             # Calculate medoid of each cluster.
             medoid_index = calculate_medoid(frames, metric=metric, N_atoms=N_atoms)
