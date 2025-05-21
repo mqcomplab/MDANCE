@@ -81,7 +81,6 @@ if __name__ == '__main__':
             best_frame_indices.append(best)
         else:
             best_frame_indices.append(None)
-    print(best_frame_indices)
     
     # Save cluster labels
     with open(f'helm_cluster_labels_{n_clusters}.csv', 'w') as f:
