@@ -15,7 +15,6 @@ n_clusters = 10
 pre_cluster_labels = data.labels_60
 pickle_file = 'intra-helm.pkl'
 metric = 'MSD'                                                      # Default
-extract_type = 'top'                                                # Default
 n_structures = 11                                                   # Default
 
 
