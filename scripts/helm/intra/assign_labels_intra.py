@@ -64,7 +64,6 @@ if __name__ == '__main__':
         # Concatenate data that corresponds to the cluster_dict[i] (pre_clus_indices)
         frames = np.stack([traj_numpy[j] for j in frame_indices_all[key]])
         if len(frames) > 2:
-            # Calculate medoid of each cluster.
             medoid_index = calculate_medoid(frames, metric=metric, N_atoms=N_atoms)
             all_medoids.append((i, medoid_index))
             
@@ -73,7 +72,7 @@ if __name__ == '__main__':
             msd_to_medoid = []
             for j, frame in enumerate(frames):
                 msd_to_medoid.append((j, extended_comparison(np.array([frame, medoid]), data_type='full', 
-                                                                metric=metric, N_atoms=N_atoms)))
+                                                             metric=metric, N_atoms=N_atoms)))
             msd_to_medoid = np.array(msd_to_medoid)
             sorted = np.argsort(msd_to_medoid[:, 1])[:n_structures]
             best = np.array(frame_indices_all[key])[sorted]
@@ -81,14 +80,16 @@ if __name__ == '__main__':
         else:
             best_frame_indices.append(None)
     
+   
     # Save cluster labels
     with open(f'helm_cluster_labels_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
         f.write('# frame_index,cluster_index\n')
         for cluster in frame_indices_all.keys():
-            for frame in frame_indices_all[cluster]:
+            for i, frame in enumerate(frame_indices_all[cluster]):       
                 f.write(f'{frame * sieve},{cluster}\n')
-                
+    
+    all_medoids = []        
     # Save best frame indices for each cluster
     with open(f'helm_best_frames_indices_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
@@ -96,11 +97,6 @@ if __name__ == '__main__':
         for i, cluster in enumerate(best_frame_indices):
             for frame in cluster:
                 f.write(f'{frame * sieve},{i}\n')
-    
-    # Save medoid indices for each cluster
-    all_medoids = [(i, j * sieve) for i, j in all_medoids]
-    np.savetxt(f'helm_medoid_indices_{n_clusters}.csv', all_medoids, fmt='%d', 
-               delimiter=',', header='cluster_index,medoid_index')
     
     # Population of top 10 clusters
     top_10_frac = sum(float(i) for i in individual_frac[:10])
