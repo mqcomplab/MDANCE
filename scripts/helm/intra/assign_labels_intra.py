@@ -80,7 +80,7 @@ if __name__ == '__main__':
         else:
             best_frame_indices.append(None)
     
-   
+    
     # Save cluster labels
     with open(f'helm_cluster_labels_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
@@ -88,8 +88,7 @@ if __name__ == '__main__':
         for cluster in frame_indices_all.keys():
             for i, frame in enumerate(frame_indices_all[cluster]):       
                 f.write(f'{frame * sieve},{cluster}\n')
-    
-    all_medoids = []        
+         
     # Save best frame indices for each cluster
     with open(f'helm_best_frames_indices_{n_clusters}.csv', 'w') as f:
         f.write(f'# Helm,number of clusters,{n_clusters}\n')
