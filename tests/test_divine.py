@@ -1,10 +1,5 @@
-import pytest
 import numpy as np
-import warnings
-from mdance.cluster.nani import KmeansNANI
-from mdance.tools.bts import extended_comparison, calculate_medoid, calculate_outlier
-from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
-from sklearn.cluster import KMeans
+import pytest
 from sklearn.datasets import make_blobs
 
 from mdance.cluster.divine import Divine   
