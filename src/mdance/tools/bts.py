@@ -4,7 +4,7 @@ import subprocess
 
 import MDAnalysis as mda
 import numpy as np
-from shapeGMMTorch import torch_align
+from shapeGMMTorch import align
 import torch
 
 import mdance.tools.esim as esim
@@ -581,16 +581,14 @@ def align_traj(data, N_atoms, align_method=None):
     device = torch.device('cpu')
     dtype = torch.float32
     traj_tensor = torch.tensor(data, device=device, dtype=dtype)
-    torch_align.torch_remove_center_of_geometry(traj_tensor)
+    traj_tensor = align.remove_center_of_geometry(traj_tensor)
     
     if align_method == 'uni' or align_method == 'uniform':
-        uniform_aligned_traj_tensor, uniform_avg_tensor, uniform_var_tensor = torch_align.torch_iterative_align_uniform(
-            traj_tensor, device=device, dtype=dtype, verbose=True)
+        uniform_aligned_traj_tensor, uniform_avg_tensor, uniform_var_tensor = align.maximum_likelihood_uniform_alignment(traj_tensor, verbose=True)
         aligned_traj_numpy = uniform_aligned_traj_tensor.cpu().numpy()
     
     elif align_method == 'kron' or align_method == 'kronecker':
-        kronecker_aligned_traj_tensor, kronecker_avg_tensor, kronecker_precision_tensor, kronecker_lpdet_tensor = torch_align.torch_iterative_align_kronecker(
-            traj_tensor, device=device, dtype=dtype, verbose=True)
+        kronecker_aligned_traj_tensor, kronecker_avg_tensor, kronecker_precision_tensor, kronecker_lpdet_tensor = align.maximum_likelihood_kronecker_alignment(traj_tensor, verbose=True)
         aligned_traj_numpy = kronecker_aligned_traj_tensor.cpu().numpy()
     
     else:
