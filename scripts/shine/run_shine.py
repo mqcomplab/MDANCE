@@ -12,7 +12,7 @@ metric = 'MSD'                                              # Metric to be used 
 N_atoms = 1                                                 # Number of atoms in the system
 
 # SHINE Parameters
-sampling = 'diversity'                                      # Sampling scheme {'diversity', 'quota'}
+sampling = 'diversity'                                      # Sampling scheme {'diversity', 'quota', None}
 frac = 0.5                                                  # Fraction of frames to be sampled
 merge_scheme = 'intra'                                      # Merge scheme {'intra', 'semi_sum', 'min'}
 t = 2                                                       # This would be max number of clusters requested
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     # Run SHINE
     mod = Shine(frames_all, 'MSD', N_atoms=1 , t=t, criterion='maxclust', 
                 link='ward', merge_scheme=merge_scheme, 
-                sampling='diversity', frac=frac)
+                sampling=sampling, frac=frac)
     link, clusters = mod.run()
     
     # Plot the dendrogram
