@@ -127,7 +127,7 @@ class Shine:
             traj_idx = int(traj_idx)
             if self.sampling:
                 if self.sampling == 'diversity':
-                    if self.frame_cutoff <= len(traj):
+                    if self.frame_cutoff <= len(traj) and self.frac < 1:
                         div_idxs = diversity_selection(traj, self.frac * 100, 
                                                        self.metric, self.N_atoms,
                                                        'comp_sim', 'medoid')
@@ -135,7 +135,7 @@ class Shine:
                     else:
                         self.pathways[traj_idx] = traj
                 elif self.sampling == 'quota':
-                    if self.frame_cutoff <= len(traj):
+                    if self.frame_cutoff <= len(traj) and self.frac < 1:
                         n_frames = int(self.frac * len(traj))
                         rep_idx = rep_sample(traj, self.metric, self.N_atoms, 
                                              n_bins=n_frames, n_samples=n_frames)
