@@ -85,7 +85,7 @@ For more information on the SHINE algorithm, please refer to the [SHINE preprint
 ### HELM
 HELM is a hierarchical agglomerative clustering algorithm that uses the *n*-ary similarity to merge clusters at each level. It transformed from the traditional hierarchical clustering algorithm to be more efficient and scalable turning a $O(N^2)$ algorithm to $O(N)$. It specializes in recognizing dominant conformations within an ensemble and is often used alongside NANI to achieve a balance between efficiency and precision. 
 
-**A tutorial is available for HELM [here](tutorial/helm.md).**
+**A tutorial is available for HELM [here](tutorials/HELM.md).**
 
 ## Clustering Postprocessing
 ### PRIME
@@ -120,3 +120,4 @@ Research contained in this package was supported by the National Institute of Ge
 
 Collab or Contribute?!
 Please! Don't hesitate to reach out!
+
