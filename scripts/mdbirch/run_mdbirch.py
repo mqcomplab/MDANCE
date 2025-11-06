@@ -6,7 +6,7 @@ from mdance import data
 # Parameters and configuration
 input_traj_numpy = data.sim_traj_numpy
 sieve = 1
-threshold = 3.060
+threshold = 3.0600
 
 if __name__ == '__main__':
     # Load trajectory data
