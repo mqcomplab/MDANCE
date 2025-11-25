@@ -41,7 +41,7 @@ MDANCE introduces a novel *n*-ary similarity framework that transforms how we an
 
 ### Key Features
 
-#### NANI - Smart *k*-means Initialization
+#### 🪄 NANI - Smart *k*-means Initialization
 
 Breakthrough: Deterministic centroid initialization using *n*-ary comparisons to identify high-density regions and select diverse initial conformations.
 
@@ -51,7 +51,7 @@ Key Advantages:
 - Provides consistent cluster populations across replicates.
 - Dramatically reduces runtime: **clusters 1.5 million HP35 frames in ~40 minutes**.
 
-#### HELM - Scalable Hierarchical Clustering
+#### 🧩 HELM - Scalable Hierarchical Clustering
 Breakthrough: Combines *k*-means efficiency with hierarchical flexibility using *n*-ary difference functions.
 
 Performance:
@@ -60,7 +60,7 @@ Performance:
 - **Achieves in ~34 minutes what traditional HAC requires 29 hours for 1.5 million frames.**
 - Builds hierarchy without expensive pairwise distance matrices.
 
-#### DIVINE - Deterministic Divisive Clustering
+#### 🌳 DIVINE - Deterministic Divisive Clustering
 Breakthrough: Top-down hierarchical clustering framework that recursively splits clusters based on *n*-ary similarity principles.
 
 Key Features:
@@ -70,7 +70,7 @@ Key Features:
 - Single-pass design enables efficient resolution exploration
 - Matches or exceeds bisecting *k*-means quality with reduced runtime
 
-#### mdBIRCH - Online Clustering for MD Data
+#### 🌿 mdBIRCH - Online Clustering for MD Data
 Innovation: Adapts BIRCH CF-tree to molecular dynamics data with RMSD-calibrated merge tests.
 
 Key Capabilities:
@@ -81,7 +81,7 @@ Key Capabilities:
 - Two practical protocols: RMSD-anchored runs and blind sweep analysis
 - Processes hundreds of thousands of frames on a single CPU core in seconds.
 
-#### SHINE - Pathway Analysis
+#### 🔍 SHINE - Pathway Analysis
 Transformative: Hierarchical clustering that identifies dominant biological pathways from enhanced sampling data.
 
 Key Advantages:
@@ -92,7 +92,7 @@ Key Advantages:
 - Lower computational cost than Fréchet distance approaches
 - Successfully applied to alanine dipeptide and adenylate kinase systems
 
-#### eQual - O(*N*) Clustering
+#### 🎯 eQual - O(*N*) Clustering
 Innovation: Transforms O(*N²*) Radial Threshold Clustering into O(*N*) algorithm with novel seed selection and tie-breaking.
 
 Key Features:
@@ -101,7 +101,7 @@ Key Features:
 - Eliminates memory-intensive pairwise RMSD matrices
 - Produces compact and well-separated clusters matching RTC quality
 
-#### CADENCE - Density-Based Clustering
+#### 📊 CADENCE - Density-Based Clustering
 Novelty: Bridges the gap between efficient *k*-means and robust density-based clustering using *n*-ary similarity framework.
 
 Key Advantages:
@@ -110,7 +110,7 @@ Key Advantages:
 - Identifies most representative conformations efficiently.
 - Overcomes limitations of pairwise similarity operations.
 
-#### PRIME - Native Structure Prediction
+#### 🏆 PRIME - Native Structure Prediction
 
 <table>
   <tr>
