@@ -69,11 +69,11 @@ Key Features
 
 **Key Features**:
 
-- Completely avoids O(*N²*) pairwise distance matrices
-- Deterministic anchor initialization with NANI
-- Multiple cluster selection criteria including weighted variance metric
-- Single-pass design enables efficient resolution exploration
-- Matches or exceeds bisecting *k*-means quality with reduced runtime
+- Completely avoids O(*N²*) pairwise distance matrices.
+- Deterministic anchor initialization with NANI.
+- Multiple cluster selection criteria including weighted variance metric.
+- Single-pass design enables efficient resolution exploration.
+- Matches or exceeds bisecting *k*-means quality with reduced runtime.
 
 🌿 mdBIRCH - Online Clustering for MD Data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,11 +82,11 @@ Key Features
 
 **Key Capabilities**:
 
-- Online clustering that processes frames as they arrive
-- Merge test calibrated directly to RMSD for physical interpretability
-- Completely avoids pairwise distance matrices
-- Scales near-linearly with number of frames
-- Two practical protocols: RMSD-anchored runs and blind sweep analysis
+- Online clustering that processes frames as they arrive.
+- Merge test calibrated directly to RMSD for physical interpretability.
+- Completely avoids pairwise distance matrices.
+- Scales near-linearly with number of frames.
+- Two practical protocols: RMSD-anchored runs and blind sweep analysis.
 - Processes hundreds of thousands of frames on a single CPU core in seconds.
 
 🔍 SHINE - Pathway Analysis
@@ -96,12 +96,12 @@ Key Features
 
 **Key Advantages**:
 
-- Streamlines analysis of pathway ensembles from multiple MD simulations
-- Integrates *n*-ary similarity with cheminformatics-inspired tools
-- Identifies most representative pathway within each pathway class
-- Provides insight into dominant biomolecular transformation mechanisms
-- Lower computational cost than Fréchet distance approaches
-- Successfully applied to alanine dipeptide and adenylate kinase systems
+- Streamlines analysis of pathway ensembles from multiple MD simulations.
+- Integrates *n*-ary similarity with cheminformatics-inspired tools.
+- Identifies most representative pathway within each pathway class.
+- Provides insight into dominant biomolecular transformation mechanisms.
+- Lower computational cost than Fréchet distance approaches.
+- Successfully applied to alanine dipeptide and adenylate kinase systems.
 
 🎯 eQual - O(*N*) Clustering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,10 +110,10 @@ Key Features
 
 **Key Features**:
 
-- Uses *k*-means++ for efficient seed selection
-- Employs extended similarity indices for deterministic results
-- Eliminates memory-intensive pairwise RMSD matrices
-- Produces compact and well-separated clusters matching RTC quality
+- Uses *k*-means++ for efficient seed selection.
+- Employs extended similarity indices for deterministic results.
+- Eliminates memory-intensive pairwise RMSD matrices.
+- Produces compact and well-separated clusters matching RTC quality.
 
 📊 CADENCE - Density-Based Clustering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,14 +231,14 @@ Basic Usage
 Tutorials
 ~~~~~~~~~
 
-- `NANI Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/nani.html>`_ - Smart *k*-means initialization
-- `HELM Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/helm.html>`_ - Scalable hierarchical clustering
+- `NANI Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/nani.html>`_ - Smart *k*-means initialization.
+- `HELM Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/helm.html>`_ - Scalable hierarchical clustering.
 - `DIVINE Scripts <https://github.com/mqcomplab/MDANCE/tree/main/scripts/divine>`_ - Deterministic divisive clustering. 1-``run_divine.py``, 2-``analysis_db.ipynb``, 3-``assign_labels.py``.
-- `mdBIRCH Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/mdbirch/run_mdbirch.py>`_ - Online clustering for streaming MD data
-- `SHINE Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py>`_ - Pathway analysis
-- `eQual Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/equal.html>`_ - Linear-time clustering
+- `mdBIRCH Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/mdbirch/run_mdbirch.py>`_ - Online clustering for streaming MD data.
+- `SHINE Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py>`_ - Pathway analysis.
+- `eQual Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/equal.html>`_ - Linear-time clustering.
 - CADENCE Tutorial - Density-based clustering (to be added).
-- `PRIME Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/prime.html>`_ - Native structure retrieval
+- `PRIME Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/prime.html>`_ - Native structure retrieval.
 
 Publications
 ------------
@@ -259,25 +259,25 @@ Impact
 
 MDANCE is enabling researchers to:
 
-- Accelerate drug discovery by rapidly identifying biologically relevant conformations
-- Understand disease mechanisms through precise pathway analysis
-- Validate computational models against experimental structures
-- Scale analyses to massive simulation datasets
+- Accelerate drug discovery by rapidly identifying biologically relevant conformations.
+- Understand disease mechanisms through precise pathway analysis.
+- Validate computational models against experimental structures.
+- Scale analyses to massive simulation datasets.
 
 Contributing
 ------------
 
 We welcome collaborations and contributions! Whether you're a:
 
-- Computational biologist with novel analysis needs
-- Method developer interested in extending our framework
-- Structural biologist with challenging datasets
+- Computational biologist with novel analysis needs.
+- Method developer interested in extending our framework.
+- Structural biologist with challenging datasets.
 
 Get involved:
 
-- Open an issue for bug reports or feature requests
-- Submit a pull request for improvements
-- Reach out to discuss research collaborations
+- Open an issue for bug reports or feature requests.
+- Submit a pull request for improvements.
+- Reach out to discuss research collaborations.
 
 Funding
 -------
