@@ -1,100 +1,289 @@
-About MDANCE
-============
-.. raw:: html
+MDANCE: Molecular Dynamics Analysis with *N*-ary Clustering Ensembles
+=====================================================================
 
-    <p align="center">
-    <img src="_static/mdance.png" width="300" height=auto align="center"></a></p>
+.. image:: https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/_static/mdance.png
+   :width: 300
+   :height: auto
+   :align: center
 
-Molecular Dynamics Analysis with *N*-ary Clustering Ensembles (MDANCE) is a flexible 
-*n*-ary clustering package that provides a set of tools for clustering Molecular 
-Dynamics trajectories. The package is designed to be modular and extensible, allowing 
-for the addition of new clustering algorithms and similarity metrics. Research contained 
-in this package was supported by the National Institute of General Medical Sciences of 
-the National Institutes of Health under award number R35GM150620.
+A transformative framework for analyzing molecular dynamics simulations through advanced clustering algorithms
 
-.. contents::
+.. contents:: Table of Contents
    :local:
    :depth: 2
 
-Background
-----------
+The Problem
+-----------
 
-Clustering Algorithms
----------------------
-NANI
-~~~~
-.. raw:: html
+Molecular Dynamics (MD) simulations generate terabytes of conformational data, but extracting meaningful biological insights remains challenging. Traditional clustering methods struggle with:
 
-    <p align="center">
-        <img src="_static/nani-logo.PNG" width="150" height="auto" align="center">
-    </p>
+- **Exponential complexity** - MD datasets are massive.
+- **Poor initialization** - leading to suboptimal clustering.
+- **Pathway ambiguity** - difficulty identifying dominant biological pathways.
+- **Native structure prediction** - accurately identifying biologically relevant states.
+- **Pairwise similarity limitations** - traditional methods only compare pairs of objects, causing performance bottlenecks.
+- **Stochastic variability** - lack of reproducibility across clustering runs.
 
-*k*-Means *N*-Ary Natural Initiation (NANI) is an algorithm for
-selecting initial centroids for *k*-Means clustering. NANI is an
-extension of the *k*-Means++ algorithm. NANI stratifies the data to high
-density region and perform diversity selection on top of the it to
-select the initial centroids. This is a deterministic algorithm that
-will always select the same initial centroids for the same dataset and
-improve on *k*-means++ by reducing the number of iterations required to
-converge and improve the clustering quality.
+Our Solution
+------------
 
-For more information on the NANI algorithm, please refer to the `NANI
-paper <https://doi.org/10.1021/acs.jctc.4c00308>`__.
+MDANCE introduces a novel *n*-ary similarity framework that transforms how we analyze MD trajectories. Our algorithms provide:
 
-eQual
-~~~~~
-eQual is a O*(N)* clustering algorithm that use the radial threshold to grow the cluster to 
-maximize similarity between members in a cluster. It is an extension of the Radial Threshold 
-Clustering algorithm [(Daura and Oscar Conchillo-Solé)](https://pubs.acs.org/doi/pdf/10.1021/acs.jcim.2c01079). 
-eQual has improved with new seed selection methods and tie-breaking criteria.
+- **Linear scaling** - from O(*N²*) to O(*N*) complexity.
+- **Deterministic results** - reproducible science.
+- **Biological relevance** - algorithms designed for structural biology.
+- **Unprecedented accuracy** - validated against experimental structures.
+- **Extended similarity techniques** - swift identification of high and low-density regions in linear time.
 
-Clustering Postprocessing
--------------------------
-PRIME
-~~~~~
-.. raw:: html
-    
-    <h3 align="center"> 
-        <img src="_static/logo.png" width="800" height="auto" align="center">
-        &nbsp;
-        <p><b>🪄 Predict Protein Structure with Precision 🪄</b></p>
-    </h3>
+Key Features
+------------
 
-Protein Retrieval via Integrative Molecular Ensembles (PRIME) is a novel
-algorithm that predicts the native structure of a protein from
-simulation or clustering data. These methods perfectly mapped all the
-structural motifs in the studied systems and required unprecedented
-linear scaling.
+🪄 NANI - Smart *k*-means Initialization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For more information on the PRIME algorithm, please refer to the `PRIME
-paper <https://pubs.acs.org/doi/abs/10.1021/acs.jctc.4c00362>`__.
+**Breakthrough**: Deterministic centroid initialization using *n*-ary comparisons to identify high-density regions and select diverse initial conformations.
+
+**Key Advantages**:
+
+- Solves the seed selection challenge in *k*-means clustering.
+- Creates compact, well-separated clusters that accurately find metastable states.
+- Provides consistent cluster populations across replicates.
+- Dramatically reduces runtime: **clusters 1.5 million HP35 frames in ~40 minutes**.
+
+🧩 HELM - Scalable Hierarchical Clustering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Breakthrough**: Combines *k*-means efficiency with hierarchical flexibility using *n*-ary difference functions.
+
+**Performance**:
+
+- Retains *k*-means computational efficiency while enabling arbitrary partitions.
+- Successfully analyzes simulations with over 1.5 million frames.
+- **Achieves in ~34 minutes what traditional HAC requires 29 hours for 1.5 million frames.**
+- Builds hierarchy without expensive pairwise distance matrices.
+
+🌳 DIVINE - Deterministic Divisive Clustering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Breakthrough**: Top-down hierarchical clustering framework that recursively splits clusters based on *n*-ary similarity principles.
+
+**Key Features**:
+
+- Completely avoids O(*N²*) pairwise distance matrices
+- Deterministic anchor initialization with NANI
+- Multiple cluster selection criteria including weighted variance metric
+- Single-pass design enables efficient resolution exploration
+- Matches or exceeds bisecting *k*-means quality with reduced runtime
+
+🌿 mdBIRCH - Online Clustering for MD Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Innovation**: Adapts BIRCH CF-tree to molecular dynamics data with RMSD-calibrated merge tests.
+
+**Key Capabilities**:
+
+- Online clustering that processes frames as they arrive
+- Merge test calibrated directly to RMSD for physical interpretability
+- Completely avoids pairwise distance matrices
+- Scales near-linearly with number of frames
+- Two practical protocols: RMSD-anchored runs and blind sweep analysis
+- Processes hundreds of thousands of frames on a single CPU core in seconds.
+
+🔍 SHINE - Pathway Analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Transformative**: Hierarchical clustering that identifies dominant biological pathways from enhanced sampling data.
+
+**Key Advantages**:
+
+- Streamlines analysis of pathway ensembles from multiple MD simulations
+- Integrates *n*-ary similarity with cheminformatics-inspired tools
+- Identifies most representative pathway within each pathway class
+- Provides insight into dominant biomolecular transformation mechanisms
+- Lower computational cost than Fréchet distance approaches
+- Successfully applied to alanine dipeptide and adenylate kinase systems
+
+🎯 eQual - O(*N*) Clustering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Innovation**: Transforms O(*N²*) Radial Threshold Clustering into O(*N*) algorithm with novel seed selection and tie-breaking.
+
+**Key Features**:
+
+- Uses *k*-means++ for efficient seed selection
+- Employs extended similarity indices for deterministic results
+- Eliminates memory-intensive pairwise RMSD matrices
+- Produces compact and well-separated clusters matching RTC quality
+
+📊 CADENCE - Density-Based Clustering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Novelty**: Bridges the gap between efficient *k*-means and robust density-based clustering using *n*-ary similarity framework.
+
+**Key Advantages**:
+
+- Swiftly pinpoints high and low-density regions in linear O(*N*) time.
+- Enables focused exploration of rare events.
+- Identifies most representative conformations efficiently.
+- Overcomes limitations of pairwise similarity operations.
+
+🏆 PRIME - Native Structure Prediction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Game Changer**: Predicts native protein structures from simulation data with unprecedented accuracy. 
+
+.. table:: PRIME Validation
+   :widths: 60 40
+
+   ============================================  ==================================
+   **Scientific Validation**: PRIME (Protein     .. image:: https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/2k2e.png
+      Retrieval via Integrative Molecular           :width: 300
+      Ensembles) perfectly mapped all structural    :alt: 2k2e
+      motifs in benchmark studies and consistently  
+      identified native structures within 2Å RMSD   
+      of experimental data.                        *Superposition of native structure using PRIME (yellow) and experimental native structures (blue) of 2k2e.*
+   ============================================  ==================================
+
+Algorithm Comparison
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table:: Algorithm Comparison
+   :widths: 15 15 20 25 25
+   :header-rows: 1
+
+   * - Algorithm
+     - Complexity
+     - Type
+     - Key Feature
+     - Best Use Case
+   * - NANI
+     - O(*N*)
+     - Initialization
+     - Deterministic centroids
+     - *k*-means improvement
+   * - HELM
+     - O(*N*)
+     - Hybrid hierarchical
+     - *k*-means + hierarchical fusion
+     - Large-scale analysis
+   * - DIVINE
+     - O(*N*)
+     - Divisive hierarchical
+     - Top-down splitting
+     - Multi-resolution analysis
+   * - mdBIRCH
+     - O(*N*)
+     - Online clustering
+     - Streaming data processing
+     - Large-scale trajectories
+   * - SHINE
+     - O(*N*)
+     - Hierarchical
+     - Pathway analysis
+     - Enhanced sampling
+   * - eQual
+     - O(*N*)
+     - Flat clustering
+     - Linear RTC replacement
+     - General purpose
+   * - CADENCE
+     - O(*N*)
+     - Density-based
+     - *n*-ary density estimation
+     - Rare event detection
+   * - PRIME
+     - O(*N*)
+     - Post-processing
+     - Native structure prediction
+     - Structure validation
+
+Quick Start
+-----------
+
+Installation
+~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   pip install mdance
+
+Basic Usage
+~~~~~~~~~~~
+
+.. code-block:: python
+
+   import mdance
+   import numpy as np
+
+   # Load your MD trajectory data
+   data = np.load('trajectory.npy')
+
+   # Use NANI for optimal clustering initialization
+   from mdance.cluster.nani import KmeansNANI
+   nani = KmeansNANI(data, n_clusters=5, metric='MSD')
+   optimal_centroids = nani.initiate_kmeans()
+
+   # Cluster with standard *k*-means
+   from sklearn.cluster import KMeans
+   kmeans = KMeans(5, init=optimal_centroids[:5], n_init=1)
+   labels = kmeans.fit_predict(data)
+
+Tutorials
+~~~~~~~~~
+
+- `NANI Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/nani.html>`_ - Smart *k*-means initialization
+- `HELM Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/helm.html>`_ - Scalable hierarchical clustering
+- `DIVINE Scripts <https://github.com/mqcomplab/MDANCE/tree/main/scripts/divine>`_ - Deterministic divisive clustering. 1-``run_divine.py``, 2-``analysis_db.ipynb``, 3-``assign_labels.py``.
+- `mdBIRCH Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/mdbirch/run_mdbirch.py>`_ - Online clustering for streaming MD data
+- `SHINE Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py>`_ - Pathway analysis
+- `eQual Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/equal.html>`_ - Linear-time clustering
+- CADENCE Tutorial - Density-based clustering (to be added).
+- `PRIME Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/prime.html>`_ - Native structure retrieval
+
+Publications
+------------
+
+Our methods are backed by peer-reviewed research:
+
+- **NANI**: `J. Chem. Theory Comput. 2024 <https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308>`_
+- **HELM**: `J. Chem. Inf. Model. 2025 <https://pubs.acs.org/doi/abs/10.1021/acs.jcim.3c01287>`_
+- **DIVINE**: `BioRxiv 2025 <https://www.biorxiv.org/content/10.1101/2025.06.20.660828v1>`_
+- **mdBIRCH**: `BioRxiv 2025 <https://www.biorxiv.org/content/10.1101/2025.11.05.686879v1.abstract>`_
+- **SHINE**: `J. Chem. Inf. Model. 2025 <https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5c00240>`_
+- **eQual**: `J. Chem. Inf. Model. 2025 <https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c02341>`_
+- **CADENCE**: `J. Chem. Inf. Model. 2025 <https://pubs.acs.org/doi/10.1021/acs.jcim.5c00392>`_
+- **PRIME**: `J. Chem. Theory Comput. 2024 <https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362>`_
+
+Impact
+------
+
+MDANCE is enabling researchers to:
+
+- Accelerate drug discovery by rapidly identifying biologically relevant conformations
+- Understand disease mechanisms through precise pathway analysis
+- Validate computational models against experimental structures
+- Scale analyses to massive simulation datasets
 
 Contributing
 ------------
-Contributions to MDANCE are welcome! 
 
-License
+We welcome collaborations and contributions! Whether you're a:
+
+- Computational biologist with novel analysis needs
+- Method developer interested in extending our framework
+- Structural biologist with challenging datasets
+
+Get involved:
+
+- Open an issue for bug reports or feature requests
+- Submit a pull request for improvements
+- Reach out to discuss research collaborations
+
+Funding
 -------
-MDANCE is released under the MIT License. See the LICENSE file in the project repository for more details.
 
-Citing MDANCE
--------------
-If you use MDANCE in your research, please cite the following paper:
+This research was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
 
-.. code-block:: bibtex
+----
 
-    @article{chen_k-means_2024,
-        title = {k-Means NANI: An Improved Clustering Algorithm for Molecular Dynamics Simulations},
-        issn = {1549-9618},
-        url = {https://doi.org/10.1021/acs.jctc.4c00308},
-        doi = {10.1021/acs.jctc.4c00308},
-        journal = {Journal of Chemical Theory and Computation},
-        author = {Chen, Lexin and Roe, Daniel R. and Kochert, Matthew and Simmerling, Carlos and Miranda-Quintana, Ramón Alain},
-        month = jun,
-        year = {2024},
-        note = {Publisher: American Chemical Society},
-    }
-
-Contact
--------
-For questions or support, please contact us.
+*MDANCE: Transforming how we understand molecular dynamics through innovative n-ary clustering frameworks*
