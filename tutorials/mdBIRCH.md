@@ -21,37 +21,26 @@ The merge decision is designed to be physically interpretable for molecular traj
 ## When to use mdBIRCH
 **Current best practice (today):** we primarily use mdBIRCH on **finished simulations** (post hoc clustering). It’s fast, memory-bounded, and provides a straightforward “one-pass” partitioning of an already-generated trajectory.
 
-**Future direction:** mdBIRCH becomes even more powerful when paired with an engine that enables *instantaneous clustering*—i.e., streaming frames during simulation and assigning them to clusters online in real time. In that setup, mdBIRCH acts as the online clustering backbone, while the engine handles the streaming + orchestration layer.
+**Future direction:** mdBIRCH becomes even more powerful when paired with an engine that enables *instantaneous clustering*—i.e., streaming frames during simulation and assigning them to clusters online in real time. In that setup, mdBIRCH acts as the online clustering backbone, while the engine handles the streaming.
 
 ## Tutorial
 
 ### 1. Input Preparations
-<details>
-<summary>Preparation for Molecular Dynamics Trajectory</summary>
+
+Preparation for Molecular Dynamics Trajectory
 
 Prepare a valid topology file (e.g. `.pdb`, `.prmtop`), trajectory file (e.g. `.dcd`, `.nc`), and the atom selection. This step will convert a Molecular Dynamics trajectory to a numpy ndarray. **Make sure the trajectory is already aligned and/or centered if needed!**
 
 **Step-by-step tutorial can be found in the [scripts/inputs/preprocessing.ipynb](../scripts/inputs/preprocessing.ipynb).**
-</details>
 
-<details>
-<summary>Preparation for all other datasets (OPTIONAL)</summary>
 
-This step is **optional**. If you are using a metric that is NOT the mean-square deviation (MSD)--default metric, you will need to normalize the dataset. Otherwise, you can skip this step.
-
-[**scripts/inputs/normalize.py**](../scripts/inputs/normalize.py) will normalize the dataset. The following parameters to be specified in the script:
-
-    # System info - EDIT THESE
-    data_file = data.blob_disk
-    array = np.genfromtxt(data_file, delimiter=',')
-    output_base_name = 'output_base_name'
 
 #### Inputs
 ##### System info
 `data_file` is your input file with a 2D array.<br>
 `array` is the array is the loaded dataset from `data_file`. This step can be changed according to the type of file format you have. However, `array` must be an array-like in the shape (number of samples, number of features).<br>
 `output_base_name` is the base name for the output file. The output file will be saved as `output_base_name.npy`.<br>
-</details>
+
 
 ### 2. mdBIRCH clustering
 A minimal runnable example is provided in:
