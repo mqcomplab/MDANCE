@@ -65,7 +65,6 @@ This script:
 
 #### Merge criterion (radius)
 For MD use cases in this repo, we assume your frames are represented as **reference-aligned Cartesian coordinates** (so the feature dimension is implicitly `3 * n_atoms_selected`).
-As a result, you typically do **not** need to think about a separate “feature” setting—the script will infer the dimensionality directly from the loaded numpy array.
 
 #### Execution
 ```bash
