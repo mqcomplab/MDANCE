@@ -177,7 +177,7 @@ labels = kmeans.fit_predict(data)
 ### Publications
 Our methods are backed by peer-reviewed research:
 - NANI: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308)
-- HELM: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.3c01287)
+- HELM: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00539)
 - DIVINE: [BioRxiv 2025](https://www.biorxiv.org/content/10.1101/2025.06.20.660828v1)
 - mdBIRCH: [BioRxiv 2025](https://www.biorxiv.org/content/10.1101/2025.11.05.686879v1.abstract)
 - SHINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5c00240)
@@ -204,4 +204,5 @@ We welcome collaborations and contributions! Whether you're a:
 - Reach out to discuss research collaborations.
 
 ### Funding
+
 This research was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number R35GM150620.
