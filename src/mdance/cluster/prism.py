@@ -318,7 +318,7 @@ class PRISM:
             d(A->B) = sum_{a in A} min_{b in B} ||a - b||
             d(B->A) = sum_{b in B} min_{a in A} ||b - a||
 
-        The final PRISM dissimilarity is a weighted combination:
+        The final dissimilarity is a weighted combination:
 
             d(A, B) = w_A * d(A->B) + w_B * d(B->A)
 
@@ -327,7 +327,7 @@ class PRISM:
         A, B : np.ndarray
             2D arrays of shape (n_points, n_features) representing the medoid sets.
         scheme : str, optional
-            Weighting/normalization scheme:
+            Normalization scheme:
             * 'unnormalized' : w_A = 1, w_B = 1
             * 'weighted_avg' : w_A = 1/(2|A|), w_B = 1/(2|B|)
             * 'sym_avg'      : w_A = w_B = 1/(|A| + |B|)
