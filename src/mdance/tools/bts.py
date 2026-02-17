@@ -739,3 +739,77 @@ def refine_dis_matrix(matrix):
     distances -= np.min(distances)
     np.fill_diagonal(distances, 0)
     return distances
+
+def quota_sampling(data, metric, percentage=10, n_bins=10, hard_cap=True, N_atoms=1, comp_sim=None):
+    """Quota sampling according to complementary similarity values.
+    
+    Divides the range of comp_sim values in n_bins and then uniformly selects 
+    nsample frames, consecutively taking one from each bin.
+    
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        A feature array.
+    metric : str
+        The metric to when calculating distance between *n* objects in an array.
+    percentage : int, default=10
+        Percentage of objects to sample.
+    n_bins : int, default=10
+        Number of bins to divide the comp_sim range into.
+    hard_cap : bool, default=True
+        Whether to strictly enforce the number of samples.
+    N_atoms : int, default=1
+        Number of atoms in the MD system.
+    comp_sim : array-like, optional
+        Pre-computed complementary similarity values.
+    
+    Returns
+    -------
+    numpy.ndarray
+        Indices of the sampled objects.
+    """
+    if comp_sim is None:
+        comp_sim = calculate_comp_sim(data, metric=metric, N_atoms=N_atoms)
+        n_objects = len(data)
+    else:
+        n_objects = len(comp_sim)
+
+    n_sample = int(n_objects * percentage / 100)
+
+    if n_sample < 1 or n_sample < n_bins:
+        raise ValueError("The number of objects to sample is too low for the number of bins. "
+                        "Please specify a higher percentage, or a lower number of bins")
+    
+    min_val = np.min(comp_sim)
+    max_val = np.max(comp_sim)
+
+    D = max_val - min_val
+    step = D / n_bins
+    
+    bins = []
+    indices = np.array(range(n_objects))
+    
+    for i in range(n_bins - 1):
+        low = min_val + i * step
+        up = min_val + (i + 1) * step
+        ind = indices[(comp_sim >= low) * (comp_sim < up)]
+        bin_comp_sim = comp_sim[ind]
+        bins.append(ind[np.argsort(bin_comp_sim)])
+    
+    low = min_val + (n_bins - 1) * step
+    ind = indices[(comp_sim >= low) * (comp_sim <= max_val)]
+    bin_comp_sim = comp_sim[ind]
+    bins.append(ind[np.argsort(bin_comp_sim)])
+ 
+    # Sample the objects from each bin
+    order_sampled = []
+    i = 0
+    while len(order_sampled) < n_sample:
+        for b in bins:
+            if len(b) > i:
+                order_sampled.append(b[i])
+                if hard_cap and len(order_sampled) >= n_sample:
+                    break
+        i += 1
+
+    return np.array(order_sampled[:n_sample])

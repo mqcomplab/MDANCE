@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.cluster import KMeans, kmeans_plusplus
 from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
 
-from mdance.tools.bts import diversity_selection, calculate_comp_sim
+from mdance.tools.bts import diversity_selection, calculate_comp_sim, quota_sampling
 
 
 class KmeansNANI:
@@ -13,6 +13,7 @@ class KmeansNANI:
     | ``strat_reduced``: Identifies high-density regions using complementary similarity, selecting a specified percentage of points. Applies stratified sampling to this subset using a number of bins based on the subset size, and selects the first *k* points as initial centers.
     | ``comp_sim``: Identifies high-density regions using complementary similarity, selecting a percentage% of the data. From this subset, diversity selection (with ``comp_sim`` as the sampling method) is used to choose the first *k* points as the initial centers.
     | ``div_select``: Applies diversity selection (using ``comp_sim`` as the sampling method) on specified percentage% of points. First *k* points are the initial centers.
+    | ``quota``: Uses quota sampling to select initial centers based on complementary similarity values divided into bins.
     | ``k-means++`` selects the initial centers based on the greedy *k*-means++ algorithm.
     | ``random`` selects the initial centers randomly.
     | ``vanilla_kmeans++`` selects the initial centers based on the vanilla *k*-means++ algorithm.
@@ -55,7 +56,7 @@ class KmeansNANI:
         self.N_atoms = N_atoms
         self.init_type = init_type
         self._check_init_type()
-        if self.init_type in ['comp_sim', 'div_select', 'strat_reduced', 'strat_all']:
+        if self.init_type in ['comp_sim', 'div_select', 'strat_reduced', 'strat_all','quota']:
             self.percentage = kwargs.get('percentage', 10)
             self._check_percentage()
     
@@ -71,10 +72,10 @@ class KmeansNANI:
         """
         if self.init_type not in ['comp_sim', 'div_select', 'k-means++', 
                                   'random', 'vanilla_kmeans++', 'strat_all',
-                                  'strat_reduced']:
+                                  'strat_reduced', 'quota']:
             raise ValueError('init_type must be one of the following: comp_sim, \
                              div_select, k-means++, random, vanilla_kmeans++, strat_all, \
-                             strat_reduced.')
+                             strat_reduced, quota.')
     
     
     def _check_percentage(self):
@@ -93,7 +94,7 @@ class KmeansNANI:
             raise ValueError('percentage must be an integer [0, 100].')
     
     
-    def initiate_kmeans(self):
+    def initiate_kmeans(self, **kwargs):
         """Initializes the *k*-means algorithm with the selected initiators.
         
         Raises
@@ -130,6 +131,14 @@ class KmeansNANI:
         elif self.init_type == 'div_select':
             initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
                                                  self.N_atoms, 'comp_sim', 'medoid')
+            initiators = self.data[initiator_idxs]
+
+        elif self.init_type == 'quota':
+            n_bins = kwargs.get('n_bins', 10)
+            initiator_idxs = quota_sampling(self.data, self.metric, 
+                                          percentage=self.percentage,
+                                          n_bins=n_bins,
+                                          N_atoms=self.N_atoms)
             initiators = self.data[initiator_idxs]
         
         elif self.init_type == 'vanilla_kmeans++':
