@@ -183,7 +183,8 @@ class PRISM:
         index_pos = {k: i for i, k in enumerate(order)}
 
         medoids_per_traj = self._build_ave_haus_medoids(traj_list)
-        
+        self.medoids_per_traj = {order[i]: medoids_per_traj[i] for i in range(len(order))}
+
         for _ in self.pathways.keys():
             distances.append([None] * len(self.pathways))
         
@@ -191,7 +192,7 @@ class PRISM:
 
         for k in sorted(self.pathways):
             arr = self.pathways[k]
-            print(f"{k}: len={len(arr)}, shape={getattr(arr, 'shape', ('?'))}")
+            #print(f"{k}: len={len(arr)}, shape={getattr(arr, 'shape', ('?'))}")
 
         for i_idx, i in enumerate(keys):
             distances[i_idx][i_idx] = 0

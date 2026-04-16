@@ -12,8 +12,8 @@ file_pattern = 'ala/data/*.csv'     # Pattern pointing to trajectory files (each
 metric = 'MSD'
 
 # PRISM Parameters
-option = 3                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 6                               # Number of clusters for representative medoid construction
+option = 2                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
+k = 20                               # Number of clusters for representative medoid construction
 k_final = k                         # Second-stage cluster count (used only if option == 3)
 weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme      
 
@@ -41,6 +41,11 @@ if __name__ == '__main__':
         frame = np.genfromtxt(file, delimiter=',')
         frames_all.append((traj, frame))
 
+    """for file in glob.glob(file_pattern, recursive=True):
+        traj = file.split('/')[-1].split('.')[0] 
+        frame = np.load(file)
+        frames_all.append((traj, frame))"""
+
     # Run PRISM
     mod = PRISM(
         frames_all,
@@ -56,12 +61,12 @@ if __name__ == '__main__':
 
     link, clusters = mod.run()
 
+    suffix = f'prism_opt{option}_k{k}_kfinal{k_final}'
+
     # Plot the dendrogram
     ax = mod.plot()
-    plt.savefig(
-        f'div_dendro2_prism_opt{option}_k{k}_kfinal{k_final}.png',
-        bbox_inches='tight',
-        dpi=500,
-        pad_inches=0.1
-    )
+    plt.savefig(f'{suffix}.png', bbox_inches='tight', dpi=500, pad_inches=0.1)
     plt.close()
+
+    # Save medoids per trajectory
+    np.save(f'{suffix}_medoids.npy', mod.medoids_per_traj, allow_pickle=True)
