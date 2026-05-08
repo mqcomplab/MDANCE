@@ -1,6 +1,5 @@
 from cycler import cycler
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 import numpy as np
 
 from scipy.cluster.hierarchy import dendrogram, fcluster, linkage
@@ -84,8 +83,7 @@ class PRISM:
     k_final : int, optional
         Second-stage cluster count used only for `option==3`.
     percentage : int, optional
-        Percentage parameter forwarded to k-means NANI initialization/execution
-        (MDANCE-specific).
+        Percentage parameter forwarded to k-means NANI initialization/execution.
     weight_scheme : str, optional
         Scheme controlling the weighting/normalization used by the weighted
         average Hausdorff calculation. Supported values are:
@@ -296,17 +294,41 @@ class PRISM:
             The dendrogram plot
         """
         self.custom_labels = self.labels()
+        plt.rcParams['lines.linewidth'] = 1
         ax = dendrogram(self.link_matrix, no_labels=True)
-        
-        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
-                  '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+
+        colors = ['#0072B2', '#D55E00', '#009E73', '#F0E442',
+                  '#E69F00', '#CC79A7', '#000000']
         plt.rcParams['axes.prop_cycle'] = cycler(color=colors)
         plt.rcParams['font.size'] = 12
-        for axis in ['top','bottom','left','right']:
-            plt.gca().spines[axis].set_linewidth(1.25)
-        legend_handles = [Line2D([0], [0], color=colors[(i + 1) % len(colors)], lw=3, label=label)
-                          for i, label in enumerate(self.custom_labels)]
-        plt.legend(handles=legend_handles, loc='upper right', fontsize=10, title='Clusters')
+        for axis in ['top', 'bottom', 'left', 'right']:
+            plt.gca().spines[axis].set_linewidth(1)
+
+        # Place cluster labels as text below the dendrogram (no legend box)
+        leaf_order = ax['leaves']
+        leaf_x = {leaf_order[i]: 5 + 10 * i for i in range(len(leaf_order))}
+
+        cur_ax = plt.gca()
+        fig = plt.gcf()
+        fig.canvas.draw()
+        renderer = fig.canvas.get_renderer()
+        ax_bbox = cur_ax.get_window_extent(renderer=renderer)
+
+        for ci, cluster_id in enumerate(sorted(np.unique(self.clusters))):
+            color = colors[(ci + 1) % len(colors)]
+            y_pos = -0.03 - ci * 0.06
+
+            prefix = f"Cluster {cluster_id}: "
+            t = cur_ax.text(0.0, y_pos, prefix,
+                            ha='left', va='top', fontsize=5.5, color=color, clip_on=False,
+                            transform=cur_ax.transAxes, fontweight='bold')
+
+            t_bbox = t.get_window_extent(renderer=renderer)
+            x_after = (t_bbox.x1 - ax_bbox.x0) / ax_bbox.width
+            cur_ax.text(x_after, y_pos, self.custom_labels[ci],
+                        ha='left', va='top', fontsize=5.5, color=color, clip_on=False,
+                        transform=cur_ax.transAxes)
+
         return ax
 
     def _average_hausdorff(self, A, B, scheme=None):
