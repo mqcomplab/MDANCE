@@ -6,7 +6,7 @@ from mdance.cluster.divine import Divine
 
 # System Information
 input_traj_numpy = data.sim_traj_numpy
-N_atoms = 101                                 
+N_atoms = 50                                 
 sieve = 1                              
 
 # Parameters
