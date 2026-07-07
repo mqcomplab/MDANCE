@@ -179,10 +179,10 @@ labels = kmeans.fit_predict(data)
 #### Tutorials
 - [NANI Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/nani.html) - Smart *k*-means initialization.
 - [HELM Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/helm.html) - Scalable hierarchical clustering.
-- [DIVINE Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/DIVINE.md) - Deterministic divisive clustering.
-- [mdBIRCH Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdBIRCH.md) - Online clustering for streaming MD data.
+- [DIVINE Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/divine.html) - Deterministic divisive clustering.
+- [mdBIRCH Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/mdbirch.html) - Online clustering for streaming MD data.
 - [SHINE Script](https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py) - Pathway analysis.
-- [PRISM Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/PRISM.md) - Pathway representation and clustering.
+- [PRISM Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prism.html) - Pathway representation and clustering.
 - [eQual Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/equal.html) - Linear-time clustering.
 - CADENCE Tutorial - Density-based clustering (to be added).
 - [PRIME Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prime.html) - Native structure retrieval.
