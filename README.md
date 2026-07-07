@@ -194,9 +194,11 @@ Our methods are backed by peer-reviewed research:
 - DIVINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c02740)
 - mdBIRCH: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/pdf/10.1021/acs.jctc.6c00221?ref=article_openPDF)
 - SHINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5c00240)
+- PRISM: [bioRxiv 2026](https://www.biorxiv.org/content/10.64898/2026.05.16.725628v1)
 - eQual: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c02341)
 - CADENCE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00392)
 - PRIME: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362)
+
 
 ### Impact
 MDANCE is enabling researchers to:
