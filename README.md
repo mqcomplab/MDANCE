@@ -92,6 +92,17 @@ Key Advantages:
 - Lower computational cost than Fréchet distance approaches.
 - Successfully applied to alanine dipeptide and adenylate kinase systems.
 
+#### 🛤️ PRISM - Pathway Representation & Clustering
+
+Innovation: Pathway Representation via Intrinsic Structural Medoids enables efficient clustering of multiple molecular pathways.
+
+Key Capabilities:
+- Summarizes each pathway by a compact set of representative conformations (structural medoids).
+- Clusters pathways using hierarchical agglomerative clustering based on weighted average Hausdorff distance.
+- Three construction strategies for medoid selection: global sharing, per-pathway independent, or two-stage refinement.
+- Enables efficient analysis of enhanced sampling and multiple pathway ensembles.
+- Designed for multi-trajectory pathway comparison and classification.
+
 #### 🎯 eQual - O(*N*) Clustering
 Innovation: Transforms O(*N²*) Radial Threshold Clustering into O(*N*) algorithm with novel seed selection and tie-breaking.
 
@@ -135,6 +146,7 @@ Key Advantages:
 | DIVINE    | O(*N*)       | Divisive hierarchical | Top-down splitting | Multi-resolution analysis | 
 | mdBIRCH   | O(*N*)       | Online clustering | Streaming data processing | Large-scale trajectories |
 | SHINE     | O(*N*)       | Hierarchical | Pathway analysis | Enhanced sampling |
+| PRISM     | O(*N*)       | Hierarchical | Structural medoid representation | Multi-pathway comparison |
 | eQual     | O(*N*)       | Flat clustering | Linear RTC replacement | General purpose |
 | CADENCE   | O(*N*)       | Density-based | *n*-ary density estimation | Rare event detection |
 | PRIME     | O(*N*)       | Post-processing | Native structure prediction | Structure validation |
@@ -167,19 +179,20 @@ labels = kmeans.fit_predict(data)
 #### Tutorials
 - [NANI Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/nani.html) - Smart *k*-means initialization.
 - [HELM Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/helm.html) - Scalable hierarchical clustering.
-- [DIVINE Scripts](https://github.com/mqcomplab/MDANCE/tree/main/scripts/divine)- Deterministic divisive clustering. 1-`run_divine.py`, 2-`analysis_db.ipynb`, 3-`assign_labels.py`.
-- [mdBIRCH Script](https://github.com/mqcomplab/MDANCE/blob/main/scripts/mdbirch/run_mdbirch.py) - Online clustering for streaming MD data.
+- [DIVINE Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/DIVINE.md) - Deterministic divisive clustering.
+- [mdBIRCH Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdBIRCH.md) - Online clustering for streaming MD data.
 - [SHINE Script](https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py) - Pathway analysis.
+- [PRISM Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/PRISM.md) - Pathway representation and clustering.
 - [eQual Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/equal.html) - Linear-time clustering.
 - CADENCE Tutorial - Density-based clustering (to be added).
 - [PRIME Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prime.html) - Native structure retrieval.
 
 ### Publications
 Our methods are backed by peer-reviewed research:
-- NANI: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308)
+- NANI: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308); [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c02741)
 - HELM: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00539)
-- DIVINE: [BioRxiv 2025](https://www.biorxiv.org/content/10.1101/2025.06.20.660828v1)
-- mdBIRCH: [BioRxiv 2025](https://www.biorxiv.org/content/10.1101/2025.11.05.686879v1.abstract)
+- DIVINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c02740)
+- mdBIRCH: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/pdf/10.1021/acs.jctc.6c00221?ref=article_openPDF)
 - SHINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5c00240)
 - eQual: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c02341)
 - CADENCE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00392)
