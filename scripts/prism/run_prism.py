@@ -1,14 +1,15 @@
 import csv
 import glob
-
 import matplotlib.pyplot as plt
 import numpy as np
-
+from mdance import data
 from mdance.cluster.prism import PRISM
+from pathlib import Path
 
 
 # System Parameters
-file_pattern = '/data/*.csv'     # Pattern pointing to trajectory files (each file = one pathway)
+data_dir = Path(data.__file__).parent / 'ala_pathways'
+file_pattern = str(data_dir / '*.csv')  # Pattern pointing to trajectory files (each file = one pathway)
 metric = 'MSD'
 
 # PRISM Parameters

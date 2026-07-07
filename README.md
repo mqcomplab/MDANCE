@@ -92,7 +92,7 @@ Key Advantages:
 - Lower computational cost than Fréchet distance approaches.
 - Successfully applied to alanine dipeptide and adenylate kinase systems.
 
-#### 🛤️ PRISM - Pathway Representation & Clustering
+#### 🌈 PRISM - Pathway Representation & Clustering
 
 Innovation: Pathway Representation via Intrinsic Structural Medoids enables efficient clustering of multiple molecular pathways.
 
