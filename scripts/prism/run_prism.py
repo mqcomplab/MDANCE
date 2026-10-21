@@ -11,7 +11,7 @@ metric = 'MSD'
 
 # PRISM Parameters
 option = 2                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 2                              # Number of clusters for representative medoid construction
+k = 20                              # Number of clusters for representative medoid construction
 k_final = k                         # Second-stage cluster count (used only if option == 3)
 weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme
 
