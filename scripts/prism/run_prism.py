@@ -11,7 +11,7 @@ metric = 'MSD'
 
 # PRISM Parameters
 option = 2                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 20                              # Number of clusters for representative medoid construction
+k = 2                              # Number of clusters for representative medoid construction
 k_final = k                         # Second-stage cluster count (used only if option == 3)
 weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme
 
@@ -20,8 +20,8 @@ criterion = 'maxclust'
 linkage_method = 'ward'
 
 # Output Parameters
-save_medoid_indices = True         # Save medoid frame indices as CSV
-
+save_medoid_indices = False        # Save medoid frame indices as CSV
+show_cluster_labels = False        # Show "Cluster N: ..." labels under the dendrogram
 
 if __name__ == '__main__':
     frames_all = []
@@ -29,6 +29,7 @@ if __name__ == '__main__':
     # Modify parsing below based on your file structure and data format.
     # Each trajectory must be stored as (unique_id, 2D numpy array) with shape (n_frames, n_features).
     # All trajectories must have the same number of features (columns).
+
     for file in glob.glob(file_pattern):
         traj = file.split('_')[-1].split('.')[0]
         frame = np.genfromtxt(file, delimiter=',')
@@ -38,6 +39,7 @@ if __name__ == '__main__':
     #     traj = file.split('/')[-1].split('.')[0]
     #     frame = np.load(file)
     #     frames_all.append((traj, frame))
+
 
     suffix = f'prism_opt{option}_k{k}' + (f'_kfinal{k_final}' if option == 3 else '')
 
@@ -82,6 +84,9 @@ if __name__ == '__main__':
     plt.figure(figsize=(2.5, 2))
     ax = mod.plot()
     ax_cur = plt.gca()
+    if not show_cluster_labels:
+        for txt in list(ax_cur.texts):
+            txt.remove()
     ax_cur.xaxis.label.set_size(7)
     ax_cur.yaxis.label.set_size(7)
     ax_cur.tick_params(axis='both', labelsize=6)
@@ -95,9 +100,10 @@ if __name__ == '__main__':
             writer = csv.writer(f)
             writer.writerow(['assigned_traj', 'source_traj', 'frame_index'])
             for traj_id, meds in mod.medoids_per_traj.items():
+                search_order = [traj_id] + [s for s in mod.pathways if s != traj_id]
                 for med in meds:
-                    for source_id, source_frames in mod.pathways.items():
-                        matches = np.where(np.all(source_frames == med, axis=1))[0]
+                    for source_id in search_order:
+                        matches = np.where(np.all(mod.pathways[source_id] == med, axis=1))[0]
                         if len(matches) > 0:
                             writer.writerow([traj_id, source_id, int(matches[0])])
                             break
