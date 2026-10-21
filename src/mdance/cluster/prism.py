@@ -318,7 +318,7 @@ class PRISM:
             color = colors[(ci + 1) % len(colors)]
             y_pos = -0.03 - ci * 0.06
 
-            prefix = f"Cluster {cluster_id}: "
+            prefix = f"Cluster {cluster_id - 1}: "
             t = cur_ax.text(0.0, y_pos, prefix,
                             ha='left', va='top', fontsize=5.5, color=color, clip_on=False,
                             transform=cur_ax.transAxes, fontweight='bold')
