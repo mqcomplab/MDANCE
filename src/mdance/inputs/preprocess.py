@@ -170,7 +170,7 @@ def read_cpptraj(break_line=None, norm_type=None, min=None, max=None, avg=None, 
     Not recommended due to inefficiency and 3-decimal precision loss.
     Please use ``gen_traj_numpy`` for all Molecular Dynamics data.
     """
-    input_files = sorted(glob.glob("clusttraj.c*"), key=lambda x: int(re.findall("\d+", x)[0]))
+    input_files = sorted(glob.glob("clusttraj.c*"), key=lambda x: int(re.findall(r"\d+", x)[0]))
     break_line = break_line
     frames_list = []
     count_frames = []

@@ -64,7 +64,7 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 ##### NANI parameters
 `output_dir` is the directory to store the clustering results. <br>
 `init_type` is selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details).  <br>
-`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
+`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L94) for details). <br>
 `start_n_clusters` is the starting number for screening. **This number must be greater than 2**.<br>
 `end_n_clusters` is the ending number for screening. <br>
 
@@ -106,7 +106,7 @@ The following parameters to be specified in the script:
 ##### *k*-means params
 `n_clusters` is the number of clusters for labeling. <br>
 `init_type` is selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). <br>
-`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
+`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L94) for details). <br>
 `n_structures` is the number of frames to extract from each cluster. 
 
 #### Execution

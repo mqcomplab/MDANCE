@@ -18,3 +18,5 @@ diamonds = importlib.resources.files(__name__) / 'diamond9.csv'
 ellipses = importlib.resources.files(__name__) / 'ellipses.csv'
 
 labels_60 = importlib.resources.files(__name__) / 'labels_60.csv'
+
+ala_pathways = importlib.resources.files(__name__) / 'ala_pathways'

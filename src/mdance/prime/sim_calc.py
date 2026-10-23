@@ -57,7 +57,7 @@ class FrameSimilarity:
         if trim_frac:
             self.c0 = _trim_outliers(self.c0, trim_frac=trim_frac, n_ary=n_ary, weight=weight)
         self.input_files = sorted(glob.glob(f"{cluster_folder}/normed_clusttraj.c*"), 
-                                  key=lambda x: int(re.findall("\d+", x)[0]))[1:]
+                                  key=lambda x: int(re.findall(r"\d+", x)[0]))[1:]
         self.summary_file = summary_file
         self.n_clusters = n_clusters
         self.weighted_by_frames = weighted_by_frames

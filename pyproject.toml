@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64", "versioneer[toml]", "wheel"]
+requires = ["setuptools>=77", "versioneer[toml]", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,21 +7,23 @@ name = "MDANCE"
 dynamic = ["version"]
 authors = [
   { name="Lexin Chen", email="le.chen@ufl.edu" },
+  { name="Jherome Brylle Woody Santos", email="ja.santos@ufl.edu"},
 ]
 description = "a flexible n-ary clustering package for all applications."
 readme = "README.md"
-requires-python = ">=3.8"
+license = "MIT"
+requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
   "numpy >= 1.20.0",
   "scikit-learn >= 0.24.0",
   "MDAnalysis >= 2.0.0",
-  "shapeGMMTorch >= 2.0.0",
-  "torch >= 2.2.2",
+  "scipy >= 1.6.0",
+  "matplotlib >= 3.3.0",
+  "cycler >= 0.10.0",
 ]
 
 [project.urls]
@@ -35,7 +37,7 @@ prime_sim = "mdance.cli.prime_sim:main"
 prime_rep = "mdance.cli.prime_rep:main"
 
 [tool.setuptools.package-data]
-"mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd"]
+"mdance.data" = ["*.csv", "*.npy", "*.pdb", "*.dcd", "ala_pathways/*.csv"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

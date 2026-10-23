@@ -4,7 +4,6 @@ import numpy as np
 from sklearn.cluster import kmeans_plusplus, MiniBatchKMeans
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score
 
-from mdance.tools.bts import align_traj
 from mdance.tools.bts import calculate_comp_sim
 from mdance.tools.bts import calculate_medoid
 from mdance.tools.bts import diversity_selection
@@ -41,10 +40,6 @@ class ExtendedQuality:
         to ensure it meets acceptable criteria.
     reject_lowd : bool, default False
         If True, will reject low density clusters if they are below the minimum cluster size.
-    align_method: {'uni', 'kron', None}, optional
-        Alignment method used for the data. Default is None, which means no alignment.
-        'uni' is a uniform alignment method.
-        'kron' is a Kronecker alignment method.
     percentage : int, default=10
         Percentage of the dataset to be used for the initial selection 
         of the initial centers. (**kwargs)
@@ -69,10 +64,11 @@ class ExtendedQuality:
         
         self.n_objects = len(self.data)
         
-        # Alignment method criteria
-        self.align_method = kwargs.get('align_method', None)
-        self.align_method = self._check_align_method()
-        
+        # Alignment was removed; reject it instead of silently ignoring it
+        if kwargs.get('align_method') is not None:
+            raise ValueError("align_method is no longer supported. "
+                             "Align the trajectory before clustering.")
+
         # Percentage criteria
         if self.seed_method == 'comp_sim':
             self.percentage = kwargs.get('percentage', 10)
@@ -90,26 +86,6 @@ class ExtendedQuality:
         if self.reject_lowd:
             self.min_samples = kwargs.get('min_samples', 10)
             self.min_samples = self._check_min_samples()
-    
-
-    def _check_align_method(self):
-        """
-        Checks the ``align_method`` attribute.
-        
-        Raises
-        ------
-        ValueError
-            If align_method is not one of the following: 
-            [``uni``, ``kron``, ``None``].
-        
-        Returns
-        -------
-        str
-            Alignment method.
-        """
-        if self.align_method not in ['uni', 'kron', None]:
-            raise ValueError(f"Invalid alignment method. Must be one of the following: ['uni', 'kron', None].")
-        return self.align_method
     
 
     def _check_percentage(self):
@@ -413,7 +389,6 @@ class ExtendedQuality:
             # Check similarity and reject low density clusters
             if not self.check_sim or self._check_sim(winner):
                 seed_clusters = self._low_density_termination(seed_clusters, winner, iteration)
-                self.data = align_traj(self.data, self.N_atoms, align_method=self.align_method)
                 iteration += 1
             else:
                 seed_clusters[iteration] = []
