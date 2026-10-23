@@ -7,7 +7,6 @@ from sklearn.metrics import davies_bouldin_score
 from scipy.spatial.distance import squareform
 from scipy.cluster.hierarchy import linkage
 
-from mdance.tools.bts import align_traj
 from mdance.tools.bts import extended_comparison
 from mdance.tools.bts import refine_dis_matrix
 
@@ -41,9 +40,9 @@ class HELM:
         If ``trim_start`` is True, then this value is used to trim the initial clusters.
     trim_k : int, default=None
         If ``trim_start`` is True, then this value is used to trim the initial clusters.
-    align_method : str, default=None
-        If ``uni``, the clusters are aligned using the uniform alignment method.
-        If ``kron``, the clusters are aligned using the Kronecker alignment method.
+    align_method : None, default=None
+        No longer supported. Kept for backwards compatibility; any value
+        other than None raises a ValueError.
     input_top : str, default=None
         The topology file of the MD system.
     input_traj : str, default=None
@@ -125,9 +124,10 @@ class HELM:
     
     
     def _check_align_method(self):
-        """Checks if ``align_method`` is valid"""
-        if self.align_method not in ['uni', 'kron', None]:
-            raise ValueError(f"Invalid align method: Options are 'uni' and 'kron' or None.")
+        """Rejects ``align_method``, which is no longer supported"""
+        if self.align_method is not None:
+            raise ValueError("align_method is no longer supported. "
+                             "Align the trajectory before clustering.")
 
 
     def _check_min_samples(self):
@@ -257,7 +257,6 @@ class HELM:
         c_sumik = -1 #3.08
         sq_sumik = -1
         Nik = -1
-        aligned_combined_clusters = np.array([])
         if self.cluster_dists is None:
             self.gen_cluster_dists(previous_clusters)
         else:
@@ -275,20 +274,12 @@ class HELM:
         merge_dist = self.cluster_dists[c1, c2]
         
         # Merge the two most similar clusters
-        if self.align_method == 'kron':
-            concat_clusters = np.concatenate((previous_clusters[c1][3], previous_clusters[c2][3]))
-            aligned_clusters = align_traj(concat_clusters, self.N_atoms, align_method=self.align_method)
-            c_sum = np.sum(aligned_clusters, axis=0)
-            sq_sum = np.sum(aligned_clusters ** 2, axis=0)
-        else:
-            c_sum = previous_clusters[c1][1][0] + previous_clusters[c2][1][0]
-            sq_sum = previous_clusters[c1][1][1] + previous_clusters[c2][1][1]
-        
+        c_sum = previous_clusters[c1][1][0] + previous_clusters[c2][1][0]
+        sq_sum = previous_clusters[c1][1][1] + previous_clusters[c2][1][1]
+
         c_sumik = c_sum
         sq_sumik = sq_sum
         Nik = previous_clusters[c1][2] + previous_clusters[c2][2]
-        if self.align_method:
-            aligned_combined_clusters = aligned_clusters
 
         # Save the new clusters after merging
         new_clusters = []
@@ -299,12 +290,7 @@ class HELM:
             else:
                 new_clusters.append(cluster)
         Indicesik = previous_clusters[c1][0] + previous_clusters[c2][0]
-        
-        # Two different ways of saving the new cluster
-        if self.align_method:
-            new_clusters.append([Indicesik, (c_sumik, sq_sumik), Nik, aligned_combined_clusters])
-        else:
-            new_clusters.append([Indicesik, (c_sumik, sq_sumik), Nik])
+        new_clusters.append([Indicesik, (c_sumik, sq_sumik), Nik])
         
         # remove distances of the merged clusters
         self.cluster_dists = np.delete(self.cluster_dists, [c1, c2], axis=0)
@@ -343,14 +329,8 @@ class HELM:
         sim_b = extended_comparison([c_sum_b, sq_sum_b], data_type='condensed',
                                     metric=self.metric, N=n_b, N_atoms=self.N_atoms)
         
-        if self.align_method == 'kron':
-            concat_clusters = np.concatenate((previous_clusters[i][3], previous_clusters[j][3]))
-            aligned_clusters = align_traj(concat_clusters, self.N_atoms, align_method=self.align_method)
-            c_sum = np.sum(aligned_clusters, axis=0)
-            sq_sum = np.sum(aligned_clusters ** 2, axis=0)
-        else:
-            c_sum = c_sum_a + c_sum_b
-            sq_sum = sq_sum_a + sq_sum_b
+        c_sum = c_sum_a + c_sum_b
+        sq_sum = sq_sum_a + sq_sum_b
 
         n = previous_clusters[i][2] + n_b
         sim = extended_comparison([c_sum, sq_sum], data_type='condensed',

@@ -115,7 +115,7 @@ HELM requires a set of initial clusters to start with. You can start from any cl
 4. HELM clustering
 ~~~~~~~~~~~~~~~~~~
 
-`scripts/helm/intra/run_helm.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/run_helm_intra.py>`_ will run HELM clustering on the dataset. The following parameters need to be specified in the script:
+`scripts/helm/run_helm.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/run_helm.py>`_ will run HELM clustering on the dataset. The following parameters need to be specified in the script:
 
 ::
 
@@ -129,7 +129,6 @@ HELM requires a set of initial clusters to start with. You can start from any cl
    metric = 'MSD'                                  # Default  
    N0 = 60                                         # How many clusters to start with
    final_target = 1                                # How many clusters to end with
-   align_method = None                             # Default
    save_pairwise_sim = False                       # Default
    merging_scheme = 'inter'                        # {'inter', 'intra'}
 
@@ -149,7 +148,6 @@ System info
 | ``metric``: The metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
 | ``N0``: The number of clusters to start with.
 | ``final_target``: The number of clusters to end with.
-| ``align_method`` *(optional)*: The method to align the clusters. Default is None.
 | ``save_pairwise_sim`` *(optional)*: A boolean variable to indicate whether to save the pairwise similarity matrix. Default is False.
 | ``merging_scheme`` *(optional)*: The merging scheme to use. {``inter``, ``intra``}. ``inter`` merges clusters with lowest interdistance. ``intra`` merges clusters with lowest intradistance. Default is ``inter``.
 
@@ -158,7 +156,7 @@ Execution
 
 .. code:: bash
 
-   $ python run_helm_intra.py
+   $ python run_helm.py
 
 Outputs
 ^^^^^^^
@@ -176,13 +174,13 @@ of clusters:
 1. lowest DB
 2. maximum 2nd derivative of DB.
 
-`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/analysis_db.ipynb>`__
+`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/analysis_db.ipynb>`__
 contains step-by-step tutorial to analyze clustering screening results.
 
 6. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~~
 
-`assign_labels_intra.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/intra/assign_labels_intra.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
+`assign_labels.py <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/assign_labels.py>`_ will assign cluster labels to the trajectory. The following parameters need to be specified in the script:
 
 ::
 
@@ -228,7 +226,7 @@ Execution
 
 .. code-block:: bash
 
-    python assign_labels_intra.py
+    python assign_labels.py
 
 Outputs
 ^^^^^^^

@@ -15,14 +15,13 @@ N_atoms = 50                                    # Number of atoms in the system
 # HELM params - EDIT THESE
 metric = 'MSD'                                  # Default  
 merge_scheme = 'intra'                          # {'inter', 'intra'}
-link = 'ward'
+link = None                                     # {None, 'ward'}
 n_clusters = 1                                  # Either n_clusters or eps must be set
 eps = None                                      # Either n_clusters or eps must be set
 trim_start = False                              # Default
 trim_val = None                                 # Either trim_val or trim_k must be set
-trim_k = 5                                     # Either trim_val or trim_k must be set
+trim_k =  5                                    # Either trim_val or trim_k must be set
 save_pairwise_sim = False                       # Default
-align_method = None                            # Default
 
 
 if __name__ == '__main__':
@@ -46,20 +45,16 @@ if __name__ == '__main__':
         Nik = len(input_clusters[i])
         c_sumik = np.sum(input_clusters[i], axis=0)
         sq_sumik = np.sum(input_clusters[i]**2, axis=0)
-        if align_method:
-            cluster_dict[N0].append([Indicesik, (c_sumik, sq_sumik), Nik, 
-                                     input_clusters[i]])
-        else:
-            cluster_dict[N0].append([Indicesik, (c_sumik, sq_sumik), Nik])
-    
+        cluster_dict[N0].append([Indicesik, (c_sumik, sq_sumik), Nik])
+
     # Run HELM
     helm = HELM(cluster_dict=cluster_dict, metric=metric, N_atoms=N_atoms, 
                 merge_scheme=merge_scheme, link=link, n_clusters=n_clusters, 
                 trim_start=trim_start, trim_val=trim_val, trim_k=trim_k,
-                align_method=align_method, save_pairwise_sim=save_pairwise_sim
+                save_pairwise_sim=save_pairwise_sim
                 )()
-
-    with open(f'{link}-helm.pkl', 'wb') as outfile:
+    
+    with open(f'{link or merge_scheme}-helm.pkl', 'wb') as outfile:
         pkl.dump(helm, outfile)
 
     # Compute CH and DB scores
@@ -76,7 +71,7 @@ if __name__ == '__main__':
     # remove None values from scores
     scores = [i for i in scores if i[1] is not None]
 
-    with open(f'{link}_helm_scores.csv', 'w') as f:
+    with open(f'{link or merge_scheme}_helm_scores.csv', 'w') as f:
         f.write('#n_clusters,CH,DB\n')
         for i in scores:
             f.write(f'{N0 - i[0]},{i[1]},{i[2]}\n')

@@ -4,8 +4,6 @@ import subprocess
 
 import MDAnalysis as mda
 import numpy as np
-from shapeGMMTorch import align
-import torch
 
 import mdance.tools.esim as esim
 from mdance.inputs.preprocess import gen_traj_numpy
@@ -541,61 +539,6 @@ def get_new_index_n(matrix, metric, selected_condensed, n, select_from_n, **kwar
         else:
             pass
     return index
-
-
-def align_traj(data, N_atoms, align_method=None):
-    """Aligns trajectory using uniform or kronecker alignment.
-
-    Parameters
-    ----------
-    matrix : array-like of shape (n_samples, n_features)
-        A feature array.
-    N_atoms : int
-        Number of atoms in the system.
-    align_method : {'uni', 'kron'}, default=None
-        Alignment method. ``uni`` or ``uniform``: Uniform alignment.
-        ``kron`` or ``kronecker``: Kronecker alignment.
-    
-    Raises
-    ------
-    ValueError
-        if align_method is not ``uni``, ``kron``, or ``None``.
-    
-    Returns
-    -------
-    numpy.ndarray
-        matrix of aligned data.
-    
-    References
-    ----------
-    Klem, H., Hocky, G. M., and McCullagh M., `"Size-and-Shape Space Gaussian 
-    Mixture Models for Structural Clustering of Molecular Dynamics Trajectories"`_.
-    *Journal of Chemical Theory and Computation* **2022** 18 (5), 3218-3230
-
-    .. _"Size-and-Shape Space Gaussian Mixture Models for Structural Clustering of Molecular Dynamics Trajectories":
-        https://pubs.acs.org/doi/abs/10.1021/acs.jctc.1c01290
-    """
-    if not align_method:
-        return data
-    data = data.reshape(len(data), N_atoms, 3)
-    device = torch.device('cpu')
-    dtype = torch.float32
-    traj_tensor = torch.tensor(data, device=device, dtype=dtype)
-    traj_tensor = align.remove_center_of_geometry(traj_tensor)
-    
-    if align_method == 'uni' or align_method == 'uniform':
-        uniform_aligned_traj_tensor, uniform_avg_tensor, uniform_var_tensor = align.maximum_likelihood_uniform_alignment(traj_tensor, verbose=True)
-        aligned_traj_numpy = uniform_aligned_traj_tensor.cpu().numpy()
-    
-    elif align_method == 'kron' or align_method == 'kronecker':
-        kronecker_aligned_traj_tensor, kronecker_avg_tensor, kronecker_precision_tensor, kronecker_lpdet_tensor = align.maximum_likelihood_kronecker_alignment(traj_tensor, verbose=True)
-        aligned_traj_numpy = kronecker_aligned_traj_tensor.cpu().numpy()
-    
-    else:
-        raise ValueError('Please select a correct alignment method: uni, kron, or None')
-    
-    reshaped = aligned_traj_numpy.reshape(aligned_traj_numpy.shape[0], -1)
-    return reshaped
 
 
 def equil_align(indices, sieve, input_top, input_traj, mdana_atomsel, cpptraj_atomsel, ref_index):

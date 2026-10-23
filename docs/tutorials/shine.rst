@@ -5,5 +5,5 @@ SHINE tutorial
    :local:
    :depth: 2
 
-For the jupyter notebook version of this tutorial, see
-`SHINE notebook <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/SHINE.ipynb>`__.
+The SHINE tutorial is available at
+`SHINE tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md>`__.

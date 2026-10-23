@@ -57,7 +57,7 @@ HELM requires a set of initial clusters to start with. You can start from any cl
     4,2
 
 ### 3. HELM clustering.
-[**scripts/helm/intra/run_helm.py**](../scripts/helm/intra/run_helm_intra.py) will run HELM clustering on the dataset. The following parameters to be specified in the script:
+[**scripts/helm/run_helm.py**](../scripts/helm/run_helm.py) will run HELM clustering on the dataset. The following parameters to be specified in the script:
 
     # System info - EDIT THESE
     input_traj_numpy = data.sim_traj_numpy
@@ -69,7 +69,6 @@ HELM requires a set of initial clusters to start with. You can start from any cl
     metric = 'MSD'                                  # Default  
     N0 = 60                                         # How many clusters to start with
     final_target = 1                                # How many clusters to end with
-    align_method = None                             # Default
     save_pairwise_sim = False                       # Default
     merging_scheme = 'inter'                        # {'inter', 'intra'}
 
@@ -82,16 +81,15 @@ HELM requires a set of initial clusters to start with. You can start from any cl
 `N_atoms` is the number of atoms used in the clustering. <br>
 
 ##### HELM params
-`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
+`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L94) for details). <br>
 `N0` is the number of clusters to start with. <br>
 `final_target` is the number of clusters to end with. <br>
-`align_method` *(optional)* is the method to align the clusters. Default is None. <br>
 `save_pairwise_sim` *(optional)* is a boolean variable to indicate whether to save the pairwise similarity matrix. Default is False. <br>
 `merging_scheme` *(optional)* is the merging scheme to use. {`inter`, `intra`}. `inter` merges clusters with lowest interdistance. `intra` merges clusters with lowest intradistance. Default is `inter`. <br>
 
 #### Execution
 ```bash
-python run_helm_intra.py
+python run_helm.py
 ```
 
 #### Outputs
@@ -101,11 +99,11 @@ python run_helm_intra.py
 ### 4. Get most optimal number of clusters.
 Find the most optimal number of clusters from clustering scores.
 
-**Step-by-step tutorial can be found in the [scripts/helm/intra/analysis_db.ipynb](../scripts/helm/intra/analysis_db.ipynb).**
+**Step-by-step tutorial can be found in the [scripts/helm/analysis_db.ipynb](../scripts/helm/analysis_db.ipynb).**
 
 
 ### 5. Cluster Assignment
-[**scripts/helm/intra/assign_labels.py**](../scripts/helm/intra/assign_labels_intra.py) will assign cluster labels to the trajectory. The following parameters to be specified in the script:
+[**scripts/helm/assign_labels.py**](../scripts/helm/assign_labels.py) will assign cluster labels to the trajectory. The following parameters to be specified in the script:
 
     # System info - EDIT THESE
     input_traj_numpy = data.sim_traj_numpy
@@ -131,13 +129,13 @@ Find the most optimal number of clusters from clustering scores.
 `n_clusters` is the number of clusters to assign labels to. Use most optimal number of clusters from analysis in step 4. <br>
 `pre_cluster_labels` is the cluster labels from step 2. <br>
 `pickle_file` is the clustering results from step 3. <br>
-`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L96) for details). <br>
+`metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L94) for details). <br>
 `extract_type` is the type of extraction method to use. {`top`, `random`}. `top` means to extract the top `n_structures` from each cluster. `random` means to extract `n_structures` random structures from each cluster. <br>
 `n_structures` is the number of structures to extract from each cluster. <br>
 
 #### Execution
 ```bash
-python assign_labels_intra.py
+python assign_labels.py
 ```
 
 #### Outputs

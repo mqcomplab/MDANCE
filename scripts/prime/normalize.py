@@ -20,7 +20,7 @@ if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     list_clusttraj = sorted(glob.glob(unnormed_cluster_dir), 
-                            key=lambda x: int(re.findall("\d+", x)[0]))
+                            key=lambda x: int(re.findall(r"\d+", x)[0]))
     list_clusttraj = list_clusttraj[:n_clusters]
     all_clusttraj = []
     for clusttraj in list_clusttraj:

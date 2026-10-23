@@ -235,7 +235,7 @@ Tutorials
 - `HELM Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/helm.html>`_ - Scalable hierarchical clustering.
 - `DIVINE Scripts <https://github.com/mqcomplab/MDANCE/tree/main/scripts/divine>`_ - Deterministic divisive clustering. 1-``run_divine.py``, 2-``analysis_db.ipynb``, 3-``assign_labels.py``.
 - `mdBIRCH Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/mdbirch/run_mdbirch.py>`_ - Online clustering for streaming MD data.
-- `SHINE Script <https://github.com/mqcomplab/MDANCE/blob/main/scripts/shine/run_shine.py>`_ - Pathway analysis.
+- `SHINE Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md>`_ - Pathway analysis.
 - `eQual Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/equal.html>`_ - Linear-time clustering.
 - CADENCE Tutorial - Density-based clustering (to be added).
 - `PRIME Tutorial <https://mdance.readthedocs.io/en/latest/tutorials/prime.html>`_ - Native structure retrieval.
