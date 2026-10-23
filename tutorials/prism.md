@@ -27,7 +27,7 @@ PRISM proceeds in three stages:
    - **Option 3 (Two-stage refinement):** First perform Option 2 to obtain local medoids, pool all local medoids, cluster into `k_final` clusters, compute refined global medoids, then assign each pathway the refined medoids matching its local medoids.
 
 2. **Pathway dissimilarity (weighted average Hausdorff distance):**
-   For two pathways represented by sets A and B of medoids, PRISM computes a symmetric dissimilarity based on mean nearest-neighbor distances in both directions. Multiple weighting schemes are supported.
+   For two pathways represented by sets A and B of medoids, PRISM computes a symmetric dissimilarity based on mean nearest-neighbor distances in both directions.
 
 3. **Hierarchical clustering:**
    The resulting pathway dissimilarity matrix is clustered using hierarchical agglomerative clustering (HAC), enabling flexible pathway grouping and dendrogram visualization.
@@ -35,7 +35,7 @@ PRISM proceeds in three stages:
 ## When to use PRISM
 
 PRISM is ideal for:
-- **Enhanced sampling analysis:** Comparing pathways from enhanced sampling simulations (e.g., metadynamics, steered MD).
+- **Enhanced sampling analysis:** Comparing pathways from enhanced sampling simulations.
 - **Multi-trajectory comparison:** Clustering multiple independent MD simulations to identify similar dynamics pathways.
 - **Pathway classification:** Grouping trajectory ensembles into biologically meaningful pathway classes.
 - **Conformational pathway analysis:** Summarizing complex multi-frame trajectories with compact medoid sets for efficient comparison.
