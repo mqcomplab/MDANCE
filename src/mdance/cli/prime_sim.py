@@ -3,6 +3,8 @@ import json
 import os
 import time
 
+import numpy as np
+
 from mdance.prime.sim_calc import FrameSimilarity
 
 
@@ -61,8 +63,13 @@ def main():
     lib = FrameSimilarity(cluster_folder=args.cluster_folder, summary_file=args.summary_file, 
                                 n_clusters=args.n_clusters, trim_frac=args.trim_frac, 
                                 n_ary=args.index, weighted_by_frames=args.weighted_by_frames)
+    n_trimmed = int(np.isnan(lib.c0).any(axis=1).sum())
+    if n_trimmed:
+        print(f'Trimmed {n_trimmed} outlier frames; they are excluded.')
     method_func = getattr(lib, f'calculate_{args.method}')
-    new_sims = method_func()
+    # Trimmed frames are nan, so their similarities are nan
+    with np.errstate(invalid='ignore'):
+        new_sims = method_func()
 
     if args.weighted_by_frames:
         w = "w"

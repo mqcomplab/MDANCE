@@ -2,8 +2,7 @@
 Preprocessing of Molecular Dynamics Data
 ===============================================
 
-MDANCE provides a set of tools to preprocess molecular dynamics trajectories before clustering. 
-This includes reading the trajectories, normalizing them, and aligning them. 
+MDANCE provides a set of tools to preprocess molecular dynamics trajectories before clustering.
 This snippet demonstrates how to read a trajectory and save it as a numpy array.
 """
 
@@ -18,7 +17,7 @@ from mdance import data
 from mdance.inputs.preprocess import gen_traj_numpy
 
 ###############################################################################
-#Inputs
+# Inputs
 #   - ``input_top`` is the path to the topology file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 #   - ``input_traj`` is the path to the trajectory file. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 #       - **The trajectory file should be aligned and centered beforehand if needed!**

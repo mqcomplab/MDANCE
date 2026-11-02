@@ -42,12 +42,12 @@ class ExtendedQuality:
         If True, will reject low density clusters if they are below the minimum cluster size.
     percentage : int, default=10
         Percentage of the dataset to be used for the initial selection 
-        of the initial centers. (**kwargs)
+        of the initial centers. (``**kwargs``)
     sim_threshold : float
         The largest similarity value that is acceptable for the proposed 
-        cluster. (**kwargs)
+        cluster. (``**kwargs``)
     min_samples : {float, int}, default=10
-        Minimum number of data points required in a cluster. (**kwargs)
+        Minimum number of data points required in a cluster. (``**kwargs``)
         float: Real number between (0, 1). Indicates the % of the total data.
         int: Number of data points.
     """
@@ -562,10 +562,9 @@ def compute_scores(results):
 
     Parameters
     ----------
-    data : array-like of shape (n_samples, n_features)
-        Input dataset.
     results : dict
-        Dictionary of the clusters and their corresponding indices.
+        Dictionary of the clusters and their members (frames), as returned by
+        ``ExtendedQuality.run``.
         
     Returns
     -------
@@ -579,13 +578,10 @@ def compute_scores(results):
         
     Example
     ----
-    >>> import numpy as np
-    >>> from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score
     >>> from mdance.cluster.equal import compute_scores
-    >>> data = np.array([[1, 2], [1, 4], [1, 0],
-    ...                  [4, 2], [4, 4], [4, 0]])  
-    >>> results = {0: [0, 1, 2], 1: [3, 4, 5]}
-    >>> ch, db = compute_scores(data, results)
+    >>> results = {0: [[1, 2], [1, 4], [1, 0]],
+    ...            1: [[4, 2], [4, 4], [4, 0]]}
+    >>> ch, db = compute_scores(results)
     >>> print(ch, db)
     3.375 0.8888888888888888
     """

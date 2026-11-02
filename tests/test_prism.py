@@ -173,6 +173,29 @@ def test_prism_runs(pathways):
     assert len(np.unique(clusters)) <= 2                # since t=2 maxclust
 
 
+@pytest.mark.parametrize("option", [2, 3])
+def test_short_pathway_small_k(pathways, option):
+    """A pathway with fewer than 10 frames (but more than k) is still clustered into k medoids."""
+    short = ("9", pathways[0][1][:6])
+    mod = PRISM(
+        pathways + [short],
+        metric="MSD",
+        t=2,
+        criterion="maxclust",
+        link="ward",
+        option=option,
+        k=3,
+        k_final=3,
+        weight_scheme="weighted_avg",
+        N_atoms=1,
+        percentage=100,
+    )
+    link_matrix, clusters = mod.run()
+    assert len(clusters) == len(pathways) + 1
+    if option == 2:
+        assert len(mod.medoids_per_traj[9]) == 3
+
+
 def test_plot(pathways):
     """Smoke test: plot() should run after run()."""
     mod = PRISM(

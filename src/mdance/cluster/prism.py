@@ -465,11 +465,14 @@ class PRISM:
             for T in traj_list:
                 arr = np.asarray(T, dtype=float)
                 n = arr.shape[0]
-                if n <= k:
+                n_sample = int(n * pct / 100)
+                if n <= k or n_sample < k:
                     per_traj_meds.append(arr)
                     continue
 
-                kmeans = KmeansNANI(data=T, n_clusters=k, metric=self.metric,N_atoms=self.N_atoms, init_type='quota', percentage=pct)
+                # Quota sampling needs at least n_bins samples, so short pathways use fewer bins
+                kmeans = KmeansNANI(data=T, n_clusters=k, metric=self.metric,N_atoms=self.N_atoms, init_type='quota', percentage=pct,
+                                    n_bins=min(10, n_sample))
                 labels, _, _ = kmeans.execute_kmeans_all()
                 meds = self._cluster_medoids_nonempty(T, labels, k)
                 per_traj_meds.append(np.asarray(meds, dtype=float) if len(meds) else np.empty((0, feat_dim)))
@@ -483,12 +486,15 @@ class PRISM:
             for T in traj_list:
                 arr = np.asarray(T, dtype=float)
                 n = arr.shape[0]
-                if n <= k:
+                n_sample = int(n * pct / 100)
+                if n <= k or n_sample < k:
                     per_traj_stage1.append(arr)
                     counts.append(n)
                     continue
 
-                kmeans = KmeansNANI(data=T, n_clusters=k, metric=self.metric,N_atoms=self.N_atoms, init_type='quota', percentage=pct)
+                # Quota sampling needs at least n_bins samples, so short pathways use fewer bins
+                kmeans = KmeansNANI(data=T, n_clusters=k, metric=self.metric,N_atoms=self.N_atoms, init_type='quota', percentage=pct,
+                                    n_bins=min(10, n_sample))
                 labels, _, _ = kmeans.execute_kmeans_all()
                 meds = self._cluster_medoids_nonempty(T, labels, k)
                 arr = np.asarray(meds, dtype=float) if len(meds) else np.empty((0, feat_dim))

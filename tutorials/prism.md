@@ -75,22 +75,21 @@ This script:
 
 #### Parameters to edit in `run_prism.py`
 
-**System Parameters:**
+**System parameters:**
 ```python
-file_pattern = '/data/*.csv'        # Pattern pointing to trajectory files
-metric = 'MSD'                      # Metric for medoid computation (e.g., 'MSD', 'RMSD')
+file_pattern = str(data.ala_pathways / '*.csv')     # Pattern pointing to trajectory files (each file = one pathway)
+metric = 'MSD'                                      # Distance metric for clustering
 ```
 
-- `file_pattern` : glob pattern pointing to your input files. Each match is treated as a separate pathway.
+- `file_pattern` : glob pattern pointing to your input files. Each match is treated as a separate pathway. The default uses the sample pathways included with MDANCE.
 - `metric` : Feature space metric identifier used during medoid selection (e.g., 'MSD' for mean-square deviation).
 
-**PRISM Parameters:**
+**PRISM parameters:**
 ```python
-option = 2                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 20                              # Number of clusters for medoid construction
-k_final = k                         # Second-stage cluster count (used only if option == 3)
-weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme: 
-                                    # 'unnormalized', 'weighted_avg', 'sym_avg', 'product_avg'
+option = 2                                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
+k = 20                                              # Number of clusters for representative medoid construction
+k_final = k                                         # Second-stage cluster count (used only if option == 3)
+weight_scheme = 'weighted_avg'                      # Average Hausdorff normalization {'unnormalized', 'weighted_avg', 'sym_avg', 'product_avg'}
 ```
 
 - `option` : Strategy for building medoid sets (1, 2, or 3; see Overview).
@@ -98,21 +97,27 @@ weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme:
 - `k_final` : Number of clusters in the second refinement stage (only for `option==3`).
 - `weight_scheme` : Weighting method for the Hausdorff distance calculation.
 
-**Hierarchical Clustering Parameters:**
+**Hierarchical clustering parameters:**
 ```python
-t = 2                               # Threshold for fcluster (interpreted by criterion)
-criterion = 'maxclust'              # fcluster criterion: 'maxclust', 'distance', etc.
-linkage_method = 'ward'             # HAC linkage method: 'ward', 'average', 'complete', etc.
+t = 2                                               # Number of final clusters (with maxclust)
+criterion = 'maxclust'                              # SciPy fcluster criterion
+linkage_method = 'ward'                             # SciPy linkage method {'ward', 'average', ...}
 ```
 
 - `t` : Threshold parameter passed to `scipy.cluster.hierarchy.fcluster`. For `criterion='maxclust'`, `t` is the maximum number of pathway clusters.
 - `criterion` : Clustering criterion (e.g., `'maxclust'` for fixed max cluster count).
 - `linkage_method` : Linkage method for hierarchical clustering (e.g., `'ward'` minimizes variance).
 
-**Output Parameters:**
+**Output parameters:**
 ```python
-save_medoid_indices = True          # Save medoid frame indices as CSV
+save_medoid_indices = False                         # Save medoid frame indices as CSV
+show_cluster_labels = True                          # Show "Cluster N: ..." labels under the dendrogram
+output_dir = 'outputs'                              # Folder for output files
 ```
+
+- `save_medoid_indices` : Save the frame index of each medoid as a CSV.
+- `show_cluster_labels` : Write the pathways of each cluster under the dendrogram.
+- `output_dir` : Directory to store the results.
 
 #### Data Loading
 
@@ -135,10 +140,10 @@ for file in glob.glob(file_pattern, recursive=True):
 Each entry in `frames_all` is a tuple: `(unique_pathway_id, 2D_array)`.
 
 **Quick start with example data:**
-To run PRISM on the included alanine dipeptide pathway dataset:
+The default `file_pattern` runs PRISM on the included alanine dipeptide pathway dataset:
 
 ```python
-file_pattern = '/path/to/MDANCE/src/mdance/data/ala_pathways/*.csv'
+file_pattern = str(data.ala_pathways / '*.csv')     # Pattern pointing to trajectory files (each file = one pathway)
 ```
 
 This will load all 80 alanine dipeptide pathways for clustering.
@@ -152,12 +157,12 @@ python run_prism.py
 
 ### 3. Outputs
 
-The script generates the following files:
+The script generates the following files in `outputs/`:
 
 **Cluster assignments:**
 - `prism_opt{option}_k{k}_labels.csv` 
-  - Columns: `traj_id`, `cluster`
-  - Each row assigns a pathway to a cluster
+  - Columns: `Pathway Index`, `Cluster Index` (0-based)
+  - Each row assigns a pathway to a cluster, in pathway index order
 
 **Dendrogram visualization:**
 - `prism_opt{option}_k{k}.png` 

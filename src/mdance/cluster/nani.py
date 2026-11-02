@@ -27,7 +27,7 @@ class KmeansNANI:
     metric : str
         The metric to when calculating distance between *n* objects in an array. 
         It must be an options allowed by :func:`mdance.tools.bts.extended_comparison`.
-    N_atoms : int
+    N_atoms : int, default=1
         Number of atoms in the Molecular Dynamics (MD) system. ``N_atom=1`` 
         for non-MD systems.
     init_type : str, default='comp_sim'
@@ -35,7 +35,9 @@ class KmeansNANI:
         options allowed by :class:`mdance.cluster.nani.KmeansNANI`.
     percentage : int, default=10
         Percentage of the dataset to be used for the initial selection of the 
-        initial centers. (**kwargs)
+        initial centers. (``**kwargs``)
+    n_bins : int, default=10
+        Number of complementary similarity bins used by ``init_type='quota'``. (``**kwargs``)
     
     Attributes
     ----------
@@ -48,7 +50,7 @@ class KmeansNANI:
     cluster_dict : dict
         Dictionary of the clusters and their corresponding indices.
     """
-    def __init__(self, data, n_clusters, metric, N_atoms, init_type='strat_all', 
+    def __init__(self, data, n_clusters, metric, N_atoms=1, init_type='strat_all', 
                  **kwargs):
         self.data = data
         self.n_clusters = n_clusters
@@ -59,6 +61,7 @@ class KmeansNANI:
         if self.init_type in ['comp_sim', 'div_select', 'strat_reduced', 'strat_all','quota']:
             self.percentage = kwargs.get('percentage', 10)
             self._check_percentage()
+        self.n_bins = kwargs.get('n_bins', 10)
     
     
     def _check_init_type(self):
@@ -119,8 +122,10 @@ class KmeansNANI:
                 sampling_method, start_method = 'strat', 'medoid'
             else:
                 sampling_method, start_method = 'comp_sim', 'medoid'
-            initiator_idxs = diversity_selection(top_cc_data, 100, self.metric, self.N_atoms, 
-                                                 sampling_method, start_method)
+            # Only the first n_clusters are used, so comp_sim selection stops there
+            initiator_idxs = diversity_selection(top_cc_data, 100, self.metric, self.N_atoms,
+                                                 sampling_method, start_method,
+                                                 n_select=self.n_clusters)
             initiators = top_cc_data[initiator_idxs]
             
         elif self.init_type == 'strat_all':
@@ -129,12 +134,13 @@ class KmeansNANI:
             initiators = self.data[initiator_idxs]
         
         elif self.init_type == 'div_select':
-            initiator_idxs = diversity_selection(self.data, self.percentage, self.metric, 
-                                                 self.N_atoms, 'comp_sim', 'medoid')
+            initiator_idxs = diversity_selection(self.data, self.percentage, self.metric,
+                                                 self.N_atoms, 'comp_sim', 'medoid',
+                                                 n_select=self.n_clusters)
             initiators = self.data[initiator_idxs]
 
         elif self.init_type == 'quota':
-            n_bins = kwargs.get('n_bins', 10)
+            n_bins = kwargs.get('n_bins', self.n_bins)
             initiator_idxs = quota_sampling(self.data, self.metric, 
                                           percentage=self.percentage,
                                           n_bins=n_bins,

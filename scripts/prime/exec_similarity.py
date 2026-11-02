@@ -16,8 +16,15 @@ Check -n argument to ensure it is not greater than the number of clusters in the
 """
 
 import os
+import subprocess
+import sys
+
+from mdance import data
 
 
 if __name__ == '__main__':
-    os.system('python ../../src/mdance/cli/prime_sim.py -m union -n 6 \
-              -i SM -t 0.1 -d normed_clusters -s ../nani/outputs/summary_6.csv')
+    if not os.path.isdir('outputs/normed_clusters'):
+        sys.exit('outputs/normed_clusters not found. Run normalize.py first.')
+    subprocess.run([sys.executable, '-m', 'mdance.cli.prime_sim', '-m', 'union', '-n', '6',
+                    '-i', 'SM', '-t', '0.1', '-d', 'outputs/normed_clusters',
+                    '-s', str(data.summary_6)], check=True)

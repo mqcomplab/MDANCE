@@ -30,34 +30,38 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 
 [**scripts/inputs/normalize.py**](../scripts/inputs/normalize.py) will normalize the dataset. The following parameters to be specified in the script:
 
-    # System info - EDIT THESE
-    data_file = data.blob_disk
+    # System parameters
+    data_file = data.blob_disk                          # Input data as a CSV file
     array = np.genfromtxt(data_file, delimiter=',')
-    output_base_name = 'output_base_name'
+    output_base_name = 'array'                          # Prefix for the output files
 
 #### Inputs
-##### System info
+##### System parameters
 `data_file` is your input file with a 2D array.<br>
 `array` is the array is the loaded dataset from `data_file`. This step can be changed according to the type of file format you have. However, `array` must be an array-like in the shape (number of samples, number of features).<br>
-`output_base_name` is the base name for the output file. The output file will be saved as `output_base_name.npy`.<br>
+`output_base_name` is the base name for the output file. The output file will be saved as `outputs/{output_base_name}.npy`.<br>
 </details>
 
 ### 2. NANI Screening
 [scripts/nani/screen_nani.py](../scripts/nani/screen_nani.py) will run NANI for a range of clusters and calculate cluster quality metrics. For the best result, we recommend running NANI over a wide range of number of clusters. The following parameters to be specified in the script:
 
-    # System info
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
     # NANI parameters
-    output_dir = 'outputs'                        
-    init_type = ['strat_all']
-    metric = 'MSD'
-    start_n_clusters = 2
-    end_n_clusters = 30
+    output_dir = 'outputs'                              # Folder for output files
+    init_type = 'strat_all'                             # Seeding method {'strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'}
+    metric = 'MSD'                                      # Distance metric for clustering
+    start_n_clusters = 5                                # At least 2 clusters
+    end_n_clusters = 30                                 # Maximum number of clusters
 
-##### System info
+    # Analysis parameters
+    plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+    x_min = None                                        # Only suggest values >= x_min (None = all)
+
+##### System parameters
 `input_traj_numpy` is the numpy array prepared from step 1, if not it will be your loaded dataset. <br>
 `N_atoms` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, this is 1.** <br>
 `sieve` takes every sieve-th frame from the trajectory for analysis. <br>
@@ -65,8 +69,11 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 `output_dir` is the directory to store the clustering results. <br>
 `init_type` is selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details).  <br>
 `metric` is the metric used to calculate the similarity between frames (See [`extended_comparisons`](../src/mdance/tools/bts.py#L94) for details). <br>
-`start_n_clusters` is the starting number for screening. **This number must be greater than 2**.<br>
+`start_n_clusters` is the starting number for screening. **This number must be at least 2**.<br>
 `end_n_clusters` is the ending number for screening. <br>
+##### Analysis parameters
+`plot_metrics` is a boolean to plot the screening scores and mark the suggested number of clusters (see step 3). If False, no analysis is done. <br>
+`x_min` is the smallest number of clusters that can be suggested. The whole screening is still plotted. `None` considers all values. <br>
 
 #### Execution
 ```bash
@@ -74,31 +81,31 @@ $ python screen_nani.py
 ```
 
 #### Outputs
-csv file containing the number of clusters and the corresponding number of iterations, Callinski-Harabasz score, Davies-Bouldin score, and average mean-square deviation for that seed selector. <br>
+`outputs/nani_{init_type}_scores.csv` (e.g. `outputs/nani_strat_all_scores.csv`) containing the number of clusters, Calinski-Harabasz score, Davies-Bouldin score, average mean-square deviation (MSD) of the clusters, and number of iterations for that seed selector. <br>
 
 ### 3. Analysis of NANI Screening Results
-The clustering screening results will be analyzed using the Davies-Bouldin index (DB). There are two criteria to select the number of clusters: (1) lowest DB and (2) maximum 2<sup>nd</sup> derivative of DB.
+The clustering screening results are analyzed using the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI). There are two criteria to select the number of clusters: (1) lowest DBI or highest CHI and (2) maximum 2<sup>nd</sup> derivative of DBI or minimum 2<sup>nd</sup> derivative of CHI.
 
-**Step-by-step tutorial can be found in the [analysis notebook](../scripts/nani/analysis_db.ipynb).**
+When `plot_metrics = True`, `screen_nani.py` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. `outputs/nani_strat_all_scores_dbi.png` and `outputs/nani_strat_all_scores_chi.png`) with the suggested number of clusters marked. The same analysis can be run on any screening csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
 
 ### 4. Cluster Assignment
 [scripts/nani/assign_labels.py](../scripts/nani/assign_labels.py) will assign labels to the clusters for *k*-means clustering using the initialization methods. 
 The following parameters to be specified in the script:
 
-    # System info - EDIT THESE
-    input_traj_numpy = '../../data/md/backbone.npy'
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-    # K-means params - EDIT THESE
-    n_clusters = 6
-    init_type = 'strat_all'                                              
-    metric = 'MSD'                                                      
-    n_structures = 11                                                   
-    output_dir = 'outputs'                                              
+    # NANI parameters
+    n_clusters = 6                                      # Number of clusters (pick from screen_nani.py)
+    init_type = 'strat_all'                             # Seeding method, same as in screen_nani.py
+    metric = 'MSD'                                      # Distance metric for clustering
+    n_structures = 11                                   # Frames saved per cluster, closest to its medoid
+    output_dir = 'outputs'                              # Folder for output files
 
 #### Inputs
-##### System info
+##### System parameters
 `input_traj_numpy` is the numpy array prepared from step 1, if not it will be your loaded dataset. <br>
 `N_atoms` is the number of atoms used in the clustering. <br>
 `sieve` takes every `sieve`th frame from the trajectory for analysis. <br>
@@ -115,11 +122,12 @@ $ python assign_labels.py
 ```
 
 #### Outputs
-1. csv file containing the indices of the best frames in each cluster. 
-2. csv file containing the cluster labels for each frame.
-3. csv file containing the population of each cluster.
+All files are saved in `outputs/`, with `{n_clusters}` in the name (e.g. `n_clusters = 6`). Clusters are numbered by size, cluster 0 being the largest.
+1. `nani_best_frames_6.csv`: the `n_structures` frames closest to the medoid of each cluster (frame index, cluster index).
+2. `nani_labels_6.csv`: the cluster label of each frame (frame index, cluster index).
+3. `nani_summary_6.csv`: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
 
 ### 5. Extract frames for each cluster (Optional)
-[scripts/outputs/postprocessing.ipynb](../scripts/outputs/postprocessing.ipynb) will use the indices from last step to extract the designated frames from the original trajectory for each cluster.
+[scripts/outputs/postprocessing.ipynb](../scripts/outputs/postprocessing.ipynb) will use the indices from last step (e.g. `outputs/nani_best_frames_6.csv`) to extract the designated frames from the original trajectory for each cluster.
 
 <kbd> [↩️ Main](../README.md) </kbd>

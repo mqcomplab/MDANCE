@@ -56,12 +56,13 @@ class HELM:
     -----
     The ``cluster_dict`` dictionary should be in the following format:
     ``Clusters = {N1: clustersN1, N2: clustersN2, ...}``
+
     Nk : int
         Number of clusters in the *k*-th iteration
     clustersNk : list of lists
-        Contains the info about clusters in *k*th iteration ``clustersNk = [C1k, C2k, ...]``
+        Contains the info about clusters in *k*-th iteration ``clustersNk = [C1k, C2k, ...]``
     Cik : list of lists 
-        Contains information about *i*th cluster in *k*th iteration 
+        Contains information about *i*-th cluster in *k*-th iteration 
         ``Cik = [Indicesik, (c_sumik, sq_sumik), Nik]``
     Indicesik : list
         Cluster indices of merged clusters. 
@@ -242,13 +243,13 @@ class HELM:
         Parameters
         ----------
         previous_clusters : list of lists
-            Contains the info about clusters in *k*th iteration 
+            Contains the info about clusters in *k*-th iteration 
             ``clustersNk = [C1k, C2k, ...]``
         
         Returns
         -------
         list of lists
-            Contains the info about clusters in *k*th iteration 
+            Contains the info about clusters in *k*-th iteration 
             ``clustersNk = [C1k, C2k, ...]``
         """
         c1 = len(previous_clusters) + 1
@@ -307,7 +308,7 @@ class HELM:
         Parameters
         ----------
         previous_clusters : list of lists
-            Contains the info about clusters in *k*th iteration ``clustersNk = [C1k, C2k, ...]``
+            Contains the info about clusters in *k*-th iteration ``clustersNk = [C1k, C2k, ...]``
         i : int
             Index of the first cluster
         j : int
@@ -353,7 +354,7 @@ class HELM:
         Parameters
         ----------
         previous_clusters : list of lists
-            Contains the info about clusters in *k*th iteration ``clustersNk = [C1k, C2k, ...]``
+            Contains the info about clusters in *k*-th iteration ``clustersNk = [C1k, C2k, ...]``
         
         Returns
         -------
@@ -374,7 +375,7 @@ class HELM:
         Parameters
         ----------
         previous_clusters : list of lists
-            Contains the info about clusters in *k*th iteration ``clustersNk = [C1k, C2k, ...]``
+            Contains the info about clusters in *k*-th iteration ``clustersNk = [C1k, C2k, ...]``
         
         Returns
         -------

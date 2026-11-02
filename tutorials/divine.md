@@ -64,34 +64,35 @@ This script loads your trajectory and performs top-down hierarchical clustering.
 
 #### Parameters to edit in `run_divine.py`
 
-**System Information:**
+**System parameters:**
 ```python
-input_traj_numpy = data.sim_traj_numpy    # Path to trajectory numpy array
-N_atoms = 50                              # Number of atoms (1 for non-MD data)
-sieve = 1                                  # Take every sieve-th frame
+input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+N_atoms = 50                                        # Number of atoms in the system
+sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 ```
 
 - `input_traj_numpy` : Path to the numpy array (`.npy` file) from step 1
 - `N_atoms` : Number of atoms in your system. **For non-MD datasets, use 1**
 - `sieve` : Frame sampling rate (e.g., `10` skips every 10th frame for faster analysis)
 
-**DIVINE Parameters:**
+**DIVINE parameters:**
 ```python
-end = 'k'                      # Stopping criterion: 'k' for fixed count, 'points' for singletons
-split = "weighted_MSD"         # Split strategy: 'MSD', 'radius', 'weighted_MSD'
-anchors = "nani"               # Anchor method: 'nani', 'outlier_pair', 'splinter_split'
-init_type = "strat_all"        # Init strategy: 'strat_all', 'strat_reduced', 'comp_sim', 
-                               #               'div_select', 'k-means++', 'random'
-k = 30                         # Target number of clusters
-threshold = 0                  # Min relative cluster size [0-1]
-refine = True                  # Refine splits with k-means
+split = 'weighted_MSD'                              # Cluster to split next {'MSD', 'radius', 'weighted_MSD'}
+anchors = 'nani'                                    # Seed choice for each split {'nani', 'outlier_pair', 'splinter_split'}
+init_type = 'strat_all'                             # NANI seeding method, used when anchors = 'nani'
+k = 30                                              # Keep splitting until there are k clusters
+threshold = 0                                       # Minimum subcluster size, as a fraction of the data
+refine = True                                       # Refine each split with k-means
+output_dir = 'outputs'                              # Folder for output files
+```
+
+**Analysis parameters:**
+```python
+plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+x_min = 5                                           # Only suggest values >= x_min (None = all)
 ```
 
 **Parameter explanations:**
-
-- `end` : Stopping criterion
-  - `'k'` : Stop when reaching `k` clusters (recommended)
-  - `'points'` : Stop when all clusters are singletons (exhaustive)
 
 - `split` : Cluster selection strategy (which cluster to split next)
   - `'weighted_MSD'` : Selects cluster with highest variance (recommended)
@@ -115,6 +116,14 @@ refine = True                  # Refine splits with k-means
   - `0` : No filtering (keep all)
   - `0.05` : Reject clusters < 5% of total size
 
+- `refine` : Refine each split with an additional *k*-means clustering (default `True`). Only used with `anchors='outlier_pair'` or `'splinter_split'`; `'nani'` anchors already split with *k*-means, so `refine` has no effect there
+
+- `output_dir` : Directory to store the results
+
+- `plot_metrics` : Plot the cluster quality metrics and mark the suggested number of clusters (see step 4). If `False`, no analysis is done.
+
+- `x_min` : Smallest number of clusters that can be suggested. The whole hierarchy is still plotted. `None` considers all values.
+
 #### Execution
 
 ```bash
@@ -126,18 +135,18 @@ The script will run hierarchically, splitting clusters until reaching `k` cluste
 
 ### 3. DIVINE Outputs
 
-The script generates two output files:
+The script generates two output files in `outputs/` (named after `anchors`, e.g. `nani`):
 
 **Cluster quality metrics:**
-- `divine_nani_scores.csv`
-  - Columns: `n_clusters`, `CH_score`, `DB_score`
+- `outputs/divine_nani_scores.csv`
+  - Columns: `Number of clusters`, `Calinski-Harabasz`, `Davies-Bouldin`, `Average MSD`
   - Each row represents cluster counts at different hierarchy levels
   - **CH score** (Calinski-Harabasz): Higher is better (max ~∞)
   - **DB score** (Davies-Bouldin): Lower is better (min ~0)
 
 **Cluster structure metrics:**
-- `divine_nani_msds.csv`
-  - Columns: `level`, `cluster_index`, `population`, `msd`
+- `outputs/divine_nani_msds.csv`
+  - Columns: `Level`, `Cluster Index`, `Number of frames`, `MSD` (level *L* has *L* + 1 clusters)
   - Tracks splitting history and cluster properties
   - `level` : Hierarchical depth of the split
   - `cluster_index` : Identifier for the cluster
@@ -146,7 +155,7 @@ The script generates two output files:
 
 ### 4. Analysis of Results
 
-**Step-by-step analysis:** [scripts/divine/analysis_db.ipynb](../scripts/divine/analysis_db.ipynb)
+When `plot_metrics = True`, `run_divine.py` plots the DB and CH scores of each number of clusters (`outputs/divine_nani_scores_dbi.png` and `outputs/divine_nani_scores_chi.png`) with the suggested number of clusters marked. The same analysis can be run on any scores csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
 
 Use the cluster quality metrics (DB and CH scores) to determine the optimal number of clusters:
 
@@ -165,20 +174,25 @@ Once you've determined the optimal `k`, use [scripts/divine/assign_labels.py](..
 #### Parameters to edit in `assign_labels.py`
 
 ```python
-# System info - EDIT THESE
-input_traj_numpy = '../../data/md/backbone.npy'
-N_atoms = 50
-sieve = 1
+# System parameters
+input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+N_atoms = 50                                        # Number of atoms in the system
+sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-# DIVINE params - EDIT THESE
-k = 30                          # Desired number of clusters
-split = 'weighted_MSD'          # Split strategy
-anchors = 'nani'                # Anchor method
-init_type = 'strat_all'         # Initialization strategy
-refine = True                   # Refine splits
-threshold = 0                   # Min cluster size threshold
-output_dir = 'outputs'          # Output directory
+# DIVINE parameters
+split = 'weighted_MSD'                              # Cluster to split next {'MSD', 'radius', 'weighted_MSD'}
+anchors = 'nani'                                    # Seed choice for each split {'nani', 'outlier_pair', 'splinter_split'}
+init_type = 'strat_all'                             # NANI seeding method, used when anchors = 'nani'
+
+k = 6                                               # Number of clusters to assign
+threshold = 0                                       # Minimum subcluster size, as a fraction of the data
+refine = True                                       # Refine each split with k-means
+
+top_n = 11                                          # Frames saved per cluster, closest to its medoid
+output_dir = 'outputs'                              # Folder for output files
 ```
+
+Use the same settings as in `run_divine.py`, with `k` set to the number of clusters chosen in step 4.
 
 #### Execution
 
@@ -188,12 +202,14 @@ python assign_labels.py
 
 #### Output
 
-- Cluster assignments file containing frame indices and cluster labels
-- Frame indices compatible with trajectory extraction tools
+All files are saved in `outputs/`, with `k` in the name (e.g. `k = 6`). Clusters are numbered by size, cluster 0 being the largest.
+- `divine_labels_6.csv`: the cluster of each frame, in frame order (frame index, cluster index)
+- `divine_best_frames_6.csv`: the `top_n` frames closest to the medoid of each cluster, closest first (frame index, cluster index)
+- `divine_summary_6.csv`: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames
 
 ### 6. Extract Frames for Each Cluster (Optional - MD only)
 
-After obtaining cluster assignments, extract representative frames from each cluster.
+After obtaining cluster assignments, extract representative frames from each cluster (e.g. `outputs/divine_best_frames_6.csv`).
 
 **Step-by-step tutorial:** [scripts/outputs/postprocessing.ipynb](../scripts/outputs/postprocessing.ipynb)
 
@@ -207,10 +223,6 @@ After obtaining cluster assignments, extract representative frames from each clu
   - Start with `split='weighted_MSD'` and `anchors='nani'` (works well for most cases)
   - Increase `k` for finer structural detail; decrease for coarser grouping
   - Use `threshold > 0` to filter out noise-like tiny clusters
-
-- **Stopping criteria:**
-  - `end='k'` : Use when you have a target cluster count
-  - `end='points'` : Use to explore the full hierarchy (slower, more memory-intensive)
 
 - **Quality scores interpretation:**
   - Davies-Bouldin (DB) : Ratio of within-cluster to between-cluster distances

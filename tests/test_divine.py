@@ -75,6 +75,24 @@ def test_divine_point(data):
     assert all(len(msd) == 4 for msd in msds)
 
 
+@pytest.mark.parametrize("init_type", ['strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'])
+def test_divine_point_nani(data, init_type):
+    """
+    Test that NANI anchors can split clusters smaller than 20 points.
+    """
+    small_data = data[:30]
+    model = Divine(data=small_data,
+                   anchors='nani',
+                   init_type=init_type,
+                   end='points',
+                   N_atoms=1)
+
+    clusters, labels, scores, msds = model.run()
+
+    assert len(clusters) == len(small_data)
+    assert np.all(np.bincount(labels) == 1)
+
+
 def test_divine_invalid_split(data):
     """
     Check invalid `split` raises ValueError.

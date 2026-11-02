@@ -5,71 +5,81 @@ import numpy as np
 from mdance.cluster.nani import KmeansNANI, compute_scores
 from mdance import data
 from mdance.tools.bts import extended_comparison
+from mdance.outputs.plot import plot_scores
 
 
-# System info
-input_traj_numpy = data.sim_traj_numpy
-N_atoms = 50
-sieve = 1
+# System parameters
+input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+N_atoms = 50                                        # Number of atoms in the system
+sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
 # NANI parameters
-output_dir = 'outputs'                        
-init_type = 'strat_all'                                             # Default
-metric = 'MSD'
-start_n_clusters = 5                                                # At least 2 clusters
-end_n_clusters = 30                                                 # Maximum number of clusters
+output_dir = 'outputs'                              # Folder for output files
+init_type = 'strat_all'                             # Seeding method {'strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'}
+metric = 'MSD'                                      # Distance metric for clustering
+start_n_clusters = 5                                # At least 2 clusters
+end_n_clusters = 30                                 # Maximum number of clusters
+
+# Analysis parameters
+plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+x_min = None                                        # Only suggest values >= x_min (None = all)
 
 
 if __name__ == '__main__':
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    
+
     traj_numpy = np.load(input_traj_numpy)[::sieve]
     if init_type in ['k-means++', 'random', 'vanilla_kmeans++']:
         percentage = ''
-    
+
     # `comp_sim` and `div_select` are ran only once to get the initiators
     elif init_type in ['comp_sim', 'div_select', 'strat_all', 'strat_reduced']:
         percentage = 10
-        mod = KmeansNANI(data=traj_numpy, n_clusters=end_n_clusters, metric=metric, 
+        mod = KmeansNANI(data=traj_numpy, n_clusters=end_n_clusters, metric=metric,
                          N_atoms=N_atoms, init_type=init_type, percentage=percentage)
         initiators = mod.initiate_kmeans()
-    
+
     all_scores = []
     for i in range(start_n_clusters, end_n_clusters+1):
         total = 0
 
         # Run k-means clustering
         if init_type in ['comp_sim', 'div_select', 'strat_all', 'strat_reduced']:
-            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric, N_atoms=N_atoms, 
+            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric, N_atoms=N_atoms,
                              init_type=init_type, percentage=percentage)
             labels, centers, n_iter = mod.kmeans_clustering(initiators[:i])
         elif init_type in ['k-means++', 'random']:
-            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric, 
+            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric,
                              N_atoms=N_atoms, init_type=init_type)
             labels, centers, n_iter = mod.kmeans_clustering(initiators=init_type)
         elif init_type == 'vanilla_kmeans++':
-            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric, 
+            mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric,
                              N_atoms=N_atoms, init_type=init_type)
             initiators = mod.initiate_kmeans()
             labels, centers, n_iter = mod.kmeans_clustering(initiators=initiators)
-        
+
         # Compute scores
         ch_score, db_score = compute_scores(data=traj_numpy, labels=labels)
-        
+
         # Calculate MSD for each cluster
         dict = {}
         for j in range(i):
             dict[j] = np.where(labels == j)[0]
             dict[j] = traj_numpy[dict[j]]
         for key in dict:
-            msd = extended_comparison(np.array(dict[key]), traj_numpy_type='full', 
+            msd = extended_comparison(np.array(dict[key]), data_type='full',
                                         metric=metric, N_atoms=N_atoms)
             total += msd
-        all_scores.append((i, n_iter, ch_score, db_score, total/i))
-    
-    all_scores = np.array(all_scores)
-    header = f'init_type: {init_type}, percentage: {percentage}, metric: {metric}, sieve: {sieve}\n'
-    header += 'Number of clusters, Number of iterations, Calinski-Harabasz score, Davies-Bouldin score, Average MSD'
-    np.savetxt(f'{output_dir}/{percentage}{init_type}_summary.csv', all_scores, 
-                delimiter=',', header=header, fmt='%s')
+        all_scores.append((i, ch_score, db_score, total/i, n_iter))
+
+    scores_csv = f'{output_dir}/nani_{init_type}_scores.csv'
+    with open(scores_csv, 'w') as f:
+        f.write(f'# NANI, init_type: {init_type}, percentage: {percentage}, metric: {metric}, sieve: {sieve}\n')
+        f.write('# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD, Number of iterations\n')
+        for row in all_scores:
+            f.write(','.join(map(str, row)) + '\n')
+
+    # Plot the DBI and CHI of the screening and suggest values
+    if plot_metrics:
+        plot_scores(scores_csv, x_min=x_min)

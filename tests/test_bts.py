@@ -256,6 +256,17 @@ def test_diversity_selection_comp_sim(matrix, bit_data, continuous_data, sim_dat
     assert idxs == expected_idxs
 
 
+def test_diversity_selection_n_select(sim_data):
+    """
+    Test that ``n_select`` stops the ``comp_sim`` selection early with the same picks.
+    """
+    full = bts.diversity_selection(sim_data, 0.5, 'MSD', N_atoms=50, method='comp_sim')
+    short = bts.diversity_selection(sim_data, 0.5, 'MSD', N_atoms=50, method='comp_sim', n_select=5)
+    capped = bts.diversity_selection(sim_data, 0.5, 'MSD', N_atoms=50, method='comp_sim', n_select=100)
+    assert short == full[:5]
+    assert capped == full
+
+
 def test_diversity_selection_strat(matrix, bit_data, continuous_data, sim_data):
     """
     Test the diversity_selection function coupled with the 'strat' method.

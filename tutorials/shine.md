@@ -42,7 +42,7 @@ Convert each pathway's trajectory to a numpy array (one file per pathway) as sho
 
 ### 2. SHINE Clustering
 
-A runnable script is also provided in [`scripts/shine/run_shine.py`](../scripts/shine/run_shine.py).
+A runnable script is also provided in [`scripts/shine/run_shine.py`](../scripts/shine/run_shine.py). It runs the same steps and saves the cluster of each pathway (`outputs/shine_labels_intra_100.csv`, columns: pathway index, cluster index) and the dendrogram (`outputs/shine_dendrogram_intra_100.png`), named after `merge_scheme` and `frac`.
 
 The following code loads the pathways and runs SHINE:
 
@@ -55,12 +55,12 @@ import numpy as np
 from mdance import data
 from mdance.cluster.shine import Shine
 
-# System parameters - EDIT THESE
+# System parameters
 file_pattern = str(data.ala_pathways / '*.csv')     # One file per pathway
 metric = 'MSD'                                      # Metric used to compare pathways
 N_atoms = 1                                         # Number of atoms (1 for non-coordinate features)
 
-# SHINE parameters - EDIT THESE
+# SHINE parameters
 merge_scheme = 'intra'                              # {'intra', 'inter', 'semi_sum', 'max', 'min', 'haus'}
 sampling = 'diversity'                              # {'diversity', 'quota', None}
 frac = 0.5                                          # Fraction of frames sampled from each pathway

@@ -31,24 +31,24 @@ print(f'Number of atoms in the trajectory: {u.atoms.n_atoms}')
 
 ###############################################################################
 # Extract frames for each cluster using the cluster assignments from the previous step.
-#   - ``cluster_assignments`` is the path to the cluster assignment. 
+#   - ``cluster_assignment`` is the path to the cluster assignment.
 #   - It will take this list of frame and convert to a trajectory for each unique cluster. 
-#   - This can also work for ``../scripts/nani/outputs/labels_6.csv``.
+#   - Here we use the sample best frames included with MDANCE. This also works with a labels file, e.g. ``data.labels_6``.
 
-cluster_assignment = '../scripts/nani/outputs/best_frames_indices_6.csv'
+cluster_assignment = data.best_frames_6
 ###############################################################################
 # Define the frames to extract 
 #   - ``x`` is the frame number.
 #   - ``y`` is the cluster number.
 #   - Output will be written to a DCD file for each cluster. Check `here <https://userguide.mdanalysis.org/1.0.0/formats/index.html>`_ for all accepted formats.
 
-x, y = np.loadtxt(cluster_assignment, delimiter=',', skiprows=2, dtype=int, unpack=True)
+x, y = np.loadtxt(cluster_assignment, delimiter=',', dtype=int, unpack=True)
 
 # get x value in a list for every unique y value
 frames = [x[y == i] for i in np.unique(y)]
 
 for i, frame in enumerate(frames):
-   # write trajectory with only the selected frames in frames[i]
+    # write trajectory with only the selected frames in frames[i]
     with mda.Writer(f'best_frames_{i}.dcd', u.atoms.n_atoms) as W:
         for ts in u.trajectory[frame]:
             W.write(u.atoms)

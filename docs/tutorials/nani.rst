@@ -87,20 +87,20 @@ script:
 
 ::
 
-   # System info - EDIT THESE
-   data_file = '../data/2D/blob_disk.csv'
+   # System parameters
+   data_file = data.blob_disk                          # Input data as a CSV file
    array = np.genfromtxt(data_file, delimiter=',')
-   output_base_name = 'output_base_name'
+   output_base_name = 'array'                          # Prefix for the output files
 
 Inputs
 ^^^^^^
 
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | ``data_file`` is your input file with a 2D array. 
 | ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed according to the type of file format you have. However, ``array`` must be an array-like in the shape (number of samples, number of features).
-| ``output_base_name`` is the base name for the output file. The output file will be saved as ``output_base_name.npy``. 
+| ``output_base_name`` is the base name for the output file. The output file will be saved as ``outputs/{output_base_name}.npy``. 
 
 .. raw:: html
 
@@ -117,25 +117,27 @@ script:
 
 ::
 
-   # System info
-   input_traj_numpy = '../../data/md/backbone.npy'
-   N_atoms = 50
-   sieve = 1
+   # System parameters
+   input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+   N_atoms = 50                                        # Number of atoms in the system
+   sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
    # NANI parameters
-   output_dir = 'outputs'                        
-   init_type = 'strat_all'
-   metric = 'MSD'
-   start_n_clusters = 2
-   end_n_clusters = 30
+   output_dir = 'outputs'                              # Folder for output files
+   init_type = 'strat_all'                             # Seeding method {'strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'}
+   metric = 'MSD'                                      # Distance metric for clustering
+   start_n_clusters = 5                                # At least 2 clusters
+   end_n_clusters = 30                                 # Maximum number of clusters
 
-.. _system-info-1:
+   # Analysis parameters
+   plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+   x_min = None                                        # Only suggest values >= x_min (None = all)
 
 Inputs
 ^^^^^^
 
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
 | ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, ``N_atoms=1``.**
@@ -147,8 +149,14 @@ NANI parameters
 | ``output_dir`` is the directory to store the clustering results.
 | ``init_type`` is the selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). 
 | ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
-| ``start_n_clusters`` is the starting number for screening. **This number must be greater than 2**.
+| ``start_n_clusters`` is the starting number for screening. **This number must be at least 2**.
 | ``end_n_clusters`` is the ending number for screening.
+
+Analysis parameters
+''''''''''''''''''''
+
+| ``plot_metrics`` is a boolean to plot the screening scores and mark the suggested number of clusters (see step 4). If False, no analysis is done.
+| ``x_min`` is the smallest number of clusters that can be suggested. The whole screening is still plotted. ``None`` considers all values.
 
 Execution
 ^^^^^^^^^
@@ -162,24 +170,22 @@ Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
 Outputs
 ^^^^^^^
 
-csv file containing the number of clusters and the corresponding number
-of iterations, Callinski-Harabasz score, Davies-Bouldin score, and
-average mean-square deviation for that seed selector.
+``outputs/nani_{init_type}_scores.csv`` (e.g. ``outputs/nani_strat_all_scores.csv``) containing
+the number of clusters, Calinski-Harabasz score, Davies-Bouldin score, average mean-square deviation (MSD) of the clusters, and number of iterations for that seed selector.
 
 4. Analysis of NANI Screening Results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The clustering screening results will be analyzed using the
-Davies-Bouldin index (DB). There are two criteria to select the number
-of clusters: 
+The clustering screening results are analyzed using the
+Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI). There are
+two criteria to select the number of clusters: 
 
-1. lowest DB
-2. maximum 2nd derivative of DB.
+1. lowest DBI or highest CHI
+2. maximum 2nd derivative of DBI or minimum 2nd derivative of CHI.
 
-`analysis notebook <../examples/analysis_db.html>`__
-contains step-by-step tutorial to analyze clustering screening results.
+When ``plot_metrics = True``, ``screen_nani.py`` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. ``outputs/nani_strat_all_scores_dbi.png`` and ``outputs/nani_strat_all_scores_chi.png``) with the suggested number of clusters marked.
 
-A copy of this notebook can be found in ``$PATH/MDANCE/scripts/nani/analysis_db.ipynb``.
+The same analysis can be run on any screening csv with ``mdance.outputs.plot.plot_scores``, as shown in the `cluster analysis example <../examples/analysis_db.html>`__.
 
 5. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~
@@ -191,27 +197,23 @@ script:
 
 ::
 
-   # System info - EDIT THESE
-   input_traj_numpy = '../../data/md/backbone.npy'
-   N_atoms = 50
-   sieve = 1
+   # System parameters
+   input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+   N_atoms = 50                                        # Number of atoms in the system
+   sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-   # K-means params - EDIT THESE
-   n_clusters = 6
-   init_type = 'strat_all'                                              
-   metric = 'MSD'                                                      
-   n_structures = 11                                                   
-   output_dir = 'outputs'                                              
-
-.. _inputs-1:
+   # NANI parameters
+   n_clusters = 6                                      # Number of clusters (pick from screen_nani.py)
+   init_type = 'strat_all'                             # Seeding method, same as in screen_nani.py
+   metric = 'MSD'                                      # Distance metric for clustering
+   n_structures = 11                                   # Frames saved per cluster, closest to its medoid
+   output_dir = 'outputs'                              # Folder for output files
 
 Inputs
 ^^^^^^
 
-.. _system-info-2:
-
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | ``input_traj_numpy`` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
 | ``N_atoms`` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, ``N_atoms=1``.**
@@ -226,8 +228,6 @@ System info
 | ``n_structures`` is the number of frames to extract from each cluster.
 | ``output_dir`` is the directory to store the clustering results.
 
-.. _execution-1:
-
 Execution
 ^^^^^^^^^
 
@@ -237,14 +237,14 @@ Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
 
    $ python assign_labels.py
 
-.. _outputs-1:
-
 Outputs
 ^^^^^^^
 
-* csv file containing the indices of the best frames in each cluster.
-* csv file containing the cluster labels for each frame.
-* csv file containing the population of each cluster.
+All files are saved in ``outputs/``, with ``{n_clusters}`` in the name (e.g. ``n_clusters = 6``). Clusters are numbered by size, cluster 0 being the largest.
+
+* ``nani_best_frames_6.csv``: the ``n_structures`` frames closest to the medoid of each cluster (frame index, cluster index).
+* ``nani_labels_6.csv``: the cluster label of each frame (frame index, cluster index).
+* ``nani_summary_6.csv``: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
 
 6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -266,20 +266,13 @@ Please Cite
 .. code:: bibtex
 
    @article{chen_k-means_2024,
-      title = {k-{Means} {NANI}: {An} {Improved} {Clustering} {Algorithm} for {Molecular} {Dynamics} {Simulations}},
-      volume = {20},
-      copyright = {https://doi.org/10.15223/policy-029},
-      issn = {1549-9618, 1549-9626},
-      shorttitle = {k-{Means} {NANI}},
-      url = {https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308},
-      doi = {10.1021/acs.jctc.4c00308},
-      abstract = {One of the key challenges of k-means clustering is the seed selection or the initial centroid estimation since the clustering result depends heavily on this choice. Alternatives such as k-means++ have mitigated this limitation by estimating the centroids using an empirical probability distribution. However, with high-dimensional and complex data sets such as those obtained from molecular simulation, k-means++ fails to partition the data in an optimal manner. Furthermore, stochastic elements in all flavors of k-means++ will lead to a lack of reproducibility. K-means N-Ary Natural Initiation (NANI) is presented as an alternative to tackle this challenge by using efficient n-ary comparisons to both identify high-density regions in the data and select a diverse set of initial conformations. Centroids generated from NANI are not only representative of the data and different from one another, helping k-means to partition the data accurately, but also deterministic, providing consistent cluster populations across replicates. From peptide and protein folding molecular simulations, NANI was able to create compact and well-separated clusters as well as accurately find the metastable states that agree with the literature. NANI can cluster diverse data sets and be used as a standalone tool or as part of our MDANCE clustering package.},
-      language = {en},
-      number = {13},
-      urldate = {2024-07-09},
-      journal = {Journal of Chemical Theory and Computation},
-      author = {Chen, Lexin and Roe, Daniel R. and Kochert, Matthew and Simmerling, Carlos and Miranda-Quintana, Ramón Alain},
-      month = jul,
-      year = {2024},
-      pages = {5583--5597},
+       title = {k-{Means} {NANI}: {An} {Improved} {Clustering} {Algorithm} for {Molecular} {Dynamics} {Simulations}},
+       author = {Chen, Lexin and Roe, Daniel R. and Kochert, Matthew and Simmerling, Carlos and Miranda-Quintana, Ramón Alain},
+       journal = {Journal of Chemical Theory and Computation},
+       volume = {20},
+       number = {13},
+       pages = {5583--5597},
+       year = {2024},
+       doi = {10.1021/acs.jctc.4c00308},
+       url = {https://doi.org/10.1021/acs.jctc.4c00308},
    }

@@ -112,15 +112,6 @@ Key Features:
 - Eliminates memory-intensive pairwise RMSD matrices.
 - Produces compact and well-separated clusters matching RTC quality.
 
-#### 📊 CADENCE - Density-Based Clustering
-Novelty: Bridges the gap between efficient *k*-means and robust density-based clustering using *n*-ary similarity framework.
-
-Key Advantages:
-- Swiftly pinpoints high and low-density regions in linear O(*N*) time.
-- Enables focused exploration of rare events.
-- Identifies most representative conformations efficiently.
-- Overcomes limitations of pairwise similarity operations.
-
 #### 🏆 PRIME - Native Structure Prediction
 
 <table>
@@ -148,7 +139,6 @@ Key Advantages:
 | SHINE     | O(*N*)       | Hierarchical | Pathway analysis | Enhanced sampling |
 | PRISM     | O(*N*)       | Hierarchical | Structural medoid representation | Multi-pathway comparison |
 | eQual     | O(*N*)       | Flat clustering | Linear RTC replacement | General purpose |
-| CADENCE   | O(*N*)       | Density-based | *n*-ary density estimation | Rare event detection |
 | PRIME     | O(*N*)       | Post-processing | Native structure prediction | Structure validation |
 
 ### Quick Start
@@ -184,20 +174,20 @@ labels = kmeans.fit_predict(data)
 - [SHINE Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md) - Pathway analysis.
 - [PRISM Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md) - Pathway representation and clustering.
 - [eQual Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/equal.html) - Linear-time clustering.
-- CADENCE Tutorial - Density-based clustering (to be added).
 - [PRIME Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prime.html) - Native structure retrieval.
 
 ### Publications
 Our methods are backed by peer-reviewed research:
-- NANI: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00308); [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/full/10.1021/acs.jcim.5c02741)
-- HELM: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00539)
-- DIVINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c02740)
-- mdBIRCH: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/pdf/10.1021/acs.jctc.6c00221?ref=article_openPDF)
-- SHINE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.5c00240)
-- PRISM: [bioRxiv 2026](https://www.biorxiv.org/content/10.64898/2026.05.16.725628v1)
-- eQual: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c02341)
-- CADENCE: [J. Chem. Inf. Model. 2025](https://pubs.acs.org/doi/10.1021/acs.jcim.5c00392)
-- PRIME: [J. Chem. Theory Comput. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00362)
+- NANI: [J. Chem. Theory Comput. 2024](https://doi.org/10.1021/acs.jctc.4c00308); [J. Chem. Inf. Model. 2026](https://doi.org/10.1021/acs.jcim.5c02741)
+- HELM: [J. Chem. Inf. Model. 2025](https://doi.org/10.1021/acs.jcim.5c00539)
+- DIVINE: [J. Chem. Inf. Model. 2026](https://doi.org/10.1021/acs.jcim.5c02740)
+- mdBIRCH: [J. Chem. Theory Comput. 2026](https://doi.org/10.1021/acs.jctc.6c00221)
+- SHINE: [J. Chem. Inf. Model. 2025](https://doi.org/10.1021/acs.jcim.5c00240)
+- PRISM: [Digital Discovery 2026](https://doi.org/10.1039/d6dd00288a)
+- eQual: [J. Chem. Inf. Model. 2025](https://doi.org/10.1021/acs.jcim.4c02341)
+- PRIME: [J. Chem. Theory Comput. 2024](https://doi.org/10.1021/acs.jctc.4c00362)
+
+If you use MDANCE, please cite the paper of each method you use. BibTeX entries for all papers are in [CITATION.bib](CITATION.bib).
 
 
 ### Impact

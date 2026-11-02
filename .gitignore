@@ -111,3 +111,14 @@ poetry.lock
 
 # editor files
 *~
+
+# MDANCE generated outputs
+scripts/*/outputs/
+scripts/outputs/*.dcd
+examples/*.npy
+examples/*.dcd
+examples/*.png
+tutorials/*.npy
+tutorials/outputs_*/
+docs/examples/
+docs/sg_execution_times.rst

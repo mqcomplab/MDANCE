@@ -256,9 +256,12 @@ class Divine:
         subdata = self.data[cluster_indices]
 
         if self.anchors == 'nani':
+            # NANI needs at least 2 sampled points, so small clusters sample a larger percentage
+            percentage = min(100, max(self.percentage, -(-200 // len(cluster_indices))))
             nani = KmeansNANI(data=subdata, n_clusters=2, metric=self.metric,
-                              N_atoms=self.N_atoms, init_type=self.init_type, percentage=self.percentage)
-            initiators = nani.initiate_kmeans()
+                              N_atoms=self.N_atoms, init_type=self.init_type, percentage=percentage)
+            # k-means++ and random pick their own centers inside kmeans_clustering
+            initiators = None if self.init_type in ['k-means++', 'random'] else nani.initiate_kmeans()
             labels, centers, _ = nani.kmeans_clustering(initiators)
 
             clusterA = cluster_indices[labels == 0]

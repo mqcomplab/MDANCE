@@ -82,20 +82,20 @@ script:
 
 ::
 
-   # System info - EDIT THESE
-   data_file = '../data/2D/blob_disk.csv'
+   # System parameters
+   data_file = data.blob_disk                          # Input data as a CSV file
    array = np.genfromtxt(data_file, delimiter=',')
-   output_base_name = 'output_base_name'
+   output_base_name = 'array'                          # Prefix for the output files
 
 Inputs
 ^^^^^^
 
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | ``data_file`` is your input file with a 2D array. 
 | ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed according to the type of file format you have. However, ``array`` must be an array-like in the shape (number of samples, number of features).
-| ``output_base_name`` is the base name for the output file. The output file will be saved as ``output_base_name.npy``. 
+| ``output_base_name`` is the base name for the output file. The output file will be saved as ``outputs/{output_base_name}.npy``. 
 
 .. raw:: html
 
@@ -109,31 +109,34 @@ The following parameters to be specified in the script:
 
 ::
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-    # eQUAL params - EDIT THESE
-    metric = 'MSD'                                                      # Default
-    n_seeds = 3
-    check_sim = True                                                    # Default
-    reject_lowd = True                                                  # Default
-    sim_threshold = 16
-    min_samples = 10                                                    # Default
+    # eQual parameters
+    metric = 'MSD'                                      # Distance metric for clustering
+    n_seeds = 3                                         # Seeds tried per iteration (int, or fraction of the data)
+    check_sim = True                                    # Reject clusters less similar than sim_threshold
+    reject_lowd = True                                  # Reject clusters smaller than min_samples
+    sim_threshold = 16                                  # Largest similarity value a cluster may have
+    min_samples = 10                                    # Minimum cluster size
 
-    # thresholds params- EDIT THESE
-    start_threshold = 5
-    end_threshold = 6
-    step = 0.1
-    save_clusters = False                                                # Default False
+    # Screening parameters
+    start_threshold = 5                                 # First threshold to screen
+    end_threshold = 6                                   # Last threshold to screen
+    step = 0.1                                          # Step between thresholds
+    save_clusters = False                               # Save the clusters of each threshold as .pkl
+    output_dir = 'outputs'                              # Folder for output files
 
-.. _system-info-2:
+    # Analysis parameters
+    plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+    x_min = None                                        # Only suggest values >= x_min (None = all)
 
 Inputs
 ^^^^^^
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | `input_traj_numpy` is the numpy array prepared from step 1, if not it will be your loaded dataset. 
 | `N_atoms` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, this is 1.** 
@@ -155,7 +158,14 @@ Radial threshold screening params
 | `start_threshold` is the starting value `r_theshold` for screening range. 
 | `end_threshold` is the ending value of `r_theshold` screening range. 
 | `step` is the increment of the `r_theshold` screening range. 
-| `save_clusters` is boolean to save the cluster dictionary. Default is False. 
+| `save_clusters` is boolean to save the cluster dictionary of each threshold in ``outputs/clusters_dict/``. Default is False.
+| `output_dir` is the directory to store the results. 
+
+Analysis parameters
+^^^^^^^^^^^^^^^^^^^
+
+| `plot_metrics` is boolean to plot the screening results and mark the suggested thresholds (see step 4). If False, no analysis is done. 
+| `x_min` is the smallest threshold that can be suggested. The whole screening is still plotted. `None` considers all values. 
 
 Execution
 ^^^^^^^^^
@@ -165,20 +175,26 @@ Execution
 
 Outputs
 ^^^^^^^
-- a csv with the number of clusters, cluster population for each threshold value. 
-- a csv with the Calinski-Harabasz (CH) score and Davies-Bouldin (DB) score (two cluster quality indices) for each threshold value.
+- ``outputs/equal_screening.csv`` with the number of clusters and the population of the top 10 clusters for each threshold value.
+- ``outputs/equal_scores.csv`` with the number of clusters, Calinski-Harabasz (CH) score, Davies-Bouldin (DB) score (two cluster quality indices), and average MSD of the clusters for each threshold value.
+- ``outputs/clusters_dict/equal_threshold_{threshold}.pkl`` with the clusters of each threshold, if ``save_clusters = True``.
 
 4. eQual Screening Analysis
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The clustering screening results will be analyzed using the
-Davies-Bouldin index (DB). There are two criteria to select the number
-of clusters: 
+The clustering screening results are analyzed using the
+Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI). There are
+two criteria to select the number of clusters: 
 
-1. lowest DB
-2. maximum 2nd derivative of DB.
+1. lowest DBI or highest CHI
+2. maximum 2nd derivative of DBI or minimum 2nd derivative of CHI.
 
-`$PATH/MDANCE/scripts/equal/analysis.ipynb <https://github.com/mqcomplab/MDANCE/blob/master/scripts/equal/analysis_db.ipynb>`_ will analyze the eQual screening results. 
+When ``plot_metrics = True``, ``screen_equal.py`` analyzes the screening results after the screening:
+
+- ``outputs/equal_scores_dbi.png`` and ``outputs/equal_scores_chi.png`` plot the DBI and CHI for each threshold. The suggested thresholds are marked.
+- ``outputs/equal_screening_nclusters.png`` plots the number of clusters for each threshold and marks the threshold with the most clusters.
+
+The same analysis can be run on any screening csv with ``mdance.outputs.plot`` (``plot_scores`` and ``plot_n_clusters``).
 
 5. Assign labels to the frames
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,34 +202,32 @@ of clusters:
 
 ::
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-    # eQUAL params - EDIT THESE
-    metric = 'MSD'                                                      # Default 
-    n_seeds = 3                                                         # Default
-    check_sim = True                                                    # Default
-    reject_lowd = True                                                  # Default
-    sim_threshold = 16
-    min_samples = 10                                                    # Default
+    # eQual parameters
+    metric = 'MSD'                                      # Distance metric for clustering
+    n_seeds = 3                                         # Seeds tried per iteration (int, or fraction of the data)
+    check_sim = True                                    # Reject clusters less similar than sim_threshold
+    reject_lowd = True                                  # Reject clusters smaller than min_samples
+    sim_threshold = 16                                  # Largest similarity value a cluster may have
+    min_samples = 10                                    # Minimum cluster size
 
-    # extract params- EDIT THESE
-    threshold = 5.80
-    n_structures = 11                                                   # Default
-    sorted_by = 'frame'                                                 # Default
-    open_clusters = None                                                # Default
-
-.. _system-info-3:
+    # Output parameters
+    threshold = 5.80                                    # Cluster radius threshold (pick from screen_equal.py)
+    n_structures = 11                                   # Frames saved per cluster, closest to its medoid
+    open_clusters = None                                # Saved clusters .pkl to reuse (None = recluster)
+    output_dir = 'outputs'                              # Folder for output files
 
 Inputs - New parameters
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-| `threshold` is desired threshold value to use for clustering. If `None`, it will use the best threshold value by reading `param_file`. 
-| `n_structures` is the number of closest structure (from medoid) to extract from each cluster. 
-| `sorted_by` is the sorting method for the cluster labels. {'frame', 'cluster'}. Either frames or clusters can be sorted by ascending order. Default is 'frame'. 
-| `open_cluster_dict` is the cluster dictionary file to open. If `None`, it will run the clustering algorithm. 
+| `threshold` is the threshold value to use for clustering, e.g. chosen from the screening plots. 
+| `n_structures` is the number of closest structures (from the medoid) to extract from each cluster. 
+| `open_clusters` is a saved cluster dictionary to open (e.g. ``outputs/clusters_dict/equal_threshold_5.8.pkl`` from the screening with ``save_clusters = True``). If `None`, it will run the clustering algorithm. 
+| `output_dir` is the directory to store the results. 
 
 Execution
 ^^^^^^^^^
@@ -224,9 +238,11 @@ Execution
 Outputs
 ^^^^^^^
 
-| `best_frames_indices.csv` contains the top *n* number (`n_structures`) of most representative frames for each of the top clusters (`top_num_cluster`). 
-| `frame_vs_cluster.csv` contains cluster assignment per frame. 
-| `sorted_by="frame"` will sort `frame_vs_cluster.csv` by ascending frame number. `sorted_by="cluster"` will sort by ascending cluster number. 
+All files are saved in ``outputs/``, with the ``threshold`` in the name (e.g. ``threshold = 5.8``). Clusters are numbered by size, cluster 0 being the largest.
+
+| ``equal_best_frames_5.8.csv`` contains the ``n_structures`` most representative frames of each cluster, closest to the medoid first (frame index, cluster index). 
+| ``equal_labels_5.8.csv`` contains the cluster of each frame, in frame order (frame index, cluster index). Frames rejected as low density are not assigned to any cluster and are left out.
+| ``equal_summary_5.8.csv`` contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames. 
 
 6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -249,14 +265,14 @@ Please Cite
 .. code:: bibtex
 
    @article{chen_extended_2025,
-      title = {Extended {Quality} ({eQual}): {Radial} {Threshold} {Clustering} {Based} on n-ary {Similarity}},
-      issn = {1549-9596},
-      url = {https://doi.org/10.1021/acs.jcim.4c02341},
-      doi = {10.1021/acs.jcim.4c02341},
-      journal = {Journal of Chemical Information and Modeling},
-      author = {Chen, Lexin and Smith, Micah and Roe, Daniel R. and Miranda-Quintana, Ramón Alain},
-      month = may,
-      year = {2025},
-      note = {Publisher: American Chemical Society},
+       title = {Extended {Quality} ({eQual}): {Radial} {Threshold} {Clustering} {Based} on n-ary {Similarity}},
+       author = {Chen, Lexin and Smith, Micah and Roe, Daniel R. and Miranda-Quintana, Ramón Alain},
+       journal = {Journal of Chemical Information and Modeling},
+       volume = {65},
+       number = {10},
+       pages = {5062--5070},
+       year = {2025},
+       doi = {10.1021/acs.jcim.4c02341},
+       url = {https://doi.org/10.1021/acs.jcim.4c02341},
    }
     

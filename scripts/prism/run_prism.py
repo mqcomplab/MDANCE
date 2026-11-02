@@ -1,29 +1,34 @@
 import csv
 import glob
+import os
 import matplotlib.pyplot as plt
 import numpy as np
+from mdance import data
 from mdance.cluster.prism import PRISM
 
 
-# System Parameters
-file_pattern = '../../src/mdance/data/ala_pathways/*.csv'  # Pattern pointing to trajectory files (each file = one pathway)
-metric = 'MSD'
+# System parameters
+file_pattern = str(data.ala_pathways / '*.csv')     # Pattern pointing to trajectory files (each file = one pathway)
+metric = 'MSD'                                      # Distance metric for clustering
 
-# PRISM Parameters
-option = 2                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 20                              # Number of clusters for representative medoid construction
-k_final = k                         # Second-stage cluster count (used only if option == 3)
-weight_scheme = 'weighted_avg'      # Average Hausdorff normalization scheme
+# PRISM parameters
+option = 2                                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
+k = 20                                              # Number of clusters for representative medoid construction
+k_final = k                                         # Second-stage cluster count (used only if option == 3)
+weight_scheme = 'weighted_avg'                      # Average Hausdorff normalization {'unnormalized', 'weighted_avg', 'sym_avg', 'product_avg'}
 
-t = 2
-criterion = 'maxclust'
-linkage_method = 'ward'
+t = 2                                               # Number of final clusters (with maxclust)
+criterion = 'maxclust'                              # SciPy fcluster criterion
+linkage_method = 'ward'                             # SciPy linkage method {'ward', 'average', ...}
 
-# Output Parameters
-save_medoid_indices = False        # Save medoid frame indices as CSV
-show_cluster_labels = False        # Show "Cluster N: ..." labels under the dendrogram
+# Output parameters
+save_medoid_indices = False                         # Save medoid frame indices as CSV
+show_cluster_labels = True                          # Show "Cluster N: ..." labels under the dendrogram
+output_dir = 'outputs'                              # Folder for output files
+
 
 if __name__ == '__main__':
+    os.makedirs(output_dir, exist_ok=True)
     frames_all = []
 
     # Modify parsing below based on your file structure and data format.
@@ -41,7 +46,9 @@ if __name__ == '__main__':
     #     frames_all.append((traj, frame))
 
 
-    suffix = f'prism_opt{option}_k{k}' + (f'_kfinal{k_final}' if option == 3 else '')
+    suffix = f'{output_dir}/prism_opt{option}_k{k}' + (f'_kfinal{k_final}' if option == 3 else '')
+    params = (f'PRISM, option: {option}, k: {k}' + (f', k_final: {k_final}' if option == 3 else '') +
+              f', weight_scheme: {weight_scheme}, t: {t}, criterion: {criterion}, link: {linkage_method}, metric: {metric}')
 
     mod = PRISM(
         frames_all,
@@ -57,11 +64,11 @@ if __name__ == '__main__':
 
     mod.run()
 
-    # Build cluster assignments
+    # Build cluster assignments, in pathway index order
     traj_keys = list(mod.pathways.keys())
     assignments = sorted(
         [(traj_id, int(cl) - 1) for traj_id, cl in zip(traj_keys, mod.clusters)],
-        key=lambda x: (x[1], x[0])
+        key=lambda x: x[0]
     )
 
     # Summary
@@ -71,11 +78,11 @@ if __name__ == '__main__':
         members = [traj_id for traj_id, c in assignments if c == cl]
         print(f"  Cluster {cl}: {members}")
 
-    # Save cluster assignments 
+    # Save cluster assignments
     cluster_path = f'{suffix}_labels.csv'
     with open(cluster_path, 'w', newline='') as f:
+        f.write(f'# {params}\n# Pathway Index, Cluster Index\n')
         writer = csv.writer(f)
-        writer.writerow(['traj_id', 'cluster'])
         for traj_id, cl in assignments:
             writer.writerow([traj_id, cl])
     print(f"Saved cluster assignments to {cluster_path}")
@@ -97,8 +104,8 @@ if __name__ == '__main__':
     if save_medoid_indices:
         csv_path = f'{suffix}_medoid_indices.csv'
         with open(csv_path, 'w', newline='') as f:
+            f.write(f'# {params}\n# assigned_traj, source_traj, frame_index\n')
             writer = csv.writer(f)
-            writer.writerow(['assigned_traj', 'source_traj', 'frame_index'])
             for traj_id, meds in mod.medoids_per_traj.items():
                 search_order = [traj_id] + [s for s in mod.pathways if s != traj_id]
                 for med in meds:

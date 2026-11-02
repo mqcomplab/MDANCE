@@ -37,14 +37,14 @@ class Shine:
         The linkage algorithm to use. See the `Linkage Methods`_ for full descriptions.
     t : scalar
         For criteria 'inconsistent', 'distance' or 'monocrit',
-         this is the threshold to apply when forming flat clusters.
+        this is the threshold to apply when forming flat clusters.
         For 'maxclust' or 'maxclust_monocrit' criteria,
-         this would be max number of clusters requested. See `fcluster`_
+        this would be max number of clusters requested. See `fcluster <https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html>`__
         for the full description.
     criterion : str, optional
         The criterion to use in forming flat clusters. This can
         be any of the following values: 'inconsistent', 'distance',
-        'maxclust', 'monocrit', 'maxclust_monocrit'. See `fcluster`_
+        'maxclust', 'monocrit', 'maxclust_monocrit'. See `fcluster <https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html>`__
         for the full description.
     merge_scheme : str, default='intra'
         The scheme to merge the distances between the trajectories.
@@ -59,8 +59,6 @@ class Shine:
         Fraction of the data to be sampled from each trajectory.
     
     .. _Linkage Methods: https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html
-    
-    .. _fcluster: https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html
     """
     def __init__(self, trajs, metric, N_atoms, t, criterion, link='ward',
                  merge_scheme='intra', sampling='diversity', **kwargs):

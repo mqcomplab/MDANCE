@@ -32,16 +32,16 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 
 [**scripts/inputs/normalize.py**](../scripts/inputs/normalize.py) will normalize the dataset. The following parameters to be specified in the script:
 
-    # System info - EDIT THESE
-    data_file = data.blob_disk
+    # System parameters
+    data_file = data.blob_disk                          # Input data as a CSV file
     array = np.genfromtxt(data_file, delimiter=',')
-    output_base_name = 'output_base_name'
+    output_base_name = 'array'                          # Prefix for the output files
 
 #### Inputs
-##### System info
+##### System parameters
 `data_file` is your input file with a 2D array.<br>
 `array` is the array is the loaded dataset from `data_file`. This step can be changed according to the type of file format you have. However, `array` must be an array-like in the shape (number of samples, number of features).<br>
-`output_base_name` is the base name for the output file. The output file will be saved as `output_base_name.npy`.<br>
+`output_base_name` is the base name for the output file. The output file will be saved as `outputs/{output_base_name}.npy`.<br>
 </details>
 
 ### 2. eQual Screening
@@ -49,28 +49,33 @@ This step is **optional**. If you are using a metric that is NOT the mean-square
 *Depending on the number of samples or features, consider sieving over wide threshold range. For large dataset, please submit this as a job instead of running on command line.* <br>
 The following parameters to be specified in the script:
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-    # eQUAL params - EDIT THESE
-    metric = 'MSD'                                                      # Default
-    n_seeds = 3
-    check_sim = True                                                    # Default
-    reject_lowd = True                                                  # Default
-    sim_threshold = 16
-    min_samples = 10                                                    # Default
+    # eQual parameters
+    metric = 'MSD'                                      # Distance metric for clustering
+    n_seeds = 3                                         # Seeds tried per iteration (int, or fraction of the data)
+    check_sim = True                                    # Reject clusters less similar than sim_threshold
+    reject_lowd = True                                  # Reject clusters smaller than min_samples
+    sim_threshold = 16                                  # Largest similarity value a cluster may have
+    min_samples = 10                                    # Minimum cluster size
 
-    # thresholds params- EDIT THESE
-    start_threshold = 5
-    end_threshold = 6
-    step = 0.1
-    save_clusters = False                                                # Default False
+    # Screening parameters
+    start_threshold = 5                                 # First threshold to screen
+    end_threshold = 6                                   # Last threshold to screen
+    step = 0.1                                          # Step between thresholds
+    save_clusters = False                               # Save the clusters of each threshold as .pkl
+    output_dir = 'outputs'                              # Folder for output files
+
+    # Analysis parameters
+    plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+    x_min = None                                        # Only suggest values >= x_min (None = all)
 
 #### Inputs
 
-##### System info
+##### System parameters
 `input_traj_numpy` is the numpy array prepared from step 1, if not it will be your loaded dataset. <br>
 `N_atoms` is the number of atoms used in the clustering. **For all non-Molecular Dynamics datasets, this is 1.** <br>
 `sieve` takes every sieve-th frame from the trajectory for analysis. <br>
@@ -87,7 +92,12 @@ The following parameters to be specified in the script:
 `start_threshold` is the starting value `r_theshold` for screening range. <br>
 `end_threshold` is the ending value of `r_theshold` screening range. <br>
 `step` is the increment of the `r_theshold` screening range. <br>
-`save_clusters` is boolean to save the cluster dictionary. Default is False. <br>
+`save_clusters` is boolean to save the cluster dictionary of each threshold in `outputs/clusters_dict/`. Default is False. <br>
+`output_dir` is the directory to store the results. <br>
+
+##### Analysis parameters
+`plot_metrics` is boolean to plot the screening results and mark the suggested thresholds (see step 3). If False, no analysis is done. <br>
+`x_min` is the smallest threshold that can be suggested. The whole screening is still plotted. `None` considers all values. <br>
 
 #### Execution
 ```bash
@@ -95,41 +105,44 @@ $ python screen_equal.py
 ```
 
 #### Outputs
-- a csv with the number of clusters, cluster population for each threshold value. 
-- a csv with the Calinski-Harabasz (CH) score and Davies-Bouldin (DB) score (two cluster quality indices) for each threshold value.
+- `outputs/equal_screening.csv` with the number of clusters and the population of the top 10 clusters for each threshold value.
+- `outputs/equal_scores.csv` with the number of clusters, Calinski-Harabasz (CH) score, Davies-Bouldin (DB) score (two cluster quality indices), and average MSD of the clusters for each threshold value.
+- `outputs/clusters_dict/equal_threshold_{threshold}.pkl` with the clusters of each threshold, if `save_clusters = True`.
 
 ### 3. eQual Screening Analysis
-[**scripts/equal/analysis.ipynb**](../scripts/equal/analysis_db.ipynb.ipynb) will analyze the eQual screening results. 
+When `plot_metrics = True`, `screen_equal.py` analyzes the screening results after the screening:
+- `outputs/equal_scores_dbi.png` and `outputs/equal_scores_chi.png` plot the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI) for each threshold. The suggested thresholds (lowest DBI or highest CHI, and the sharpest 2<sup>nd</sup> derivatives) are marked.
+- `outputs/equal_screening_nclusters.png` plots the number of clusters for each threshold and marks the threshold with the most clusters.
 
-**Step-by-step tutorial can be found in the [analysis notebook](../scripts/equal/analysis_db.ipynb).**
+The same analysis can be run on any screening csv with [`mdance.outputs.plot`](../src/mdance/outputs/plot.py) (`plot_scores` and `plot_n_clusters`).
 
 ### 4. Assign labels to the frames
 [**scripts/equal/assign_labels.py**](../scripts/equal/assign_labels.py) will assign cluster for each frame. The following parameters to be specified in the script:
 
-    # System info - EDIT THESE
-    input_traj_numpy = data.sim_traj_numpy
-    N_atoms = 50
-    sieve = 1
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-    # eQUAL params - EDIT THESE
-    metric = 'MSD'                                                      # Default 
-    n_seeds = 3                                                         # Default
-    check_sim = True                                                    # Default
-    reject_lowd = True                                                  # Default
-    sim_threshold = 16
-    min_samples = 10                                                    # Default
+    # eQual parameters
+    metric = 'MSD'                                      # Distance metric for clustering
+    n_seeds = 3                                         # Seeds tried per iteration (int, or fraction of the data)
+    check_sim = True                                    # Reject clusters less similar than sim_threshold
+    reject_lowd = True                                  # Reject clusters smaller than min_samples
+    sim_threshold = 16                                  # Largest similarity value a cluster may have
+    min_samples = 10                                    # Minimum cluster size
 
-    # extract params- EDIT THESE
-    threshold = 5.80
-    n_structures = 11                                                   # Default
-    sorted_by = 'frame'                                                 # Default
-    open_clusters = None                                                # Default   
+    # Output parameters
+    threshold = 5.80                                    # Cluster radius threshold (pick from screen_equal.py)
+    n_structures = 11                                   # Frames saved per cluster, closest to its medoid
+    open_clusters = None                                # Saved clusters .pkl to reuse (None = recluster)
+    output_dir = 'outputs'                              # Folder for output files
 
 #### Inputs - New parameters
-`threshold` is desired threshold value to use for clustering. If `None`, it will use the best threshold value by reading `param_file`. <br>
-`n_structures` is the number of closest structure (from medoid) to extract from each cluster. <br>
-`sorted_by` is the sorting method for the cluster labels. {'frame', 'cluster'}. Either frames or clusters can be sorted by ascending order. Default is 'frame'. <br>
-`open_cluster_dict` is the cluster dictionary file to open. If `None`, it will run the clustering algorithm. <br>
+`threshold` is the threshold value to use for clustering, e.g. chosen from the screening plots. <br>
+`n_structures` is the number of closest structures (from the medoid) to extract from each cluster. <br>
+`open_clusters` is a saved cluster dictionary to open (e.g. `outputs/clusters_dict/equal_threshold_5.8.pkl` from the screening with `save_clusters = True`). If `None`, it will run the clustering algorithm. <br>
+`output_dir` is the directory to store the results. <br>
 
 #### Execution
 ```bash
@@ -137,14 +150,15 @@ python assign_labels.py
 ```
 
 #### Outputs
-`best_frames_indices.csv` contains the top *n* number (`n_structures`) of most representative frames for each of the top clusters (`top_num_cluster`). <br>
-`frame_vs_cluster.csv` contains cluster assignment per frame. <br>
-`sorted_by="frame"` will sort `frame_vs_cluster.csv` by ascending frame number. `sorted_by="cluster"` will sort by ascending cluster number. <br>
+All files are saved in `outputs/`, with the `threshold` in the name (e.g. `threshold = 5.8`). Clusters are numbered by size, cluster 0 being the largest. <br>
+`equal_best_frames_5.8.csv` contains the `n_structures` most representative frames of each cluster, closest to the medoid first (frame index, cluster index). <br>
+`equal_labels_5.8.csv` contains the cluster of each frame, in frame order (frame index, cluster index). Frames rejected as low density are not assigned to any cluster and are left out. <br>
+`equal_summary_5.8.csv` contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames. <br>
 
 ### 5. Extract frames for each cluster (Optional)
 **This step is *optional* and for Molecular Dynamics Trajectories only.**
 
-The last step is to extract the designated frames from the original trajectory for each cluster.
+The last step is to extract the designated frames (e.g. `outputs/equal_best_frames_5.8.csv`) from the original trajectory for each cluster.
 
 **Step-by-step tutorial can be found in the [postprocessing notebook](../scripts/outputs/postprocessing.ipynb).**
 

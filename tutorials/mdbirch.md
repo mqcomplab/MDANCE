@@ -36,10 +36,10 @@ Prepare a valid topology file (e.g. `.pdb`, `.prmtop`), trajectory file (e.g. `.
 
 
 #### Inputs
-##### System info
+##### System parameters
 `data_file` is your input file with a 2D array.<br>
 `array` is the array is the loaded dataset from `data_file`. This step can be changed according to the type of file format you have. However, `array` must be an array-like in the shape (number of samples, number of features).<br>
-`output_base_name` is the base name for the output file. The output file will be saved as `output_base_name.npy`.<br>
+`output_base_name` is the base name for the output file. The output file will be saved as `outputs/{output_base_name}.npy`.<br>
 
 
 ### 2. mdBIRCH clustering
@@ -51,17 +51,23 @@ This script:
 1) loads your trajectory numpy array  
 2) configures the merge rule (radius-based)  
 3) fits the mdBIRCH model  
-4) writes a `frame,label` CSV for downstream analysis
+4) writes a labels CSV (frame index, cluster index) for downstream analysis
 
 #### Parameters to edit in `run_mdbirch.py`
-    # Parameters and configuration
-    input_traj_numpy = data.sim_traj_numpy
-    sieve = 1
-    threshold = 3.06
+    # System parameters
+    input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system (for the cluster MSD)
+    sieve = 1                                           # Use every sieve-th frame (1 = all frames)
+
+    # mdBIRCH parameters
+    threshold = 3.06                                    # Subcluster radius; larger values give fewer clusters
+    output_dir = 'outputs'                              # Folder for output files
 
 - `input_traj_numpy` : path to the `.npy` array from step 1  
+- `N_atoms` : number of atoms in the system, used for the MSD of each cluster in the summary  
 - `sieve` : take every `sieve`-th frame (e.g., `10` for a quick scan)  
 - `threshold` : the clustering tolerance that controls granularity  
+- `output_dir` : the directory to store the results  
 
 #### Merge criterion (radius)
 For MD use cases in this repo, we assume your frames are represented as **reference-aligned Cartesian coordinates** (so the feature dimension is implicitly `3 * n_atoms_selected`).
@@ -76,9 +82,10 @@ The script prints:
 - the total number of clusters discovered
 
 and writes:
-- `mdbirch_labels_<threshold>.csv` containing:
-  - `frame` : frame index (0-based in the sieved trajectory)
-  - `label` : cluster id assigned by mdBIRCH
+- `outputs/mdbirch_labels_<threshold>.csv` (e.g. `outputs/mdbirch_labels_3.06.csv`) containing, in frame order:
+  - `Frame Index` : frame index in the original trajectory (multiplied by `sieve`)
+  - `Cluster Index` : cluster assigned by mdBIRCH. Clusters are numbered by size, cluster 0 being the largest; frames not assigned to any cluster are left out
+- `outputs/mdbirch_summary_<threshold>.csv` containing the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames
 
 Internally, you can also access:
 - `clusters = model.get_cluster_mol_ids()` → list of lists of frame indices per cluster  
@@ -87,7 +94,7 @@ Internally, you can also access:
 ### 4. Extract frames for each cluster (Optional)
 **This step is optional and for Molecular Dynamics trajectories only.**
 
-Once you have `frame,label` assignments, you can extract representative frames from each cluster using the standard postprocessing workflow:
+Once you have the cluster assignments, you can extract representative frames from each cluster using the standard postprocessing workflow:
 
 **Step-by-step tutorial can be found in the [postprocessing notebook](../scripts/outputs/postprocessing.ipynb).**
 

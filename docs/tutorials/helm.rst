@@ -79,20 +79,20 @@ script:
 
 ::
 
-   # System info - EDIT THESE
-   data_file = '../data/2D/blob_disk.csv'
+   # System parameters
+   data_file = data.blob_disk                          # Input data as a CSV file
    array = np.genfromtxt(data_file, delimiter=',')
-   output_base_name = 'output_base_name'
+   output_base_name = 'array'                          # Prefix for the output files
 
 Inputs
 ^^^^^^
 
-System info
-'''''''''''
+System parameters
+'''''''''''''''''
 
 | ``data_file`` is your input file with a 2D array. 
 | ``array`` is the array is the loaded dataset from ``data_file``. This step can be changed according to the type of file format you have. However, ``array`` must be an array-like in the shape (number of samples, number of features).
-| ``output_base_name`` is the base name for the output file. The output file will be saved as ``output_base_name.npy``. 
+| ``output_base_name`` is the base name for the output file. The output file will be saved as ``outputs/{output_base_name}.npy``. 
 
 .. raw:: html
 
@@ -101,7 +101,7 @@ System info
 3. Prior Clustering (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-HELM requires a set of initial clusters to start with. You can start from any clustering method. An example is with the NANI clustering also among this tutorial set. All you need is to have the cluster labels similar to this format:
+HELM requires a set of initial clusters to start with. You can start from any clustering method. An example is with the NANI clustering also among this tutorial set. All you need is to have the cluster labels similar to this format (frame index, cluster index); ``mdance.data.labels_60`` is a sample with 60 clusters from NANI:
 
 :: 
 
@@ -119,37 +119,53 @@ HELM requires a set of initial clusters to start with. You can start from any cl
 
 ::
 
-   # System info - EDIT THESE
-   input_traj_numpy = data.sim_traj_numpy
-   cluster_labels = '../labels_60.csv'
-   sieve = 1
-   N_atoms = 50                                    # Number of atoms in the system
+   # System parameters
+   input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+   cluster_labels = data.labels_60                     # Labels of the initial clusters (e.g. from NANI)
+   sieve = 1                                           # Use every sieve-th frame (1 = all frames)
+   N_atoms = 50                                        # Number of atoms in the system
 
-   # HELM params - EDIT THESE
-   metric = 'MSD'                                  # Default  
-   N0 = 60                                         # How many clusters to start with
-   final_target = 1                                # How many clusters to end with
-   save_pairwise_sim = False                       # Default
-   merging_scheme = 'inter'                        # {'inter', 'intra'}
+   # HELM parameters
+   metric = 'MSD'                                      # Distance metric for clustering
+   merge_scheme = 'intra'                              # Merge scheme {'inter', 'intra', 'half'}
+   link = None                                         # Linkage method {None, 'ward'}
+   n_clusters = 1                                      # Either n_clusters or eps must be set
+   eps = None                                          # Either n_clusters or eps must be set
+   trim_start = False                                  # Remove the least compact initial clusters first
+   trim_val = None                                     # Either trim_val or trim_k must be set
+   trim_k = 5                                          # Either trim_val or trim_k must be set
+   save_pairwise_sim = False                           # Save the pairwise similarity matrix
+   output_dir = 'outputs'                              # Folder for output files
 
-.. _system-info-1:
+   # Analysis parameters
+   plot_metrics = True                                 # Plot DBI and CHI, and suggest values
+   x_min = 5                                           # Only suggest values >= x_min (None = all)
 
 Inputs
 ^^^^^^
 
-System info
-'''''''''''
-| ``input_file``: The trajectory from step 1.
-| ``cluster_labels``: The cluster labels from step 2.
+System parameters
+'''''''''''''''''
+| ``input_traj_numpy``: The numpy array prepared from step 2.
+| ``cluster_labels``: The cluster labels from step 3.
 | ``sieve``: Reading every ``sieve`` frames from the trajectory.
 | ``N_atoms``: The number of atoms used in the clustering.
 
-- **HELM params**
+HELM parameters
+'''''''''''''''
 | ``metric``: The metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
-| ``N0``: The number of clusters to start with.
-| ``final_target``: The number of clusters to end with.
+| ``merge_scheme``: The merging scheme to use. {``inter``, ``intra``, ``half``}. ``inter`` merges clusters with lowest interdistance. ``intra`` merges clusters with lowest intradistance. ``half`` merges clusters with the lowest combined MSD minus the average MSD of the two clusters.
+| ``link`` *(optional)*: ``'ward'`` to merge the clusters with Ward linkage instead of ``merge_scheme``. Default is None.
+| ``n_clusters``: The number of clusters to stop at. Either ``n_clusters`` or ``eps`` must be set.
+| ``eps``: The largest distance at which two clusters can still be merged. Either ``n_clusters`` or ``eps`` must be set.
+| ``trim_start`` *(optional)*: A boolean to remove the least compact initial clusters before merging, using ``trim_val`` (an MSD cutoff) or ``trim_k`` (the number of clusters to remove). Default is False.
 | ``save_pairwise_sim`` *(optional)*: A boolean variable to indicate whether to save the pairwise similarity matrix. Default is False.
-| ``merging_scheme`` *(optional)*: The merging scheme to use. {``inter``, ``intra``}. ``inter`` merges clusters with lowest interdistance. ``intra`` merges clusters with lowest intradistance. Default is ``inter``.
+| ``output_dir``: The directory to store the results.
+
+Analysis parameters
+'''''''''''''''''''
+| ``plot_metrics``: A boolean to plot the clustering scores and mark the suggested number of clusters (see step 5). If False, no analysis is done.
+| ``x_min``: The smallest number of clusters that can be suggested. The whole hierarchy is still plotted. ``None`` considers all values.
 
 Execution
 ^^^^^^^^^
@@ -161,21 +177,24 @@ Execution
 Outputs
 ^^^^^^^
 
-* Pickle file containing the clustering results.
-* CSV file containing the Calinski-Harabasz and Davies-Bouldin scores for each number of clusters.
+Files are named after ``link``, or ``merge_scheme`` if ``link`` is None (e.g. ``intra``):
+
+* ``outputs/helm_intra.pkl`` containing the clustering results.
+* ``outputs/helm_intra_scores.csv`` containing the Calinski-Harabasz score, Davies-Bouldin score, and average MSD of the clusters for each number of clusters.
 
 5. Get most optimal number of clusters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The clustering screening results will be analyzed using the
-Davies-Bouldin index (DB). There are two criteria to select the number
-of clusters: 
+The clustering screening results are analyzed using the
+Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI). There are
+two criteria to select the number of clusters: 
 
-1. lowest DB
-2. maximum 2nd derivative of DB.
+1. lowest DBI or highest CHI
+2. maximum 2nd derivative of DBI or minimum 2nd derivative of CHI.
 
-`analysis notebook <https://github.com/mqcomplab/MDANCE/blob/main/scripts/helm/analysis_db.ipynb>`__
-contains step-by-step tutorial to analyze clustering screening results.
+When ``plot_metrics = True``, ``run_helm.py`` does this analysis after clustering: it saves the DBI and CHI plots (e.g. ``outputs/helm_intra_scores_dbi.png`` and ``outputs/helm_intra_scores_chi.png``) with the suggested number of clusters marked.
+
+The same analysis can be run on any scores csv with ``mdance.outputs.plot.plot_scores``.
 
 6. Cluster Assignment
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -184,42 +203,38 @@ contains step-by-step tutorial to analyze clustering screening results.
 
 ::
 
-   # System info - EDIT THESE
-   input_traj_numpy = data.sim_traj_numpy
-   N_atoms = 50
-   sieve = 1
+   # System parameters
+   input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+   N_atoms = 50                                        # Number of atoms in the system
+   sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
-   # HELM params - EDIT THESE
-   n_clusters = 10
-   pre_cluster_labels = '../labels_60.csv'
-   pickle_file = 'inter-helm.pkl'
-   metric = 'MSD'                                                      # Default
-   extract_type = 'top'                                                # Default
-   n_structures = 11                                                   # Default
-
-.. _inputs-1:
+   # HELM parameters
+   n_clusters = 10                                     # Number of clusters to assign
+   pre_cluster_labels = data.labels_60                 # Labels of the initial clusters (e.g. from NANI)
+   pickle_file = 'outputs/helm_intra.pkl'              # HELM output from run_helm.py
+   metric = 'MSD'                                      # Distance metric for clustering
+   n_structures = 11                                   # Frames saved per cluster, closest to its medoid
+   output_dir = 'outputs'                              # Folder for output files
 
 Inputs
 ^^^^^^
 
-.. _system-info-2:
+System parameters
+'''''''''''''''''
 
-System info
-'''''''''''
-
-| ``input_traj_numpy``: The normalized trajectory from step 1.
+| ``input_traj_numpy``: The numpy array prepared from step 2.
 | ``N_atoms``: The number of atoms used in the clustering.
 | ``sieve``: Reading every ``sieve`` frames from the trajectory.
 
-HELM params
-'''''''''''
+HELM parameters
+'''''''''''''''
 
-| ``n_clusters``: The number of clusters to assign labels to. Use the most optimal number of clusters from analysis in step 4.
-| ``pre_cluster_labels``: The cluster labels from step 2.
-| ``pickle_file``: The clustering results from step 3.
+| ``n_clusters``: The number of clusters to assign labels to. Use the most optimal number of clusters from analysis in step 5.
+| ``pre_cluster_labels``: The cluster labels from step 3.
+| ``pickle_file``: The clustering results from step 4.
 | ``metric``: The metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
-| ``extract_type``: The type of extraction method to use. {``top``, ``random``}. ``top`` means to extract the top ``n_structures`` from each cluster. ``random`` means to extract ``n_structures`` random structures from each cluster.
-| ``n_structures``: The number of structures to extract from each cluster.
+| ``n_structures``: The number of structures closest to the medoid to extract from each cluster.
+| ``output_dir``: The directory to store the results.
 
 Execution
 ^^^^^^^^^
@@ -231,11 +246,13 @@ Execution
 Outputs
 ^^^^^^^
 
-* ``helm_cluster_labels.csv``: Contains the cluster labels for each frame.
-* ``helm_best_frames_indices.csv``: Contains the indices of the best or random frames to extract from each cluster.
-* ``helm_summary.csv``: Contains the summary of the clustered population.
+All files are saved in ``outputs/``, with ``{n_clusters}`` in the name (e.g. ``n_clusters = 10``). Clusters are numbered by size, cluster 0 being the largest.
 
-6. Extract frames for each cluster (Optional)
+* ``helm_labels_10.csv``: Contains the cluster of each frame, in frame order (frame index, cluster index). Frames not in any cluster are left out.
+* ``helm_best_frames_10.csv``: Contains the ``n_structures`` frames closest to the medoid of each cluster, closest first (frame index, cluster index).
+* ``helm_summary_10.csv``: Contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
+
+7. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `postprocessing.ipynb <../examples/postprocessing.html>`__
@@ -248,6 +265,20 @@ Further Reading
 ~~~~~~~~~~~~~~~
 
 For more information on the HELM algorithm, please refer to the `HELM
-paper <https://www.biorxiv.org/content/10.1101/2025.03.05.641742v1>`__.
+paper <https://doi.org/10.1021/acs.jcim.5c00539>`__.
 
 Please Cite
+
+.. code:: bibtex
+
+   @article{chen_hierarchical_2025,
+       title = {Hierarchical {Extended} {Linkage} {Method} ({HELM})'s {Deep} {Dive} into {Hybrid} {Clustering} {Strategies}},
+       author = {Chen, Lexin and Santos, Jherome Brylle Woody and Gaza, Jokent and Perez, Alberto and Miranda-Quintana, Ramón Alain},
+       journal = {Journal of Chemical Information and Modeling},
+       volume = {65},
+       number = {12},
+       pages = {6209--6220},
+       year = {2025},
+       doi = {10.1021/acs.jcim.5c00539},
+       url = {https://doi.org/10.1021/acs.jcim.5c00539},
+   }
