@@ -139,14 +139,14 @@ The script generates two output files in `outputs/` (named after `anchors`, e.g.
 
 **Cluster quality metrics:**
 - `outputs/divine_nani_scores.csv`
-  - Columns: `n_clusters`, `CH_score`, `DB_score`
+  - Columns: `Number of clusters`, `Calinski-Harabasz`, `Davies-Bouldin`, `Average MSD`
   - Each row represents cluster counts at different hierarchy levels
   - **CH score** (Calinski-Harabasz): Higher is better (max ~∞)
   - **DB score** (Davies-Bouldin): Lower is better (min ~0)
 
 **Cluster structure metrics:**
 - `outputs/divine_nani_msds.csv`
-  - Columns: `level`, `cluster_index`, `population`, `msd`
+  - Columns: `Level`, `Cluster Index`, `Number of frames`, `MSD` (level *L* has *L* + 1 clusters)
   - Tracks splitting history and cluster properties
   - `level` : Hierarchical depth of the split
   - `cluster_index` : Identifier for the cluster
@@ -204,7 +204,8 @@ python assign_labels.py
 
 All files are saved in `outputs/`, with `k` in the name (e.g. `k = 6`). Clusters are numbered by size, cluster 0 being the largest.
 - `divine_labels_6.csv`: the cluster of each frame, in frame order (frame index, cluster index)
-- `divine_best_frames_6.csv`: the `top_n` frames closest to the medoid of each cluster (frame index, cluster index)
+- `divine_best_frames_6.csv`: the `top_n` frames closest to the medoid of each cluster, closest first (frame index, cluster index)
+- `divine_summary_6.csv`: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames
 
 ### 6. Extract Frames for Each Cluster (Optional - MD only)
 

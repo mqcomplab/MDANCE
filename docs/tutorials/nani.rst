@@ -170,9 +170,8 @@ Make sure your pwd is ``$PATH/MDANCE/scripts/nani``.
 Outputs
 ^^^^^^^
 
-``outputs/{percentage}{init_type}_summary.csv`` (e.g. ``outputs/10strat_all_summary.csv``) containing the number
-of clusters and the corresponding number of iterations, Calinski-Harabasz score, Davies-Bouldin score, and
-average mean-square deviation for that seed selector.
+``outputs/nani_{init_type}_scores.csv`` (e.g. ``outputs/nani_strat_all_scores.csv``) containing
+the number of clusters, Calinski-Harabasz score, Davies-Bouldin score, average mean-square deviation (MSD) of the clusters, and number of iterations for that seed selector.
 
 4. Analysis of NANI Screening Results
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -184,7 +183,7 @@ two criteria to select the number of clusters:
 1. lowest DBI or highest CHI
 2. maximum 2nd derivative of DBI or minimum 2nd derivative of CHI.
 
-When ``plot_metrics = True``, ``screen_nani.py`` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. ``outputs/10strat_all_summary_dbi.png`` and ``outputs/10strat_all_summary_chi.png``) with the suggested number of clusters marked.
+When ``plot_metrics = True``, ``screen_nani.py`` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. ``outputs/nani_strat_all_scores_dbi.png`` and ``outputs/nani_strat_all_scores_chi.png``) with the suggested number of clusters marked.
 
 The same analysis can be run on any screening csv with ``mdance.outputs.plot.plot_scores``, as shown in the `cluster analysis example <../examples/analysis_db.html>`__.
 
@@ -245,7 +244,7 @@ All files are saved in ``outputs/``, with ``{n_clusters}`` in the name (e.g. ``n
 
 * ``nani_best_frames_6.csv``: the ``n_structures`` frames closest to the medoid of each cluster (frame index, cluster index).
 * ``nani_labels_6.csv``: the cluster label of each frame (frame index, cluster index).
-* ``nani_summary_6.csv``: the population of each cluster (cluster index, fraction of total frames).
+* ``nani_summary_6.csv``: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
 
 6. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

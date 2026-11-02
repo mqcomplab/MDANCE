@@ -111,7 +111,7 @@ def plot_scores(scores_csv, x_min=None, ch_col=None, db_col=None, xlabel=None,
     Parameters
     ----------
     scores_csv : str
-        Path to the screening scores file, e.g. ``outputs/intra_helm_scores.csv``.
+        Path to the screening scores file, e.g. ``outputs/helm_intra_scores.csv``.
     x_min : float, default=None
         Only values greater than or equal to ``x_min`` are suggested. The whole
         screening is still plotted.
@@ -139,7 +139,7 @@ def plot_scores(scores_csv, x_min=None, ch_col=None, db_col=None, xlabel=None,
     Examples
     --------
     >>> from mdance.outputs.plot import plot_scores
-    >>> suggested, figs = plot_scores('outputs/intra_helm_scores.csv', x_min=5)  # doctest: +SKIP
+    >>> suggested, figs = plot_scores('outputs/helm_intra_scores.csv', x_min=5)  # doctest: +SKIP
     >>> suggested['DBI']['Min']  # doctest: +SKIP
     """
     scores_csv = str(scores_csv)

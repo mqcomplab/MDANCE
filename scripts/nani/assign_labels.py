@@ -56,9 +56,11 @@ if __name__ == '__main__':
         for i, row in enumerate(labels):
             f.write(f'{i * sieve},{row}\n')
 
-    # Calculate population of each cluster
+    # Calculate population and MSD of each cluster
     with open(f'{output_dir}/nani_summary_{n_clusters}.csv', 'w') as f:
-        f.write(f'# {params}\n')
-        f.write('# Cluster Index, Fraction of total frames\n')
-        for i, row in enumerate(np.bincount(labels)):
-            f.write(f'{i},{row/len(labels)}\n')
+        f.write(f'# {params}, total frames: {len(labels)}\n')
+        f.write('# Cluster Index, Fraction of total frames, Number of frames, MSD\n')
+        for i in np.unique(labels[labels >= 0]):
+            members = traj_numpy[labels == i]
+            msd = extended_comparison(members, data_type='full', metric=metric, N_atoms=N_atoms)
+            f.write(f'{i},{len(members) / len(labels)},{len(members)},{msd}\n')

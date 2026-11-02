@@ -56,6 +56,7 @@ This script:
 #### Parameters to edit in `run_mdbirch.py`
     # System parameters
     input_traj_numpy = data.sim_traj_numpy              # Trajectory as a .npy array (frames x features)
+    N_atoms = 50                                        # Number of atoms in the system (for the cluster MSD)
     sieve = 1                                           # Use every sieve-th frame (1 = all frames)
 
     # mdBIRCH parameters
@@ -63,6 +64,7 @@ This script:
     output_dir = 'outputs'                              # Folder for output files
 
 - `input_traj_numpy` : path to the `.npy` array from step 1  
+- `N_atoms` : number of atoms in the system, used for the MSD of each cluster in the summary  
 - `sieve` : take every `sieve`-th frame (e.g., `10` for a quick scan)  
 - `threshold` : the clustering tolerance that controls granularity  
 - `output_dir` : the directory to store the results  
@@ -82,7 +84,8 @@ The script prints:
 and writes:
 - `outputs/mdbirch_labels_<threshold>.csv` (e.g. `outputs/mdbirch_labels_3.06.csv`) containing, in frame order:
   - `Frame Index` : frame index in the original trajectory (multiplied by `sieve`)
-  - `Cluster Index` : cluster assigned by mdBIRCH. Clusters are numbered by size, cluster 0 being the largest; `-1` marks frames not assigned to any cluster
+  - `Cluster Index` : cluster assigned by mdBIRCH. Clusters are numbered by size, cluster 0 being the largest; frames not assigned to any cluster are left out
+- `outputs/mdbirch_summary_<threshold>.csv` containing the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames
 
 Internally, you can also access:
 - `clusters = model.get_cluster_mol_ids()` → list of lists of frame indices per cluster  

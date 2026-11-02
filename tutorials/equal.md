@@ -106,12 +106,12 @@ $ python screen_equal.py
 
 #### Outputs
 - `outputs/equal_screening.csv` with the number of clusters and the population of the top 10 clusters for each threshold value.
-- `outputs/equal_screening_scores.csv` with the Calinski-Harabasz (CH) score and Davies-Bouldin (DB) score (two cluster quality indices) for each threshold value.
+- `outputs/equal_scores.csv` with the number of clusters, Calinski-Harabasz (CH) score, Davies-Bouldin (DB) score (two cluster quality indices), and average MSD of the clusters for each threshold value.
 - `outputs/clusters_dict/equal_threshold_{threshold}.pkl` with the clusters of each threshold, if `save_clusters = True`.
 
 ### 3. eQual Screening Analysis
 When `plot_metrics = True`, `screen_equal.py` analyzes the screening results after the screening:
-- `outputs/equal_screening_scores_dbi.png` and `outputs/equal_screening_scores_chi.png` plot the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI) for each threshold. The suggested thresholds (lowest DBI or highest CHI, and the sharpest 2<sup>nd</sup> derivatives) are marked.
+- `outputs/equal_scores_dbi.png` and `outputs/equal_scores_chi.png` plot the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI) for each threshold. The suggested thresholds (lowest DBI or highest CHI, and the sharpest 2<sup>nd</sup> derivatives) are marked.
 - `outputs/equal_screening_nclusters.png` plots the number of clusters for each threshold and marks the threshold with the most clusters.
 
 The same analysis can be run on any screening csv with [`mdance.outputs.plot`](../src/mdance/outputs/plot.py) (`plot_scores` and `plot_n_clusters`).
@@ -151,8 +151,9 @@ python assign_labels.py
 
 #### Outputs
 All files are saved in `outputs/`, with the `threshold` in the name (e.g. `threshold = 5.8`). Clusters are numbered by size, cluster 0 being the largest. <br>
-`equal_best_frames_5.8.csv` contains the `n_structures` most representative frames (closest to the medoid) of each cluster (frame index, cluster index). <br>
+`equal_best_frames_5.8.csv` contains the `n_structures` most representative frames of each cluster, closest to the medoid first (frame index, cluster index). <br>
 `equal_labels_5.8.csv` contains the cluster of each frame, in frame order (frame index, cluster index). Frames rejected as low density are not assigned to any cluster and are left out. <br>
+`equal_summary_5.8.csv` contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames. <br>
 
 ### 5. Extract frames for each cluster (Optional)
 **This step is *optional* and for Molecular Dynamics Trajectories only.**

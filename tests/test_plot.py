@@ -29,6 +29,9 @@ def test_matches_previous_analysis():
 
 
 @pytest.mark.parametrize('header, ch_col, db_col', [
+    ('# NANI\n# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD, Number of iterations\n', 1, 2),
+    ('# eQual\n# Threshold, Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD\n', 2, 3),
+    # Older headers, e.g. in the bundled nani_screening.csv
     ('# NANI\n# Number of clusters, Number of iterations, Calinski-Harabasz score, Davies-Bouldin score, Average MSD\n', 2, 3),
     ('# HELM\n# n_clusters,CH,DB\n', 1, 2),
     ('# DIVINE\n# n_clusters,CH_score,DB_score\n', 1, 2),

@@ -76,3 +76,12 @@ if __name__ == '__main__':
     frame_vs_cluster = frame_vs_cluster[labels >= 0]
     np.savetxt(f'{output_dir}/equal_labels_{threshold}.csv', frame_vs_cluster, delimiter=',', fmt='%d',
                header=f'{params}\nFrame Index, Cluster Index')
+
+    # Calculate population and MSD of each cluster
+    with open(f'{output_dir}/equal_summary_{threshold}.csv', 'w') as f:
+        f.write(f'# {params}, total frames: {total_frames}\n')
+        f.write('# Cluster Index, Fraction of total frames, Number of frames, MSD\n')
+        for i in np.unique(labels[labels >= 0]):
+            members = traj_numpy[labels == i]
+            msd = extended_comparison(members, data_type='full', metric=metric, N_atoms=N_atoms)
+            f.write(f'{i},{len(members) / total_frames},{len(members)},{msd}\n')

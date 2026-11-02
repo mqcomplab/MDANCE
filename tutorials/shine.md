@@ -42,7 +42,7 @@ Convert each pathway's trajectory to a numpy array (one file per pathway) as sho
 
 ### 2. SHINE Clustering
 
-A runnable script is also provided in [`scripts/shine/run_shine.py`](../scripts/shine/run_shine.py). It runs the same steps and saves the cluster of each pathway (`outputs/shine_labels_intra_50.csv`, columns: pathway index, cluster index) and the dendrogram (`outputs/div_dendro_intra_50.png`), named after `merge_scheme` and `frac`.
+A runnable script is also provided in [`scripts/shine/run_shine.py`](../scripts/shine/run_shine.py). It runs the same steps and saves the cluster of each pathway (`outputs/shine_labels_intra_100.csv`, columns: pathway index, cluster index) and the dendrogram (`outputs/shine_dendrogram_intra_100.png`), named after `merge_scheme` and `frac`.
 
 The following code loads the pathways and runs SHINE:
 

@@ -179,8 +179,8 @@ Outputs
 
 Files are named after ``link``, or ``merge_scheme`` if ``link`` is None (e.g. ``intra``):
 
-* ``outputs/intra-helm.pkl`` containing the clustering results.
-* ``outputs/intra_helm_scores.csv`` containing the Calinski-Harabasz and Davies-Bouldin scores for each number of clusters.
+* ``outputs/helm_intra.pkl`` containing the clustering results.
+* ``outputs/helm_intra_scores.csv`` containing the Calinski-Harabasz score, Davies-Bouldin score, and average MSD of the clusters for each number of clusters.
 
 5. Get most optimal number of clusters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,7 +192,7 @@ two criteria to select the number of clusters:
 1. lowest DBI or highest CHI
 2. maximum 2nd derivative of DBI or minimum 2nd derivative of CHI.
 
-When ``plot_metrics = True``, ``run_helm.py`` does this analysis after clustering: it saves the DBI and CHI plots (e.g. ``outputs/intra_helm_scores_dbi.png`` and ``outputs/intra_helm_scores_chi.png``) with the suggested number of clusters marked.
+When ``plot_metrics = True``, ``run_helm.py`` does this analysis after clustering: it saves the DBI and CHI plots (e.g. ``outputs/helm_intra_scores_dbi.png`` and ``outputs/helm_intra_scores_chi.png``) with the suggested number of clusters marked.
 
 The same analysis can be run on any scores csv with ``mdance.outputs.plot.plot_scores``.
 
@@ -211,7 +211,7 @@ The same analysis can be run on any scores csv with ``mdance.outputs.plot.plot_s
    # HELM parameters
    n_clusters = 10                                     # Number of clusters to assign
    pre_cluster_labels = data.labels_60                 # Labels of the initial clusters (e.g. from NANI)
-   pickle_file = 'outputs/intra-helm.pkl'              # HELM output from run_helm.py
+   pickle_file = 'outputs/helm_intra.pkl'              # HELM output from run_helm.py
    metric = 'MSD'                                      # Distance metric for clustering
    n_structures = 11                                   # Frames saved per cluster, closest to its medoid
    output_dir = 'outputs'                              # Folder for output files
@@ -248,9 +248,9 @@ Outputs
 
 All files are saved in ``outputs/``, with ``{n_clusters}`` in the name (e.g. ``n_clusters = 10``). Clusters are numbered by size, cluster 0 being the largest.
 
-* ``helm_labels_10.csv``: Contains the cluster of each frame, in frame order (frame index, cluster index).
-* ``helm_best_frames_10.csv``: Contains the ``n_structures`` frames closest to the medoid of each cluster (frame index, cluster index).
-* ``helm_summary_10.csv``: Contains the population of each cluster (cluster index, fraction of total frames).
+* ``helm_labels_10.csv``: Contains the cluster of each frame, in frame order (frame index, cluster index). Frames not in any cluster are left out.
+* ``helm_best_frames_10.csv``: Contains the ``n_structures`` frames closest to the medoid of each cluster, closest first (frame index, cluster index).
+* ``helm_summary_10.csv``: Contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
 
 7. Extract frames for each cluster (Optional)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

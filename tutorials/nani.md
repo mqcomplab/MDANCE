@@ -81,12 +81,12 @@ $ python screen_nani.py
 ```
 
 #### Outputs
-`outputs/{percentage}{init_type}_summary.csv` (e.g. `outputs/10strat_all_summary.csv`) containing the number of clusters and the corresponding number of iterations, Calinski-Harabasz score, Davies-Bouldin score, and average mean-square deviation for that seed selector. <br>
+`outputs/nani_{init_type}_scores.csv` (e.g. `outputs/nani_strat_all_scores.csv`) containing the number of clusters, Calinski-Harabasz score, Davies-Bouldin score, average mean-square deviation (MSD) of the clusters, and number of iterations for that seed selector. <br>
 
 ### 3. Analysis of NANI Screening Results
 The clustering screening results are analyzed using the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI). There are two criteria to select the number of clusters: (1) lowest DBI or highest CHI and (2) maximum 2<sup>nd</sup> derivative of DBI or minimum 2<sup>nd</sup> derivative of CHI.
 
-When `plot_metrics = True`, `screen_nani.py` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. `outputs/10strat_all_summary_dbi.png` and `outputs/10strat_all_summary_chi.png`) with the suggested number of clusters marked. The same analysis can be run on any screening csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
+When `plot_metrics = True`, `screen_nani.py` does this analysis after the screening: it saves the DBI and CHI plots next to the screening csv (e.g. `outputs/nani_strat_all_scores_dbi.png` and `outputs/nani_strat_all_scores_chi.png`) with the suggested number of clusters marked. The same analysis can be run on any screening csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
 
 ### 4. Cluster Assignment
 [scripts/nani/assign_labels.py](../scripts/nani/assign_labels.py) will assign labels to the clusters for *k*-means clustering using the initialization methods. 
@@ -125,7 +125,7 @@ $ python assign_labels.py
 All files are saved in `outputs/`, with `{n_clusters}` in the name (e.g. `n_clusters = 6`). Clusters are numbered by size, cluster 0 being the largest.
 1. `nani_best_frames_6.csv`: the `n_structures` frames closest to the medoid of each cluster (frame index, cluster index).
 2. `nani_labels_6.csv`: the cluster label of each frame (frame index, cluster index).
-3. `nani_summary_6.csv`: the population of each cluster (cluster index, fraction of total frames).
+3. `nani_summary_6.csv`: the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames.
 
 ### 5. Extract frames for each cluster (Optional)
 [scripts/outputs/postprocessing.ipynb](../scripts/outputs/postprocessing.ipynb) will use the indices from last step (e.g. `outputs/nani_best_frames_6.csv`) to extract the designated frames from the original trajectory for each cluster.

@@ -46,5 +46,5 @@ if __name__ == '__main__':
 
     # Plot the dendrogram
     ax = mod.plot()
-    plt.savefig(f'{output_dir}/div_dendro_{merge_scheme}_{int(frac*100)}.png', bbox_inches='tight', dpi=500, pad_inches=0.1)
+    plt.savefig(f'{output_dir}/shine_dendrogram_{merge_scheme}_{int(frac*100)}.png', bbox_inches='tight', dpi=500, pad_inches=0.1)
     plt.close()

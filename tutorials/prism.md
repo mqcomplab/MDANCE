@@ -87,7 +87,7 @@ metric = 'MSD'                                      # Distance metric for cluste
 **PRISM parameters:**
 ```python
 option = 2                                          # Medoid construction: 1=global, 2=per-traj, 3=two-stage
-k = 6                                               # Number of clusters for representative medoid construction
+k = 20                                              # Number of clusters for representative medoid construction
 k_final = k                                         # Second-stage cluster count (used only if option == 3)
 weight_scheme = 'weighted_avg'                      # Average Hausdorff normalization {'unnormalized', 'weighted_avg', 'sym_avg', 'product_avg'}
 ```

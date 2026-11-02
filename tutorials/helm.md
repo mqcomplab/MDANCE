@@ -110,13 +110,13 @@ python run_helm.py
 
 #### Outputs
 Files are named after `link`, or `merge_scheme` if `link` is None (e.g. `intra`):
-- `outputs/intra-helm.pkl` containing the clustering results. <br>
-- `outputs/intra_helm_scores.csv` containing the Calinski-Harabasz and Davies-Bouldin scores for each number of clusters. 
+- `outputs/helm_intra.pkl` containing the clustering results. <br>
+- `outputs/helm_intra_scores.csv` containing the Calinski-Harabasz score, Davies-Bouldin score, and average MSD of the clusters for each number of clusters. 
 
 ### 4. Get most optimal number of clusters.
 Find the most optimal number of clusters from clustering scores.
 
-When `plot_metrics = True`, `run_helm.py` plots the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI) of each number of clusters (e.g. `outputs/intra_helm_scores_dbi.png` and `outputs/intra_helm_scores_chi.png`) with the suggested number of clusters marked: lowest DBI or highest CHI, and the sharpest 2<sup>nd</sup> derivatives. The same analysis can be run on any scores csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
+When `plot_metrics = True`, `run_helm.py` plots the Davies-Bouldin index (DBI) and the Calinski-Harabasz index (CHI) of each number of clusters (e.g. `outputs/helm_intra_scores_dbi.png` and `outputs/helm_intra_scores_chi.png`) with the suggested number of clusters marked: lowest DBI or highest CHI, and the sharpest 2<sup>nd</sup> derivatives. The same analysis can be run on any scores csv with [`mdance.outputs.plot.plot_scores`](../src/mdance/outputs/plot.py).
 
 
 ### 5. Cluster Assignment
@@ -130,7 +130,7 @@ When `plot_metrics = True`, `run_helm.py` plots the Davies-Bouldin index (DBI) a
     # HELM parameters
     n_clusters = 10                                     # Number of clusters to assign
     pre_cluster_labels = data.labels_60                 # Labels of the initial clusters (e.g. from NANI)
-    pickle_file = 'outputs/intra-helm.pkl'              # HELM output from run_helm.py
+    pickle_file = 'outputs/helm_intra.pkl'              # HELM output from run_helm.py
     metric = 'MSD'                                      # Distance metric for clustering
     n_structures = 11                                   # Frames saved per cluster, closest to its medoid
     output_dir = 'outputs'                              # Folder for output files
@@ -157,9 +157,9 @@ python assign_labels.py
 
 #### Outputs
 All files are saved in `outputs/`, with `{n_clusters}` in the name (e.g. `n_clusters = 10`). Clusters are numbered by size, cluster 0 being the largest. <br>
-`helm_labels_10.csv` contains the cluster of each frame, in frame order (frame index, cluster index). <br>
-`helm_best_frames_10.csv` contains the `n_structures` frames closest to the medoid of each cluster (frame index, cluster index). <br>
-`helm_summary_10.csv` contains the population of each cluster (cluster index, fraction of total frames). 
+`helm_labels_10.csv` contains the cluster of each frame, in frame order (frame index, cluster index). Frames not in any cluster are left out. <br>
+`helm_best_frames_10.csv` contains the `n_structures` frames closest to the medoid of each cluster, closest first (frame index, cluster index). <br>
+`helm_summary_10.csv` contains the population and MSD of each cluster (cluster index, fraction of total frames, number of frames, MSD); the header also gives the total number of frames. 
 
 ### 6. Extract frames for each cluster (Optional)
 **This step is *optional* and for Molecular Dynamics Trajectories only.**

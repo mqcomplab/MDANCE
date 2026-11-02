@@ -40,9 +40,19 @@ if __name__ == '__main__':
     output_data = np.column_stack((selected_indices, labels))
 
     params = f'DIVINE, split: {split}, anchors: {anchors}, init_type: {init_type}, k: {k}, sieve: {sieve}'
-    np.savetxt(f"{output_dir}/divine_{anchors}_scores.csv", scores, delimiter=",", header=f"{params}\nn_clusters,CH_score,DB_score", fmt=["%d", "%.7f", "%.7f"])
-    np.savetxt(f"{output_dir}/divine_{anchors}_msds.csv", msds, fmt="%d,%d,%d,%.5f",delimiter=",",header=f"{params}\nlevel,cluster_index,population,msd")
+    np.savetxt(f"{output_dir}/divine_{anchors}_msds.csv", msds, fmt="%d,%d,%d,%.5f", delimiter=",",
+               header=f"{params}\nLevel, Cluster Index, Number of frames, MSD")
+
+    # Level L of the hierarchy has L + 1 clusters
+    msds = np.asarray(msds)
+    scores_csv = f"{output_dir}/divine_{anchors}_scores.csv"
+    with open(scores_csv, 'w') as f:
+        f.write(f'# {params}\n')
+        f.write('# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD\n')
+        for n, ch, db in scores:
+            avg_msd = np.mean(msds[msds[:, 0] == n - 1, 3])
+            f.write(f'{int(n)},{ch},{db},{avg_msd}\n')
 
     # Plot the DBI and CHI of the screening and suggest values
     if plot_metrics:
-        plot_scores(f"{output_dir}/divine_{anchors}_scores.csv", x_min=x_min)
+        plot_scores(scores_csv, x_min=x_min)

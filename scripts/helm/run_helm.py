@@ -6,6 +6,7 @@ import numpy as np
 from mdance import data
 from mdance.cluster.helm import HELM, compute_scores
 from mdance.outputs.plot import plot_scores
+from mdance.tools.bts import extended_comparison
 
 
 # System parameters
@@ -63,10 +64,10 @@ if __name__ == '__main__':
                 save_pairwise_sim=save_pairwise_sim
                 )()
 
-    with open(f'{output_dir}/{link or merge_scheme}-helm.pkl', 'wb') as outfile:
+    with open(f'{output_dir}/helm_{link or merge_scheme}.pkl', 'wb') as outfile:
         pkl.dump(helm, outfile)
 
-    # Compute CH and DB scores
+    # Compute CH, DB and average MSD for each number of clusters
     scores = []
     N0 = len(helm.values())
     for key, value in enumerate(helm.values()):
@@ -75,17 +76,20 @@ if __name__ == '__main__':
             input_cluster_indices += i[0]
         arr = np.concatenate([input_clusters[i] for i in input_cluster_indices])
         ch, db = compute_scores(value, arr)
-        scores.append([key, ch, db])
+        msds = [extended_comparison((c_sum, sq_sum), data_type='condensed', metric=metric, N=Nik, N_atoms=N_atoms)
+                for _, (c_sum, sq_sum), Nik in value]
+        scores.append([key, ch, db, np.mean(msds)])
 
     # remove None values from scores
     scores = [i for i in scores if i[1] is not None]
 
-    with open(f'{output_dir}/{link or merge_scheme}_helm_scores.csv', 'w') as f:
+    scores_csv = f'{output_dir}/helm_{link or merge_scheme}_scores.csv'
+    with open(scores_csv, 'w') as f:
         f.write(f'# HELM, merge_scheme: {merge_scheme}, link: {link}, metric: {metric}, sieve: {sieve}\n')
-        f.write('# n_clusters,CH,DB\n')
+        f.write('# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD\n')
         for i in scores:
-            f.write(f'{N0 - i[0]},{i[1]},{i[2]}\n')
+            f.write(f'{N0 - i[0]},{i[1]},{i[2]},{i[3]}\n')
 
     # Plot the DBI and CHI of the screening and suggest values
     if plot_metrics:
-        plot_scores(f'{output_dir}/{link or merge_scheme}_helm_scores.csv', x_min=x_min)
+        plot_scores(scores_csv, x_min=x_min)

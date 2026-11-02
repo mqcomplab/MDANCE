@@ -71,14 +71,15 @@ if __name__ == '__main__':
             msd = extended_comparison(np.array(dict[key]), data_type='full',
                                         metric=metric, N_atoms=N_atoms)
             total += msd
-        all_scores.append((i, n_iter, ch_score, db_score, total/i))
+        all_scores.append((i, ch_score, db_score, total/i, n_iter))
 
-    all_scores = np.array(all_scores)
-    header = f'init_type: {init_type}, percentage: {percentage}, metric: {metric}, sieve: {sieve}\n'
-    header += 'Number of clusters, Number of iterations, Calinski-Harabasz score, Davies-Bouldin score, Average MSD'
-    np.savetxt(f'{output_dir}/{percentage}{init_type}_summary.csv', all_scores,
-                delimiter=',', header=header, fmt='%s')
+    scores_csv = f'{output_dir}/nani_{init_type}_scores.csv'
+    with open(scores_csv, 'w') as f:
+        f.write(f'# NANI, init_type: {init_type}, percentage: {percentage}, metric: {metric}, sieve: {sieve}\n')
+        f.write('# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD, Number of iterations\n')
+        for row in all_scores:
+            f.write(','.join(map(str, row)) + '\n')
 
     # Plot the DBI and CHI of the screening and suggest values
     if plot_metrics:
-        plot_scores(f'{output_dir}/{percentage}{init_type}_summary.csv', x_min=x_min)
+        plot_scores(scores_csv, x_min=x_min)

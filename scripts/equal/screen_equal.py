@@ -5,6 +5,7 @@ import numpy as np
 
 from mdance import data
 from mdance.cluster.equal import ExtendedQuality, compute_scores
+from mdance.tools.bts import extended_comparison
 from mdance.outputs.plot import plot_n_clusters, plot_scores
 
 
@@ -54,6 +55,7 @@ if __name__ == '__main__':
     scores = []
 
     for threshold in np.arange(start_threshold, end_threshold, step):
+        threshold = round(float(threshold), 10)     # e.g. 5.199999999999999 -> 5.2
         # Run eQual for each threshold
         eQ = ExtendedQuality(data=traj_numpy, threshold=threshold,
                              metric=metric, N_atoms=N_atoms, n_seeds=n_seeds,
@@ -62,31 +64,34 @@ if __name__ == '__main__':
         clusters = eQ.run()
         top_pops.append(eQ.calculate_populations(clusters))
         ch, db = compute_scores(clusters)
-        scores.append([threshold, ch, db])
+        msds = [extended_comparison(np.array(v), data_type='full', metric=metric, N_atoms=N_atoms)
+                for v in clusters.values()]
+        avg_msd = np.mean(msds) if msds else None
+        scores.append([threshold, len(clusters), ch, db, avg_msd])
 
         # Option to save clusters
         if save_clusters:
             os.makedirs(f'{output_dir}/clusters_dict', exist_ok=True)
             with open(f'{output_dir}/clusters_dict/equal_threshold_{threshold}.pkl', 'wb') as f:
                 pkl.dump(clusters, f)
-    scores = [i for i in scores if i[1] is not None]
+    scores = [i for i in scores if i[2] is not None]
 
     header = (f'# eQual screening, metric: {metric}, n_seeds: {n_seeds}, check_sim: {check_sim}, '
               f'sim_threshold: {sim_threshold}, reject_lowd: {reject_lowd}, min_samples: {min_samples}, sieve: {sieve}\n')
-    p_header = '# threshold,n_clusters,top_10_combined,top1,top2,top3,top4,top5,top6,top7,top8,top9,top10'
+    p_header = '# Threshold, Number of clusters, Top 10 combined, ' + ', '.join(f'Top {i}' for i in range(1, 11))
 
     with open(f'{output_dir}/equal_screening.csv', 'w') as infile:
         infile.write(header + p_header + '\n')
         for line in top_pops:
             infile.write(','.join(map(str, line)) + '\n')
 
-    # Write CH and DB scores for each threshold
-    with open(f'{output_dir}/equal_screening_scores.csv', 'w') as f:
-        f.write(header + '# threshold,Calinski-Harabasz,Davies-Bouldin\n')
+    # Write CH, DB and average MSD for each threshold
+    with open(f'{output_dir}/equal_scores.csv', 'w') as f:
+        f.write(header + '# Threshold, Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD\n')
         for line in scores:
             f.write(','.join(map(str, line)) + '\n')
 
     # Plot the DBI, CHI and number of clusters of the screening and suggest values
     if plot_metrics:
-        plot_scores(f'{output_dir}/equal_screening_scores.csv', x_min=x_min)
+        plot_scores(f'{output_dir}/equal_scores.csv', x_min=x_min)
         plot_n_clusters(f'{output_dir}/equal_screening.csv')

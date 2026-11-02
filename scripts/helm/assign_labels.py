@@ -15,7 +15,7 @@ sieve = 1                                           # Use every sieve-th frame (
 # HELM parameters
 n_clusters = 10                                     # Number of clusters to assign
 pre_cluster_labels = data.labels_60                 # Labels of the initial clusters (e.g. from NANI)
-pickle_file = 'outputs/intra-helm.pkl'              # HELM output from run_helm.py
+pickle_file = 'outputs/helm_intra.pkl'              # HELM output from run_helm.py
 metric = 'MSD'                                      # Distance metric for clustering
 n_structures = 11                                   # Frames saved per cluster, closest to its medoid
 output_dir = 'outputs'                              # Folder for output files
@@ -29,7 +29,6 @@ if __name__ == '__main__':
     total_frames = len(traj_numpy)
     with open(pickle_file, 'rb') as f:
         cluster_dict = pkl.load(f)
-    all_indices = [i[0] for i in cluster_dict[n_clusters]]; print(f'cluster indices: {all_indices}')
     pre_frames, pre_labels = np.loadtxt(pre_cluster_labels, unpack=True, dtype=int, delimiter=',')
     # Keep frames that are in the sieved trajectory and skip unassigned frames (-1)
     keep = (pre_frames % sieve == 0) & (pre_labels >= 0)
@@ -50,14 +49,12 @@ if __name__ == '__main__':
     sorted_indices = sorted(unsorted_indices, key=lambda x: x[1], reverse=True)
 
     # Save cluster data and medoids
-    individual_frac = []
     frame_indices_all = {}
     best_frame_indices = []
     for i, index in enumerate(sorted_indices):
         frame_indices_all[i] = []
         cluster_dict[i] = cluster_indices[index[0]]
         pre_clus_indices = cluster_dict[i][0]
-        individual_frac.append('%.6f' % (cluster_dict[i][2] / total_frames))
 
         # Find the corresponding frame indices in the original data
         for j, label in enumerate(pre_labels):
@@ -86,7 +83,7 @@ if __name__ == '__main__':
             best_frame_indices.append(np.array(frame_indices_all[key]))
     params = f'HELM, n_clusters: {n_clusters}, pickle_file: {pickle_file}, metric: {metric}, sieve: {sieve}'
 
-    # Save cluster labels (-1 for frames not in any cluster)
+    # Save cluster labels (frames not assigned to any cluster are left out)
     labels = np.full(total_frames, -1, dtype=int)
     for cluster, frames in frame_indices_all.items():
         labels[frames] = cluster
@@ -94,7 +91,8 @@ if __name__ == '__main__':
         f.write(f'# {params}\n')
         f.write('# Frame Index, Cluster Index\n')
         for i, label in enumerate(labels):
-            f.write(f'{i * sieve},{label}\n')
+            if label >= 0:
+                f.write(f'{i * sieve},{label}\n')
 
     # Save best frame indices for each cluster
     with open(f'{output_dir}/helm_best_frames_{n_clusters}.csv', 'w') as f:
@@ -104,10 +102,11 @@ if __name__ == '__main__':
             for frame in cluster:
                 f.write(f'{frame * sieve},{i}\n')
 
-    # Population of top 10 clusters
-    top_10_frac = sum(float(i) for i in individual_frac[:10])
+    # Calculate population and MSD of each cluster
     with open(f'{output_dir}/helm_summary_{n_clusters}.csv', 'w') as f:
-        f.write(f'# {params}, top 10 frac: {top_10_frac}\n')
-        f.write('# Cluster Index, Fraction of total frames\n')
-        for i, frac in enumerate(individual_frac):
-            f.write(f'{i},{frac}\n')
+        f.write(f'# {params}, total frames: {total_frames}\n')
+        f.write('# Cluster Index, Fraction of total frames, Number of frames, MSD\n')
+        for i in np.unique(labels[labels >= 0]):
+            members = traj_numpy[labels == i]
+            msd = extended_comparison(members, data_type='full', metric=metric, N_atoms=N_atoms)
+            f.write(f'{i},{len(members) / total_frames},{len(members)},{msd}\n')

@@ -67,3 +67,12 @@ if __name__ == '__main__':
 
     np.savetxt(f"{output_dir}/divine_best_frames_{k}.csv", best_frames_indices, delimiter=',',
                 fmt='%d', header=f"{params}, top_n: {top_n}\nFrame Index, Cluster Index")
+
+    # Calculate population and MSD of each cluster
+    with open(f'{output_dir}/divine_summary_{k}.csv', 'w') as f:
+        f.write(f'# {params}, total frames: {len(labels)}\n')
+        f.write('# Cluster Index, Fraction of total frames, Number of frames, MSD\n')
+        for i in np.unique(labels[labels >= 0]):
+            members = traj_numpy[labels == i]
+            msd = extended_comparison(members, data_type='full', metric='MSD', N_atoms=N_atoms)
+            f.write(f'{i},{len(members) / len(labels)},{len(members)},{msd}\n')

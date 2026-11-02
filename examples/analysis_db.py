@@ -24,6 +24,6 @@ x_min = None
 #   - The Davies-Bouldin index suggests its minimum and the minima with the largest 2nd derivative.
 #   - The Calinski-Harabasz index suggests its maximum and the maxima with the most negative 2nd derivative.
 
-suggested, figs = plot_scores(scores_csv, x_min=x_min, output_prefix='10comp_sim_summary')
+suggested, figs = plot_scores(scores_csv, x_min=x_min, output_prefix='nani_comp_sim_scores')
 for index, values in suggested.items():
     print(f'{index}: {values}')
