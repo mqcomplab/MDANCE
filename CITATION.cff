@@ -3,6 +3,8 @@ message: "If you use MDANCE, please cite the paper of each method you use. BibTe
 type: software
 title: "MDANCE: Molecular Dynamics Analysis with N-ary Clustering Ensembles"
 abstract: "A flexible n-ary clustering package for all applications."
+version: 0.5.0
+date-released: 2026-11-02
 authors:
   - family-names: Chen
     given-names: Lexin
