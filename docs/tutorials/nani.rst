@@ -1,15 +1,9 @@
-.. raw:: html
-
-    <p align="center">
-    <img src="../_static/nani-logo.PNG" width="150" height=auto align="center"></a></p>
+.. image:: ../img/algorithms/NANI.png
+   :width: 150
 
 
 *k*-means NANI Tutorial
 =======================
-
-.. contents::
-   :local:
-   :depth: 2
 
 Overview
 --------

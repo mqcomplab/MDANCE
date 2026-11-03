@@ -1,9 +1,8 @@
+.. image:: ../img/algorithms/eQual.png
+   :width: 150
+
 eQual - Extended Quality Clustering
 ===================================
-
-.. contents::
-   :local:
-   :depth: 2
 
 Overview
 --------

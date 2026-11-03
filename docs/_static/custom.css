@@ -1,49 +1,201 @@
-body {
-    font-family: 'Lucida Grande', Arial, sans-serif;
-    font-size: 15px;
-  }
-  
-  div.sphinxsidebar {
-    width: 20%;
-    background-color: lightgrey;
-  }
-  
-  div.sphinxsidebarwrapper {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-  
-  div.bodywrapper {
-    margin: 0 0 0 20%;
-  }
-  
-  div.document {
-    width: 100%;
-    margin: 0px auto 0 auto;
-  }
-  
-  div.documentwrapper {
-    margin-top: 15px;
-  }
-  
-  .wy-side-nav-search, .wy-nav-top {
-      background: #272525;
-  }
-
-/* anything related to the light theme */
-html[data-theme="light"] {
-
-    /* whatever you want to change */
-    background: white;
+/* Colours of the MDANCE website */
+:root {
+    --mdance-violet: #6A3BF0;
+    --mdance-pink: #CA2D7B;
+    --mdance-loop: linear-gradient(100deg, #6A3BF0, #CA2D7B, #6A3BF0);
 }
 
-/* anything related to the dark theme */
-html[data-theme="dark"] {
-
-    /* whatever you want to change */
-    background: black;
+/* Top bar on narrow screens: logo instead of the title text */
+.mobile-header {
+    box-shadow: none;
+    border-bottom: 1px solid var(--color-background-border);
 }
 
-code.literal {
-    color: #aa2583; /* !important background-color: #f0f2f2 important */
-  }
+.mobile-header .header-center a {
+    display: block;
+    width: 130px;
+    height: 28px;
+    background: url("mdance.png") center / contain no-repeat;
+}
+
+.mobile-header .header-center .brand {
+    display: none;
+}
+
+body[data-theme="dark"] .mobile-header .header-center a {
+    background-image: url("mdance-dark.png");
+}
+
+@media (prefers-color-scheme: dark) {
+    body[data-theme="auto"] .mobile-header .header-center a {
+        background-image: url("mdance-dark.png");
+    }
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+}
+
+/* No link-to-heading # on page titles */
+h1 > a.headerlink {
+    display: none;
+}
+
+/* Install command on the home page: a pill, click anywhere to copy */
+div.install-cmd {
+    max-width: 26rem;
+    cursor: pointer;
+}
+
+div.install-cmd div.highlight {
+    position: relative;
+    background: #131A3A;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+}
+
+div.install-cmd div.highlight pre {
+    padding: 0.85rem 3.5rem 0.85rem 1.4rem;
+    font-size: 1.05em;
+    background: transparent;
+    border: 0;
+}
+
+div.install-cmd div.highlight pre,
+div.install-cmd div.highlight pre span {
+    color: #F3F4FB !important;
+}
+
+div.install-cmd div.highlight pre::before {
+    content: "$ ";
+    color: #EC3F96;
+}
+
+div.install-cmd button.copybtn {
+    top: 50%;
+    right: 0.7rem;
+    transform: translateY(-50%);
+    opacity: 1;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #A9AED6;
+}
+
+div.install-cmd button.copybtn:hover {
+    color: #F3F4FB;
+    border-color: #44E1F9;
+}
+
+/* Buttons: pills, primary with the brand gradient */
+.hero-buttons p {
+    display: inline-block;
+    margin: 0 0.5rem 0.75rem 0;
+}
+
+/* One pill shape in every state (normal, hover, focus, active) */
+.hero-buttons a.sd-btn,
+.hero-buttons a.sd-btn:hover,
+.hero-buttons a.sd-btn:focus,
+.hero-buttons a.sd-btn:active {
+    border-radius: 999px !important;
+    padding: 0.6rem 1.4rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    border: 0 !important;
+    outline: none;
+    box-shadow: none !important;
+}
+
+.hero-buttons a.sd-btn:focus-visible {
+    outline: 2px solid #44E1F9;
+    outline-offset: 2px;
+}
+
+.hero-buttons a.sd-btn-primary,
+.hero-buttons a.sd-btn-primary:hover,
+.hero-buttons a.sd-btn-primary:focus,
+.hero-buttons a.sd-btn-primary:active {
+    color: #FFFFFF !important;
+    background: var(--mdance-loop) !important;
+    background-size: 300% 100% !important;
+}
+
+.hero-buttons a.sd-btn-primary:hover {
+    background-position: 100% 0 !important;
+}
+
+.hero-buttons a.sd-btn-outline-primary,
+.hero-buttons a.sd-btn-outline-primary:focus,
+.hero-buttons a.sd-btn-outline-primary:active {
+    color: var(--color-foreground-primary) !important;
+    background: var(--color-background-hover) !important;
+}
+
+.hero-buttons a.sd-btn-outline-primary:hover {
+    color: var(--color-foreground-primary) !important;
+    background: var(--color-background-border) !important;
+}
+
+/* Algorithm table on the About page: icon and name centred */
+table.algo-table th:first-child,
+table.algo-table td:first-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.algo-table td:first-child p {
+    margin: 0.25rem 0;
+}
+
+/* Algorithm cards on the home page */
+.algo-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--color-background-border);
+    background: var(--color-background-secondary);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.algo-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: linear-gradient(90deg, #44E1F9, #6A3BF0, #CA2D7B);
+    opacity: 0.7;
+}
+
+.algo-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-foreground-muted);
+}
+
+.algo-card .sd-card-img-top {
+    width: 55%;
+    margin: 1.25rem auto 0;
+}
+
+.algo-card .sd-card-title {
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+.algo-card .sd-card-text {
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--color-foreground-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .algo-card {
+        transition: none;
+    }
+
+    .algo-card:hover {
+        transform: none;
+    }
+}

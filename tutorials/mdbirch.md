@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/mdBIRCH.png" alt="" width="150"></p>
+
 # mdBIRCH - Online CF-tree clustering for MD data
 
 Table of Contents

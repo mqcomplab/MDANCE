@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/PRISM.png" alt="" width="150"></p>
+
 # PRISM - Pathway Representation via Intrinsic Structural Medoids
 
 Table of Contents

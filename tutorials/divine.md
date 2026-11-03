@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/DIVINE.png" alt="" width="150"></p>
+
 # DIVINE - Deterministic Divisive Hierarchical Clustering
 
 Table of Contents

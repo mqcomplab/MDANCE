@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/NANI.png" alt="" width="150"></p>
+
 # *k*-means NANI Tutorial
 
 Table of Contents
