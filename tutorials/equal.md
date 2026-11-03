@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/eQual.png" alt="" width="150"></p>
+
 # eQual - Extended Quality Clustering
 
 Table of Contents

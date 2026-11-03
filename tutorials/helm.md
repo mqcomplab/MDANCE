@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/HELM.png" alt="" width="150"></p>
+
 # HELM - Hierarchical Extended Linkage Method
 
 Table of Contents

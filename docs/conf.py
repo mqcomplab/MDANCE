@@ -21,7 +21,7 @@ import mdance
 # -- Project information -----------------------------------------------------
 
 project = 'MDANCE'
-copyright = '2024, Lexin Chen and Ramón Alain Miranda Quintana'
+copyright = '2024, Lexin Chen, Jherome Brylle Woody Santos and Ramón Alain Miranda Quintana'
 author = 'Lexin Chen'
 
 # The short X.Y version
@@ -46,7 +46,13 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
     'sphinx_gallery.gen_gallery',
+    'sphinx_design',
+    'sphinx_copybutton',
 ]
+
+# Copy code without prompts (>>>, ..., $)
+copybutton_prompt_text = r'>>> |\.\.\. |\$ '
+copybutton_prompt_is_regexp = True
 
 sphinx_gallery_conf = {
     'examples_dirs': '../examples',
@@ -102,19 +108,77 @@ pygments_style = 'tango'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
+html_title = 'MDANCE'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    'light_logo': 'mdance.png',
+    'dark_logo': 'mdance-dark.png',
+    'sidebar_hide_name': True,
+    # Colours and fonts of the MDANCE website
+    'light_css_variables': {
+        'font-stack': '"Poppins", system-ui, -apple-system, "Segoe UI", sans-serif',
+        'font-stack--monospace': '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
+        'color-brand-primary': '#CA2D7B',
+        'color-brand-content': '#0F7A90',
+        'color-foreground-primary': '#0B1026',
+        'color-foreground-secondary': '#454D6B',
+        'color-foreground-muted': '#5F6788',
+        'color-background-primary': '#FFFFFF',
+        'color-background-secondary': '#F5F6FA',
+        'color-background-hover': '#ECEEF5',
+        'color-background-border': 'rgba(11, 16, 38, 0.10)',
+        'color-sidebar-link-text': '#0B1026',
+        'color-sidebar-link-text--top-level': '#0B1026',
+    },
+    'dark_css_variables': {
+        'color-brand-primary': '#EC3F96',
+        'color-brand-content': '#44E1F9',
+        'color-foreground-primary': '#F3F4FB',
+        'color-foreground-secondary': '#A9AED6',
+        'color-foreground-muted': '#858BB8',
+        'color-background-primary': '#0B1026',
+        'color-background-secondary': '#0E1430',
+        'color-background-hover': '#1E2650',
+        'color-background-border': 'rgba(255, 255, 255, 0.08)',
+        'color-code-background': '#131A3A',
+        'color-sidebar-link-text': '#F3F4FB',
+        'color-sidebar-link-text--top-level': '#F3F4FB',
+    },
+    'source_repository': 'https://github.com/mqcomplab/MDANCE/',
+    'source_branch': 'main',
+    'source_directory': 'docs/',
+    'footer_icons': [
+        {
+            'name': 'GitHub',
+            'url': 'https://github.com/mqcomplab/MDANCE',
+            'html': '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">'
+                    '<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 '
+                    '0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 '
+                    '1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15'
+                    '-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82'
+                    '.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 '
+                    '2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>',
+            'class': '',
+        },
+    ],
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-html_logo = '_static/mdance.png'
+html_favicon = '_static/favicon.ico'
+html_css_files = [
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600'
+    '&family=JetBrains+Mono:wght@400;500&display=swap',
+    'custom.css',                                       # last, so it overrides the theme and extensions
+]
+html_js_files = ['install-copy.js']
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -181,7 +245,3 @@ texinfo_documents = [
      author, 'MDANCE', 'A flexible n-ary clustering package for all applications.',
      'Miscellaneous'),
 ]
-
-# -- Extension configuration -------------------------------------------------
-def setup(app):
-    app.add_css_file('custom.css')

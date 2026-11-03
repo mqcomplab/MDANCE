@@ -1,9 +1,8 @@
+.. image:: ../img/algorithms/HELM.png
+   :width: 150
+
 HELM - Hierarchical Extended Linkage Method
 ===========================================
-
-.. contents::
-   :local:
-   :depth: 2
 
 Overview
 --------

@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/SHINE.png" alt="" width="150"></p>
+
 # SHINE - Pathway Clustering
 
 Table of Contents

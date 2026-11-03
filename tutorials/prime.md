@@ -1,3 +1,5 @@
+<p align="center"><img src="../docs/img/algorithms/PRIME.png" alt="" width="150"></p>
+
 # PRIME Tutorial
 
 #### Table of Contents

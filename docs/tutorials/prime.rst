@@ -1,15 +1,8 @@
-.. raw:: html
-
-    <h3 align="center"> 
-        <img src="../_static/logo.png" width="800" height=auto align="center"></a></h3>
-
+.. image:: ../img/algorithms/PRIME.png
+   :width: 150
 
 PRIME Tutorial
 ==============
-
-.. contents::
-   :local:
-   :depth: 2
 
 Overview
 --------
@@ -20,6 +13,10 @@ ensemble of conformations. The PRIME algorithm predicts the native
 structure of a protein from simulation or clustering data. These methods
 perfectly mapped all the structural motifs in the studied systems and
 required unprecedented linear scaling.
+
+.. image:: ../_static/logo.png
+   :width: 100%
+   :alt: PRIME
 
 Tutorial
 --------
