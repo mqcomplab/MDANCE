@@ -59,6 +59,8 @@ pip install -e .
 
 ## Quick start
 
+New to NANI? See it in action first: [Learn NANI in 60 seconds](https://mdance.readthedocs.io/en/latest/nani-in-60-seconds.html) (interactive).
+
 Cluster the example trajectory included with MDANCE (6,001 frames of 50 atoms) with NANI seeding and *k*-means:
 
 ```python
@@ -104,7 +106,7 @@ To use your own trajectory, convert it to a NumPy array first ([preprocessing tu
 #### HELM: hybrid hierarchical clustering
 - Combines *k*-means efficiency with hierarchical flexibility using *n*-ary difference functions.
 - Keeps the cost of *k*-means while allowing any partition: the hierarchy is built without a pairwise distance matrix, so any number of clusters can be taken from one run.
-- Clusters 1.5 million frames in about 34 minutes, where classic hierarchical clustering takes 29 hours.
+- Clusters 1.5 million frames in about 34 minutes. Classic hierarchical clustering already needs 29 hours for 75,000 frames.
 
 #### DIVINE: divisive hierarchical clustering
 - Splits clusters top-down, choosing the next cluster to split by a weighted variance criterion.

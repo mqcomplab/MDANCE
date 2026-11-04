@@ -134,28 +134,28 @@ Algorithms
        **DIVINE**
      - Top-down divisive clustering, every resolution in one pass
      - Fast hierarchies
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/divine.md>`__
+     - :doc:`Tutorial <tutorials/divine>`
      - `JCIM 2026 <https://doi.org/10.1021/acs.jcim.5c02740>`__
    * - |mdbirch|
 
        **mdBIRCH**
      - Online clustering with an RMSD-calibrated merge test
      - Very large or streaming trajectories
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdbirch.md>`__
+     - :doc:`Tutorial <tutorials/mdbirch>`
      - `JCTC 2026 <https://doi.org/10.1021/acs.jctc.6c00221>`__
    * - |shine|
 
        **SHINE**
      - Finds the dominant pathways in enhanced-sampling data
      - Pathway exploration
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md>`__
+     - :doc:`Tutorial <tutorials/shine>`
      - `JCIM 2025 <https://doi.org/10.1021/acs.jcim.5c00240>`__
    * - |prism|
 
        **PRISM**
      - Compares pathways by their structural medoids
      - Multi-pathway comparison
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md>`__
+     - :doc:`Tutorial <tutorials/prism>`
      - `Digital Discovery 2026 <https://doi.org/10.1039/d6dd00288a>`__
    * - |equal|
 
@@ -184,7 +184,7 @@ HELM: hybrid hierarchical clustering
 
 - Combines *k*-means efficiency with hierarchical flexibility using *n*-ary difference functions.
 - Keeps the cost of *k*-means while allowing any partition: the hierarchy is built without a pairwise distance matrix, so any number of clusters can be taken from one run.
-- Clusters 1.5 million frames in about 34 minutes, where classic hierarchical clustering takes 29 hours.
+- Clusters 1.5 million frames in about 34 minutes. Classic hierarchical clustering already needs 29 hours for 75,000 frames.
 
 DIVINE: divisive hierarchical clustering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

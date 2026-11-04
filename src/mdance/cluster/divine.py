@@ -153,7 +153,7 @@ class Divine:
             valid_subclusters = [subcluster for subcluster in new_subclusters if len(subcluster) >= min_frames]
             
             if len(valid_subclusters) < 2:
-                warnings.warn(f"Cluster {cluster_to_split} could not be split meaningfully — skipping.")
+                warnings.warn(f"Cluster {cluster_to_split} could not be split meaningfully, skipping.")
                 failed_splits.add(cluster_to_split)
                 continue
 

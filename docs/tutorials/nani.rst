@@ -5,6 +5,10 @@
 *k*-means NANI Tutorial
 =======================
 
+.. tip::
+
+   New to NANI? Try the interactive `NANI in 60 seconds <../nani-in-60-seconds.html>`__ first.
+
 Overview
 --------
 This clustering tutorial is meant for datasets for **all** applications

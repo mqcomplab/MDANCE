@@ -2,6 +2,8 @@
 
 # *k*-means NANI Tutorial
 
+> New to NANI? Try the interactive [NANI in 60 seconds](https://mdance.readthedocs.io/en/latest/nani-in-60-seconds.html) first.
+
 Table of Contents
 =================
 - [Overview](#overview)

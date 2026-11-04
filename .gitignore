@@ -99,8 +99,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
-/site
 
 # mypy
 .mypy_cache/
@@ -122,3 +120,8 @@ tutorials/*.npy
 tutorials/outputs_*/
 docs/examples/
 docs/sg_execution_times.rst
+# Made from tutorials/*.md by docs/conf.py
+docs/tutorials/divine.md
+docs/tutorials/mdbirch.md
+docs/tutorials/shine.md
+docs/tutorials/prism.md
