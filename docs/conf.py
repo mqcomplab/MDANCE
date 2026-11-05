@@ -14,14 +14,69 @@
 
 # Incase the project was not installed
 import os
+import re
 import sys
+from pathlib import Path
+from docutils import nodes
+from docutils.parsers.rst import Directive, directives
 sys.path.insert(0, os.path.abspath('..'))
 import mdance
+
+# -- Video tutorials ------------------------------------------------------------
+
+# ``.. youtube:: VIDEO_ID`` (with ``:title:``) embeds a video from the MDANCE playlist
+PLAYLIST = 'PLPuFwYwFEee8'
+
+
+class YouTube(Directive):
+    required_arguments = 1
+    option_spec = {'title': directives.unchanged}
+
+    def run(self):
+        title = self.options.get('title', 'Video tutorial')
+        html = (f'<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/{self.arguments[0]}'
+                f'?list={PLAYLIST}" title="{title}" loading="lazy" allow="accelerometer; clipboard-write; '
+                'encrypted-media; gyroscope; picture-in-picture; web-share" '
+                'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>')
+        return [nodes.raw('', html, format='html')]
+
+
+def setup(app):
+    app.add_directive('youtube', YouTube)
+
+# -- Tutorials written in Markdown --------------------------------------------
+
+# The DIVINE, mdBIRCH, SHINE and PRISM pages are made from the tutorials in
+# tutorials/*.md at build time, so there is one copy of each tutorial
+GITHUB = 'https://github.com/mqcomplab/MDANCE/blob/main/'
+MD_TUTORIALS = ['divine', 'mdbirch', 'shine', 'prism']
+DOCS = Path(__file__).resolve().parent
+
+
+def md_tutorial(name):
+    text = (DOCS.parent / 'tutorials' / f'{name}.md').read_text(encoding='utf-8')
+    # Table of contents: Furo shows one beside the page
+    text = re.sub(r'^Table of Contents\n=+\n(?:[ \t]*- .*\n)+', '', text, flags=re.M)
+    # Video tutorial: the embedded player instead of the thumbnail and its link
+    text = re.sub(r'<a href="https://www\.youtube\.com/watch\?v=([\w-]+)[^"]*"><img [^>]*alt="([^"]*)"[^>]*></a>\n\n▶ [^\n]*\n',
+                  r'```{youtube} \1\n:title: \2\n```\n', text)
+    # Method icon: a docs image
+    text = re.sub(r'<p align="center"><img src="\.\./docs/(img/[^"]+)"[^>]*></p>',
+                  r'```{image} ../\1\n:width: 150px\n```', text)
+    # Images in docs/: relative to docs/tutorials/
+    text = text.replace('](../docs/', '](../')
+    # Other repository files: link to GitHub
+    text = re.sub(r'\]\(\.\./([^)]+)\)', lambda m: f']({GITHUB}{m.group(1)})', text)
+    return text
+
+
+for name in MD_TUTORIALS:
+    (DOCS / 'tutorials' / f'{name}.md').write_text(md_tutorial(name), encoding='utf-8')
 
 # -- Project information -----------------------------------------------------
 
 project = 'MDANCE'
-copyright = '2024, Lexin Chen, Jherome Brylle Woody Santos and Ramón Alain Miranda Quintana'
+copyright = '2024 mqcomplab'                          # as in LICENSE
 author = 'Lexin Chen'
 
 # The short X.Y version
@@ -48,7 +103,11 @@ extensions = [
     'sphinx_gallery.gen_gallery',
     'sphinx_design',
     'sphinx_copybutton',
+    'myst_parser',
 ]
+
+# Markdown pages: link targets for headings, like GitHub (#1-input-preparations)
+myst_heading_anchors = 4
 
 # Copy code without prompts (>>>, ..., $)
 copybutton_prompt_text = r'>>> |\.\.\. |\$ '
@@ -83,7 +142,10 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = 'index'
@@ -98,7 +160,7 @@ language = 'en'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'README.md']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'tango'
@@ -154,6 +216,14 @@ html_theme_options = {
     'source_directory': 'docs/',
     'footer_icons': [
         {
+            'name': 'Website',
+            'url': 'https://mqcomplab.github.io/MDANCE/',
+            'html': '<svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" viewBox="0 0 24 24">'
+                    '<circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path>'
+                    '<path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"></path></svg>',
+            'class': '',
+        },
+        {
             'name': 'GitHub',
             'url': 'https://github.com/mqcomplab/MDANCE',
             'html': '<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">'
@@ -173,6 +243,8 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 html_favicon = '_static/favicon.ico'
+html_extra_path = ['_extra']                            # standalone pages, e.g. nani-in-60-seconds.html
+html_permalinks = False                                 # no # link icons next to headings
 html_css_files = [
     'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600'
     '&family=JetBrains+Mono:wght@400;500&display=swap',

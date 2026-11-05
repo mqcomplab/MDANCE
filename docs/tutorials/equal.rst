@@ -4,6 +4,9 @@
 eQual - Extended Quality Clustering
 ===================================
 
+.. youtube:: cjlNN8qhpOw
+   :title: eQual video tutorial (MDANCE Ep. 7)
+
 Overview
 --------
 eQual is a quality clustering algorithm that use the radial threshold to grow the cluster to maximize similarity between members in a cluster. It is an extension of the Radial Threshold Clustering algorithm (`Daura and Oscar Conchillo-Solé <https://pubs.acs.org/doi/pdf/10.1021/acs.jcim.2c01079>`_). eQual has improved with new seed selection methods and tie-breaking criteria.

@@ -33,6 +33,15 @@ MDANCE is a flexible *n*-ary clustering package for Molecular Dynamics trajector
 
       API reference
 
+   .. button-link:: nani-in-60-seconds.html
+      :color: primary
+      :outline:
+
+      Learn NANI in 60 seconds
+
+.. youtube:: tTRVX1SqNLg
+   :title: What is MDANCE? (video overview)
+
 Algorithms
 ----------
 
@@ -57,28 +66,32 @@ Algorithms
 
    .. grid-item-card:: DIVINE
       :img-top: img/algorithms/DIVINE.png
-      :link: https://github.com/mqcomplab/MDANCE/blob/main/tutorials/divine.md
+      :link: tutorials/divine
+      :link-type: doc
       :class-card: algo-card
 
       Top-down divisive clustering
 
    .. grid-item-card:: mdBIRCH
       :img-top: img/algorithms/mdBIRCH.png
-      :link: https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdbirch.md
+      :link: tutorials/mdbirch
+      :link-type: doc
       :class-card: algo-card
 
       Online clustering for large trajectories
 
    .. grid-item-card:: SHINE
       :img-top: img/algorithms/SHINE.png
-      :link: https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md
+      :link: tutorials/shine
+      :link-type: doc
       :class-card: algo-card
 
       Dominant pathways in enhanced sampling
 
    .. grid-item-card:: PRISM
       :img-top: img/algorithms/PRISM.png
-      :link: https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md
+      :link: tutorials/prism
+      :link-type: doc
       :class-card: algo-card
 
       Pathway comparison by structural medoids
@@ -114,10 +127,10 @@ Algorithms
 
    NANI <tutorials/nani>
    HELM <tutorials/helm>
-   DIVINE <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/divine.md>
-   mdBIRCH <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdbirch.md>
-   SHINE <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md>
-   PRISM <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md>
+   DIVINE <tutorials/divine>
+   mdBIRCH <tutorials/mdbirch>
+   SHINE <tutorials/shine>
+   PRISM <tutorials/prism>
    eQual <tutorials/equal>
    PRIME <tutorials/prime>
 
@@ -126,7 +139,8 @@ Algorithms
    :maxdepth: 1
    :caption: Examples
 
-   NANI in 60 seconds <examples/nani101>
+   NANI in 60 seconds <https://mdance.readthedocs.io/en/latest/nani-in-60-seconds.html>
+   NANI example (code) <examples/nani101>
    Preprocessing <examples/preprocessing>
    Cluster analysis <examples/analysis_db>
    Postprocessing <examples/postprocessing>

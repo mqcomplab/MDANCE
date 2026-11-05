@@ -2,6 +2,10 @@
 
 # PRISM - Pathway Representation via Intrinsic Structural Medoids
 
+<a href="https://www.youtube.com/watch?v=cIghtbab5hk&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/cIghtbab5hk/maxresdefault.jpg" alt="PRISM video tutorial" width="480"></a>
+
+▶ [Watch the PRISM video tutorial](https://www.youtube.com/watch?v=cIghtbab5hk&list=PLPuFwYwFEee8) (MDANCE Ep. 6, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

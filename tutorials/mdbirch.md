@@ -2,6 +2,10 @@
 
 # mdBIRCH - Online CF-tree clustering for MD data
 
+<a href="https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/kJryjOg7LWg/maxresdefault.jpg" alt="mdBIRCH video tutorial" width="480"></a>
+
+▶ [Watch the mdBIRCH video tutorial](https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8) (MDANCE Ep. 4, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)
@@ -23,7 +27,7 @@ The merge decision is designed to be physically interpretable for molecular traj
 ## When to use mdBIRCH
 **Current best practice (today):** we primarily use mdBIRCH on **finished simulations** (post hoc clustering). It’s fast, memory-bounded, and provides a straightforward “one-pass” partitioning of an already-generated trajectory.
 
-**Future direction:** mdBIRCH becomes even more powerful when paired with an engine that enables *instantaneous clustering*—i.e., streaming frames during simulation and assigning them to clusters online in real time. In that setup, mdBIRCH acts as the online clustering backbone, while the engine handles the streaming.
+**Future direction:** mdBIRCH becomes even more powerful when paired with an engine that enables *instantaneous clustering*, that is, streaming frames during simulation and assigning them to clusters online in real time. In that setup, mdBIRCH acts as the online clustering backbone, while the engine handles the streaming.
 
 ## Tutorial
 

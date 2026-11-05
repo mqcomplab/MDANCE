@@ -6,8 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "MDANCE"
 dynamic = ["version"]
 authors = [
-  { name="Lexin Chen", email="le.chen@ufl.edu" },
   { name="Jherome Brylle Woody Santos", email="ja.santos@ufl.edu"},
+  { name="Lexin Chen", email="le.chen@ufl.edu" },
+  { name="Micah Smith" },
+  { name="Ramón Alain Miranda Quintana" },
 ]
 description = "a flexible n-ary clustering package for all applications."
 readme = "README.md"
@@ -27,7 +29,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mqcomplab/MDANCE"
+Homepage = "https://mqcomplab.github.io/MDANCE/"
 Documentation = "https://mdance.readthedocs.io/en/latest/"
 Repository = "https://github.com/mqcomplab/MDANCE"
 Issues = "https://github.com/mqcomplab/MDANCE/issues"

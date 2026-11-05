@@ -113,63 +113,63 @@ Algorithms
    * - Algorithm
      - What it does
      - Best for
-     - Tutorial
+     - Learn
      - Paper
    * - |nani|
 
        **NANI**
      - Deterministic *k*-means seeding that finds metastable states
      - Simple analysis
-     - :doc:`Tutorial <tutorials/nani>`
+     - :doc:`Tutorial <tutorials/nani>` · `Video <https://www.youtube.com/watch?v=Y2DNnLseq9E&list=PLPuFwYwFEee8>`__
      - `JCTC 2024 <https://doi.org/10.1021/acs.jctc.4c00308>`__, `JCIM 2026 <https://doi.org/10.1021/acs.jcim.5c02741>`__
    * - |helm|
 
        **HELM**
      - Hierarchical clustering at *k*-means cost
      - High-resolution hierarchies
-     - :doc:`Tutorial <tutorials/helm>`
+     - :doc:`Tutorial <tutorials/helm>` · `Video <https://www.youtube.com/watch?v=Lc011WzQBeM&list=PLPuFwYwFEee8>`__
      - `JCIM 2025 <https://doi.org/10.1021/acs.jcim.5c00539>`__
    * - |divine|
 
        **DIVINE**
      - Top-down divisive clustering, every resolution in one pass
      - Fast hierarchies
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/divine.md>`__
+     - :doc:`Tutorial <tutorials/divine>` · `Video <https://www.youtube.com/watch?v=MV0Rm46T0xs&list=PLPuFwYwFEee8>`__
      - `JCIM 2026 <https://doi.org/10.1021/acs.jcim.5c02740>`__
    * - |mdbirch|
 
        **mdBIRCH**
      - Online clustering with an RMSD-calibrated merge test
      - Very large or streaming trajectories
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdbirch.md>`__
+     - :doc:`Tutorial <tutorials/mdbirch>` · `Video <https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8>`__
      - `JCTC 2026 <https://doi.org/10.1021/acs.jctc.6c00221>`__
    * - |shine|
 
        **SHINE**
      - Finds the dominant pathways in enhanced-sampling data
      - Pathway exploration
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md>`__
+     - :doc:`Tutorial <tutorials/shine>` · `Video <https://www.youtube.com/watch?v=9c6n6zCWg9M&list=PLPuFwYwFEee8>`__
      - `JCIM 2025 <https://doi.org/10.1021/acs.jcim.5c00240>`__
    * - |prism|
 
        **PRISM**
      - Compares pathways by their structural medoids
      - Multi-pathway comparison
-     - `Tutorial <https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md>`__
+     - :doc:`Tutorial <tutorials/prism>` · `Video <https://www.youtube.com/watch?v=cIghtbab5hk&list=PLPuFwYwFEee8>`__
      - `Digital Discovery 2026 <https://doi.org/10.1039/d6dd00288a>`__
    * - |equal|
 
        **eQual**
      - Radial threshold clustering in linear time
      - Clusters of a set radius
-     - :doc:`Tutorial <tutorials/equal>`
+     - :doc:`Tutorial <tutorials/equal>` · `Video <https://www.youtube.com/watch?v=cjlNN8qhpOw&list=PLPuFwYwFEee8>`__
      - `JCIM 2025 <https://doi.org/10.1021/acs.jcim.4c02341>`__
    * - |prime|
 
        **PRIME**
      - Retrieves the native structure from a clustered ensemble
      - Structure selection
-     - :doc:`Tutorial <tutorials/prime>`
+     - :doc:`Tutorial <tutorials/prime>` · `Video <https://www.youtube.com/watch?v=UET6ypFss6k&list=PLPuFwYwFEee8>`__
      - `JCTC 2024 <https://doi.org/10.1021/acs.jctc.4c00362>`__
 
 NANI: *k*-means initialization
@@ -184,7 +184,7 @@ HELM: hybrid hierarchical clustering
 
 - Combines *k*-means efficiency with hierarchical flexibility using *n*-ary difference functions.
 - Keeps the cost of *k*-means while allowing any partition: the hierarchy is built without a pairwise distance matrix, so any number of clusters can be taken from one run.
-- Clusters 1.5 million frames in about 34 minutes, where classic hierarchical clustering takes 29 hours.
+- Clusters 1.5 million frames in about 34 minutes. Classic hierarchical clustering already needs 29 hours for 75,000 frames.
 
 DIVINE: divisive hierarchical clustering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

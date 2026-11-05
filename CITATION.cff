@@ -6,15 +6,17 @@ abstract: "A flexible n-ary clustering package for all applications."
 version: 0.5.0
 date-released: 2026-11-02
 authors:
-  - family-names: Chen
-    given-names: Lexin
   - family-names: Santos
     given-names: Jherome Brylle Woody
-  - family-names: Miranda-Quintana
+  - family-names: Chen
+    given-names: Lexin
+  - family-names: Smith
+    given-names: Micah
+  - family-names: Miranda Quintana
     given-names: Ramón Alain
 license: MIT
 repository-code: "https://github.com/mqcomplab/MDANCE"
-url: "https://mdance.readthedocs.io"
+url: "https://mqcomplab.github.io/MDANCE/"
 preferred-citation:
   type: article
   title: "k-Means NANI: An Improved Clustering Algorithm for Molecular Dynamics Simulations"

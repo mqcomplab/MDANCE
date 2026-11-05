@@ -2,6 +2,10 @@
 
 # HELM - Hierarchical Extended Linkage Method
 
+<a href="https://www.youtube.com/watch?v=Lc011WzQBeM&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/Lc011WzQBeM/maxresdefault.jpg" alt="HELM video tutorial" width="480"></a>
+
+▶ [Watch the HELM video tutorial](https://www.youtube.com/watch?v=Lc011WzQBeM&list=PLPuFwYwFEee8) (MDANCE Ep. 2, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

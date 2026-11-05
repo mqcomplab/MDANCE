@@ -2,6 +2,10 @@
 
 # eQual - Extended Quality Clustering
 
+<a href="https://www.youtube.com/watch?v=cjlNN8qhpOw&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/cjlNN8qhpOw/maxresdefault.jpg" alt="eQual video tutorial" width="480"></a>
+
+▶ [Watch the eQual video tutorial](https://www.youtube.com/watch?v=cjlNN8qhpOw&list=PLPuFwYwFEee8) (MDANCE Ep. 7, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

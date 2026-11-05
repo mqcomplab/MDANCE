@@ -32,15 +32,30 @@ body[data-theme="dark"] .mobile-header .header-center a {
     }
 }
 
+/* Space between the top bar and a logo or icon that opens a page */
+article[role="main"] > a.image-reference:first-child img,
+article[role="main"] > a.image-reference.only-dark img {
+    margin-top: 1.5rem;
+}
+
+/* Embedded video tutorials (16:9) */
+.video {
+    max-width: 720px;
+    aspect-ratio: 16 / 9;
+    margin: 1rem 0 1.75rem;
+}
+
+.video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 12px;
+}
+
 /* Headings */
 h1, h2, h3, h4 {
     font-weight: 600;
     letter-spacing: -0.015em;
-}
-
-/* No link-to-heading # on page titles */
-h1 > a.headerlink {
-    display: none;
 }
 
 /* Install command on the home page: a pill, click anywhere to copy */
@@ -54,6 +69,13 @@ div.install-cmd div.highlight {
     background: #131A3A;
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 999px;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+div.install-cmd:hover div.highlight {
+    transform: translateY(-2px);
+    background: #1A2248;
+    border-color: #44E1F9;
 }
 
 div.install-cmd div.highlight pre {
@@ -73,7 +95,8 @@ div.install-cmd div.highlight pre::before {
     color: #EC3F96;
 }
 
-div.install-cmd button.copybtn {
+/* Copy button on the dark box (more specific than the theme's rules) */
+div.install-cmd .highlight button.copybtn {
     top: 50%;
     right: 0.7rem;
     transform: translateY(-50%);
@@ -83,9 +106,20 @@ div.install-cmd button.copybtn {
     color: #A9AED6;
 }
 
-div.install-cmd button.copybtn:hover {
+div.install-cmd:hover .highlight button.copybtn,
+div.install-cmd .highlight button.copybtn:hover {
+    background: transparent;
     color: #F3F4FB;
     border-color: #44E1F9;
+}
+
+div.install-cmd .highlight button.copybtn.success {
+    color: #6FC29B;
+}
+
+/* "Copied!" next to the button */
+div.install-cmd .highlight button.copybtn:after {
+    color: #F3F4FB;
 }
 
 /* Buttons: pills, primary with the brand gradient */
@@ -107,6 +141,12 @@ div.install-cmd button.copybtn:hover {
     border: 0 !important;
     outline: none;
     box-shadow: none !important;
+    transition: transform 0.2s ease, background-position 0.4s ease, background-color 0.2s ease;
+}
+
+/* Hover: lift (same shape and size) */
+.hero-buttons a.sd-btn:hover {
+    transform: translateY(-2px);
 }
 
 .hero-buttons a.sd-btn:focus-visible {
@@ -191,11 +231,15 @@ table.algo-table td:first-child p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .algo-card {
-        transition: none;
+    .algo-card,
+    div.install-cmd div.highlight,
+    .hero-buttons a.sd-btn {
+        transition: none !important;
     }
 
-    .algo-card:hover {
+    .algo-card:hover,
+    div.install-cmd:hover div.highlight,
+    .hero-buttons a.sd-btn:hover {
         transform: none;
     }
 }

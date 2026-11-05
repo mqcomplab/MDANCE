@@ -1,12 +1,10 @@
 """
-Learn NANI in 60 seconds!
+NANI example: *k*-means with NANI seeds
 ===============================================
 
-How to use NANI in 60 seconds? Say no more! 
-
-The main idea is to use the NANI to optimize initial centroids so *k*-means is 100% 
-deterministic, converges faster, and finds better solutions. Here is a simple
-example to get started.
+NANI picks the initial centroids, so *k*-means is deterministic and finds a
+good solution in a single run. Here is a simple example to get started. For an
+interactive version, see `Learn NANI in 60 seconds <../nani-in-60-seconds.html>`_.
 
 The pwd of this script is ``$PATH/MDANCE/examples``.
 """
@@ -85,7 +83,9 @@ ax2[1].set_title('True Labels', fontsize=16, fontweight='bold')
 plt.show()
 
 ###############################################################################
-# As you can see, NANI clustered the data perfectly!
+# NANI found the groups as well as the best *k*-means++ runs (some groups
+# overlap, so no clustering matches the true labels exactly), and it gives the
+# same result on every run.
 #
 # That's it! You have successfully used NANI to optimize initial centroids for *k*-means clustering.
 #   - ``kmeans_labels``: cluster labels assigned by *k*-means using NANI.
