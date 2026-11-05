@@ -22,8 +22,6 @@ header{padding:24px 0 24px}
 .back{display:inline-block;margin-bottom:28px;font-size:15px;font-weight:500;text-decoration:none;color:var(--soft)}
 .back:hover{color:var(--violet)}
 .back:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:4px}
-.timer{display:flex;align-items:center;gap:14px;margin-bottom:22px;color:var(--soft);font-size:15px}
-.timer svg{flex:none}
 h1{font-size:clamp(40px,6vw,72px);line-height:1.02;font-weight:600;letter-spacing:-.02em;margin:0 0 14px}
 .lede{font-size:20px;color:var(--soft);max-width:60ch;margin:0}
 .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:start;padding:24px 0 80px}
@@ -68,7 +66,6 @@ footer{border-top:1px solid var(--line);padding:28px 0 48px;color:var(--soft);fo
 <body>
 <header class="wrap">
   <a class="back" href="index.html">← MDANCE docs</a>
-  <div class="timer" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--line)" stroke-width="4"/><circle id="ring" cx="20" cy="20" r="16" fill="none" stroke="var(--violet)" stroke-width="4" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="100.5" transform="rotate(-90 20 20)"/></svg><span id="secs">0 of 60 seconds</span></div>
   <h1>Learn NANI in 60 seconds</h1>
   <p class="lede">K-means is only as good as where it starts. Watch it roll the dice, then let NANI pick the starting points, and get the same answer every time.</p>
 </header>
@@ -201,11 +198,9 @@ function setTruth(on) { state.truth = on; bT.setAttribute('aria-pressed', on); b
 bT.onclick = () => { stopAnim(); const on = !state.truth; if (on) { state = { col: null, seeds: null, path: null, truth: true }; } else state.truth = false; setTruth(on); draw(); document.getElementById('mode').textContent = on ? 'The true groups' : '1,000 points, 7 groups'; setActive(0); };
 // copy
 document.getElementById('bCopy').onclick = async () => { const t = document.getElementById('all').innerText.replace(/^Copy\s*/, ''); try { await navigator.clipboard.writeText(t); document.getElementById('bCopy').textContent = 'Copied'; } catch (e) { document.getElementById('bCopy').textContent = 'Select and copy'; } };
-// the 60-second ring fills as you read
+// highlight the step in use
 const steps = [...document.querySelectorAll('.step')];
 function setActive(i) { steps.forEach((s, j) => s.classList.toggle('on', j === i)); }
-function onScroll() { const h = document.documentElement, f = Math.min(1, Math.max(0, h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight))); document.getElementById('ring').setAttribute('stroke-dashoffset', (100.5 * (1 - f)).toFixed(1)); document.getElementById('secs').textContent = Math.round(f * 60) + ' of 60 seconds'; }
-addEventListener('scroll', onScroll, { passive: true }); onScroll();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 draw();
 </script>
