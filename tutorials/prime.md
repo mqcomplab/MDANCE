@@ -2,6 +2,10 @@
 
 # PRIME Tutorial
 
+<a href="https://www.youtube.com/watch?v=UET6ypFss6k&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/UET6ypFss6k/maxresdefault.jpg" alt="PRIME video tutorial" width="480"></a>
+
+▶ [Watch the PRIME video tutorial](https://www.youtube.com/watch?v=UET6ypFss6k&list=PLPuFwYwFEee8) (MDANCE Ep. 8, YouTube)
+
 #### Table of Contents
 - [Overview](#overview)
 - [Tutorial](#tutorial)

@@ -39,6 +39,9 @@ MDANCE is a flexible *n*-ary clustering package for Molecular Dynamics trajector
 
       Learn NANI in 60 seconds
 
+.. youtube:: tTRVX1SqNLg
+   :title: What is MDANCE? (video overview)
+
 Algorithms
 ----------
 

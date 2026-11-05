@@ -2,6 +2,10 @@
 
 # DIVINE - Deterministic Divisive Hierarchical Clustering
 
+<a href="https://www.youtube.com/watch?v=MV0Rm46T0xs&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/MV0Rm46T0xs/maxresdefault.jpg" alt="DIVINE video tutorial" width="480"></a>
+
+▶ [Watch the DIVINE video tutorial](https://www.youtube.com/watch?v=MV0Rm46T0xs&list=PLPuFwYwFEee8) (MDANCE Ep. 3, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

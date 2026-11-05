@@ -2,6 +2,10 @@
 
 # SHINE - Pathway Clustering
 
+<a href="https://www.youtube.com/watch?v=9c6n6zCWg9M&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/9c6n6zCWg9M/maxresdefault.jpg" alt="SHINE video tutorial" width="480"></a>
+
+▶ [Watch the SHINE video tutorial](https://www.youtube.com/watch?v=9c6n6zCWg9M&list=PLPuFwYwFEee8) (MDANCE Ep. 5, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

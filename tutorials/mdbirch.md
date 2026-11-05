@@ -2,6 +2,10 @@
 
 # mdBIRCH - Online CF-tree clustering for MD data
 
+<a href="https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/kJryjOg7LWg/maxresdefault.jpg" alt="mdBIRCH video tutorial" width="480"></a>
+
+▶ [Watch the mdBIRCH video tutorial](https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8) (MDANCE Ep. 4, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

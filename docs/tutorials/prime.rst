@@ -4,6 +4,9 @@
 PRIME Tutorial
 ==============
 
+.. youtube:: UET6ypFss6k
+   :title: PRIME video tutorial (MDANCE Ep. 8)
+
 Overview
 --------
 

@@ -16,7 +16,7 @@ authors:
     given-names: Ramón Alain
 license: MIT
 repository-code: "https://github.com/mqcomplab/MDANCE"
-url: "https://mdance.readthedocs.io"
+url: "https://mqcomplab.github.io/MDANCE/"
 preferred-citation:
   type: article
   title: "k-Means NANI: An Improved Clustering Algorithm for Molecular Dynamics Simulations"

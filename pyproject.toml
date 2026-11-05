@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mqcomplab/MDANCE"
+Homepage = "https://mqcomplab.github.io/MDANCE/"
 Documentation = "https://mdance.readthedocs.io/en/latest/"
 Repository = "https://github.com/mqcomplab/MDANCE"
 Issues = "https://github.com/mqcomplab/MDANCE/issues"

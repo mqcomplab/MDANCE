@@ -4,6 +4,9 @@
 HELM - Hierarchical Extended Linkage Method
 ===========================================
 
+.. youtube:: Lc011WzQBeM
+   :title: HELM video tutorial (MDANCE Ep. 2)
+
 Overview
 --------
 HELM is a hierarchical agglomerative clustering algorithm that uses the *n*-ary similarity to merge clusters at each level. It transformed from the traditional hierarchical clustering algorithm to be more efficient and scalable turning a :math:`O(N^2)` algorithm to :math:`O(N)`. It specializes in recognizing dominant conformations within an ensemble and is often used alongside NANI to achieve a balance between efficiency and precision.

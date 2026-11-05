@@ -4,6 +4,10 @@
 
 > New to NANI? Try the interactive [NANI in 60 seconds](https://mdance.readthedocs.io/en/latest/nani-in-60-seconds.html) first.
 
+<a href="https://www.youtube.com/watch?v=Y2DNnLseq9E&list=PLPuFwYwFEee8"><img src="https://img.youtube.com/vi/Y2DNnLseq9E/maxresdefault.jpg" alt="NANI video tutorial" width="480"></a>
+
+▶ [Watch the NANI video tutorial](https://www.youtube.com/watch?v=Y2DNnLseq9E&list=PLPuFwYwFEee8) (MDANCE Ep. 1, YouTube)
+
 Table of Contents
 =================
 - [Overview](#overview)

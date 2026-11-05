@@ -19,11 +19,18 @@
 </p>
 
 <p align="center">
+  <a href="https://mqcomplab.github.io/MDANCE/">Website</a> •
   <a href="#installation">Installation</a> •
   <a href="#quick-start">Quick start</a> •
   <a href="#algorithms">Algorithms</a> •
   <a href="https://mdance.readthedocs.io/en/latest/">Documentation</a> •
-  <a href="#citing-mdance">Citing</a>
+  <a href="#citing-mdance">Citing</a> •
+  <a href="https://www.youtube.com/playlist?list=PLPuFwYwFEee8">Videos</a>
+</p>
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=tTRVX1SqNLg&list=PLPuFwYwFEee8"><img src="https://img.shields.io/badge/%E2%96%B6_Watch-MDANCE_in_1_minute-E60978?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch MDANCE in 1 minute"></a>
+  <a href="https://mdance.readthedocs.io/en/latest/nani-in-60-seconds.html"><img src="https://img.shields.io/badge/Try_it-NANI_in_60_seconds-6A3BF0?style=for-the-badge" alt="Try NANI in 60 seconds"></a>
 </p>
 
 ## Why MDANCE
@@ -84,16 +91,16 @@ To use your own trajectory, convert it to a NumPy array first ([preprocessing tu
 
 ## Algorithms
 
-| Algorithm | What it does | Best for | Tutorial | Paper |
+| Algorithm | What it does | Best for | Learn | Paper |
 |:---:|---|---|---|---|
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/NANI.png" alt="" width="64"><br>**NANI** | Deterministic *k*-means seeding that finds metastable states | Simple analysis | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/nani.html) | [JCTC 2024](https://doi.org/10.1021/acs.jctc.4c00308), [JCIM 2026](https://doi.org/10.1021/acs.jcim.5c02741) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/HELM.png" alt="" width="64"><br>**HELM** | Hierarchical clustering at *k*-means cost | High-resolution hierarchies | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/helm.html) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.5c00539) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/DIVINE.png" alt="" width="64"><br>**DIVINE** | Top-down divisive clustering, every resolution in one pass | Fast hierarchies | [Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/divine.md) | [JCIM 2026](https://doi.org/10.1021/acs.jcim.5c02740) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/mdBIRCH.png" alt="" width="64"><br>**mdBIRCH** | Online clustering with an RMSD-calibrated merge test | Very large or streaming trajectories | [Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/mdbirch.md) | [JCTC 2026](https://doi.org/10.1021/acs.jctc.6c00221) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/SHINE.png" alt="" width="64"><br>**SHINE** | Finds the dominant pathways in enhanced-sampling data | Pathway exploration | [Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/shine.md) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.5c00240) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/PRISM.png" alt="" width="64"><br>**PRISM** | Compares pathways by their structural medoids | Multi-pathway comparison | [Tutorial](https://github.com/mqcomplab/MDANCE/blob/main/tutorials/prism.md) | [Digital Discovery 2026](https://doi.org/10.1039/d6dd00288a) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/eQual.png" alt="" width="64"><br>**eQual** | Radial threshold clustering in linear time | Clusters of a set radius | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/equal.html) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.4c02341) |
-| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/PRIME.png" alt="" width="64"><br>**PRIME** | Retrieves the native structure from a clustered ensemble | Structure selection | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prime.html) | [JCTC 2024](https://doi.org/10.1021/acs.jctc.4c00362) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/NANI.png" alt="" width="64"><br>**NANI** | Deterministic *k*-means seeding that finds metastable states | Simple analysis | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/nani.html) · [Video](https://www.youtube.com/watch?v=Y2DNnLseq9E&list=PLPuFwYwFEee8) | [JCTC 2024](https://doi.org/10.1021/acs.jctc.4c00308), [JCIM 2026](https://doi.org/10.1021/acs.jcim.5c02741) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/HELM.png" alt="" width="64"><br>**HELM** | Hierarchical clustering at *k*-means cost | High-resolution hierarchies | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/helm.html) · [Video](https://www.youtube.com/watch?v=Lc011WzQBeM&list=PLPuFwYwFEee8) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.5c00539) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/DIVINE.png" alt="" width="64"><br>**DIVINE** | Top-down divisive clustering, every resolution in one pass | Fast hierarchies | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/divine.html) · [Video](https://www.youtube.com/watch?v=MV0Rm46T0xs&list=PLPuFwYwFEee8) | [JCIM 2026](https://doi.org/10.1021/acs.jcim.5c02740) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/mdBIRCH.png" alt="" width="64"><br>**mdBIRCH** | Online clustering with an RMSD-calibrated merge test | Very large or streaming trajectories | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/mdbirch.html) · [Video](https://www.youtube.com/watch?v=kJryjOg7LWg&list=PLPuFwYwFEee8) | [JCTC 2026](https://doi.org/10.1021/acs.jctc.6c00221) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/SHINE.png" alt="" width="64"><br>**SHINE** | Finds the dominant pathways in enhanced-sampling data | Pathway exploration | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/shine.html) · [Video](https://www.youtube.com/watch?v=9c6n6zCWg9M&list=PLPuFwYwFEee8) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.5c00240) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/PRISM.png" alt="" width="64"><br>**PRISM** | Compares pathways by their structural medoids | Multi-pathway comparison | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prism.html) · [Video](https://www.youtube.com/watch?v=cIghtbab5hk&list=PLPuFwYwFEee8) | [Digital Discovery 2026](https://doi.org/10.1039/d6dd00288a) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/eQual.png" alt="" width="64"><br>**eQual** | Radial threshold clustering in linear time | Clusters of a set radius | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/equal.html) · [Video](https://www.youtube.com/watch?v=cjlNN8qhpOw&list=PLPuFwYwFEee8) | [JCIM 2025](https://doi.org/10.1021/acs.jcim.4c02341) |
+| <img src="https://raw.githubusercontent.com/mqcomplab/MDANCE/main/docs/img/algorithms/PRIME.png" alt="" width="64"><br>**PRIME** | Retrieves the native structure from a clustered ensemble | Structure selection | [Tutorial](https://mdance.readthedocs.io/en/latest/tutorials/prime.html) · [Video](https://www.youtube.com/watch?v=UET6ypFss6k&list=PLPuFwYwFEee8) | [JCTC 2024](https://doi.org/10.1021/acs.jctc.4c00362) |
 
 <details>
 <summary><b>More about each algorithm</b></summary>
