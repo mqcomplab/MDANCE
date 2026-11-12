@@ -17,6 +17,8 @@ sieve = 1                                           # Use every sieve-th frame (
 output_dir = 'outputs'                              # Folder for output files
 init_type = 'strat_all'                             # Seeding method {'strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'}
 metric = 'MSD'                                      # Distance metric for clustering
+algorithm = 'kmeans'                               # 'kmeans' or 'emeans' (explicit NANI seeds only)
+emeans_epochs = 5                                   # Used only for algorithm='emeans'
 start_n_clusters = 5                                # At least 2 clusters
 end_n_clusters = 30                                 # Maximum number of clusters
 
@@ -48,16 +50,19 @@ if __name__ == '__main__':
         if init_type in ['comp_sim', 'div_select', 'strat_all', 'strat_reduced']:
             mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric, N_atoms=N_atoms,
                              init_type=init_type, percentage=percentage)
-            labels, centers, n_iter = mod.kmeans_clustering(initiators[:i])
+            labels, centers, n_iter = mod.kmeans_clustering(initiators[:i], algorithm=algorithm,
+                                                           emeans_epochs=emeans_epochs)
         elif init_type in ['k-means++', 'random']:
             mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric,
                              N_atoms=N_atoms, init_type=init_type)
-            labels, centers, n_iter = mod.kmeans_clustering(initiators=init_type)
+            labels, centers, n_iter = mod.kmeans_clustering(initiators=init_type, algorithm=algorithm,
+                                                           emeans_epochs=emeans_epochs)
         elif init_type == 'vanilla_kmeans++':
             mod = KmeansNANI(data=traj_numpy, n_clusters=i, metric=metric,
                              N_atoms=N_atoms, init_type=init_type)
             initiators = mod.initiate_kmeans()
-            labels, centers, n_iter = mod.kmeans_clustering(initiators=initiators)
+            labels, centers, n_iter = mod.kmeans_clustering(initiators=initiators, algorithm=algorithm,
+                                                           emeans_epochs=emeans_epochs)
 
         # Compute scores
         ch_score, db_score = compute_scores(data=traj_numpy, labels=labels)
@@ -73,10 +78,12 @@ if __name__ == '__main__':
             total += msd
         all_scores.append((i, ch_score, db_score, total/i, n_iter))
 
-    scores_csv = f'{output_dir}/nani_{init_type}_scores.csv'
+    suffix = '' if algorithm == 'kmeans' else f'_{algorithm}'
+    scores_csv = f'{output_dir}/nani_{init_type}{suffix}_scores.csv'
     with open(scores_csv, 'w') as f:
         f.write(f'# NANI, init_type: {init_type}, percentage: {percentage}, metric: {metric}, sieve: {sieve}\n')
-        f.write('# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD, Number of iterations\n')
+        count_label = 'Number of iterations' if algorithm == 'kmeans' else 'E-means epochs'
+        f.write(f'# Number of clusters, Calinski-Harabasz, Davies-Bouldin, Average MSD, {count_label}\n')
         for row in all_scores:
             f.write(','.join(map(str, row)) + '\n')
 

@@ -87,6 +87,8 @@ centroids = nani.initiate_kmeans()
 labels = KMeans(n_clusters=6, init=centroids, n_init=1).fit(X).labels_
 ```
 
+For an optional e-means refinement of explicit NANI seeds, install `pip install "mdance[emeans]"` and call `nani.kmeans_clustering(centroids, algorithm="emeans")`. It converts inputs to float32; test speed and state quality for your trajectory.
+
 To use your own trajectory, convert it to a NumPy array first ([preprocessing tutorial](https://github.com/mqcomplab/MDANCE/blob/main/scripts/inputs/preprocessing.ipynb)). Every algorithm also has ready-to-run scripts in [`scripts/`](https://github.com/mqcomplab/MDANCE/tree/main/scripts).
 
 ## Algorithms

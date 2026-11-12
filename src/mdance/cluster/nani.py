@@ -157,7 +157,9 @@ class KmeansNANI:
         return initiators[:self.n_clusters]
     
     
-    def kmeans_clustering(self, initiators):
+    def kmeans_clustering(self, initiators, algorithm='kmeans',
+                          emeans_epochs=5, emeans_seed=1234,
+                          emeans_batch_law='auto'):
         """Executes the *k*-means algorithm with the selected initiators.
 
         Parameters
@@ -171,8 +173,17 @@ class KmeansNANI:
         Returns
         -------
         tuple
-            Labels, centers and number of iterations.
+            Labels, centers, and iteration count (e-means epochs for e-means).
         """
+        if algorithm not in ('kmeans', 'emeans'):
+            raise ValueError("algorithm must be 'kmeans' or 'emeans'")
+        if algorithm == 'emeans':
+            if self.init_type in ('k-means++', 'random'):
+                raise ValueError("e-means requires explicit initial centers; use a NANI seeding strategy")
+            from mdance.cluster._emeans import fit_emeans
+            return fit_emeans(self.data, initiators, self.n_clusters,
+                              nepochs=emeans_epochs, seed=emeans_seed,
+                              batch_law=emeans_batch_law)
         if self.init_type in ['k-means++', 'random']:
             initiators = self.init_type
         n_init = 1
@@ -237,7 +248,7 @@ class KmeansNANI:
         np.savetxt('centroids.txt', centers, delimiter=',', header=header)
     
     
-    def execute_kmeans_all(self):
+    def execute_kmeans_all(self, algorithm='kmeans', **kwargs):
         """Function to complete all steps of NANI for all different ``init_type`` options.
 
         Returns
@@ -246,10 +257,12 @@ class KmeansNANI:
             Labels, centers and number of iterations.
         """
         if self.init_type == 'k-means++' or self.init_type == 'random':
-            labels, centers, n_iter = self.kmeans_clustering(initiators=self.init_type)
+            labels, centers, n_iter = self.kmeans_clustering(
+                self.init_type, algorithm=algorithm, **kwargs)
         else:
             initiators = self.initiate_kmeans()
-            labels, centers, n_iter = self.kmeans_clustering(initiators)
+            labels, centers, n_iter = self.kmeans_clustering(
+                initiators, algorithm=algorithm, **kwargs)
         return labels, centers, n_iter
 
 
