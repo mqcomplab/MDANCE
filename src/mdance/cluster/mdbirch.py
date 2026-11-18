@@ -480,7 +480,7 @@ class mdBirch():
         distributions. The threshold represents the actual physical tolerance and provides
         interpretable choices for clustering resolution.
 
-    branching_factor : int, default=50
+    branching_factor : int, default=1000
         Maximum number of subclusters in each node. When a new sample would cause
         a node to exceed this limit, the node is split into two nodes with subclusters
         redistributed between them. The parent subcluster is removed and two new
@@ -522,7 +522,7 @@ class mdBirch():
         self,
         *,
         threshold=1,
-        branching_factor=50,
+        branching_factor=1000,
     ):
         self.threshold = threshold
         self.branching_factor = branching_factor
