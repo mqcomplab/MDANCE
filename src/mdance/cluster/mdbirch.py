@@ -349,26 +349,34 @@ class _BFNode:
         # to manipulate throughout.
         self.subclusters_ = []
         self.init_centroids_ = np.zeros((branching_factor + 1, n_features), dtype=dtype)
+        self.init_sq_norm_ = np.zeros(branching_factor + 1, dtype=dtype)
         self.prev_leaf_ = None
         self.next_leaf_ = None
 
     def append_subcluster(self, subcluster):
         n_samples = len(self.subclusters_)
         self.subclusters_.append(subcluster)
-        self.init_centroids_[n_samples] = subcluster.centroid_
+        self._set_centroid(n_samples, subcluster.centroid_)
         
         # Keep centroids as views. In this way
         # if we change init_centroids, it is sufficient
         self.centroids_ = self.init_centroids_[: n_samples + 1, :]
+        self.sq_norm_ = self.init_sq_norm_[: n_samples + 1]
         
+    def _set_centroid(self, idx, centroid):
+        """Store a centroid and its squared norm. The norm is computed from
+        the stored row, with the same expression the distance search used
+        before it was cached, so results are bit-for-bit unchanged."""
+        self.init_centroids_[idx] = centroid
+        self.init_sq_norm_[idx] = np.sum(self.init_centroids_[idx]**2)
+
     def update_split_subclusters(self, subcluster, new_subcluster1, new_subcluster2):
         """Remove a subcluster from a node and update it with the
         split subclusters.
         """
         ind = self.subclusters_.index(subcluster)
         self.subclusters_[ind] = new_subcluster1
-        self.init_centroids_[ind] = new_subcluster1.centroid_
-        self.centroids_[ind] = new_subcluster1.centroid_
+        self._set_centroid(ind, new_subcluster1.centroid_)
         self.append_subcluster(new_subcluster2)
 
     def insert_bf_subcluster(self, subcluster):
@@ -381,8 +389,9 @@ class _BFNode:
         branching_factor = self.branching_factor
         # We need to find the closest subcluster among all the
         # subclusters so that we can insert our new subcluster.
-        a = np.dot(self.centroids_, subcluster.centroid_)
-        sim_matrix = np.dot(subcluster.centroid_, subcluster.centroid_) + np.sum(self.centroids_**2, axis = 1) - 2 * np.dot(self.centroids_, subcluster.centroid_)
+        # Same expression as before, with the squared norms of the
+        # centroids cached instead of recomputed on every insert.
+        sim_matrix = np.dot(subcluster.centroid_, subcluster.centroid_) + self.sq_norm_ - 2 * np.dot(self.centroids_, subcluster.centroid_)
         closest_index = np.argmin(sim_matrix)
         closest_subcluster = self.subclusters_[closest_index]
 
@@ -394,8 +403,7 @@ class _BFNode:
                 # If it is determined that the child need not be split, we
                 # can just update the closest_subcluster
                 closest_subcluster.update(subcluster)
-                self.init_centroids_[closest_index] = self.subclusters_[closest_index].centroid_
-                self.centroids_[closest_index] = self.subclusters_[closest_index].centroid_
+                self._set_centroid(closest_index, closest_subcluster.centroid_)
                 return False
 
             # things not too good. we need to redistribute the subclusters in
@@ -419,8 +427,7 @@ class _BFNode:
         else:
             merged = closest_subcluster.merge_subcluster(subcluster, self.threshold, self.merge_accept)
             if merged:
-                self.centroids_[closest_index] = closest_subcluster.centroid_
-                self.init_centroids_[closest_index] = closest_subcluster.centroid_
+                self._set_centroid(closest_index, closest_subcluster.centroid_)
                 return False
 
             # not close to any other subclusters, and we still
@@ -460,7 +467,7 @@ class _BFSubcluster:
         Centroid of the subcluster. Prevent recomputing of centroids when
         ``BFNode.centroids_`` is called.
     
-    mol_indices : list, default=[]
+    mol_indices : list, default=None
         List of indices of molecules included in the given cluster.
 
     child_ : _BFNode
@@ -468,7 +475,7 @@ class _BFSubcluster:
         of the _BFNode, it is set to ``self.child_``.
     """
 
-    def __init__(self, *, linear_sum = None, mol_indices = []):
+    def __init__(self, *, linear_sum = None, mol_indices = None):
         if linear_sum is None:
             self.n_samples_ = 0
             self.centroid_ = self.linear_sum_ = 0
@@ -477,7 +484,7 @@ class _BFSubcluster:
         else:
             self.n_samples_ = 1
             self.centroid_ = self.linear_sum_ = linear_sum
-            self.mol_indices = mol_indices
+            self.mol_indices = mol_indices if mol_indices is not None else []
             self.sq_sum = self.centroid_**2
         
         self.child_ = None
@@ -485,7 +492,8 @@ class _BFSubcluster:
     def update(self, subcluster):
         self.n_samples_ += subcluster.n_samples_
         self.linear_sum_ += subcluster.linear_sum_
-        self.mol_indices += subcluster.mol_indices
+        # update() is only used for non-leaf subclusters, whose frame
+        # indices are never read, so they are not tracked.
         self.centroid_ = calc_centroid(self.linear_sum_, self.n_samples_)
         self.sq_sum += subcluster.sq_sum
 
@@ -499,13 +507,11 @@ class _BFSubcluster:
         
         if merge_accept(threshold, new_ls, new_ss, new_n):
             new_centroid = calc_centroid(new_ls, new_n)
-            (
-                self.n_samples_,
-                self.linear_sum_,
-                self.centroid_,
-                self.mol_indices,
-                self.sq_sum
-            ) = (new_n, new_ls, new_centroid, self.mol_indices + nominee_cluster.mol_indices, new_ss)
+            self.n_samples_ = new_n
+            self.linear_sum_ = new_ls
+            self.centroid_ = new_centroid
+            self.mol_indices.extend(nominee_cluster.mol_indices)
+            self.sq_sum = new_ss
             return True
         return False
     
@@ -533,7 +539,7 @@ class mdBirch():
         distributions. The threshold represents the actual physical tolerance and provides
         interpretable choices for clustering resolution.
 
-    branching_factor : int, default=50
+    branching_factor : int, default=1000
         Maximum number of subclusters in each node. When a new sample would cause
         a node to exceed this limit, the node is split into two nodes with subclusters
         redistributed between them. The parent subcluster is removed and two new
@@ -580,7 +586,7 @@ class mdBirch():
         self,
         *,
         threshold=1,
-        branching_factor=50,
+        branching_factor=1000,
         merge_criterion='radius',
     ):
         _check_merge_criterion(merge_criterion)

@@ -37,8 +37,7 @@ if __name__ == '__main__':
     frame_labels = np.full(n_frames, -1, dtype=int)
 
     for cluster_id, frame_indices in enumerate(clusters):
-        for frame_idx in frame_indices:
-            frame_labels[frame_idx] = cluster_id
+        frame_labels[frame_indices] = cluster_id
 
     print(f"Number of clusters: {len(clusters)}")
 
@@ -56,7 +55,8 @@ if __name__ == '__main__':
     with open(f'{output_dir}/mdbirch_summary_{threshold}.csv', 'w') as f:
         f.write(f'# {params}, total frames: {n_frames}\n')
         f.write('# Cluster Index, Fraction of total frames, Number of frames, MSD\n')
-        for i in np.unique(frame_labels[frame_labels >= 0]):
-            members = traj_numpy[frame_labels == i]
+        for i, frame_indices in enumerate(clusters):
+            # Index each cluster's frames directly instead of scanning all labels per cluster
+            members = traj_numpy[np.sort(frame_indices)]
             msd = extended_comparison(members, data_type='full', metric='MSD', N_atoms=N_atoms)
             f.write(f'{i},{len(members) / n_frames},{len(members)},{msd}\n')
