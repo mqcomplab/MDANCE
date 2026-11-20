@@ -28,12 +28,23 @@
 # Kenneth Lopez Perez <klopezperez@chem.ufl.edu>
 # Kate Huddleston <kdavis2@chem.ufl.edu>
 
+import warnings
+
 import numpy as np
 from scipy import sparse
 
-def set_merge(merge_criterion, features=None):
+_MERGE_CRITERIA = ('radius',)
+
+
+def _check_merge_criterion(merge_criterion):
+    if merge_criterion not in _MERGE_CRITERIA:
+        raise ValueError(f"Unsupported merge criterion: '{merge_criterion}'. "
+                         f"Currently only {', '.join(repr(c) for c in _MERGE_CRITERIA)} is supported.")
+
+
+def _make_merge_accept(merge_criterion, features):
     """
-    Sets merge_accept function for merge_subcluster, based on user specified merge_criteria. 
+    Build the merge_accept function used by merge_subcluster.
 
     Radius: merge subcluster if the post-merge average distance from centroid to points in cluster is less than threshold
 
@@ -42,23 +53,64 @@ def set_merge(merge_criterion, features=None):
     merge_criterion : str
                         merge criterion to use. Currently only 'radius' is supported
     features : int
-                        number of features in the data. 
+                        number of features in the data.
 
     Returns:
     --------
-    merge_accept : function 
+    merge_accept : function
                         function that determines if cluster is accepted to merge based on the specified criteria
     """
+    _check_merge_criterion(merge_criterion)
+    D = features
+    def merge_accept(threshold, new_ls, new_ss, new_n):
+        radius_sq = np.sum(new_ss)/new_n - np.dot(new_ls, new_ls)/new_n**2
+        return radius_sq <= threshold**2 / 4 * D
+    return merge_accept
 
-    if merge_criterion == 'radius':
-        D = features if features is not None else 1
-        def merge_accept(threshold, new_ls, new_ss, new_n):
-            radius_sq = np.sum(new_ss)/new_n - np.dot(new_ls, new_ls)/new_n**2
-            return radius_sq <= threshold**2 / 4 * D
+
+def set_merge(merge_criterion, features=None):
+    """
+    Deprecated. Pass ``merge_criterion`` to :class:`mdBirch` instead.
+
+    The merge criterion is now set per model, and the number of features is
+    taken from the data passed to ``fit``. This function only checks that
+    ``merge_criterion`` is supported; it no longer changes how models cluster.
+    """
+    warnings.warn(
+        "mdbirch.set_merge() is deprecated and has no effect; pass "
+        "merge_criterion to mdBirch() instead. The number of features is "
+        "taken from the data passed to fit().",
+        FutureWarning,
+        stacklevel=2,
+    )
+    _check_merge_criterion(merge_criterion)
+
+
+def _validate_X(X):
+    """Check the input to fit and return it as a 2-D float array (or CSR matrix).
+
+    Integer and boolean input is converted to float64 so centroids are not
+    truncated. float32 and float64 input keeps its dtype.
+    """
+    if sparse.issparse(X):
+        X = sparse.csr_matrix(X)
+        data = X.data
     else:
-        raise ValueError(f"Unsupported merge criterion: '{merge_criterion}'. Currently only 'radius' is supported.")
-
-    globals()['merge_accept'] = merge_accept
+        X = np.asarray(X)
+        data = X
+    if X.ndim != 2:
+        raise ValueError(f"Expected a 2-D array of shape (n_samples, n_features), got {X.ndim}-D input.")
+    if X.shape[0] == 0 or X.shape[1] == 0:
+        raise ValueError(f"Expected at least one sample and one feature, got shape {X.shape}.")
+    if not (np.issubdtype(X.dtype, np.number) or np.issubdtype(X.dtype, np.bool_)) \
+            or np.issubdtype(X.dtype, np.complexfloating):
+        raise ValueError(f"Expected real numeric input, got dtype {X.dtype}.")
+    if X.dtype not in (np.float32, np.float64):
+        X = X.astype(np.float64)
+        data = X.data if sparse.issparse(X) else X
+    if not np.all(np.isfinite(data)):
+        raise ValueError("Input contains NaN or infinity.")
+    return X
 
 def msd_condensed(c_sum, sq_sum, N):
     """Condensed version of Mean Square Deviation (MSD) calculation 
@@ -174,7 +226,7 @@ def _iterate_sparse_X(X):
     X_indptr = X.indptr
 
     for i in range(n_samples):
-        row = np.zeros(n_features)
+        row = np.zeros(n_features, dtype=X.dtype)
         startptr, endptr = X_indptr[i], X_indptr[i + 1]
         nonzero_indices = X_indices[startptr:endptr]
         row[nonzero_indices] = X_data[startptr:endptr]
@@ -198,6 +250,7 @@ def _split_node(node, threshold, branching_factor):
         is_leaf=node.is_leaf,
         n_features=node.n_features,
         dtype=node.init_centroids_.dtype,
+        merge_accept=node.merge_accept,
     )
     new_node2 = _BFNode(
         threshold=threshold,
@@ -205,6 +258,7 @@ def _split_node(node, threshold, branching_factor):
         is_leaf=node.is_leaf,
         n_features=node.n_features,
         dtype=node.init_centroids_.dtype,
+        merge_accept=node.merge_accept,
     )
     new_subcluster1.child_ = new_node1
     new_subcluster2.child_ = new_node2
@@ -259,6 +313,10 @@ class _BFNode:
     n_features : int
         The number of features.
 
+    merge_accept : callable
+        ``merge_accept(threshold, new_ls, new_ss, new_n)`` decides whether a
+        subcluster may be merged into one of this node's subclusters.
+
     Attributes
     ----------
     subclusters_ : list
@@ -280,8 +338,9 @@ class _BFNode:
 
     """
 
-    def __init__(self, *, threshold, branching_factor, is_leaf, n_features, dtype):
+    def __init__(self, *, threshold, branching_factor, is_leaf, n_features, dtype, merge_accept):
         self.threshold = threshold
+        self.merge_accept = merge_accept
         self.branching_factor = branching_factor
         self.is_leaf = is_leaf
         self.n_features = n_features
@@ -290,26 +349,34 @@ class _BFNode:
         # to manipulate throughout.
         self.subclusters_ = []
         self.init_centroids_ = np.zeros((branching_factor + 1, n_features), dtype=dtype)
+        self.init_sq_norm_ = np.zeros(branching_factor + 1, dtype=dtype)
         self.prev_leaf_ = None
         self.next_leaf_ = None
 
     def append_subcluster(self, subcluster):
         n_samples = len(self.subclusters_)
         self.subclusters_.append(subcluster)
-        self.init_centroids_[n_samples] = subcluster.centroid_
+        self._set_centroid(n_samples, subcluster.centroid_)
         
         # Keep centroids as views. In this way
         # if we change init_centroids, it is sufficient
         self.centroids_ = self.init_centroids_[: n_samples + 1, :]
+        self.sq_norm_ = self.init_sq_norm_[: n_samples + 1]
         
+    def _set_centroid(self, idx, centroid):
+        """Store a centroid and its squared norm. The norm is computed from
+        the stored row, with the same expression the distance search used
+        before it was cached, so results are bit-for-bit unchanged."""
+        self.init_centroids_[idx] = centroid
+        self.init_sq_norm_[idx] = np.sum(self.init_centroids_[idx]**2)
+
     def update_split_subclusters(self, subcluster, new_subcluster1, new_subcluster2):
         """Remove a subcluster from a node and update it with the
         split subclusters.
         """
         ind = self.subclusters_.index(subcluster)
         self.subclusters_[ind] = new_subcluster1
-        self.init_centroids_[ind] = new_subcluster1.centroid_
-        self.centroids_[ind] = new_subcluster1.centroid_
+        self._set_centroid(ind, new_subcluster1.centroid_)
         self.append_subcluster(new_subcluster2)
 
     def insert_bf_subcluster(self, subcluster):
@@ -322,8 +389,9 @@ class _BFNode:
         branching_factor = self.branching_factor
         # We need to find the closest subcluster among all the
         # subclusters so that we can insert our new subcluster.
-        a = np.dot(self.centroids_, subcluster.centroid_)
-        sim_matrix = np.dot(subcluster.centroid_, subcluster.centroid_) + np.sum(self.centroids_**2, axis = 1) - 2 * np.dot(self.centroids_, subcluster.centroid_)
+        # Same expression as before, with the squared norms of the
+        # centroids cached instead of recomputed on every insert.
+        sim_matrix = np.dot(subcluster.centroid_, subcluster.centroid_) + self.sq_norm_ - 2 * np.dot(self.centroids_, subcluster.centroid_)
         closest_index = np.argmin(sim_matrix)
         closest_subcluster = self.subclusters_[closest_index]
 
@@ -335,8 +403,7 @@ class _BFNode:
                 # If it is determined that the child need not be split, we
                 # can just update the closest_subcluster
                 closest_subcluster.update(subcluster)
-                self.init_centroids_[closest_index] = self.subclusters_[closest_index].centroid_
-                self.centroids_[closest_index] = self.subclusters_[closest_index].centroid_
+                self._set_centroid(closest_index, closest_subcluster.centroid_)
                 return False
 
             # things not too good. we need to redistribute the subclusters in
@@ -358,10 +425,9 @@ class _BFNode:
 
         # good to go!
         else:
-            merged = closest_subcluster.merge_subcluster(subcluster, self.threshold)
+            merged = closest_subcluster.merge_subcluster(subcluster, self.threshold, self.merge_accept)
             if merged:
-                self.centroids_[closest_index] = closest_subcluster.centroid_
-                self.init_centroids_[closest_index] = closest_subcluster.centroid_
+                self._set_centroid(closest_index, closest_subcluster.centroid_)
                 return False
 
             # not close to any other subclusters, and we still
@@ -401,7 +467,7 @@ class _BFSubcluster:
         Centroid of the subcluster. Prevent recomputing of centroids when
         ``BFNode.centroids_`` is called.
     
-    mol_indices : list, default=[]
+    mol_indices : list, default=None
         List of indices of molecules included in the given cluster.
 
     child_ : _BFNode
@@ -409,7 +475,7 @@ class _BFSubcluster:
         of the _BFNode, it is set to ``self.child_``.
     """
 
-    def __init__(self, *, linear_sum = None, mol_indices = []):
+    def __init__(self, *, linear_sum = None, mol_indices = None):
         if linear_sum is None:
             self.n_samples_ = 0
             self.centroid_ = self.linear_sum_ = 0
@@ -418,7 +484,7 @@ class _BFSubcluster:
         else:
             self.n_samples_ = 1
             self.centroid_ = self.linear_sum_ = linear_sum
-            self.mol_indices = mol_indices
+            self.mol_indices = mol_indices if mol_indices is not None else []
             self.sq_sum = self.centroid_**2
         
         self.child_ = None
@@ -426,11 +492,12 @@ class _BFSubcluster:
     def update(self, subcluster):
         self.n_samples_ += subcluster.n_samples_
         self.linear_sum_ += subcluster.linear_sum_
-        self.mol_indices += subcluster.mol_indices
+        # update() is only used for non-leaf subclusters, whose frame
+        # indices are never read, so they are not tracked.
         self.centroid_ = calc_centroid(self.linear_sum_, self.n_samples_)
         self.sq_sum += subcluster.sq_sum
 
-    def merge_subcluster(self, nominee_cluster, threshold):
+    def merge_subcluster(self, nominee_cluster, threshold, merge_accept):
         """Check if a cluster is worthy enough to be merged. If
         yes then merge.
         """
@@ -440,13 +507,11 @@ class _BFSubcluster:
         
         if merge_accept(threshold, new_ls, new_ss, new_n):
             new_centroid = calc_centroid(new_ls, new_n)
-            (
-                self.n_samples_,
-                self.linear_sum_,
-                self.centroid_,
-                self.mol_indices,
-                self.sq_sum
-            ) = (new_n, new_ls, new_centroid, self.mol_indices + nominee_cluster.mol_indices, new_ss)
+            self.n_samples_ = new_n
+            self.linear_sum_ = new_ls
+            self.centroid_ = new_centroid
+            self.mol_indices.extend(nominee_cluster.mol_indices)
+            self.sq_sum = new_ss
             return True
         return False
     
@@ -474,11 +539,16 @@ class mdBirch():
         distributions. The threshold represents the actual physical tolerance and provides
         interpretable choices for clustering resolution.
 
-    branching_factor : int, default=50
+    branching_factor : int, default=1000
         Maximum number of subclusters in each node. When a new sample would cause
         a node to exceed this limit, the node is split into two nodes with subclusters
         redistributed between them. The parent subcluster is removed and two new
         subclusters are added as parents of the split nodes.
+
+    merge_criterion : {'radius'}, default='radius'
+        Rule for accepting a frame into a cluster. 'radius' accepts the merge if
+        the post-merge average squared distance of the members to the centroid,
+        summed over features, is at most ``threshold**2 / 4 * n_features``.
 
     Attributes
     ----------
@@ -516,10 +586,13 @@ class mdBirch():
         self,
         *,
         threshold=1,
-        branching_factor=50,
+        branching_factor=1000,
+        merge_criterion='radius',
     ):
+        _check_merge_criterion(merge_criterion)
         self.threshold = threshold
         self.branching_factor = branching_factor
+        self.merge_criterion = merge_criterion
         self.index_tracker = 0
         self.first_call = True
 
@@ -530,7 +603,9 @@ class mdBirch():
         Parameters
         ----------
         X : {array-like, sparse matrix} of shape (n_samples, n_features)
-            Input data.
+            Input data. Integer and boolean input is converted to float64.
+            Calling fit again adds the new samples to the existing tree, so
+            they must have the same number of features.
 
         Returns
         -------
@@ -538,8 +613,10 @@ class mdBirch():
             Fitted estimator.
         """
 
-        # TODO: Add input verification
-
+        X = _validate_X(X)
+        if not self.first_call and X.shape[1] != self.root_.n_features:
+            raise ValueError(f"X has {X.shape[1]} features, but this model was fitted "
+                             f"with {self.root_.n_features} features.")
         return self._fit(X)
 
     def _fit(self, X):
@@ -547,7 +624,8 @@ class mdBirch():
         branching_factor = self.branching_factor
 
         n_features = X.shape[1]
-        d_type = X.dtype
+        d_type = X.dtype if self.first_call else self.root_.init_centroids_.dtype
+        merge_accept = _make_merge_accept(self.merge_criterion, n_features)
 
         # If partial_fit is called for the first time or fit is called, we
         # start a new tree.
@@ -559,6 +637,7 @@ class mdBirch():
                 is_leaf=True,
                 n_features=n_features,
                 dtype=d_type,
+                merge_accept=merge_accept,
             )
     
             # To enable getting back subclusters.
@@ -568,6 +647,7 @@ class mdBirch():
                 is_leaf=True,
                 n_features=n_features,
                 dtype=d_type,
+                merge_accept=merge_accept,
             )
             self.dummy_leaf_.next_leaf_ = self.root_
             self.root_.prev_leaf_ = self.dummy_leaf_
@@ -594,6 +674,7 @@ class mdBirch():
                     is_leaf=False,
                     n_features=n_features,
                     dtype=d_type,
+                    merge_accept=merge_accept,
                 )
                 self.root_.append_subcluster(new_subcluster1)
                 self.root_.append_subcluster(new_subcluster2)
