@@ -28,12 +28,23 @@
 # Kenneth Lopez Perez <klopezperez@chem.ufl.edu>
 # Kate Huddleston <kdavis2@chem.ufl.edu>
 
+import warnings
+
 import numpy as np
 from scipy import sparse
 
-def set_merge(merge_criterion, features=None):
+_MERGE_CRITERIA = ('radius',)
+
+
+def _check_merge_criterion(merge_criterion):
+    if merge_criterion not in _MERGE_CRITERIA:
+        raise ValueError(f"Unsupported merge criterion: '{merge_criterion}'. "
+                         f"Currently only {', '.join(repr(c) for c in _MERGE_CRITERIA)} is supported.")
+
+
+def _make_merge_accept(merge_criterion, features):
     """
-    Sets merge_accept function for merge_subcluster, based on user specified merge_criteria. 
+    Build the merge_accept function used by merge_subcluster.
 
     Radius: merge subcluster if the post-merge average distance from centroid to points in cluster is less than threshold
 
@@ -42,23 +53,64 @@ def set_merge(merge_criterion, features=None):
     merge_criterion : str
                         merge criterion to use. Currently only 'radius' is supported
     features : int
-                        number of features in the data. 
+                        number of features in the data.
 
     Returns:
     --------
-    merge_accept : function 
+    merge_accept : function
                         function that determines if cluster is accepted to merge based on the specified criteria
     """
+    _check_merge_criterion(merge_criterion)
+    D = features
+    def merge_accept(threshold, new_ls, new_ss, new_n):
+        radius_sq = np.sum(new_ss)/new_n - np.dot(new_ls, new_ls)/new_n**2
+        return radius_sq <= threshold**2 / 4 * D
+    return merge_accept
 
-    if merge_criterion == 'radius':
-        D = features if features is not None else 1
-        def merge_accept(threshold, new_ls, new_ss, new_n):
-            radius_sq = np.sum(new_ss)/new_n - np.dot(new_ls, new_ls)/new_n**2
-            return radius_sq <= threshold**2 / 4 * D
+
+def set_merge(merge_criterion, features=None):
+    """
+    Deprecated. Pass ``merge_criterion`` to :class:`mdBirch` instead.
+
+    The merge criterion is now set per model, and the number of features is
+    taken from the data passed to ``fit``. This function only checks that
+    ``merge_criterion`` is supported; it no longer changes how models cluster.
+    """
+    warnings.warn(
+        "mdbirch.set_merge() is deprecated and has no effect; pass "
+        "merge_criterion to mdBirch() instead. The number of features is "
+        "taken from the data passed to fit().",
+        FutureWarning,
+        stacklevel=2,
+    )
+    _check_merge_criterion(merge_criterion)
+
+
+def _validate_X(X):
+    """Check the input to fit and return it as a 2-D float array (or CSR matrix).
+
+    Integer and boolean input is converted to float64 so centroids are not
+    truncated. float32 and float64 input keeps its dtype.
+    """
+    if sparse.issparse(X):
+        X = sparse.csr_matrix(X)
+        data = X.data
     else:
-        raise ValueError(f"Unsupported merge criterion: '{merge_criterion}'. Currently only 'radius' is supported.")
-
-    globals()['merge_accept'] = merge_accept
+        X = np.asarray(X)
+        data = X
+    if X.ndim != 2:
+        raise ValueError(f"Expected a 2-D array of shape (n_samples, n_features), got {X.ndim}-D input.")
+    if X.shape[0] == 0 or X.shape[1] == 0:
+        raise ValueError(f"Expected at least one sample and one feature, got shape {X.shape}.")
+    if not (np.issubdtype(X.dtype, np.number) or np.issubdtype(X.dtype, np.bool_)) \
+            or np.issubdtype(X.dtype, np.complexfloating):
+        raise ValueError(f"Expected real numeric input, got dtype {X.dtype}.")
+    if X.dtype not in (np.float32, np.float64):
+        X = X.astype(np.float64)
+        data = X.data if sparse.issparse(X) else X
+    if not np.all(np.isfinite(data)):
+        raise ValueError("Input contains NaN or infinity.")
+    return X
 
 def msd_condensed(c_sum, sq_sum, N):
     """Condensed version of Mean Square Deviation (MSD) calculation 
@@ -174,7 +226,7 @@ def _iterate_sparse_X(X):
     X_indptr = X.indptr
 
     for i in range(n_samples):
-        row = np.zeros(n_features)
+        row = np.zeros(n_features, dtype=X.dtype)
         startptr, endptr = X_indptr[i], X_indptr[i + 1]
         nonzero_indices = X_indices[startptr:endptr]
         row[nonzero_indices] = X_data[startptr:endptr]
@@ -198,6 +250,7 @@ def _split_node(node, threshold, branching_factor):
         is_leaf=node.is_leaf,
         n_features=node.n_features,
         dtype=node.init_centroids_.dtype,
+        merge_accept=node.merge_accept,
     )
     new_node2 = _BFNode(
         threshold=threshold,
@@ -205,6 +258,7 @@ def _split_node(node, threshold, branching_factor):
         is_leaf=node.is_leaf,
         n_features=node.n_features,
         dtype=node.init_centroids_.dtype,
+        merge_accept=node.merge_accept,
     )
     new_subcluster1.child_ = new_node1
     new_subcluster2.child_ = new_node2
@@ -259,6 +313,10 @@ class _BFNode:
     n_features : int
         The number of features.
 
+    merge_accept : callable
+        ``merge_accept(threshold, new_ls, new_ss, new_n)`` decides whether a
+        subcluster may be merged into one of this node's subclusters.
+
     Attributes
     ----------
     subclusters_ : list
@@ -280,8 +338,9 @@ class _BFNode:
 
     """
 
-    def __init__(self, *, threshold, branching_factor, is_leaf, n_features, dtype):
+    def __init__(self, *, threshold, branching_factor, is_leaf, n_features, dtype, merge_accept):
         self.threshold = threshold
+        self.merge_accept = merge_accept
         self.branching_factor = branching_factor
         self.is_leaf = is_leaf
         self.n_features = n_features
@@ -358,7 +417,7 @@ class _BFNode:
 
         # good to go!
         else:
-            merged = closest_subcluster.merge_subcluster(subcluster, self.threshold)
+            merged = closest_subcluster.merge_subcluster(subcluster, self.threshold, self.merge_accept)
             if merged:
                 self.centroids_[closest_index] = closest_subcluster.centroid_
                 self.init_centroids_[closest_index] = closest_subcluster.centroid_
@@ -430,7 +489,7 @@ class _BFSubcluster:
         self.centroid_ = calc_centroid(self.linear_sum_, self.n_samples_)
         self.sq_sum += subcluster.sq_sum
 
-    def merge_subcluster(self, nominee_cluster, threshold):
+    def merge_subcluster(self, nominee_cluster, threshold, merge_accept):
         """Check if a cluster is worthy enough to be merged. If
         yes then merge.
         """
@@ -480,6 +539,11 @@ class mdBirch():
         redistributed between them. The parent subcluster is removed and two new
         subclusters are added as parents of the split nodes.
 
+    merge_criterion : {'radius'}, default='radius'
+        Rule for accepting a frame into a cluster. 'radius' accepts the merge if
+        the post-merge average squared distance of the members to the centroid,
+        summed over features, is at most ``threshold**2 / 4 * n_features``.
+
     Attributes
     ----------
     root_ : _BFNode
@@ -517,9 +581,12 @@ class mdBirch():
         *,
         threshold=1,
         branching_factor=50,
+        merge_criterion='radius',
     ):
+        _check_merge_criterion(merge_criterion)
         self.threshold = threshold
         self.branching_factor = branching_factor
+        self.merge_criterion = merge_criterion
         self.index_tracker = 0
         self.first_call = True
 
@@ -530,7 +597,9 @@ class mdBirch():
         Parameters
         ----------
         X : {array-like, sparse matrix} of shape (n_samples, n_features)
-            Input data.
+            Input data. Integer and boolean input is converted to float64.
+            Calling fit again adds the new samples to the existing tree, so
+            they must have the same number of features.
 
         Returns
         -------
@@ -538,8 +607,10 @@ class mdBirch():
             Fitted estimator.
         """
 
-        # TODO: Add input verification
-
+        X = _validate_X(X)
+        if not self.first_call and X.shape[1] != self.root_.n_features:
+            raise ValueError(f"X has {X.shape[1]} features, but this model was fitted "
+                             f"with {self.root_.n_features} features.")
         return self._fit(X)
 
     def _fit(self, X):
@@ -547,7 +618,8 @@ class mdBirch():
         branching_factor = self.branching_factor
 
         n_features = X.shape[1]
-        d_type = X.dtype
+        d_type = X.dtype if self.first_call else self.root_.init_centroids_.dtype
+        merge_accept = _make_merge_accept(self.merge_criterion, n_features)
 
         # If partial_fit is called for the first time or fit is called, we
         # start a new tree.
@@ -559,6 +631,7 @@ class mdBirch():
                 is_leaf=True,
                 n_features=n_features,
                 dtype=d_type,
+                merge_accept=merge_accept,
             )
     
             # To enable getting back subclusters.
@@ -568,6 +641,7 @@ class mdBirch():
                 is_leaf=True,
                 n_features=n_features,
                 dtype=d_type,
+                merge_accept=merge_accept,
             )
             self.dummy_leaf_.next_leaf_ = self.root_
             self.root_.prev_leaf_ = self.dummy_leaf_
@@ -594,6 +668,7 @@ class mdBirch():
                     is_leaf=False,
                     n_features=n_features,
                     dtype=d_type,
+                    merge_accept=merge_accept,
                 )
                 self.root_.append_subcluster(new_subcluster1)
                 self.root_.append_subcluster(new_subcluster2)

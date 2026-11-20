@@ -23,10 +23,6 @@ if __name__ == '__main__':
     # Load trajectory data
     traj_numpy = np.load(input_traj_numpy)[::sieve]
 
-    # Set merge criterion
-    D = traj_numpy.shape[1]
-    mdbirch.set_merge('radius', features=D)
-
     # Initialize and fit mdBirch model
     model = mdbirch.mdBirch(threshold=threshold)
     model.fit(traj_numpy)
