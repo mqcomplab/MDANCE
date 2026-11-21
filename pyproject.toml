@@ -53,6 +53,7 @@ where = ["src"]
 version = {attr = "mdance.__version__"}
 
 [project.optional-dependencies]
+emeans = ["faiss-cpu >= 1.16.0"]
 dev = [
   "pytest >= 7.0",
 ]

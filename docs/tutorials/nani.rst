@@ -127,6 +127,8 @@ script:
    output_dir = 'outputs'                              # Folder for output files
    init_type = 'strat_all'                             # Seeding method {'strat_all', 'strat_reduced', 'comp_sim', 'div_select', 'k-means++', 'random'}
    metric = 'MSD'                                      # Distance metric for clustering
+   algorithm = 'kmeans'                               # Optional: 'emeans'
+   emeans_epochs = 5                                   # Used only for e-means
    start_n_clusters = 5                                # At least 2 clusters
    end_n_clusters = 30                                 # Maximum number of clusters
 
@@ -150,6 +152,8 @@ NANI parameters
 | ``output_dir`` is the directory to store the clustering results.
 | ``init_type`` is the selected seed selectors (See ``mdance.cluster.nani.KmeansNANI`` for details). 
 | ``metric`` is the metric used to calculate the similarity between frames (See ``mdance.tools.bts.extended_comparisons`` for details).
+| ``algorithm`` defaults to scikit-learn KMeans; ``emeans`` enables Faiss e-means with explicit NANI seeds. Install ``mdance[emeans]`` to use it.
+| ``emeans_epochs`` controls the e-means training passes (default 5). E-means reports epochs in the iteration column and converts the data to float32. Small trajectories may be slower, so compare results on your data.
 | ``start_n_clusters`` is the starting number for screening. **This number must be at least 2**.
 | ``end_n_clusters`` is the ending number for screening.
 
